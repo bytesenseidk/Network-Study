@@ -1,7 +1,6 @@
 Test Access Point:  Oneplus9
 Security:           WPA2-PSK
 Channel:            11
-Password:           m32y37af
 
 Attacker System:    Kali Linux
 Wireless Adapter:   Alfa AWUS036NH
