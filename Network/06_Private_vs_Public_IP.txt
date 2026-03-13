@@ -1,0 +1,375 @@
+Private vs Public IP Addresses
+- How devices are addressed within local networks and across the global Internet.
+
+
+==================================================
+1. Overview
+==================================================
+- IP addresses are used to identify devices on a network.
+- Some IP addresses are used internally within private networks, while others are used on the public Internet.
+- This distinction allows organizations to manage internal networks while still connecting to the global Internet.
+
+
+==================================================
+2. Public IP Addresses
+==================================================
+- A public IP address is globally unique and reachable across the Internet.
+- These addresses are assigned by Internet Service Providers (ISPs) or regional internet registries.
+- Public IP addresses allow devices and services to communicate with systems across the global Internet.
+
+Examples:
+
+8.8.8.8
+1.1.1.1
+142.250.190.78
+
+Common uses:
+- Web servers
+- Email servers
+- Cloud services
+- Internet gateways
+
+
+==================================================
+3. Private IP Addresses
+==================================================
+- Private IP addresses are used within local networks and are not directly reachable from the Internet.
+- They allow organizations and home networks to assign addresses internally without consuming public IP space.
+- Private addresses can be reused across different networks because they are not globally routed.
+
+
+==================================================
+4. RFC1918 Private Address Ranges
+==================================================
+Private address ranges were defined by RFC1918.
+
+These ranges are reserved for internal networks:
+
+Class A Private Range
+10.0.0.0 – 10.255.255.255
+(10.0.0.0/8)
+
+Class B Private Range
+172.16.0.0 – 172.31.255.255
+(172.16.0.0/12)
+
+Class C Private Range
+192.168.0.0 – 192.168.255.255
+(192.168.0.0/16)
+
+
+Common home network example:
+
+Router IP:
+192.168.1.1
+
+Devices:
+192.168.1.10
+192.168.1.15
+192.168.1.25
+
+
+==================================================
+5. Why Private IP Addresses Exist
+==================================================
+Private IP addressing helps solve several networking challenges.
+
+IPv4 Address Conservation
+- The IPv4 address space is limited, so private networks reduce the need for public addresses.
+
+Network Organization
+- Organizations can design internal addressing schemes.
+
+Security
+- Private addresses are not directly reachable from the Internet.
+
+Scalability
+- Millions of internal devices can use private addressing.
+
+
+==================================================
+6. Internet Routing Rules
+==================================================
+Routers on the public Internet do not route private IP addresses.
+
+Example:
+
+192.168.1.10 → not routable on Internet  
+10.5.3.2 → not routable on Internet  
+
+Public addresses such as:
+
+8.8.8.8 → routable globally
+
+This ensures internal networks remain isolated from the public Internet.
+
+
+==================================================
+7. Example Home Network
+==================================================
+
+Internet
+   ↓
+Public IP
+203.0.113.10
+
+Home Router
+192.168.1.1
+
+Local Devices
+
+Laptop
+192.168.1.10
+
+Phone
+192.168.1.20
+
+Printer
+192.168.1.30
+
+
+==================================================
+8. Private vs Public Address Comparison
+==================================================
+
+Private IP
+- Used inside internal networks
+- Not routable on the Internet
+- Reusable across networks
+
+Public IP
+- Globally unique
+- Routable across the Internet
+- Assigned by ISPs
+
+
+==================================================
+9. Why This Matters
+==================================================
+Understanding private and public IP addressing is important for:
+
+Network design
+Firewall configuration
+Cloud networking
+Security analysis
+Penetration testing
+
+
+==================================================
+10. Questions & Answers
+==================================================
+1. Question:
+What are IP addresses used for in networking?
+
+Answer:
+IP addresses are used to uniquely identify devices on a network so data packets can be routed to the correct destination.
+
+--------------------------------------------------
+2. Question:
+What are the two main categories of IP addresses?
+
+Answer:
+Public IP addresses and private IP addresses.
+
+--------------------------------------------------
+3. Question:
+What is a public IP address?
+
+Answer:
+A public IP address is a globally unique address that can be reached and routed across the Internet.
+
+--------------------------------------------------
+4. Question:
+Who typically assigns public IP addresses?
+
+Answer:
+Internet Service Providers (ISPs) and regional Internet registries.
+
+--------------------------------------------------
+5. Question:
+Why must public IP addresses be globally unique?
+
+Answer:
+Because they must uniquely identify devices or services across the entire Internet.
+
+--------------------------------------------------
+6. Question:
+Name three examples of public IP addresses.
+
+Answer:
+8.8.8.8, 1.1.1.1, and 142.250.190.78.
+
+--------------------------------------------------
+7. Question:
+What types of systems commonly use public IP addresses?
+
+Answer:
+Web servers, email servers, cloud services, and Internet gateways.
+
+--------------------------------------------------
+8. Question:
+What is a private IP address?
+
+Answer:
+A private IP address is an address used inside local networks that is not directly reachable from the Internet.
+
+--------------------------------------------------
+9. Question:
+Why are private IP addresses used?
+
+Answer:
+To allow internal devices to communicate within local networks without consuming public IP address space.
+
+--------------------------------------------------
+10. Question:
+Can private IP addresses be reused across different networks?
+
+Answer:
+Yes, private IP ranges can be reused because they are not globally routable.
+
+--------------------------------------------------
+11. Question:
+Which standard defines private IP address ranges?
+
+Answer:
+RFC1918.
+
+--------------------------------------------------
+12. Question:
+What is the Class A private IP range?
+
+Answer:
+10.0.0.0 – 10.255.255.255 (10.0.0.0/8).
+
+--------------------------------------------------
+13. Question:
+What is the Class B private IP range?
+
+Answer:
+172.16.0.0 – 172.31.255.255 (172.16.0.0/12).
+
+--------------------------------------------------
+14. Question:
+What is the Class C private IP range?
+
+Answer:
+192.168.0.0 – 192.168.255.255 (192.168.0.0/16).
+
+--------------------------------------------------
+15. Question:
+Which private IP range is most commonly used in home networks?
+
+Answer:
+192.168.0.0/16.
+
+--------------------------------------------------
+16. Question:
+What is a common router IP address in home networks?
+
+Answer:
+192.168.1.1.
+
+--------------------------------------------------
+17. Question:
+Give an example of a typical private IP address assigned to a home device.
+
+Answer:
+192.168.1.10.
+
+--------------------------------------------------
+18. Question:
+Why do private IP addresses help conserve IPv4 addresses?
+
+Answer:
+Because many internal devices can share a single public IP address.
+
+--------------------------------------------------
+19. Question:
+How do private IP addresses help with network organization?
+
+Answer:
+Organizations can design their own internal addressing schemes.
+
+--------------------------------------------------
+20. Question:
+Why do private IP addresses improve security?
+
+Answer:
+Because they are not directly reachable from the public Internet.
+
+--------------------------------------------------
+21. Question:
+Are private IP addresses routable on the Internet?
+
+Answer:
+No, routers on the public Internet do not route private IP addresses.
+
+--------------------------------------------------
+22. Question:
+Why do Internet routers block private IP addresses?
+
+Answer:
+To prevent internal network addresses from leaking onto the global Internet.
+
+--------------------------------------------------
+23. Question:
+Which of the following addresses is not routable on the Internet: 192.168.1.10 or 8.8.8.8?
+
+Answer:
+192.168.1.10.
+
+--------------------------------------------------
+24. Question:
+Which address is globally routable: 10.5.3.2 or 8.8.8.8?
+
+Answer:
+8.8.8.8.
+
+--------------------------------------------------
+25. Question:
+What role does a router play in a home network using private IP addresses?
+
+Answer:
+The router connects the private network to the public Internet.
+
+--------------------------------------------------
+26. Question:
+In a home network example, what is the typical role of the router's IP address?
+
+Answer:
+It acts as the gateway between the internal network and the Internet.
+
+--------------------------------------------------
+27. Question:
+Why can millions of devices use private IP addressing?
+
+Answer:
+Because private address ranges can be reused in different networks worldwide.
+
+--------------------------------------------------
+28. Question:
+What networking concept allows private IP devices to access the Internet through one public IP?
+
+Answer:
+Network Address Translation (NAT).
+
+--------------------------------------------------
+29. Question:
+Why is understanding public and private IP addressing important?
+
+Answer:
+Because it is essential for network design, firewall configuration, cloud networking, and security analysis.
+
+--------------------------------------------------
+30. Question (Attack Perspective):
+How might attackers take advantage of knowledge about private IP addressing?
+
+Answer:
+Attackers may scan internal address ranges after gaining access to a network to discover additional systems for lateral movement.
+
+--------------------------------------------------
+31. Question (Defensive Perspective):
+How can defenders protect internal networks that use private IP addressing?
+
+Answer:
+Defenders can implement firewalls, network segmentation, access controls, and monitoring to prevent unauthorized access and detect suspicious activity.

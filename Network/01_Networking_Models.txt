@@ -1,0 +1,506 @@
+Networking Models
+- Conceptual frameworks used to describe how network communication is structured and how protocols interact across layers.
+
+
+==================================================
+1. Purpose of Networking Models
+==================================================
+- Networking models provide a structured way to understand how different networking technologies work together.
+- They divide complex communication processes into separate layers, each responsible for specific tasks.
+- This layered approach simplifies design, troubleshooting, and protocol development.
+
+
+==================================================
+2. OSI Model Overview
+==================================================
+- The OSI (Open Systems Interconnection) model is a seven-layer conceptual framework used to describe how data moves through a network.
+- Each layer performs specific functions and communicates with the layers above and below it.
+
+
+==================================================
+3. Layer 7 — Application Layer
+==================================================
+- The Application Layer provides network services directly to user applications.
+- Protocols at this layer enable software such as web browsers, email clients, and file transfer programs to communicate over the network.
+
+Examples:
+- HTTP
+- HTTPS
+- FTP
+- SMTP
+- DNS
+
+
+==================================================
+4. Layer 6 — Presentation Layer
+==================================================
+- The Presentation Layer handles data formatting, encryption, and compression.
+- It ensures that data sent by one system can be understood by another.
+
+Examples:
+- Encryption
+- TLS / SSL
+- Data encoding formats
+
+
+==================================================
+5. Layer 5 — Session Layer
+==================================================
+- The Session Layer manages communication sessions between devices.
+- It establishes, maintains, and terminates connections between applications.
+
+Examples:
+- Session management
+- Authentication sessions
+
+
+==================================================
+6. Layer 4 — Transport Layer
+==================================================
+- The Transport Layer ensures reliable communication between hosts.
+- It controls data segmentation, error handling, and flow control.
+
+Examples:
+- TCP
+- UDP
+
+
+==================================================
+7. Layer 3 — Network Layer
+==================================================
+- The Network Layer is responsible for logical addressing and routing packets across multiple networks.
+
+Examples:
+- IP
+- IPv4
+- IPv6
+- ICMP
+
+
+==================================================
+8. Layer 2 — Data Link Layer
+==================================================
+- The Data Link Layer manages communication between devices on the same local network.
+- It handles MAC addressing and frame delivery.
+
+Examples:
+- Ethernet
+- ARP
+- MAC addresses
+
+
+==================================================
+9. Layer 1 — Physical Layer
+==================================================
+- The Physical Layer defines how raw bits are transmitted across the physical medium.
+- It includes cables, connectors, and electrical or optical signals.
+
+Examples:
+- Copper cabling
+- Fiber optics
+- Wireless signals
+
+
+==================================================
+10. TCP/IP Model Overview
+==================================================
+- The TCP/IP model is the practical networking model used by the Internet.
+- It is simpler than the OSI model and groups several OSI layers together.
+
+
+==================================================
+11. TCP/IP Application Layer
+==================================================
+- The TCP/IP Application Layer combines the OSI Application, Presentation, and Session layers.
+- It includes protocols used directly by applications.
+
+Examples:
+- HTTP
+- HTTPS
+- DNS
+- SMTP
+- FTP
+
+
+==================================================
+12. TCP/IP Transport Layer
+==================================================
+- The Transport Layer provides end-to-end communication between hosts.
+
+Examples:
+- TCP
+- UDP
+
+
+==================================================
+13. TCP/IP Internet Layer
+==================================================
+- The Internet Layer corresponds to the OSI Network Layer and is responsible for addressing and routing.
+
+Examples:
+- IP
+- IPv4
+- IPv6
+- ICMP
+
+
+==================================================
+14. TCP/IP Network Access Layer
+==================================================
+- The Network Access Layer combines the OSI Data Link and Physical layers.
+- It handles hardware addressing and physical data transmission.
+
+Examples:
+- Ethernet
+- MAC addressing
+- Network Interface Cards (NIC)
+
+
+==================================================
+15. OSI vs TCP/IP Comparison
+==================================================
+
+OSI Model (7 layers)
+
+7 — Application  
+6 — Presentation  
+5 — Session  
+4 — Transport  
+3 — Network  
+2 — Data Link  
+1 — Physical  
+
+
+TCP/IP Model (4 layers)
+
+4 — Application  
+3 — Transport  
+2 — Internet  
+1 — Network Access  
+
+
+==================================================
+16. Layer Mapping
+==================================================
+
+OSI Layer 7–5   → TCP/IP Application  
+OSI Layer 4     → TCP/IP Transport  
+OSI Layer 3     → TCP/IP Internet  
+OSI Layer 2–1   → TCP/IP Network Access  
+
+
+==================================================
+17. Model Comparison Diagram
+==================================================
+
+OSI Model                    TCP/IP Model
+
+Application       ┐
+Presentation      │
+Session           │─────→   Application
+------------------┘
+Transport                →   Transport
+Network                  →   Internet
+------------------┐
+Data Link          │─────→   Network Access
+Physical           ┘
+
+
+==================================================
+18. Visual Layer Stack
+==================================================
+
+OSI Model
+
+Application
+Presentation
+Session
+Transport
+Network
+Data Link
+Physical
+
+
+TCP/IP Model
+
+Application
+Transport
+Internet
+Network Access
+
+
+==================================================
+19. Why These Models Matter
+==================================================
+- Networking models help engineers understand where protocols operate and how different technologies interact.
+- They are extremely useful when troubleshooting network problems or analyzing packet captures.
+- They also provide a common language for engineers, developers, and security professionals when discussing networking concepts.
+
+
+==================================================
+20. Questions & Answers
+==================================================
+1. Question:
+What are networking models?
+
+Answer:
+Networking models are conceptual frameworks that describe how network communication is structured and how protocols interact across layers.
+
+--------------------------------------------------
+2. Question:
+Why are networking models used?
+
+Answer:
+Networking models provide a structured way to understand how networking technologies work together by dividing complex communication processes into layers.
+
+--------------------------------------------------
+3. Question:
+What advantage does the layered approach provide in networking models?
+
+Answer:
+The layered approach simplifies network design, troubleshooting, protocol development, and analysis.
+
+--------------------------------------------------
+4. Question:
+What does the OSI model stand for?
+
+Answer:
+OSI stands for Open Systems Interconnection.
+
+--------------------------------------------------
+5. Question:
+How many layers does the OSI model contain?
+
+Answer:
+Seven layers.
+
+--------------------------------------------------
+6. Question:
+What is the purpose of the OSI model?
+
+Answer:
+The OSI model describes how data moves through a network by dividing networking functions into seven logical layers.
+
+--------------------------------------------------
+7. Question:
+What is the role of the Application Layer in the OSI model?
+
+Answer:
+The Application Layer provides network services directly to user applications.
+
+--------------------------------------------------
+8. Question:
+Name five protocols commonly associated with the OSI Application Layer.
+
+Answer:
+HTTP, HTTPS, FTP, SMTP, and DNS.
+
+--------------------------------------------------
+9. Question:
+What does the Presentation Layer handle?
+
+Answer:
+The Presentation Layer handles data formatting, encryption, and compression.
+
+--------------------------------------------------
+10. Question:
+Why is the Presentation Layer important?
+
+Answer:
+It ensures that data sent from one system can be properly interpreted by another system.
+
+--------------------------------------------------
+11. Question:
+What is the role of the Session Layer?
+
+Answer:
+The Session Layer establishes, maintains, and terminates communication sessions between applications.
+
+--------------------------------------------------
+12. Question:
+What are examples of functions handled by the Session Layer?
+
+Answer:
+Session management and authentication sessions.
+
+--------------------------------------------------
+13. Question:
+What is the purpose of the Transport Layer?
+
+Answer:
+The Transport Layer ensures reliable communication between hosts by handling segmentation, error recovery, and flow control.
+
+--------------------------------------------------
+14. Question:
+Which two main protocols operate at the Transport Layer?
+
+Answer:
+TCP and UDP.
+
+--------------------------------------------------
+15. Question:
+What is the role of the Network Layer?
+
+Answer:
+The Network Layer is responsible for logical addressing and routing packets between networks.
+
+--------------------------------------------------
+16. Question:
+Which protocols operate at the Network Layer?
+
+Answer:
+IP, IPv4, IPv6, and ICMP.
+
+--------------------------------------------------
+17. Question:
+What does the Data Link Layer handle?
+
+Answer:
+The Data Link Layer manages communication between devices on the same local network and handles MAC addressing and frame delivery.
+
+--------------------------------------------------
+18. Question:
+Name three technologies associated with the Data Link Layer.
+
+Answer:
+Ethernet, ARP, and MAC addressing.
+
+--------------------------------------------------
+19. Question:
+What is the purpose of the Physical Layer?
+
+Answer:
+The Physical Layer defines how raw bits are transmitted across the physical medium.
+
+--------------------------------------------------
+20. Question:
+What technologies are associated with the Physical Layer?
+
+Answer:
+Copper cabling, fiber optics, and wireless signals.
+
+--------------------------------------------------
+21. Question:
+What is the TCP/IP model?
+
+Answer:
+The TCP/IP model is the practical networking model used by the Internet that organizes networking functions into four layers.
+
+--------------------------------------------------
+22. Question:
+How many layers does the TCP/IP model contain?
+
+Answer:
+Four layers.
+
+--------------------------------------------------
+23. Question:
+Which OSI layers are combined into the TCP/IP Application Layer?
+
+Answer:
+The OSI Application, Presentation, and Session layers.
+
+--------------------------------------------------
+24. Question:
+Which protocols are commonly associated with the TCP/IP Application Layer?
+
+Answer:
+HTTP, HTTPS, DNS, SMTP, and FTP.
+
+--------------------------------------------------
+25. Question:
+What is the role of the TCP/IP Transport Layer?
+
+Answer:
+The Transport Layer provides end-to-end communication between hosts.
+
+--------------------------------------------------
+26. Question:
+Which protocols operate at the TCP/IP Transport Layer?
+
+Answer:
+TCP and UDP.
+
+--------------------------------------------------
+27. Question:
+What is the role of the TCP/IP Internet Layer?
+
+Answer:
+The Internet Layer handles logical addressing and routing between networks.
+
+--------------------------------------------------
+28. Question:
+Which protocols operate at the TCP/IP Internet Layer?
+
+Answer:
+IP, IPv4, IPv6, and ICMP.
+
+--------------------------------------------------
+29. Question:
+What does the TCP/IP Network Access Layer handle?
+
+Answer:
+The Network Access Layer manages hardware addressing and physical data transmission.
+
+--------------------------------------------------
+30. Question:
+What technologies are associated with the Network Access Layer?
+
+Answer:
+Ethernet, MAC addressing, and Network Interface Cards (NIC).
+
+--------------------------------------------------
+31. Question:
+How many layers does the OSI model have compared to TCP/IP?
+
+Answer:
+The OSI model has 7 layers, while the TCP/IP model has 4 layers.
+
+--------------------------------------------------
+32. Question:
+Which TCP/IP layer corresponds to the OSI Network Layer?
+
+Answer:
+The TCP/IP Internet Layer.
+
+--------------------------------------------------
+33. Question:
+Which OSI layers map to the TCP/IP Application Layer?
+
+Answer:
+OSI Layers 7, 6, and 5 (Application, Presentation, Session).
+
+--------------------------------------------------
+34. Question:
+Which OSI layers correspond to the TCP/IP Network Access Layer?
+
+Answer:
+OSI Layers 2 and 1 (Data Link and Physical).
+
+--------------------------------------------------
+35. Question:
+Why are networking models useful for troubleshooting?
+
+Answer:
+They allow engineers to isolate problems by identifying which layer of communication is failing.
+
+--------------------------------------------------
+36. Question:
+Why are networking models useful when analyzing packet captures?
+
+Answer:
+They help analysts understand which protocols operate at each layer and how data is encapsulated.
+
+--------------------------------------------------
+37. Question (Attack Perspective):
+How might attackers exploit weaknesses in different networking layers?
+
+Answer:
+Attackers may target specific layers such as spoofing MAC addresses at Layer 2, IP spoofing at Layer 3, exploiting TCP weaknesses at Layer 4, or attacking application protocols like HTTP at Layer 7.
+
+--------------------------------------------------
+38. Question (Defensive Perspective):
+How can defenders use networking models to improve security monitoring?
+
+Answer:
+Defenders can analyze network traffic by layer, detect anomalies in protocols, deploy security controls at multiple layers, and more effectively investigate suspicious activity using the layered model.

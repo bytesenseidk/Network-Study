@@ -1,0 +1,356 @@
+Routing & Packet Delivery
+- How packets are forwarded between networks and across the global Internet
+
+
+==================================================
+1. Packet Forwarding
+==================================================
+- Packet forwarding refers to the process of moving network packets from a source device to a destination device across multiple interconnected networks.
+- Routers analyze packet headers and use routing information to determine the best path for each packet.
+
+
+Routing:
+- Routing is the process of determining the path that packets take through a network from the source to the destination.
+- Routers examine the destination IP address of each packet and decide where to forward it next.
+- Routing enables communication between different networks and forms the foundation of the global Internet.
+
+
+Routing Tables:
+- A routing table is a data structure maintained by routers that contains information about available network paths.
+- Each entry in the table typically includes a destination network, the next hop, and the interface used to forward packets.
+- Routers consult their routing tables to determine the most efficient route for forwarding packets.
+
+
+Default Gateway:
+- A default gateway is the router that a device sends packets to when the destination network is outside its local network.
+- If a device does not know the specific route to a destination, it forwards the packet to the default gateway.
+- The gateway then determines the next step in delivering the packet toward its final destination.
+
+
+==================================================
+2. Routing Methods
+==================================================
+- Routing methods describe how routing information is configured and maintained within network devices.
+
+
+Static Routing:
+- Static routing uses manually configured routes that are defined by a network administrator.
+- These routes remain fixed unless they are manually updated.
+- Static routing is simple and predictable but does not adapt automatically to network changes or failures.
+
+
+Dynamic Routing:
+- Dynamic routing automatically learns and updates routing information using routing protocols.
+- Routers exchange information about network paths and update their routing tables accordingly.
+- This allows networks to adapt to changes such as link failures or new network segments.
+
+
+==================================================
+3. Routing Protocols
+==================================================
+- Routing protocols automatically learn and exchange routing information between routers to build and maintain routing tables.
+
+
+RIP:
+- Routing Information Protocol (RIP) is one of the earliest dynamic routing protocols.
+- It uses hop count as its primary metric to determine the best route to a destination.
+- RIP is simple but limited in scalability, making it suitable mainly for smaller networks.
+
+
+OSPF:
+- Open Shortest Path First (OSPF) is a link-state routing protocol commonly used in enterprise networks.
+- It calculates the shortest path between routers using a topology map of the network.
+- OSPF supports large and complex networks and converges faster than older protocols such as RIP.
+
+
+BGP:
+- Border Gateway Protocol (BGP) is the routing protocol that powers the global Internet.
+- It is used to exchange routing information between large networks known as Autonomous Systems (AS).
+- BGP determines how traffic is routed between Internet Service Providers and large organizations.
+
+
+==================================================
+4. Packet Movement
+==================================================
+- Packet movement describes the techniques used to transmit data across networks.
+
+
+Packet Switching:
+- Packet switching divides data into small packets that are transmitted independently across the network.
+- Each packet may take a different route to reach the destination, where they are reassembled into the original message.
+- Packet switching is efficient and resilient, making it the primary method used on the Internet.
+
+
+Circuit Switching:
+- Circuit switching establishes a dedicated communication path between two devices for the duration of a session.
+- Traditional telephone networks used circuit switching to maintain a continuous connection.
+- While reliable, circuit switching is less efficient than packet switching because the connection remains reserved even when no data is being transmitted.
+
+
+==================================================
+5. Questions & Answers
+==================================================
+1. Question:
+What is packet forwarding?
+
+Answer:
+Packet forwarding is the process of moving network packets from a source device to a destination device across multiple interconnected networks.
+
+--------------------------------------------------
+2. Question:
+Which devices are primarily responsible for packet forwarding between networks?
+
+Answer:
+Routers.
+
+--------------------------------------------------
+3. Question:
+What information do routers analyze to determine how to forward packets?
+
+Answer:
+Packet headers, specifically the destination IP address.
+
+--------------------------------------------------
+4. Question:
+What is routing?
+
+Answer:
+Routing is the process of determining the path that packets take through a network from the source to the destination.
+
+--------------------------------------------------
+5. Question:
+Why is routing important for Internet communication?
+
+Answer:
+Because it enables communication between different networks and allows packets to reach their destination across the global Internet.
+
+--------------------------------------------------
+6. Question:
+What is a routing table?
+
+Answer:
+A routing table is a data structure used by routers that contains information about available network paths.
+
+--------------------------------------------------
+7. Question:
+What information is typically stored in a routing table entry?
+
+Answer:
+The destination network, the next hop, and the interface used to forward packets.
+
+--------------------------------------------------
+8. Question:
+How do routers use routing tables?
+
+Answer:
+Routers consult routing tables to determine the most efficient path to forward packets toward their destination.
+
+--------------------------------------------------
+9. Question:
+What is a default gateway?
+
+Answer:
+A default gateway is the router that a device sends packets to when the destination network is outside its local network.
+
+--------------------------------------------------
+10. Question:
+Why is a default gateway necessary?
+
+Answer:
+Because devices cannot maintain routes for every network on the Internet.
+
+--------------------------------------------------
+11. Question:
+What happens when a device does not know the route to a destination network?
+
+Answer:
+It sends the packet to the default gateway.
+
+--------------------------------------------------
+12. Question:
+What are routing methods?
+
+Answer:
+Routing methods describe how routing information is configured and maintained on network devices.
+
+--------------------------------------------------
+13. Question:
+What is static routing?
+
+Answer:
+Static routing uses manually configured routes that are defined by a network administrator.
+
+--------------------------------------------------
+14. Question:
+What is an advantage of static routing?
+
+Answer:
+It is simple and predictable.
+
+--------------------------------------------------
+15. Question:
+What is a limitation of static routing?
+
+Answer:
+It does not automatically adapt to network changes or failures.
+
+--------------------------------------------------
+16. Question:
+What is dynamic routing?
+
+Answer:
+Dynamic routing automatically learns and updates routing information using routing protocols.
+
+--------------------------------------------------
+17. Question:
+How do routers exchange routing information in dynamic routing?
+
+Answer:
+By communicating with other routers using routing protocols.
+
+--------------------------------------------------
+18. Question:
+What is the advantage of dynamic routing?
+
+Answer:
+Networks can automatically adapt to topology changes such as link failures.
+
+--------------------------------------------------
+19. Question:
+What are routing protocols?
+
+Answer:
+Protocols that allow routers to exchange routing information and build routing tables.
+
+--------------------------------------------------
+20. Question:
+What does RIP stand for?
+
+Answer:
+Routing Information Protocol.
+
+--------------------------------------------------
+21. Question:
+What metric does RIP use to determine the best route?
+
+Answer:
+Hop count.
+
+--------------------------------------------------
+22. Question:
+Why is RIP rarely used in large networks today?
+
+Answer:
+Because it has scalability limitations and slower convergence.
+
+--------------------------------------------------
+23. Question:
+What does OSPF stand for?
+
+Answer:
+Open Shortest Path First.
+
+--------------------------------------------------
+24. Question:
+What type of routing protocol is OSPF?
+
+Answer:
+A link-state routing protocol.
+
+--------------------------------------------------
+25. Question:
+How does OSPF determine the best route?
+
+Answer:
+By calculating the shortest path using a network topology map.
+
+--------------------------------------------------
+26. Question:
+Why is OSPF commonly used in enterprise networks?
+
+Answer:
+Because it supports large networks and converges quickly.
+
+--------------------------------------------------
+27. Question:
+What does BGP stand for?
+
+Answer:
+Border Gateway Protocol.
+
+--------------------------------------------------
+28. Question:
+What is BGP primarily used for?
+
+Answer:
+Exchanging routing information between large networks known as Autonomous Systems.
+
+--------------------------------------------------
+29. Question:
+Why is BGP critical to the Internet?
+
+Answer:
+Because it determines how traffic is routed between Internet Service Providers and large networks.
+
+--------------------------------------------------
+30. Question:
+What is packet switching?
+
+Answer:
+Packet switching divides data into small packets that travel independently across the network.
+
+--------------------------------------------------
+31. Question:
+Why is packet switching efficient?
+
+Answer:
+Because packets can take different routes and network resources are used only when data is transmitted.
+
+--------------------------------------------------
+32. Question:
+What happens when packets reach their destination?
+
+Answer:
+They are reassembled into the original message.
+
+--------------------------------------------------
+33. Question:
+What is circuit switching?
+
+Answer:
+Circuit switching establishes a dedicated communication path between two devices for the duration of a session.
+
+--------------------------------------------------
+34. Question:
+Which traditional communication system used circuit switching?
+
+Answer:
+Traditional telephone networks.
+
+--------------------------------------------------
+35. Question:
+Why is circuit switching less efficient than packet switching?
+
+Answer:
+Because the communication path remains reserved even when no data is being transmitted.
+
+--------------------------------------------------
+36. Question:
+Why is packet switching used on the Internet?
+
+Answer:
+Because it is efficient, flexible, and resilient to network failures.
+
+--------------------------------------------------
+37. Question (Attack Perspective):
+How might attackers exploit routing systems?
+
+Answer:
+Attackers may attempt routing attacks such as BGP hijacking, route injection, or manipulating routing tables to redirect or intercept network traffic.
+
+--------------------------------------------------
+38. Question (Defensive Perspective):
+How can defenders protect routing infrastructure?
+
+Answer:
+Defenders can implement route filtering, authentication mechanisms, network monitoring, and secure routing policies to detect and prevent malicious routing changes.

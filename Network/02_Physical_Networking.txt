@@ -1,0 +1,308 @@
+Physical Networking
+- How data physically travels through cables, wireless signals, and network interfaces
+
+
+==================================================
+1. Transmission Medium
+==================================================
+- The transmission medium is the physical path that carries data signals between devices.
+- It can be a wired medium such as copper or fiber optic cables, or a wireless medium using radio waves.
+- The characteristics of the medium affect bandwidth, latency, interference, and maximum transmission distance.
+
+
+==================================================
+2. Copper Cabling
+==================================================
+- Copper cables transmit data using electrical signals. They are the most common medium in local area networks.
+- Examples include twisted-pair Ethernet cables such as Cat5e, Cat6, and Cat7.
+- Copper is inexpensive and easy to install but is limited in transmission distance and susceptible to electromagnetic interference (EMI).
+
+
+==================================================
+3. Fiber Optics
+==================================================
+- Fiber optic cables transmit data as pulses of light through thin strands of glass or plastic.
+- They support extremely high bandwidth and very long transmission distances compared to copper cables.
+- Fiber is resistant to electromagnetic interference and is widely used in backbone networks, data centers, and Internet infrastructure.
+
+
+==================================================
+4. Wireless Transmission
+==================================================
+- Wireless networking transmits data using radio waves instead of physical cables.
+- Technologies such as WiFi, Bluetooth, and cellular networks rely on antennas to send and receive signals through the air.
+- Wireless networks provide mobility but are more susceptible to interference, signal attenuation, and security risks.
+
+
+==================================================
+5. Signal Types
+==================================================
+- Signals are the physical representation of data as it travels through a medium.
+- A signal can represent binary data (1s and 0s) through variations in voltage, light intensity, or radio frequency.
+- Signals may be digital or analog depending on how the data is encoded.
+
+
+==================================================
+6. Digital Signals
+==================================================
+- Digital signals represent data using discrete values, typically binary states (0 and 1).
+- In networking, digital signals are used by computers and networking equipment to transmit structured data across networks.
+- Digital signals are generally less susceptible to noise and easier to process by modern devices.
+
+
+==================================================
+7. Analog Signals
+==================================================
+- Analog signals represent data as continuous waves that vary in amplitude, frequency, or phase.
+- Traditional telecommunication systems such as early telephone networks used analog signals.
+- Modern networks typically convert analog signals into digital form for processing and transmission.
+
+
+==================================================
+8. Modulation
+==================================================
+- Modulation is the process of encoding digital data onto a carrier signal so it can be transmitted over a medium.
+- This involves altering properties of the carrier wave such as amplitude, frequency, or phase.
+- Wireless communication, DSL, and cable Internet all rely on modulation techniques to carry data efficiently.
+
+
+==================================================
+9. Network Interface Card (NIC)
+==================================================
+- A Network Interface Card is the hardware component that allows a device to connect to a network.
+- It provides the physical interface between the computer and the transmission medium (Ethernet cable or wireless signal).
+- Each NIC has a unique MAC address used for identification at the data link layer.
+
+
+==================================================
+10. Questions & Answers
+==================================================
+1. Question:
+What is physical networking?
+
+Answer:
+Physical networking refers to how data is physically transmitted between devices using cables, wireless signals, and network interface hardware.
+
+--------------------------------------------------
+2. Question:
+What is a transmission medium?
+
+Answer:
+A transmission medium is the physical path that carries data signals between devices across a network.
+
+--------------------------------------------------
+3. Question:
+What are the two main categories of transmission media?
+
+Answer:
+Wired media (such as copper and fiber optic cables) and wireless media (such as radio waves).
+
+--------------------------------------------------
+4. Question:
+What network characteristics are influenced by the transmission medium?
+
+Answer:
+Bandwidth, latency, interference, and maximum transmission distance.
+
+--------------------------------------------------
+5. Question:
+How do copper cables transmit data?
+
+Answer:
+Copper cables transmit data using electrical signals.
+
+--------------------------------------------------
+6. Question:
+Name three common Ethernet cable categories.
+
+Answer:
+Cat5e, Cat6, and Cat7.
+
+--------------------------------------------------
+7. Question:
+What are two advantages of copper cabling?
+
+Answer:
+It is inexpensive and easy to install.
+
+--------------------------------------------------
+8. Question:
+What are two limitations of copper cabling?
+
+Answer:
+Limited transmission distance and susceptibility to electromagnetic interference (EMI).
+
+--------------------------------------------------
+9. Question:
+How do fiber optic cables transmit data?
+
+Answer:
+Fiber optic cables transmit data as pulses of light through thin strands of glass or plastic.
+
+--------------------------------------------------
+10. Question:
+What are two advantages of fiber optic cables compared to copper?
+
+Answer:
+Higher bandwidth and longer transmission distances.
+
+--------------------------------------------------
+11. Question:
+Why are fiber optic cables resistant to interference?
+
+Answer:
+Because they transmit data using light rather than electrical signals.
+
+--------------------------------------------------
+12. Question:
+Where are fiber optic cables commonly used?
+
+Answer:
+In backbone networks, data centers, and Internet infrastructure.
+
+--------------------------------------------------
+13. Question:
+What is wireless transmission?
+
+Answer:
+Wireless transmission sends data through the air using radio waves instead of physical cables.
+
+--------------------------------------------------
+14. Question:
+Name three common wireless technologies.
+
+Answer:
+WiFi, Bluetooth, and cellular networks.
+
+--------------------------------------------------
+15. Question:
+What device is commonly used to send and receive wireless signals?
+
+Answer:
+Antennas.
+
+--------------------------------------------------
+16. Question:
+What are two disadvantages of wireless networking?
+
+Answer:
+Susceptibility to interference and signal attenuation.
+
+--------------------------------------------------
+17. Question:
+What is a signal in networking?
+
+Answer:
+A signal is the physical representation of data as it travels through a transmission medium.
+
+--------------------------------------------------
+18. Question:
+How is binary data represented in signals?
+
+Answer:
+Through variations in voltage, light intensity, or radio frequency.
+
+--------------------------------------------------
+19. Question:
+What are the two main types of signals used in networking?
+
+Answer:
+Digital signals and analog signals.
+
+--------------------------------------------------
+20. Question:
+What are digital signals?
+
+Answer:
+Signals that represent data using discrete binary values such as 0 and 1.
+
+--------------------------------------------------
+21. Question:
+Why are digital signals commonly used in modern networking?
+
+Answer:
+Because they are less susceptible to noise and easier for computers to process.
+
+--------------------------------------------------
+22. Question:
+What are analog signals?
+
+Answer:
+Signals that represent data as continuous waves varying in amplitude, frequency, or phase.
+
+--------------------------------------------------
+23. Question:
+Which older communication systems relied heavily on analog signals?
+
+Answer:
+Traditional telephone networks.
+
+--------------------------------------------------
+24. Question:
+What is modulation?
+
+Answer:
+Modulation is the process of encoding digital data onto a carrier signal so it can be transmitted over a medium.
+
+--------------------------------------------------
+25. Question:
+What signal properties can be modified during modulation?
+
+Answer:
+Amplitude, frequency, or phase.
+
+--------------------------------------------------
+26. Question:
+Which technologies rely heavily on modulation?
+
+Answer:
+Wireless communication, DSL, and cable Internet.
+
+--------------------------------------------------
+27. Question:
+What is a Network Interface Card (NIC)?
+
+Answer:
+A NIC is a hardware component that allows a device to connect to a network.
+
+--------------------------------------------------
+28. Question:
+What role does a NIC play in networking?
+
+Answer:
+It provides the physical interface between the computer and the transmission medium.
+
+--------------------------------------------------
+29. Question:
+What unique identifier is assigned to every NIC?
+
+Answer:
+A MAC address.
+
+--------------------------------------------------
+30. Question:
+At which OSI layer does the NIC's MAC address operate?
+
+Answer:
+The Data Link Layer (Layer 2).
+
+--------------------------------------------------
+31. Question:
+Why is understanding physical networking important?
+
+Answer:
+Because all network communication ultimately depends on reliable physical transmission of signals.
+
+--------------------------------------------------
+32. Question (Attack Perspective):
+How might attackers target physical networking components?
+
+Answer:
+Attackers may exploit wireless networks through signal interception, perform physical cable tapping, or manipulate hardware interfaces to capture network traffic.
+
+--------------------------------------------------
+33. Question (Defensive Perspective):
+How can defenders secure physical networking infrastructure?
+
+Answer:
+Defenders can secure networks by using physical access controls, shielding cables, securing network hardware, encrypting wireless communication, and monitoring for unauthorized devices.

@@ -1,0 +1,424 @@
+Security Networking Concepts
+- How networking infrastructure and protocols are secured to protect systems, data, and communication
+
+
+==================================================
+1. Network Security
+==================================================
+- Network security refers to the practices, technologies, and policies used to protect network infrastructure and data from unauthorized access, misuse, or attacks.
+- It involves monitoring traffic, enforcing access controls, and detecting malicious activity to maintain confidentiality, integrity, and availability.
+
+
+==================================================
+2. Network Segmentation
+==================================================
+- Network segmentation divides a network into smaller isolated segments to improve security and performance.
+- By separating systems into different segments, organizations can limit the spread of attacks and reduce the attack surface.
+- Segmentation is commonly implemented using VLANs, subnets, and firewall policies.
+
+
+==================================================
+3. Defense in Depth
+==================================================
+- Defense in depth is a security strategy that uses multiple layers of security controls to protect systems and networks.
+- Instead of relying on a single security mechanism, multiple defensive measures are deployed at different layers such as firewalls, intrusion detection systems, and endpoint protection.
+
+
+==================================================
+4. Zero Trust Networking
+==================================================
+- Zero Trust is a security model based on the principle of “never trust, always verify.”
+- Every device, user, and application must continuously prove its identity and authorization before accessing resources.
+- Zero Trust architectures assume that threats may already exist inside the network and therefore enforce strict access controls.
+
+
+==================================================
+5. Firewalls
+==================================================
+- A firewall is a security device or software system that monitors and filters incoming and outgoing network traffic.
+- Firewalls enforce rules that determine which traffic is allowed or blocked based on factors such as IP address, port number, and protocol.
+- They are commonly deployed at network boundaries to protect internal systems.
+
+
+==================================================
+6. Intrusion Detection Systems (IDS)
+==================================================
+- An Intrusion Detection System monitors network traffic for suspicious activity or known attack patterns.
+- IDS systems analyze packets and generate alerts when potential threats are detected.
+- They typically operate passively and do not block traffic directly.
+
+
+==================================================
+7. Intrusion Prevention Systems (IPS)
+==================================================
+- An Intrusion Prevention System extends IDS capabilities by actively blocking or preventing malicious traffic.
+- IPS systems are deployed inline within network traffic paths so they can automatically stop attacks before they reach target systems.
+
+
+==================================================
+8. Deep Packet Inspection (DPI)
+==================================================
+- Deep Packet Inspection is a technique used by security devices to analyze the contents of network packets beyond basic headers.
+- DPI allows systems to identify application-level traffic, detect malware, and enforce advanced security policies.
+
+
+==================================================
+9. Network Access Control (NAC)
+==================================================
+- Network Access Control ensures that only authorized devices and users are allowed to connect to a network.
+- NAC systems evaluate device security posture, authentication status, and compliance policies before granting access.
+
+
+==================================================
+10. Virtual Private Networks (VPN)
+==================================================
+- A Virtual Private Network creates an encrypted tunnel between devices or networks across an untrusted network such as the Internet.
+- VPNs protect data confidentiality and integrity during transmission and are commonly used for remote access or site-to-site connections.
+
+
+==================================================
+11. Security Monitoring
+==================================================
+- Security monitoring involves continuously observing network activity to detect anomalies, attacks, or suspicious behavior.
+- Security monitoring systems analyze logs, traffic patterns, and alerts to identify potential threats.
+
+
+==================================================
+12. Security Logging
+==================================================
+- Security logs record important events such as login attempts, connection activity, and system changes.
+- These logs are essential for incident investigation, auditing, and compliance.
+
+
+==================================================
+13. Threat Detection
+==================================================
+- Threat detection identifies malicious or abnormal behavior within a network.
+- Detection systems use signatures, behavioral analysis, and anomaly detection to identify potential attacks in progress.
+
+
+==================================================
+14. Security Architecture Overview
+==================================================
+
+Example Layered Security Model (Defense in Depth)
+
+User / Device
+        ↓
+Network Access Control (NAC)
+        ↓
+Firewall
+        ↓
+IDS / IPS
+        ↓
+Network Segmentation
+        ↓
+Application Security Controls
+        ↓
+Security Monitoring & Logging
+        ↓
+Threat Detection / Response
+
+
+==================================================
+15. Questions & Answers
+==================================================
+1. Question:
+What is network security?
+
+Answer:
+Network security refers to the practices, technologies, and policies used to protect network infrastructure and data from unauthorized access, misuse, or attacks.
+
+--------------------------------------------------
+2. Question:
+What three core principles does network security aim to protect?
+
+Answer:
+Confidentiality, integrity, and availability (CIA triad).
+
+--------------------------------------------------
+3. Question:
+What does confidentiality mean in network security?
+
+Answer:
+Ensuring that information is only accessible to authorized users.
+
+--------------------------------------------------
+4. Question:
+What does integrity mean in network security?
+
+Answer:
+Ensuring that data is accurate and cannot be altered without authorization.
+
+--------------------------------------------------
+5. Question:
+What does availability mean in network security?
+
+Answer:
+Ensuring that systems and services remain accessible when needed.
+
+--------------------------------------------------
+6. Question:
+What is network segmentation?
+
+Answer:
+The practice of dividing a network into smaller isolated segments to improve security and performance.
+
+--------------------------------------------------
+7. Question:
+Why is network segmentation important for security?
+
+Answer:
+It limits the spread of attacks and reduces the attack surface within a network.
+
+--------------------------------------------------
+8. Question:
+Name three common technologies used for network segmentation.
+
+Answer:
+VLANs, subnets, and firewall policies.
+
+--------------------------------------------------
+9. Question:
+What is defense in depth?
+
+Answer:
+A security strategy that uses multiple layers of security controls to protect systems and networks.
+
+--------------------------------------------------
+10. Question:
+Why is defense in depth important?
+
+Answer:
+Because relying on a single security mechanism is insufficient to protect complex systems.
+
+--------------------------------------------------
+11. Question:
+Give examples of layered security controls.
+
+Answer:
+Firewalls, intrusion detection systems, endpoint protection, and monitoring systems.
+
+--------------------------------------------------
+12. Question:
+What is the core principle of Zero Trust networking?
+
+Answer:
+“Never trust, always verify.”
+
+--------------------------------------------------
+13. Question:
+What assumption does the Zero Trust model make about networks?
+
+Answer:
+That threats may already exist inside the network.
+
+--------------------------------------------------
+14. Question:
+What must devices and users do in a Zero Trust architecture?
+
+Answer:
+Continuously verify identity and authorization before accessing resources.
+
+--------------------------------------------------
+15. Question:
+What is a firewall?
+
+Answer:
+A security device or software system that monitors and filters network traffic based on defined rules.
+
+--------------------------------------------------
+16. Question:
+What types of information do firewalls use to filter traffic?
+
+Answer:
+IP addresses, port numbers, protocols, and application behavior.
+
+--------------------------------------------------
+17. Question:
+Where are firewalls commonly deployed?
+
+Answer:
+At network boundaries between internal and external networks.
+
+--------------------------------------------------
+18. Question:
+What is an Intrusion Detection System (IDS)?
+
+Answer:
+A system that monitors network traffic for suspicious activity and generates alerts when threats are detected.
+
+--------------------------------------------------
+19. Question:
+Does an IDS actively block malicious traffic?
+
+Answer:
+No, IDS systems typically operate passively and only generate alerts.
+
+--------------------------------------------------
+20. Question:
+What is an Intrusion Prevention System (IPS)?
+
+Answer:
+A security system that detects and actively blocks malicious traffic in real time.
+
+--------------------------------------------------
+21. Question:
+How does IPS differ from IDS?
+
+Answer:
+An IPS can automatically stop attacks, while an IDS only detects and alerts.
+
+--------------------------------------------------
+22. Question:
+Where are IPS systems typically deployed?
+
+Answer:
+Inline within network traffic paths.
+
+--------------------------------------------------
+23. Question:
+What is Deep Packet Inspection (DPI)?
+
+Answer:
+A technique used to analyze the contents of packets beyond basic headers.
+
+--------------------------------------------------
+24. Question:
+What can DPI detect?
+
+Answer:
+Application-level traffic, malware, and policy violations.
+
+--------------------------------------------------
+25. Question:
+What is Network Access Control (NAC)?
+
+Answer:
+A security system that ensures only authorized devices and users can connect to a network.
+
+--------------------------------------------------
+26. Question:
+What factors does NAC evaluate before granting access?
+
+Answer:
+Authentication status, device security posture, and compliance with policies.
+
+--------------------------------------------------
+27. Question:
+What is a Virtual Private Network (VPN)?
+
+Answer:
+A technology that creates an encrypted tunnel between devices or networks over an untrusted network.
+
+--------------------------------------------------
+28. Question:
+Why are VPNs used?
+
+Answer:
+To protect the confidentiality and integrity of data during transmission.
+
+--------------------------------------------------
+29. Question:
+What are common uses for VPNs?
+
+Answer:
+Remote access for employees and secure site-to-site network connections.
+
+--------------------------------------------------
+30. Question:
+What is security monitoring?
+
+Answer:
+The continuous observation of network activity to detect anomalies, attacks, or suspicious behavior.
+
+--------------------------------------------------
+31. Question:
+What sources of data are typically used for security monitoring?
+
+Answer:
+Logs, traffic patterns, alerts, and system events.
+
+--------------------------------------------------
+32. Question:
+What are security logs?
+
+Answer:
+Records of events such as login attempts, connection activity, and system changes.
+
+--------------------------------------------------
+33. Question:
+Why are security logs important?
+
+Answer:
+They provide evidence for incident investigations and security audits.
+
+--------------------------------------------------
+34. Question:
+What is threat detection?
+
+Answer:
+The process of identifying malicious or abnormal behavior within a network.
+
+--------------------------------------------------
+35. Question:
+What techniques are commonly used for threat detection?
+
+Answer:
+Signature-based detection, behavioral analysis, and anomaly detection.
+
+--------------------------------------------------
+36. Question:
+What is the goal of threat detection systems?
+
+Answer:
+To identify potential attacks in progress before they cause damage.
+
+--------------------------------------------------
+37. Question:
+What is the purpose of layered security architecture?
+
+Answer:
+To provide multiple defensive barriers that protect systems and networks.
+
+--------------------------------------------------
+38. Question:
+What component controls which devices can initially connect to the network?
+
+Answer:
+Network Access Control (NAC).
+
+--------------------------------------------------
+39. Question:
+Which device filters incoming and outgoing traffic at the network boundary?
+
+Answer:
+A firewall.
+
+--------------------------------------------------
+40. Question:
+Which systems analyze traffic for malicious activity?
+
+Answer:
+IDS and IPS systems.
+
+--------------------------------------------------
+41. Question:
+Which components provide visibility into network activity?
+
+Answer:
+Security monitoring systems and logging infrastructure.
+
+--------------------------------------------------
+42. Question (Attack Perspective):
+How might attackers attempt to bypass network security controls?
+
+Answer:
+Attackers may use techniques such as exploiting firewall misconfigurations, encrypting malicious traffic, performing lateral movement across network segments, or disguising attacks as normal traffic.
+
+--------------------------------------------------
+43. Question (Defensive Perspective):
+How can defenders strengthen network security architecture?
+
+Answer:
+By implementing layered defenses such as segmentation, strong authentication, firewalls, IDS/IPS, continuous monitoring, logging, and threat detection systems.

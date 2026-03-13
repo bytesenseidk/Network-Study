@@ -1,0 +1,414 @@
+Internet Overview:
+- A high-level view of how data travels across the Internet from a user to a remote service.
+
+
+==================================================
+1. Overview
+==================================================
+- The Internet is a global network of interconnected systems that communicate using standardized networking protocols.
+- When a user interactes with an online service, multiple networking layers and technologies work together to deliver data between the client and the server.
+
+
+==================================================
+2. User Interaction
+==================================================
+- Communication begins when a user performs an action such as opening a website, sending an email, or cnnecting to an online service.
+- The user's application generates a request that must be transmitted across the network.
+
+
+==================================================
+3. Application Layer
+==================================================
+- The application layer contains protocols used directly by software applications.
+- These protocols define how services such as web browsing, email, and file transfer operate.
+
+Examples:
+- HTTP / HTTPS (web communication)
+- SMTP / IMAP / POP3 (email)
+- FTP / SFTP (file transfer)
+- DNS (domain name resolution)
+
+
+==================================================
+4. Transport Layer
+==================================================
+- The transport layer establishes communication between applications running on different devices.
+- It manages how data is delivered, including reliability, ordering, and error handling.
+
+Examples:
+- TCP - reliable, connection-oriented communication
+- UDP - fast, connectionless communication
+
+
+==================================================
+5. Internet Layer
+==================================================
+- The Internet layer handles logical addressing and routing of packets between networks.
+- It determines how packets travel across interconnected networks toward their destination.
+
+Examples:
+- IP (Internet Protocol)
+- IPv4
+- IPv6
+- ICMP
+
+
+==================================================
+6. Network Access Layer
+==================================================
+- The network access layer handles communication on the local network and physical transmission of data.
+- It includes hardware addressing and physical networking technologies.
+
+Examples:
+- Ethernet
+- MAC addressing
+- Network Interface Cards (NIC)
+- Wireless Networking
+
+
+==================================================
+7. Routing Across Networks
+==================================================
+- Routers forward packets between networks using routing tables and routing protocols.
+- Packets may travel through multiple routers across different networks before reaching their destination.
+
+
+==================================================
+8. Packet Encapsulation
+==================================================
+- As data moves down the networking stack, each layer adds its own header containing control information.
+- This process is called Encapsulation.
+
+Example:
+  Application Data  
+  ↓  
+  TCP/UDP Segment  
+  ↓  
+  IP Packet  
+  ↓  
+  Ethernet Frame  
+  ↓  
+  Physical Signal
+
+
+==================================================
+9. Packet Transmission
+==================================================
+- Once encapsulated, the packet is transmitted across the physical network using cables or wireless signals.
+- Routers and switches move the packet through the network toward the destination host.
+
+
+==================================================
+10. Server Processing
+==================================================
+- When the packet reaches the destination server, the data is decapsulated as it moves up the networking stack.
+- When application on the server processes the request and generates a response.
+
+
+==================================================
+11. Response Delivery
+==================================================
+- The response follows the same process in reverse, traveling back through the network to the client device.
+- The client application then processes the data and presents the result to the user.
+
+
+Example: Opening a website:
+  1. User enters a website address in the browser.
+  2. DNS resolves the domain name to an IP address.
+  3. TCP connection is established with the server.
+  4. TLS handshake secures the connection (HTTPS).
+  5. Browser sends an HTTP request.
+  6. Server processes the request.
+  7. Server returns the response.
+  8. Browser renders the webpage for the user.
+
+
+==================================================
+12. Key Components of the Internet
+==================================================
+Infrastructure:
+  1. Routers
+  2. Switches
+  3. Fiber optic cables
+  4. Data centers
+
+Protocols:
+  1. IP
+  2. TCP
+  3. UDP
+  4. HTTP
+  5. DNS
+
+Services:
+  1. Web servers
+  2. Email servers
+  3. Cloud servers
+
+
+==================================================
+13. Why This Model Matters
+==================================================
+- Understanding this flow helps explain how networking protocols, devices, and services work together.
+- It also helps engineers troubleshoot connectivity issues, analyze network traffic, and investigate security incidents.
+
+
+==================================================
+14. Questions & Answers
+==================================================
+1. Question:
+What is the Internet?
+
+Answer:
+The Internet is a global network of interconnected systems that communicate using standardized networking protocols.
+
+--------------------------------------------------
+2. Question:
+What happens when a user interacts with an online service?
+
+Answer:
+Multiple networking layers and technologies work together to deliver data between the client device and the server.
+
+--------------------------------------------------
+3. Question:
+What typically initiates communication over the Internet?
+
+Answer:
+A user action such as opening a website, sending an email, or connecting to an online service.
+
+--------------------------------------------------
+4. Question:
+What generates the network request when a user performs an action online?
+
+Answer:
+The user's application generates the request that must be transmitted across the network.
+
+--------------------------------------------------
+5. Question:
+What is the purpose of the Application Layer?
+
+Answer:
+The Application Layer provides network services directly to software applications.
+
+--------------------------------------------------
+6. Question:
+Name four protocols commonly found in the Application Layer.
+
+Answer:
+HTTP, HTTPS, FTP/SFTP, SMTP/IMAP/POP3, and DNS.
+
+--------------------------------------------------
+7. Question:
+What is the role of the Transport Layer?
+
+Answer:
+The Transport Layer manages communication between applications on different devices and controls reliability, ordering, and error handling.
+
+--------------------------------------------------
+8. Question:
+Which two main protocols operate at the Transport Layer?
+
+Answer:
+TCP and UDP.
+
+--------------------------------------------------
+9. Question:
+What is the difference between TCP and UDP?
+
+Answer:
+TCP provides reliable, connection-oriented communication, while UDP provides faster, connectionless communication.
+
+--------------------------------------------------
+10. Question:
+What is the function of the Internet Layer?
+
+Answer:
+The Internet Layer handles logical addressing and routing of packets between networks.
+
+--------------------------------------------------
+11. Question:
+Name four protocols associated with the Internet Layer.
+
+Answer:
+IP, IPv4, IPv6, and ICMP.
+
+--------------------------------------------------
+12. Question:
+What does the Network Access Layer handle?
+
+Answer:
+Communication on the local network and the physical transmission of data.
+
+--------------------------------------------------
+13. Question:
+What technologies are commonly associated with the Network Access Layer?
+
+Answer:
+Ethernet, MAC addressing, Network Interface Cards (NIC), and wireless networking.
+
+--------------------------------------------------
+14. Question:
+What devices are responsible for forwarding packets between networks?
+
+Answer:
+Routers.
+
+--------------------------------------------------
+15. Question:
+What information do routers use to determine where packets should go?
+
+Answer:
+Routing tables.
+
+--------------------------------------------------
+16. Question:
+What is packet encapsulation?
+
+Answer:
+Encapsulation is the process where each networking layer adds its own header to the data as it moves down the networking stack.
+
+--------------------------------------------------
+17. Question:
+List the order of encapsulation from application data to physical transmission.
+
+Answer:
+Application Data → TCP/UDP Segment → IP Packet → Ethernet Frame → Physical Signal.
+
+--------------------------------------------------
+18. Question:
+What happens to packets once they are encapsulated?
+
+Answer:
+They are transmitted across the network using cables or wireless signals.
+
+--------------------------------------------------
+19. Question:
+Which devices typically move packets through networks?
+
+Answer:
+Routers and switches.
+
+--------------------------------------------------
+20. Question:
+What happens when a packet reaches the destination server?
+
+Answer:
+The packet is decapsulated and processed by the server application.
+
+--------------------------------------------------
+21. Question:
+What is decapsulation?
+
+Answer:
+Decapsulation is the process of removing protocol headers as data moves up the networking stack.
+
+--------------------------------------------------
+22. Question:
+What happens after the server processes a request?
+
+Answer:
+The server generates a response and sends it back to the client.
+
+--------------------------------------------------
+23. Question:
+How does the response travel back to the client?
+
+Answer:
+It follows the same networking process in reverse through the network.
+
+--------------------------------------------------
+24. Question:
+What does the client application do after receiving the response?
+
+Answer:
+The client processes the data and presents the result to the user.
+
+--------------------------------------------------
+25. Question:
+What is the first step when a user opens a website?
+
+Answer:
+The browser requests DNS resolution for the domain name.
+
+--------------------------------------------------
+26. Question:
+What is the purpose of DNS in web communication?
+
+Answer:
+DNS translates domain names into IP addresses.
+
+--------------------------------------------------
+27. Question:
+What happens after DNS resolution when opening a website?
+
+Answer:
+A TCP connection is established with the server.
+
+--------------------------------------------------
+28. Question:
+What process secures an HTTPS connection?
+
+Answer:
+The TLS handshake.
+
+--------------------------------------------------
+29. Question:
+What protocol is used to request a webpage from a server?
+
+Answer:
+HTTP or HTTPS.
+
+--------------------------------------------------
+30. Question:
+What does the browser do after receiving a server response?
+
+Answer:
+The browser renders the webpage for the user.
+
+--------------------------------------------------
+31. Question:
+Name four key components of Internet infrastructure.
+
+Answer:
+Routers, switches, fiber optic cables, and data centers.
+
+--------------------------------------------------
+32. Question:
+Name five important Internet protocols.
+
+Answer:
+IP, TCP, UDP, HTTP, and DNS.
+
+--------------------------------------------------
+33. Question:
+Name three common Internet services.
+
+Answer:
+Web servers, email servers, and cloud servers.
+
+--------------------------------------------------
+34. Question:
+Why is it important to understand how Internet communication works?
+
+Answer:
+It helps engineers troubleshoot connectivity issues, analyze network traffic, and investigate security incidents.
+
+--------------------------------------------------
+35. Question:
+Why is the layered networking model useful?
+
+Answer:
+It separates complex networking processes into manageable components, making design, troubleshooting, and analysis easier.
+
+--------------------------------------------------
+36. Question (Attack Perspective):
+How might an attacker abuse the Internet communication process?
+
+Answer:
+Attackers may intercept or manipulate communication using techniques such as Man-in-the-Middle (MITM) attacks, DNS spoofing, packet sniffing, or exploiting insecure protocols to capture or modify data in transit.
+
+--------------------------------------------------
+37. Question (Defensive Perspective):
+How can defenders protect Internet communication between clients and servers?
+
+Answer:
+Defenders protect communication by using encryption (TLS/HTTPS), secure DNS, firewalls, intrusion detection systems, network monitoring, and proper authentication mechanisms to ensure data integrity and confidentiality.

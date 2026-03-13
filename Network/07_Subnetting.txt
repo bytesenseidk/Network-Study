@@ -1,0 +1,618 @@
+Subnetting
+- The process of dividing a larger IP network into smaller logical networks called subnets.
+
+
+==================================================
+1. Overview
+==================================================
+- Subnetting is used to divide a network into smaller segments to improve organization, security, and routing efficiency.
+- Each subnet functions as its own logical network with its own range of IP addresses.
+- Subnetting is commonly used in enterprise networks to separate departments, services, or security zones.
+
+
+==================================================
+2. Why Subnetting Is Important
+==================================================
+Subnetting provides several benefits:
+
+Network Organization
+- Large networks can be divided into smaller, manageable segments.
+
+Improved Security
+- Segments can be isolated using firewalls or access controls.
+
+Reduced Broadcast Traffic
+- Broadcast traffic is limited to individual subnets instead of the entire network.
+
+Efficient IP Address Usage
+- IP address ranges can be allocated based on network size requirements.
+
+
+==================================================
+3. IPv4 Address Structure
+==================================================
+An IPv4 address consists of **32 bits** divided into four octets.
+
+Example:
+
+192.168.1.10
+
+Binary representation:
+
+11000000.10101000.00000001.00001010
+
+Each octet contains **8 bits**.
+
+Total bits:
+
+32 bits = IPv4 address
+
+
+==================================================
+4. Network vs Host Portion
+==================================================
+Every IP address contains two parts:
+
+Network Portion
+- Identifies the network.
+
+Host Portion
+- Identifies the specific device on that network.
+
+Example:
+
+192.168.1.10 /24
+
+Network portion:
+192.168.1
+
+Host portion:
+10
+
+
+==================================================
+5. Subnet Mask
+==================================================
+A subnet mask determines which portion of an IP address represents the network and which portion represents hosts.
+
+Example subnet mask:
+
+255.255.255.0
+
+Binary representation:
+
+11111111.11111111.11111111.00000000
+
+The **1s represent the network portion**  
+The **0s represent the host portion**
+
+
+==================================================
+6. CIDR Notation
+==================================================
+CIDR (Classless Inter-Domain Routing) expresses the subnet mask as the number of network bits.
+
+Example:
+
+/24
+
+Means:
+
+24 bits for network  
+8 bits for hosts
+
+
+Example mapping:
+
+/24 → 255.255.255.0  
+/16 → 255.255.0.0  
+/8  → 255.0.0.0
+
+
+==================================================
+7. Subnet Address Components
+==================================================
+Every subnet contains several important addresses.
+
+Network Address
+- Identifies the subnet itself.
+
+First Usable Host
+- First assignable address.
+
+Last Usable Host
+- Last assignable address.
+
+Broadcast Address
+- Used to send traffic to all devices in the subnet.
+
+
+Example:
+
+Network: 192.168.1.0/24
+
+Network Address:
+192.168.1.0
+
+First Host:
+192.168.1.1
+
+Last Host:
+192.168.1.254
+
+Broadcast Address:
+192.168.1.255
+
+
+==================================================
+8. Number of Hosts per Subnet
+==================================================
+The number of usable hosts is calculated using:
+
+2^n - 2
+
+Where:
+
+n = number of host bits
+
+Example:
+
+/24 network
+
+Host bits = 8
+
+2^8 = 256 addresses
+
+Usable hosts:
+
+256 - 2 = 254
+
+
+==================================================
+9. Example Subnet Calculation
+==================================================
+Network:
+
+192.168.1.0/24
+
+Divide into **two subnets**
+
+New prefix:
+
+/25
+
+Subnet mask:
+
+255.255.255.128
+
+
+Resulting subnets:
+
+Subnet 1
+192.168.1.0/25
+
+Range:
+192.168.1.1 – 192.168.1.126
+
+Broadcast:
+192.168.1.127
+
+
+Subnet 2
+192.168.1.128/25
+
+Range:
+192.168.1.129 – 192.168.1.254
+
+Broadcast:
+192.168.1.255
+
+
+==================================================
+10. Subnetting Visual Example
+==================================================
+
+Original Network
+
+192.168.1.0 /24
+
+Range:
+192.168.1.0 – 192.168.1.255
+
+
+Split into two /25 networks:
+
+Subnet A
+192.168.1.0 – 192.168.1.127
+
+Subnet B
+192.168.1.128 – 192.168.1.255
+
+
+==================================================
+11. Subnet Size Reference Table
+==================================================
+
+CIDR   Subnet Mask          Hosts
+
+/30    255.255.255.252      2
+/29    255.255.255.248      6
+/28    255.255.255.240      14
+/27    255.255.255.224      30
+/26    255.255.255.192      62
+/25    255.255.255.128      126
+/24    255.255.255.0        254
+/23    255.255.254.0        510
+/22    255.255.252.0        1022
+
+
+==================================================
+12. Subnetting in Real Networks
+==================================================
+Subnetting is commonly used to separate network areas.
+
+Examples:
+
+Office networks
+- HR network
+- Engineering network
+- Guest network
+
+Data centers
+- Application servers
+- Database servers
+- Management networks
+
+Cloud environments
+- Public subnet
+- Private subnet
+- Management subnet
+
+
+==================================================
+13. Why Subnetting Matters for Security
+==================================================
+Subnetting plays an important role in network security.
+
+Benefits include:
+
+Network Isolation
+- Limits communication between segments.
+
+Reduced Attack Surface
+- Attackers cannot easily reach every system.
+
+Access Control
+- Firewalls can control traffic between subnets.
+
+Monitoring
+- Security tools can analyze traffic between network segments.
+
+
+==================================================
+14. Example Enterprise Network Layout
+==================================================
+
+Internet
+   ↓
+Firewall
+   ↓
+DMZ Subnet
+   10.0.1.0/24
+
+Internal Network
+   ↓
+Employee Subnet
+   10.0.2.0/24
+
+Server Subnet
+   10.0.3.0/24
+
+Management Subnet
+   10.0.4.0/24
+
+
+==================================================
+15. Key Takeaways
+==================================================
+- Subnetting divides networks into smaller logical segments.
+- It improves network organization, security, and routing efficiency.
+- Understanding subnet masks and CIDR notation is essential for network design.
+- Subnetting is widely used in enterprise networks, cloud infrastructure, and security architectures.
+
+
+==================================================
+16. Questions & Answers
+==================================================
+1. Question:
+What is subnetting?
+
+Answer:
+Subnetting is the process of dividing a larger IP network into smaller logical networks called subnets.
+
+--------------------------------------------------
+2. Question:
+Why is subnetting used in networking?
+
+Answer:
+Subnetting is used to improve network organization, security, routing efficiency, and IP address management.
+
+--------------------------------------------------
+3. Question:
+What is a subnet?
+
+Answer:
+A subnet is a smaller logical network created from a larger IP network.
+
+--------------------------------------------------
+4. Question:
+Why do organizations divide large networks into subnets?
+
+Answer:
+To create manageable network segments, improve security, and reduce broadcast traffic.
+
+--------------------------------------------------
+5. Question:
+What are four major benefits of subnetting?
+
+Answer:
+Network organization, improved security, reduced broadcast traffic, and efficient IP address usage.
+
+--------------------------------------------------
+6. Question:
+How many bits are in an IPv4 address?
+
+Answer:
+32 bits.
+
+--------------------------------------------------
+7. Question:
+How many octets are in an IPv4 address?
+
+Answer:
+Four octets.
+
+--------------------------------------------------
+8. Question:
+How many bits are contained in each octet of an IPv4 address?
+
+Answer:
+8 bits.
+
+--------------------------------------------------
+9. Question:
+Give an example of an IPv4 address.
+
+Answer:
+192.168.1.10.
+
+--------------------------------------------------
+10. Question:
+What are the two main parts of an IP address?
+
+Answer:
+The network portion and the host portion.
+
+--------------------------------------------------
+11. Question:
+What does the network portion of an IP address represent?
+
+Answer:
+It identifies the network.
+
+--------------------------------------------------
+12. Question:
+What does the host portion of an IP address represent?
+
+Answer:
+It identifies the specific device on that network.
+
+--------------------------------------------------
+13. Question:
+What is a subnet mask?
+
+Answer:
+A subnet mask determines which part of an IP address represents the network and which part represents hosts.
+
+--------------------------------------------------
+14. Question:
+What is an example of a subnet mask for a /24 network?
+
+Answer:
+255.255.255.0.
+
+--------------------------------------------------
+15. Question:
+In a subnet mask, what do the binary 1s represent?
+
+Answer:
+The network portion of the address.
+
+--------------------------------------------------
+16. Question:
+In a subnet mask, what do the binary 0s represent?
+
+Answer:
+The host portion of the address.
+
+--------------------------------------------------
+17. Question:
+What does CIDR stand for?
+
+Answer:
+Classless Inter-Domain Routing.
+
+--------------------------------------------------
+18. Question:
+What does the CIDR notation /24 mean?
+
+Answer:
+24 bits are used for the network portion and 8 bits for hosts.
+
+--------------------------------------------------
+19. Question:
+What subnet mask corresponds to /16?
+
+Answer:
+255.255.0.0.
+
+--------------------------------------------------
+20. Question:
+What subnet mask corresponds to /8?
+
+Answer:
+255.0.0.0.
+
+--------------------------------------------------
+21. Question:
+What four important addresses exist in every subnet?
+
+Answer:
+Network address, first usable host, last usable host, and broadcast address.
+
+--------------------------------------------------
+22. Question:
+What is the network address used for?
+
+Answer:
+It identifies the subnet itself.
+
+--------------------------------------------------
+23. Question:
+What is the broadcast address used for?
+
+Answer:
+It sends traffic to all devices within the subnet.
+
+--------------------------------------------------
+24. Question:
+Why are the network address and broadcast address not assignable to hosts?
+
+Answer:
+Because they are reserved for network identification and broadcast communication.
+
+--------------------------------------------------
+25. Question:
+How is the number of usable hosts in a subnet calculated?
+
+Answer:
+2^n − 2, where n is the number of host bits.
+
+--------------------------------------------------
+26. Question:
+How many usable hosts exist in a /24 network?
+
+Answer:
+254 usable hosts.
+
+--------------------------------------------------
+27. Question:
+How many total addresses exist in a /24 network?
+
+Answer:
+256 addresses.
+
+--------------------------------------------------
+28. Question:
+What new subnet mask is created when a /24 network is divided into two equal networks?
+
+Answer:
+/25.
+
+--------------------------------------------------
+29. Question:
+What subnet mask corresponds to /25?
+
+Answer:
+255.255.255.128.
+
+--------------------------------------------------
+30. Question:
+What is the broadcast address of subnet 192.168.1.0/25?
+
+Answer:
+192.168.1.127.
+
+--------------------------------------------------
+31. Question:
+What is the network address of the second subnet created from 192.168.1.0/24 when divided into /25 networks?
+
+Answer:
+192.168.1.128.
+
+--------------------------------------------------
+32. Question:
+Why does subnetting reduce broadcast traffic?
+
+Answer:
+Because broadcast messages are limited to individual subnet boundaries instead of the entire network.
+
+--------------------------------------------------
+33. Question:
+Where is subnetting commonly used in enterprise networks?
+
+Answer:
+To separate departments, services, or security zones.
+
+--------------------------------------------------
+34. Question:
+Give three examples of subnet separation in enterprise environments.
+
+Answer:
+HR networks, engineering networks, and guest networks.
+
+--------------------------------------------------
+35. Question:
+How is subnetting used in data centers?
+
+Answer:
+To separate application servers, database servers, and management networks.
+
+--------------------------------------------------
+36. Question:
+How is subnetting used in cloud environments?
+
+Answer:
+Cloud networks often use separate public, private, and management subnets.
+
+--------------------------------------------------
+37. Question:
+Why is subnetting important for security?
+
+Answer:
+It isolates network segments and limits attacker movement across the network.
+
+--------------------------------------------------
+38. Question:
+How can subnetting reduce the attack surface of a network?
+
+Answer:
+By preventing direct communication between all systems and enforcing controlled network paths.
+
+--------------------------------------------------
+39. Question:
+How do firewalls use subnets to enforce security?
+
+Answer:
+Firewalls can apply rules that control traffic between different subnets.
+
+--------------------------------------------------
+40. Question:
+What is the role of subnetting in network monitoring?
+
+Answer:
+It allows security tools to monitor and analyze traffic between specific network segments.
+
+--------------------------------------------------
+41. Question (Attack Perspective):
+How might attackers use knowledge of subnetting during a network compromise?
+
+Answer:
+Attackers may map subnet ranges, identify internal networks, and move laterally between subnets after gaining access.
+
+--------------------------------------------------
+42. Question (Defensive Perspective):
+How can defenders use subnetting to improve network security?
+
+Answer:
+Defenders can isolate critical systems, restrict traffic between subnets, deploy firewalls between segments, and monitor inter-subnet traffic for suspicious behavior.

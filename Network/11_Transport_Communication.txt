@@ -1,0 +1,379 @@
+Transport Communication
+- How reliable end-to-end communication is established between hosts
+
+
+==================================================
+1. TCP Concepts
+==================================================
+- Transmission Control Protocol (TCP) provides reliable, ordered, and error-checked delivery of data between applications running on different hosts.
+- It is a connection-oriented protocol, meaning a communication session must be established before data is transmitted.
+
+
+Three-Way Handshake:
+- The three-way handshake is the process TCP uses to establish a connection between two hosts before data transmission begins.
+- It involves three steps: the client sends a SYN packet to initiate the connection, the server responds with a SYN-ACK packet to acknowledge and synchronize, and the client replies with an ACK packet.
+- This process ensures both sides are ready to communicate and agree on initial sequence numbers.
+
+
+Flow Control:
+- Flow control ensures that a sender does not overwhelm a receiver with more data than it can process.
+- TCP uses mechanisms such as the receive window to limit how much data can be sent before receiving an acknowledgement.
+- This helps maintain efficient communication and prevents buffer overflow at the receiving host.
+
+
+Congestion Control:
+- Congestion control regulates the rate at which data is transmitted to avoid overwhelming the network.
+- TCP dynamically adjusts its transmission rate based on network conditions using algorithms such as slow start and congestion avoidance.
+- This helps maintain stability and fairness across shared network resources.
+
+
+Reliable Transmission:
+- TCP provides reliable data delivery by ensuring that packets arrive intact and in the correct order.
+- Each segment is assigned a sequence number, and the receiver acknowledges received segments.
+- If packets are lost or arrive out of order, TCP retransmits missing segments and reassembles the data correctly.
+
+
+==================================================
+2. UDP Concepts
+==================================================
+- User Datagram Protocol (UDP) is a lightweight transport protocol designed for speed and efficiency.
+- It does not establish connections or guarantee delivery, making it suitable for applications where low latency is more important than reliability.
+
+
+Connectionless Communication:
+- UDP is a connectionless protocol, meaning data is sent without establishing a session between sender and receiver.
+- Packets, called datagrams, are transmitted independently without acknowledgements or retransmissions.
+- This reduces overhead and allows faster communication.
+
+
+Low Latency Communication:
+- UDP is commonly used in applications that require minimal delay, such as real-time streaming, online gaming, voice communication, and DNS queries.
+- Because it avoids connection setup and reliability checks, UDP can transmit data with very low latency.
+
+
+==================================================
+3. Session Concepts
+==================================================
+- Sessions represent ongoing communication exchanges between applications running on different hosts.
+- They maintain context for interactions that may involve multiple packets or requests.
+
+
+Sessions:
+- A session refers to the logical communication exchange between two systems during a network interaction.
+- Sessions can persist for a short period (such as a web request) or longer durations (such as a remote login session).
+- Protocols and applications track sessions to maintain continuity in communication.
+
+
+State Management:
+- State management refers to how systems track information about ongoing sessions.
+- Some protocols maintain state information to track connections, authentication status, or transaction progress.
+- Stateless communication does not track previous interactions, while stateful communication keeps context about the session.
+
+
+==================================================
+4. Transport Protocol Comparison (Visual Overview)
+==================================================
+
+TCP vs UDP
+
+TCP
+- Connection-oriented
+- Reliable delivery
+- Ordered packets
+- Retransmits lost packets
+- Flow control
+- Congestion control
+- Higher overhead
+- Used for: HTTP, HTTPS, SSH, FTP, email
+
+UDP
+- Connectionless
+- No delivery guarantee
+- Packets may arrive out of order
+- No retransmission
+- Very low overhead
+- Lower latency
+- Used for: DNS, VoIP, streaming, gaming
+
+
+==================================================
+5. Questions & Answers
+==================================================
+1. Question:
+What is transport communication in networking?
+
+Answer:
+Transport communication refers to how reliable end-to-end communication is established between applications running on different hosts.
+
+--------------------------------------------------
+2. Question:
+Which OSI layer is responsible for transport communication?
+
+Answer:
+The Transport Layer (Layer 4).
+
+--------------------------------------------------
+3. Question:
+What are the two primary transport protocols used on the Internet?
+
+Answer:
+TCP and UDP.
+
+--------------------------------------------------
+4. Question:
+What does TCP stand for?
+
+Answer:
+Transmission Control Protocol.
+
+--------------------------------------------------
+5. Question:
+What type of protocol is TCP?
+
+Answer:
+A connection-oriented transport protocol.
+
+--------------------------------------------------
+6. Question:
+What is the main purpose of TCP?
+
+Answer:
+To provide reliable, ordered, and error-checked delivery of data between hosts.
+
+--------------------------------------------------
+7. Question:
+What must occur before TCP begins transmitting data?
+
+Answer:
+A connection must be established between the communicating hosts.
+
+--------------------------------------------------
+8. Question:
+What process does TCP use to establish a connection?
+
+Answer:
+The three-way handshake.
+
+--------------------------------------------------
+9. Question:
+What are the three steps of the TCP three-way handshake?
+
+Answer:
+SYN, SYN-ACK, and ACK.
+
+--------------------------------------------------
+10. Question:
+What does the SYN packet do?
+
+Answer:
+It initiates a connection request from the client.
+
+--------------------------------------------------
+11. Question:
+What does the SYN-ACK packet do?
+
+Answer:
+It acknowledges the client's request and synchronizes the connection.
+
+--------------------------------------------------
+12. Question:
+What does the final ACK packet do?
+
+Answer:
+It confirms the connection and completes the handshake.
+
+--------------------------------------------------
+13. Question:
+Why is the TCP handshake necessary?
+
+Answer:
+It ensures both devices are ready to communicate and agree on initial sequence numbers.
+
+--------------------------------------------------
+14. Question:
+What is flow control in TCP?
+
+Answer:
+A mechanism that prevents a sender from overwhelming a receiver with too much data.
+
+--------------------------------------------------
+15. Question:
+What mechanism does TCP use for flow control?
+
+Answer:
+The receive window.
+
+--------------------------------------------------
+16. Question:
+Why is flow control important?
+
+Answer:
+It prevents buffer overflow at the receiving system.
+
+--------------------------------------------------
+17. Question:
+What is congestion control?
+
+Answer:
+A mechanism that regulates data transmission speed to avoid overwhelming the network.
+
+--------------------------------------------------
+18. Question:
+Name two TCP congestion control techniques.
+
+Answer:
+Slow start and congestion avoidance.
+
+--------------------------------------------------
+19. Question:
+What is reliable transmission in TCP?
+
+Answer:
+A mechanism ensuring packets arrive intact and in the correct order.
+
+--------------------------------------------------
+20. Question:
+How does TCP track packet order?
+
+Answer:
+By assigning sequence numbers to each segment.
+
+--------------------------------------------------
+21. Question:
+What happens when TCP detects a lost packet?
+
+Answer:
+It retransmits the missing segment.
+
+--------------------------------------------------
+22. Question:
+What does UDP stand for?
+
+Answer:
+User Datagram Protocol.
+
+--------------------------------------------------
+23. Question:
+What type of protocol is UDP?
+
+Answer:
+A connectionless transport protocol.
+
+--------------------------------------------------
+24. Question:
+What is the primary advantage of UDP?
+
+Answer:
+Low latency and minimal overhead.
+
+--------------------------------------------------
+25. Question:
+Why is UDP faster than TCP?
+
+Answer:
+Because it does not establish connections or perform reliability checks.
+
+--------------------------------------------------
+26. Question:
+What are UDP packets called?
+
+Answer:
+Datagrams.
+
+--------------------------------------------------
+27. Question:
+Does UDP guarantee packet delivery?
+
+Answer:
+No.
+
+--------------------------------------------------
+28. Question:
+Does UDP guarantee packet order?
+
+Answer:
+No.
+
+--------------------------------------------------
+29. Question:
+Name four applications that commonly use UDP.
+
+Answer:
+Streaming services, online gaming, VoIP, and DNS queries.
+
+--------------------------------------------------
+30. Question:
+What is a session in networking?
+
+Answer:
+A session is an ongoing communication exchange between two systems.
+
+--------------------------------------------------
+31. Question:
+Why are sessions important for communication?
+
+Answer:
+They maintain context across multiple packets or requests.
+
+--------------------------------------------------
+32. Question:
+What is state management?
+
+Answer:
+The process of tracking information about active communication sessions.
+
+--------------------------------------------------
+33. Question:
+What is a stateful protocol?
+
+Answer:
+A protocol that keeps track of previous interactions in a session.
+
+--------------------------------------------------
+34. Question:
+What is a stateless protocol?
+
+Answer:
+A protocol that treats each request independently without remembering previous interactions.
+
+--------------------------------------------------
+35. Question:
+Why is TCP considered reliable?
+
+Answer:
+Because it ensures ordered delivery, retransmits lost packets, and verifies data integrity.
+
+--------------------------------------------------
+36. Question:
+Why is UDP used for real-time applications?
+
+Answer:
+Because it provides faster communication with minimal delay.
+
+--------------------------------------------------
+37. Question:
+Name four protocols or services that commonly use TCP.
+
+Answer:
+HTTP, HTTPS, SSH, and FTP.
+
+--------------------------------------------------
+38. Question:
+Name four services that commonly use UDP.
+
+Answer:
+DNS, VoIP, video streaming, and online gaming.
+
+--------------------------------------------------
+39. Question (Attack Perspective):
+How might attackers exploit transport layer protocols?
+
+Answer:
+Attackers may perform attacks such as TCP SYN floods, session hijacking, or UDP amplification attacks to disrupt services or intercept communications.
+
+--------------------------------------------------
+40. Question (Defensive Perspective):
+How can defenders protect transport layer communication?
+
+Answer:
+Defenders can implement firewalls, rate limiting, SYN flood protection, network monitoring, and encryption protocols such as TLS to protect transport layer communication.

@@ -1,0 +1,447 @@
+Network Infrastructure
+- Physical and virtual devices responsible for forwarding, filtering, and controlling network traffic
+
+
+==================================================
+1. Core Devices
+==================================================
+- Core networking devices are responsible for moving data between systems.
+- They operate at different layers of the networking stack and form the backbone of most networks.
+
+
+Hub:
+- A hub is a simple Layer 1 device that broadcasts incoming signals to all connected ports.
+- It does not inspect or filter traffic and simply repeats electrical signals.
+- Because of its inefficiency and security limitations, hubs are largely obsolete and have been replaced by switches.
+
+
+Switch:
+- A switch is a networking device that forwards data frames between devices within a local network.
+- Unlike a hub, a switch uses MAC addresses to determine the correct destination port for each frame.
+- Switches reduce collisions and improve network performance by sending traffic only where it needs to go.
+
+
+Layer 2 Switch:
+- A Layer 2 switch operates at the Data Link layer of the OSI model and makes forwarding decisions based on MAC addresses.
+- It maintains a MAC address table to map devices to specific ports.
+- Layer 2 switches are commonly used in LAN environments to connect multiple devices within the same network.
+
+
+Layer 3 Switch:
+- A Layer 3 switch combines switching functionality with routing capabilities.
+- It can forward traffic between different IP networks or VLANs while still performing high-speed switching.
+- Layer 3 switches are often used in large enterprise networks where both switching and routing are required.
+
+
+Router:
+- A router is a device that forwards packets between different networks using IP addresses.
+- Routers analyze routing tables to determine the best path for packets to reach their destination.
+- They are commonly used to connect local networks to other networks such as the Internet.
+
+
+Bridge:
+- A bridge is a device that connects two network segments and forwards traffic between them based on MAC addresses.
+- It functions similarly to a switch but typically has fewer ports and simpler functionality.
+- Bridges were historically used to divide networks into smaller segments.
+
+
+Repeater:
+- A repeater is a Layer 1 device that regenerates or amplifies signals to extend the distance of a network connection.
+- As signals travel through cables they weaken over distance, and repeaters help maintain signal integrity.
+- Modern networking equipment often integrates repeater functionality internally.
+
+
+==================================================
+2. Wireless Infrastructure
+==================================================
+- Wireless infrastructure devices provide network connectivity using radio signals instead of physical cables.
+
+
+WiFi Access Point:
+- A WiFi Access Point (AP) allows wireless devices to connect to a wired network using WiFi.
+- It acts as a bridge between wireless clients and the wired LAN.
+- Access points are commonly used in homes, offices, and public spaces to provide wireless network coverage.
+
+
+Wireless Controller:
+- A wireless controller manages multiple access points from a central location.
+- It handles tasks such as configuration, security policies, channel management, and client roaming.
+- Wireless controllers are typically used in large enterprise wireless networks.
+
+
+Wireless Bridge:
+- A wireless bridge connects two separate wired networks using a wireless link.
+- This is useful when running physical cables is difficult or expensive.
+- Wireless bridges are commonly used to connect buildings or remote network segments.
+
+
+==================================================
+3. Traffic Control Devices
+==================================================
+- Traffic control devices inspect, filter, or manage network traffic to improve security, performance, and reliability.
+
+
+Firewall:
+- A firewall monitors and filters network traffic based on predefined security rules.
+- It can allow or block traffic depending on IP addresses, ports, protocols, or application behavior.
+- Firewalls are commonly placed at network boundaries to protect internal systems from external threats.
+
+
+Load Balancer:
+- A load balancer distributes incoming network traffic across multiple servers.
+- This improves performance, scalability, and reliability by preventing any single server from becoming overloaded.
+- Load balancers are widely used in web infrastructure and cloud environments.
+
+
+Proxy:
+- A proxy server acts as an intermediary between a client and another server.
+- Instead of connecting directly to a destination, the client sends requests to the proxy, which forwards them.
+- Proxies can provide caching, filtering, anonymity, and access control.
+
+
+Reverse Proxy:
+- A reverse proxy sits in front of one or more servers and forwards incoming client requests to them.
+- It hides the internal server architecture and can provide load balancing, caching, and security protections.
+- Reverse proxies are commonly used for web servers and APIs.
+
+
+NAT Device:
+- A Network Address Translation (NAT) device modifies IP address information in packets as they pass through a router or firewall.
+- This allows multiple devices on a private network to share a single public IP address.
+- NAT is widely used in home and enterprise networks to conserve IPv4 addresses.
+
+
+VPN Gateway (Virtual Private Network):
+- A VPN gateway establishes secure encrypted tunnels between networks or remote users.
+- It allows secure communication over public networks such as the Internet.
+- VPN gateways are used for remote access VPNs and site-to-site VPN connections.
+
+
+IDS (Intrusion Detection System):
+- An IDS monitors network traffic for suspicious or malicious activity.
+- It analyzes traffic patterns and generates alerts when potential attacks or anomalies are detected.
+- IDS systems typically do not block traffic but notify administrators of possible threats.
+
+
+IPS (Intrusion Prevention System):
+- An IPS is similar to an IDS but can actively block or prevent malicious traffic in real time.
+- It analyzes packets and can automatically stop attacks such as exploits or suspicious behavior.
+- IPS systems are often deployed inline within network traffic paths.
+
+
+==================================================
+4. Questions & Answers
+==================================================
+1. Question:
+What is network infrastructure?
+
+Answer:
+Network infrastructure refers to the physical and virtual devices responsible for forwarding, filtering, and controlling network traffic.
+
+--------------------------------------------------
+2. Question:
+What role do core networking devices play in a network?
+
+Answer:
+Core networking devices move data between systems and form the backbone of most networks.
+
+--------------------------------------------------
+3. Question:
+At which OSI layer does a hub operate?
+
+Answer:
+Layer 1, the Physical Layer.
+
+--------------------------------------------------
+4. Question:
+How does a hub forward network traffic?
+
+Answer:
+A hub broadcasts incoming signals to all connected ports.
+
+--------------------------------------------------
+5. Question:
+Why are hubs considered inefficient?
+
+Answer:
+Because they broadcast traffic to every device and cannot inspect or filter packets.
+
+--------------------------------------------------
+6. Question:
+Why have hubs largely been replaced in modern networks?
+
+Answer:
+Switches provide better performance, reduce collisions, and improve security.
+
+--------------------------------------------------
+7. Question:
+What is a switch?
+
+Answer:
+A switch is a networking device that forwards data frames between devices within a local network.
+
+--------------------------------------------------
+8. Question:
+How does a switch determine where to send data?
+
+Answer:
+It uses MAC addresses to identify the correct destination port.
+
+--------------------------------------------------
+9. Question:
+How do switches improve network performance?
+
+Answer:
+By sending traffic only to the intended device rather than broadcasting it to all devices.
+
+--------------------------------------------------
+10. Question:
+At which OSI layer does a Layer 2 switch operate?
+
+Answer:
+The Data Link Layer (Layer 2).
+
+--------------------------------------------------
+11. Question:
+What information does a Layer 2 switch use to forward frames?
+
+Answer:
+MAC addresses stored in its MAC address table.
+
+--------------------------------------------------
+12. Question:
+What is a Layer 3 switch?
+
+Answer:
+A switch that can perform both switching and routing functions.
+
+--------------------------------------------------
+13. Question:
+What capability distinguishes a Layer 3 switch from a Layer 2 switch?
+
+Answer:
+It can route traffic between different IP networks or VLANs.
+
+--------------------------------------------------
+14. Question:
+What is a router?
+
+Answer:
+A device that forwards packets between different networks using IP addresses.
+
+--------------------------------------------------
+15. Question:
+What information do routers use to determine packet paths?
+
+Answer:
+Routing tables.
+
+--------------------------------------------------
+16. Question:
+Where are routers commonly used?
+
+Answer:
+To connect local networks to other networks such as the Internet.
+
+--------------------------------------------------
+17. Question:
+What is a bridge?
+
+Answer:
+A device that connects two network segments and forwards traffic based on MAC addresses.
+
+--------------------------------------------------
+18. Question:
+How does a bridge differ from a switch?
+
+Answer:
+A bridge performs similar functions but usually has fewer ports and simpler capabilities.
+
+--------------------------------------------------
+19. Question:
+What is a repeater?
+
+Answer:
+A device that regenerates or amplifies signals to extend the distance of a network connection.
+
+--------------------------------------------------
+20. Question:
+Why are repeaters needed in networking?
+
+Answer:
+Because signals weaken as they travel over long distances.
+
+--------------------------------------------------
+21. Question:
+What is a WiFi Access Point?
+
+Answer:
+A device that allows wireless devices to connect to a wired network using WiFi.
+
+--------------------------------------------------
+22. Question:
+What role does an access point play in a network?
+
+Answer:
+It acts as a bridge between wireless clients and the wired LAN.
+
+--------------------------------------------------
+23. Question:
+What is a wireless controller?
+
+Answer:
+A centralized device that manages multiple wireless access points.
+
+--------------------------------------------------
+24. Question:
+What functions can wireless controllers perform?
+
+Answer:
+Configuration management, security enforcement, channel management, and client roaming.
+
+--------------------------------------------------
+25. Question:
+What is a wireless bridge?
+
+Answer:
+A device that connects two separate wired networks using a wireless connection.
+
+--------------------------------------------------
+26. Question:
+When are wireless bridges commonly used?
+
+Answer:
+When running physical cables between locations is difficult or expensive.
+
+--------------------------------------------------
+27. Question:
+What are traffic control devices?
+
+Answer:
+Devices that inspect, filter, or manage network traffic to improve security and performance.
+
+--------------------------------------------------
+28. Question:
+What is the purpose of a firewall?
+
+Answer:
+To monitor and filter network traffic based on predefined security rules.
+
+--------------------------------------------------
+29. Question:
+Where are firewalls commonly deployed?
+
+Answer:
+At network boundaries to protect internal systems from external threats.
+
+--------------------------------------------------
+30. Question:
+What is a load balancer?
+
+Answer:
+A device that distributes incoming network traffic across multiple servers.
+
+--------------------------------------------------
+31. Question:
+Why are load balancers used in modern infrastructure?
+
+Answer:
+To improve performance, scalability, and reliability.
+
+--------------------------------------------------
+32. Question:
+What is a proxy server?
+
+Answer:
+An intermediary server that forwards client requests to another server.
+
+--------------------------------------------------
+33. Question:
+What functions can a proxy server provide?
+
+Answer:
+Caching, filtering, anonymity, and access control.
+
+--------------------------------------------------
+34. Question:
+What is a reverse proxy?
+
+Answer:
+A server that sits in front of backend servers and forwards incoming client requests to them.
+
+--------------------------------------------------
+35. Question:
+Why are reverse proxies commonly used in web infrastructure?
+
+Answer:
+To provide load balancing, security protections, and hide internal server architecture.
+
+--------------------------------------------------
+36. Question:
+What is Network Address Translation (NAT)?
+
+Answer:
+A technique that modifies IP address information in packets so multiple devices can share a single public IP address.
+
+--------------------------------------------------
+37. Question:
+Why is NAT commonly used?
+
+Answer:
+To conserve IPv4 addresses and allow private networks to access the Internet.
+
+--------------------------------------------------
+38. Question:
+What is a VPN gateway?
+
+Answer:
+A device that creates encrypted tunnels between networks or remote users.
+
+--------------------------------------------------
+39. Question:
+Why are VPN gateways used?
+
+Answer:
+To provide secure communication over untrusted networks such as the Internet.
+
+--------------------------------------------------
+40. Question:
+What is an IDS?
+
+Answer:
+An Intrusion Detection System that monitors network traffic for suspicious or malicious activity.
+
+--------------------------------------------------
+41. Question:
+What does an IDS typically do when it detects suspicious activity?
+
+Answer:
+It generates alerts but does not block the traffic.
+
+--------------------------------------------------
+42. Question:
+What is an IPS?
+
+Answer:
+An Intrusion Prevention System that can detect and automatically block malicious traffic.
+
+--------------------------------------------------
+43. Question:
+How does an IPS differ from an IDS?
+
+Answer:
+An IPS operates inline and can actively stop attacks, while an IDS only alerts administrators.
+
+--------------------------------------------------
+44. Question (Attack Perspective):
+How might attackers exploit network infrastructure devices?
+
+Answer:
+Attackers may target misconfigured routers, exploit exposed management interfaces, bypass firewalls, poison ARP tables, or compromise network devices to intercept or redirect traffic.
+
+--------------------------------------------------
+45. Question (Defensive Perspective):
+How can defenders secure network infrastructure devices?
+
+Answer:
+Defenders can secure infrastructure by restricting management access, applying firmware updates, implementing network segmentation, monitoring traffic, and deploying firewalls, IDS, and IPS systems.

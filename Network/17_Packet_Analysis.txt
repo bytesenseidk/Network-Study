@@ -1,0 +1,620 @@
+Packet Analysis with Wireshark
+- How network traffic can be captured and analyzed to understand communication, troubleshoot issues, and detect suspicious activity.
+
+
+==================================================
+1. Overview
+==================================================
+- Packet analysis is the process of capturing and inspecting network packets to understand how systems communicate.
+- Tools such as Wireshark allow analysts to view packets in detail, including protocol headers, payload data, and timing information.
+- Packet analysis is widely used for troubleshooting network issues, learning how protocols work, and investigating security incidents.
+
+
+==================================================
+2. What Wireshark Does
+==================================================
+- Wireshark is a graphical packet analysis tool used to capture and inspect network traffic.
+- It can decode hundreds of network protocols and display their internal structure.
+- Wireshark shows packets as they move across the network and organizes them by protocol layers.
+
+Typical Uses:
+- Troubleshooting network problems
+- Understanding protocol behavior
+- Investigating security incidents
+- Detecting suspicious traffic
+- Learning networking concepts
+
+
+==================================================
+3. Packet Capture Process
+==================================================
+- Packet capture records traffic passing through a network interface.
+
+Typical steps:
+
+1. Select a network interface (Ethernet or WiFi).
+2. Start capturing packets.
+3. Generate network traffic or observe existing communication.
+4. Stop the capture.
+5. Analyze captured packets.
+
+Example capture interfaces:
+- eth0
+- wlan0
+- en0
+
+
+==================================================
+4. Wireshark Interface Layout
+==================================================
+Wireshark displays packets in three main sections.
+
+Packet List (Top Pane)
+- Displays a list of captured packets with basic information.
+
+Packet Details (Middle Pane)
+- Shows the protocol layers and fields of the selected packet.
+
+Packet Bytes (Bottom Pane)
+- Displays the raw packet data in hexadecimal and ASCII format.
+
+
+Example Layout:
+
+Packet List
+--------------------------------
+Frame | Time | Source | Destination | Protocol
+
+Packet Details
+--------------------------------
+Ethernet
+IP
+TCP
+HTTP
+
+Packet Bytes
+--------------------------------
+Raw hexadecimal packet data
+
+
+==================================================
+5. Reading Packet Layers
+==================================================
+Wireshark displays packets using the same layered structure as networking models.
+
+Example packet:
+
+Frame
+ └── Ethernet II
+      └── Internet Protocol (IP)
+           └── Transmission Control Protocol (TCP)
+                └── HTTP Request
+
+Each layer contains its own header fields.
+
+
+==================================================
+6. Analyzing a TCP Connection
+==================================================
+A TCP connection typically begins with a three-way handshake.
+
+Example sequence:
+
+1. SYN
+- Client requests connection.
+
+2. SYN-ACK
+- Server acknowledges and agrees.
+
+3. ACK
+- Client confirms connection.
+
+Packet view example:
+
+Client → Server
+SYN
+
+Server → Client
+SYN-ACK
+
+Client → Server
+ACK
+
+After this handshake, application data can be transmitted.
+
+
+==================================================
+7. Analyzing DNS Traffic
+==================================================
+DNS queries resolve domain names into IP addresses.
+
+Example:
+
+Client sends DNS query:
+"What is the IP address for example.com?"
+
+DNS server responds:
+example.com → 93.184.216.34
+
+Wireshark typically shows:
+
+Protocol: DNS
+Info: Standard query
+
+
+==================================================
+8. Common Display Filters
+==================================================
+Wireshark filters allow analysts to isolate specific types of traffic.
+
+Examples:
+
+Show only HTTP traffic:
+http
+
+Show only DNS queries:
+dns
+
+Show only TCP packets:
+tcp
+
+Show packets from a specific IP:
+ip.addr == 192.168.1.10
+
+Show traffic for a specific port:
+tcp.port == 80
+
+Show TLS traffic:
+tls
+
+
+==================================================
+9. Identifying Suspicious Traffic
+==================================================
+Packet analysis can reveal abnormal or malicious behavior.
+
+Examples of suspicious indicators:
+
+Port scanning
+- Large numbers of connection attempts to many ports.
+
+DNS tunneling
+- Unusually large or frequent DNS requests.
+
+Command and control traffic
+- Repeated connections to unknown remote servers.
+
+Data exfiltration
+- Large outbound transfers to unfamiliar destinations.
+
+Malformed packets
+- Packets with unusual or invalid header values.
+
+
+==================================================
+10. Common Packet Analysis Use Cases
+==================================================
+Troubleshooting
+- Identifying dropped connections or misconfigured services.
+
+Performance Analysis
+- Detecting latency, retransmissions, or packet loss.
+
+Protocol Learning
+- Observing how protocols such as TCP, DNS, or HTTP operate.
+
+Security Investigation
+- Identifying attacks, malware communication, or suspicious behavior.
+
+
+==================================================
+11. Example Investigation Workflow
+==================================================
+Basic packet investigation process:
+
+1. Capture traffic
+2. Apply filters
+3. Identify unusual packets
+4. Examine protocol layers
+5. Analyze source and destination
+6. Investigate payload data
+
+
+==================================================
+12. Simple Packet Analysis Example
+==================================================
+
+User opens a website.
+
+Observed packet flow:
+
+DNS Query
+Client → DNS Server
+
+DNS Response
+DNS Server → Client
+
+TCP SYN
+Client → Web Server
+
+TCP SYN-ACK
+Web Server → Client
+
+TCP ACK
+Client → Web Server
+
+TLS Handshake
+Client ↔ Server
+
+HTTP Request
+Client → Server
+
+HTTP Response
+Server → Client
+
+
+==================================================
+13. Why Packet Analysis Matters
+==================================================
+- Packet analysis provides visibility into how networks actually operate.
+- It allows engineers to diagnose connectivity problems and optimize performance.
+- Security analysts rely on packet inspection to detect attacks and investigate incidents.
+
+Understanding packet analysis is a critical skill for:
+- Network engineers
+- Security analysts
+- Incident responders
+- Penetration testers
+
+
+==================================================
+14. Questions & Answers
+==================================================
+1. Question:
+What is packet analysis?
+
+Answer:
+Packet analysis is the process of capturing and inspecting network packets to understand how systems communicate across a network.
+
+--------------------------------------------------
+2. Question:
+Why is packet analysis useful?
+
+Answer:
+It helps troubleshoot network issues, understand protocol behavior, and investigate security incidents.
+
+--------------------------------------------------
+3. Question:
+What tool is commonly used for graphical packet analysis?
+
+Answer:
+Wireshark.
+
+--------------------------------------------------
+4. Question:
+What type of tool is Wireshark?
+
+Answer:
+A graphical packet capture and protocol analysis tool.
+
+--------------------------------------------------
+5. Question:
+What can Wireshark display about network packets?
+
+Answer:
+Protocol headers, payload data, and timing information.
+
+--------------------------------------------------
+6. Question:
+Name four common uses of Wireshark.
+
+Answer:
+Troubleshooting network problems, understanding protocol behavior, investigating security incidents, and detecting suspicious traffic.
+
+--------------------------------------------------
+7. Question:
+What is packet capture?
+
+Answer:
+Packet capture is the process of recording network traffic passing through a network interface.
+
+--------------------------------------------------
+8. Question:
+What is the first step in capturing packets with Wireshark?
+
+Answer:
+Selecting a network interface such as Ethernet or WiFi.
+
+--------------------------------------------------
+9. Question:
+What happens after selecting a network interface?
+
+Answer:
+The analyst starts capturing packets.
+
+--------------------------------------------------
+10. Question:
+Why might analysts generate network traffic during packet capture?
+
+Answer:
+To observe specific communication such as website requests or application traffic.
+
+--------------------------------------------------
+11. Question:
+What are examples of network capture interfaces?
+
+Answer:
+eth0, wlan0, and en0.
+
+--------------------------------------------------
+12. Question:
+What are the three main panes in the Wireshark interface?
+
+Answer:
+Packet List, Packet Details, and Packet Bytes.
+
+--------------------------------------------------
+13. Question:
+What information is shown in the Packet List pane?
+
+Answer:
+A list of captured packets with summary details such as source, destination, time, and protocol.
+
+--------------------------------------------------
+14. Question:
+What information is shown in the Packet Details pane?
+
+Answer:
+The protocol layers and fields contained in the selected packet.
+
+--------------------------------------------------
+15. Question:
+What information is shown in the Packet Bytes pane?
+
+Answer:
+The raw packet data displayed in hexadecimal and ASCII format.
+
+--------------------------------------------------
+16. Question:
+How does Wireshark display packet layers?
+
+Answer:
+Using a hierarchical structure that represents encapsulated protocol layers.
+
+--------------------------------------------------
+17. Question:
+What layers might appear in a typical captured web packet?
+
+Answer:
+Ethernet, IP, TCP, and HTTP.
+
+--------------------------------------------------
+18. Question:
+What usually begins a TCP connection?
+
+Answer:
+The three-way handshake.
+
+--------------------------------------------------
+19. Question:
+What is the first packet in the TCP handshake?
+
+Answer:
+SYN.
+
+--------------------------------------------------
+20. Question:
+What packet does the server send in response to SYN?
+
+Answer:
+SYN-ACK.
+
+--------------------------------------------------
+21. Question:
+What packet completes the TCP handshake?
+
+Answer:
+ACK.
+
+--------------------------------------------------
+22. Question:
+What happens after the TCP handshake completes?
+
+Answer:
+Application data can begin transmitting.
+
+--------------------------------------------------
+23. Question:
+What is the purpose of DNS traffic observed in Wireshark?
+
+Answer:
+To resolve domain names into IP addresses.
+
+--------------------------------------------------
+24. Question:
+What does a DNS query typically ask?
+
+Answer:
+It asks for the IP address associated with a domain name.
+
+--------------------------------------------------
+25. Question:
+What does a DNS response provide?
+
+Answer:
+The IP address corresponding to the requested domain.
+
+--------------------------------------------------
+26. Question:
+What are Wireshark display filters used for?
+
+Answer:
+To isolate specific types of traffic in captured packets.
+
+--------------------------------------------------
+27. Question:
+What filter shows only HTTP traffic?
+
+Answer:
+http.
+
+--------------------------------------------------
+28. Question:
+What filter shows only DNS traffic?
+
+Answer:
+dns.
+
+--------------------------------------------------
+29. Question:
+What filter shows only TCP packets?
+
+Answer:
+tcp.
+
+--------------------------------------------------
+30. Question:
+How can you filter packets for a specific IP address?
+
+Answer:
+ip.addr == 192.168.1.10.
+
+--------------------------------------------------
+31. Question:
+How can you filter traffic for a specific TCP port?
+
+Answer:
+tcp.port == 80.
+
+--------------------------------------------------
+32. Question:
+What filter displays encrypted TLS traffic?
+
+Answer:
+tls.
+
+--------------------------------------------------
+33. Question:
+What type of activity might indicate a port scan in packet captures?
+
+Answer:
+Many connection attempts to different ports from the same source.
+
+--------------------------------------------------
+34. Question:
+What might unusually large DNS traffic indicate?
+
+Answer:
+DNS tunneling.
+
+--------------------------------------------------
+35. Question:
+What could repeated connections to unknown remote servers indicate?
+
+Answer:
+Possible command and control (C2) traffic.
+
+--------------------------------------------------
+36. Question:
+What type of behavior might indicate data exfiltration?
+
+Answer:
+Large outbound data transfers to unfamiliar destinations.
+
+--------------------------------------------------
+37. Question:
+Why are malformed packets suspicious?
+
+Answer:
+They may indicate attempts to exploit protocol vulnerabilities.
+
+--------------------------------------------------
+38. Question:
+What is a common troubleshooting use case for packet analysis?
+
+Answer:
+Identifying dropped connections or misconfigured services.
+
+--------------------------------------------------
+39. Question:
+What is a common performance analysis use case?
+
+Answer:
+Detecting latency, retransmissions, or packet loss.
+
+--------------------------------------------------
+40. Question:
+Why do security analysts use packet analysis?
+
+Answer:
+To detect attacks, malware communication, and suspicious behavior.
+
+--------------------------------------------------
+41. Question:
+What is the first step in a packet investigation workflow?
+
+Answer:
+Capture network traffic.
+
+--------------------------------------------------
+42. Question:
+What is the second step after capturing traffic?
+
+Answer:
+Apply filters to isolate relevant packets.
+
+--------------------------------------------------
+43. Question:
+What should analysts examine after identifying suspicious packets?
+
+Answer:
+Protocol layers and packet details.
+
+--------------------------------------------------
+44. Question:
+What information should analysts review to understand communication patterns?
+
+Answer:
+Source and destination addresses.
+
+--------------------------------------------------
+45. Question:
+Why is examining payload data useful?
+
+Answer:
+It may reveal commands, requests, or suspicious data transfers.
+
+--------------------------------------------------
+46. Question:
+What sequence of packets is typically observed when opening a website?
+
+Answer:
+DNS query, DNS response, TCP handshake, TLS handshake, HTTP request, and HTTP response.
+
+--------------------------------------------------
+47. Question:
+Why is packet analysis an important networking skill?
+
+Answer:
+It provides deep visibility into network communication and helps diagnose problems.
+
+--------------------------------------------------
+48. Question:
+Which professionals commonly rely on packet analysis?
+
+Answer:
+Network engineers, security analysts, incident responders, and penetration testers.
+
+--------------------------------------------------
+49. Question (Attack Perspective):
+How might attackers attempt to evade packet analysis?
+
+Answer:
+Attackers may encrypt malicious traffic, use covert channels such as DNS tunneling, fragment packets, or blend malicious traffic with normal network activity.
+
+--------------------------------------------------
+50. Question (Defensive Perspective):
+How can defenders use packet analysis to improve security?
+
+Answer:
+Defenders can monitor traffic patterns, inspect protocol behavior, detect anomalies, and investigate suspicious communication using tools like Wireshark and tcpdump.

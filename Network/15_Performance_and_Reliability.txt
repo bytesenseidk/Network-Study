@@ -1,0 +1,347 @@
+Performance & Reliability
+- How network performance is measured and optimized to ensure reliable communication
+
+
+==================================================
+1. Network Characteristics
+==================================================
+- Network characteristics describe measurable properties of how data travels across a network.
+- These metrics help administrators understand network performance, diagnose problems, and optimize communication between systems.
+
+
+Bandwidth:
+- Bandwidth refers to the maximum amount of data that can be transmitted over a network link within a given period of time.
+- It is typically measured in bits per second (bps), such as Mbps or Gbps.
+- Higher bandwidth allows more data to be transmitted simultaneously, improving the potential capacity of the network.
+
+
+Latency:
+- Latency is the time it takes for data to travel from the source to the destination across a network.
+- It is usually measured in milliseconds (ms).
+- High latency can cause noticeable delays in applications such as online gaming, voice communication, and real-time systems.
+
+
+Throughput:
+- Throughput represents the actual rate at which data is successfully transmitted across the network.
+- While bandwidth describes the theoretical maximum capacity, throughput reflects the real-world performance after factors such as congestion, overhead, and packet loss are considered.
+
+
+Jitter:
+- Jitter refers to variations in packet arrival time during transmission.
+- Inconsistent delays can disrupt applications that rely on steady data streams, such as video conferencing or Voice over IP (VoIP).
+- Low jitter is important for maintaining smooth real-time communication.
+
+
+Packet Loss:
+- Packet loss occurs when data packets fail to reach their destination during transmission.
+- This can happen due to network congestion, faulty hardware, signal interference, or routing issues.
+- Packet loss can degrade performance and cause retransmission, which increases latency and reduces throughput.
+
+
+==================================================
+2. Quality Control
+==================================================
+- Quality control mechanisms help manage network traffic to ensure important data receives priority and network resources are used efficiently.
+
+
+Quality of Service (QoS):
+- Quality of Service (QoS) is a set of techniques used to prioritize certain types of network traffic.
+- It allows network devices to allocate bandwidth and manage traffic based on predefined policies.
+- QoS is commonly used to prioritize latency-sensitive applications such as voice, video, and critical business systems.
+
+
+Traffic Shaping:
+- Traffic shaping is a network management technique that controls the rate at which data packets are transmitted.
+- It helps smooth traffic bursts and prevent network congestion by limiting or delaying certain types of traffic.
+- Traffic shaping is often used by service providers and enterprise networks to maintain consistent performance across the network.
+
+
+==================================================
+3. Key Network Performance Metrics (Visual Overview)
+==================================================
+
+These five metrics explain most network performance problems:
+
+Bandwidth     → How much data can travel  
+Latency       → How long data takes to travel  
+Throughput    → How much data actually arrives  
+Jitter        → How consistent packet timing is  
+Packet Loss   → How much data disappears  
+
+
+==================================================
+4. Example Performance Problems
+==================================================
+
+Slow website:
+- High latency or packet loss.
+
+
+Laggy video call:
+- High jitter or packet loss.
+
+
+Slow downloads:
+- Low throughput or limited bandwidth.
+
+
+==================================================
+5. Questions & Answers
+==================================================
+1. Question:
+What does network performance refer to?
+
+Answer:
+Network performance refers to how efficiently data is transmitted across a network and how reliably communication occurs between devices.
+
+--------------------------------------------------
+2. Question:
+What do network characteristics describe?
+
+Answer:
+They describe measurable properties of how data travels across a network.
+
+--------------------------------------------------
+3. Question:
+Why are network performance metrics important?
+
+Answer:
+They help administrators diagnose problems, understand network behavior, and optimize communication between systems.
+
+--------------------------------------------------
+4. Question:
+What is bandwidth?
+
+Answer:
+Bandwidth is the maximum amount of data that can be transmitted over a network link in a given period of time.
+
+--------------------------------------------------
+5. Question:
+What unit is commonly used to measure bandwidth?
+
+Answer:
+Bits per second (bps), such as Mbps or Gbps.
+
+--------------------------------------------------
+6. Question:
+What does higher bandwidth allow in a network?
+
+Answer:
+More data can be transmitted simultaneously.
+
+--------------------------------------------------
+7. Question:
+What is latency?
+
+Answer:
+Latency is the time it takes for data to travel from the source to the destination across a network.
+
+--------------------------------------------------
+8. Question:
+How is latency typically measured?
+
+Answer:
+In milliseconds (ms).
+
+--------------------------------------------------
+9. Question:
+What user experience issues can high latency cause?
+
+Answer:
+Delays in applications such as gaming, voice calls, and real-time communication.
+
+--------------------------------------------------
+10. Question:
+What is throughput?
+
+Answer:
+Throughput is the actual rate at which data is successfully transmitted across a network.
+
+--------------------------------------------------
+11. Question:
+What is the difference between bandwidth and throughput?
+
+Answer:
+Bandwidth is the theoretical maximum capacity of a network link, while throughput is the real-world rate of successful data transmission.
+
+--------------------------------------------------
+12. Question:
+What factors can reduce throughput?
+
+Answer:
+Network congestion, packet loss, protocol overhead, and hardware limitations.
+
+--------------------------------------------------
+13. Question:
+What is jitter?
+
+Answer:
+Jitter is the variation in packet arrival times during transmission.
+
+--------------------------------------------------
+14. Question:
+Why is jitter problematic for real-time applications?
+
+Answer:
+Because inconsistent packet timing can disrupt voice or video communication.
+
+--------------------------------------------------
+15. Question:
+Which applications are most sensitive to jitter?
+
+Answer:
+Video conferencing, VoIP calls, and live streaming.
+
+--------------------------------------------------
+16. Question:
+What is packet loss?
+
+Answer:
+Packet loss occurs when data packets fail to reach their destination during transmission.
+
+--------------------------------------------------
+17. Question:
+What are common causes of packet loss?
+
+Answer:
+Network congestion, hardware failures, signal interference, and routing issues.
+
+--------------------------------------------------
+18. Question:
+How does packet loss affect network performance?
+
+Answer:
+It causes retransmissions, increases latency, and reduces throughput.
+
+--------------------------------------------------
+19. Question:
+What is Quality of Service (QoS)?
+
+Answer:
+QoS is a set of techniques used to prioritize certain types of network traffic.
+
+--------------------------------------------------
+20. Question:
+Why is QoS important in networks?
+
+Answer:
+It ensures that critical or latency-sensitive traffic receives priority.
+
+--------------------------------------------------
+21. Question:
+Which types of applications often benefit from QoS?
+
+Answer:
+Voice communication, video conferencing, and real-time services.
+
+--------------------------------------------------
+22. Question:
+What is traffic shaping?
+
+Answer:
+Traffic shaping is a technique that controls the rate at which packets are transmitted.
+
+--------------------------------------------------
+23. Question:
+What is the purpose of traffic shaping?
+
+Answer:
+To smooth traffic bursts and prevent network congestion.
+
+--------------------------------------------------
+24. Question:
+Where is traffic shaping commonly used?
+
+Answer:
+In enterprise networks and by Internet service providers.
+
+--------------------------------------------------
+25. Question:
+Which five metrics explain most network performance issues?
+
+Answer:
+Bandwidth, latency, throughput, jitter, and packet loss.
+
+--------------------------------------------------
+26. Question:
+What does bandwidth represent in simple terms?
+
+Answer:
+How much data can travel through the network.
+
+--------------------------------------------------
+27. Question:
+What does latency represent?
+
+Answer:
+How long data takes to travel between devices.
+
+--------------------------------------------------
+28. Question:
+What does throughput represent?
+
+Answer:
+How much data successfully arrives at the destination.
+
+--------------------------------------------------
+29. Question:
+What does jitter represent?
+
+Answer:
+How consistent the packet arrival timing is.
+
+--------------------------------------------------
+30. Question:
+What does packet loss represent?
+
+Answer:
+How much transmitted data disappears during transmission.
+
+--------------------------------------------------
+31. Question:
+What network issue might cause a slow website?
+
+Answer:
+High latency or packet loss.
+
+--------------------------------------------------
+32. Question:
+What network issue might cause a laggy video call?
+
+Answer:
+High jitter or packet loss.
+
+--------------------------------------------------
+33. Question:
+What network issue might cause slow downloads?
+
+Answer:
+Low throughput or limited bandwidth.
+
+--------------------------------------------------
+34. Question:
+Why do retransmissions increase latency?
+
+Answer:
+Because lost packets must be resent before communication can continue.
+
+--------------------------------------------------
+35. Question:
+Why is monitoring network metrics important?
+
+Answer:
+It allows administrators to detect problems and maintain reliable network performance.
+
+--------------------------------------------------
+36. Question (Attack Perspective):
+How might attackers impact network performance metrics?
+
+Answer:
+Attackers may launch denial-of-service (DoS) attacks, packet flooding, or bandwidth exhaustion attacks to increase latency, cause packet loss, and degrade throughput.
+
+--------------------------------------------------
+37. Question (Defensive Perspective):
+How can defenders maintain network performance and reliability?
+
+Answer:
+Defenders can implement traffic monitoring, QoS policies, rate limiting, load balancing, redundancy, and intrusion detection systems to maintain stable network performance.

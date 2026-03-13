@@ -1,0 +1,338 @@
+Network Architecture
+- How networks are structured and how devices are logically connected
+
+
+==================================================
+1. Network Types
+==================================================
+- Network types describe the scope and scale of a network based on geographic coverage and the devices it connects.
+- Different network types are optimized for different distances, performance requirements, and use cases.
+
+
+LAN (Local Area Network):
+- A LAN is a network that connects devices within a limited geographic area such as a home, office, or building.
+- LANs typically use Ethernet or WiFi and provide high-speed communication between devices like computers, printers, and servers.
+- Most internal corporate networks and home networks are LANs.
+
+
+WAN (Wide Area Network):
+- A WAN connects multiple LANs across large geographic distances, often spanning cities, countries, or continents.
+- The Internet is the largest example of a WAN.
+- WANs typically rely on infrastructure provided by telecommunications providers and use technologies such as fiber optics, leased lines, and satellite links.
+
+
+MAN (Metropolitan Area Network):
+- A MAN covers a larger area than a LAN but smaller than a WAN, typically spanning a city or metropolitan region.
+- MANs are often operated by municipalities, universities, or large service providers to connect multiple local networks within a city.
+
+
+PAN (Personal Area Network):
+- A PAN is a very small network designed to connect devices around a single person.
+- Examples include Bluetooth connections between smartphones, wireless headphones, smartwatches, or other personal devices.
+- PANs typically operate over very short distances.
+
+
+==================================================
+2. Network Topologies
+==================================================
+- Network topology describes the physical or logical layout of how devices are connected in a network.
+- Different topologies affect reliability, scalability, performance, and fault tolerance.
+
+
+Star Topology:
+- In a star topology, all devices connect to a central device such as a switch or hub.
+- This is the most common topology used in modern Ethernet networks.
+- If one device fails, it does not affect the rest of the network, but failure of the central device can disrupt the entire network.
+
+
+Ring Topology:
+- In a ring topology, each device connects to two neighboring devices, forming a circular path for data.
+- Data travels around the ring until it reaches the destination device.
+- Older networking technologies such as Token Ring used this topology.
+
+
+Bus Topology:
+- In a bus topology, all devices share a single communication cable called the backbone.
+- Each device listens for traffic on the shared medium.
+- Bus networks were common in early Ethernet networks but are rarely used today due to collision and scalability issues.
+
+
+Mesh Topology:
+- In a mesh topology, devices are connected to multiple other devices, creating multiple paths for data to travel.
+- This increases redundancy and reliability because if one path fails, traffic can be rerouted through another path.
+- Mesh networks are common in backbone networks and wireless mesh systems.
+
+
+Hybrid Topology:
+- A hybrid topology combines multiple network topology types within the same network.
+- For example, a network may use star topology within buildings while connecting those networks together using mesh or hierarchical designs.
+
+
+==================================================
+3. Network Segmentation
+==================================================
+- Network segmentation is the practice of dividing a network into smaller, isolated segments to improve performance, organization, and security.
+- Segmentation limits broadcast traffic and helps prevent attackers from easily moving across the entire network.
+- Common segmentation techniques include VLANs, subnets, and firewall-controlled zones.
+
+
+==================================================
+4. Questions & Answers
+==================================================
+1. Question:
+What is network architecture?
+
+Answer:
+Network architecture describes how networks are structured and how devices are logically connected to communicate with one another.
+
+--------------------------------------------------
+2. Question:
+What do network types describe?
+
+Answer:
+Network types describe the scope and scale of a network based on geographic coverage and the devices it connects.
+
+--------------------------------------------------
+3. Question:
+Why do different network types exist?
+
+Answer:
+Different network types are designed to support different distances, performance requirements, and use cases.
+
+--------------------------------------------------
+4. Question:
+What does LAN stand for?
+
+Answer:
+Local Area Network.
+
+--------------------------------------------------
+5. Question:
+What is a LAN?
+
+Answer:
+A LAN is a network that connects devices within a limited geographic area such as a home, office, or building.
+
+--------------------------------------------------
+6. Question:
+What technologies are commonly used in LANs?
+
+Answer:
+Ethernet and WiFi.
+
+--------------------------------------------------
+7. Question:
+What types of devices are typically connected in a LAN?
+
+Answer:
+Computers, printers, servers, and other local devices.
+
+--------------------------------------------------
+8. Question:
+What does WAN stand for?
+
+Answer:
+Wide Area Network.
+
+--------------------------------------------------
+9. Question:
+What is a WAN?
+
+Answer:
+A WAN connects multiple LANs across large geographic distances such as cities, countries, or continents.
+
+--------------------------------------------------
+10. Question:
+What is the largest example of a WAN?
+
+Answer:
+The Internet.
+
+--------------------------------------------------
+11. Question:
+What infrastructure do WANs commonly rely on?
+
+Answer:
+Telecommunications infrastructure such as fiber optic links, leased lines, and satellite connections.
+
+--------------------------------------------------
+12. Question:
+What does MAN stand for?
+
+Answer:
+Metropolitan Area Network.
+
+--------------------------------------------------
+13. Question:
+What is a MAN?
+
+Answer:
+A MAN connects networks across a city or metropolitan region.
+
+--------------------------------------------------
+14. Question:
+Who commonly operates MAN networks?
+
+Answer:
+Municipalities, universities, and large service providers.
+
+--------------------------------------------------
+15. Question:
+What does PAN stand for?
+
+Answer:
+Personal Area Network.
+
+--------------------------------------------------
+16. Question:
+What is a PAN?
+
+Answer:
+A PAN is a very small network designed to connect personal devices around a single user.
+
+--------------------------------------------------
+17. Question:
+Name two technologies commonly used in PANs.
+
+Answer:
+Bluetooth and short-range wireless communication.
+
+--------------------------------------------------
+18. Question:
+What is network topology?
+
+Answer:
+Network topology describes the physical or logical layout of how devices are connected within a network.
+
+--------------------------------------------------
+19. Question:
+Why is network topology important?
+
+Answer:
+Topology affects reliability, scalability, performance, and fault tolerance.
+
+--------------------------------------------------
+20. Question:
+What is a star topology?
+
+Answer:
+A topology where all devices connect to a central device such as a switch or hub.
+
+--------------------------------------------------
+21. Question:
+What is the main advantage of star topology?
+
+Answer:
+Failure of one device does not affect the rest of the network.
+
+--------------------------------------------------
+22. Question:
+What is the main weakness of star topology?
+
+Answer:
+If the central device fails, the entire network may stop functioning.
+
+--------------------------------------------------
+23. Question:
+What is ring topology?
+
+Answer:
+A topology where devices connect in a circular structure and data travels around the ring.
+
+--------------------------------------------------
+24. Question:
+Which older networking technology used ring topology?
+
+Answer:
+Token Ring.
+
+--------------------------------------------------
+25. Question:
+What is bus topology?
+
+Answer:
+A topology where all devices share a single communication cable known as the backbone.
+
+--------------------------------------------------
+26. Question:
+Why are bus networks rarely used today?
+
+Answer:
+Because they suffer from collision issues and poor scalability.
+
+--------------------------------------------------
+27. Question:
+What is mesh topology?
+
+Answer:
+A topology where devices are connected to multiple other devices, creating redundant communication paths.
+
+--------------------------------------------------
+28. Question:
+What is the main advantage of mesh topology?
+
+Answer:
+High reliability and redundancy because multiple paths exist between devices.
+
+--------------------------------------------------
+29. Question:
+Where are mesh topologies commonly used?
+
+Answer:
+In backbone networks and wireless mesh networks.
+
+--------------------------------------------------
+30. Question:
+What is hybrid topology?
+
+Answer:
+A topology that combines multiple topology types within the same network.
+
+--------------------------------------------------
+31. Question:
+Why do many modern networks use hybrid topologies?
+
+Answer:
+Because they allow flexibility and scalability by combining the strengths of multiple designs.
+
+--------------------------------------------------
+32. Question:
+What is network segmentation?
+
+Answer:
+Network segmentation is the practice of dividing a network into smaller isolated segments.
+
+--------------------------------------------------
+33. Question:
+Why is network segmentation used?
+
+Answer:
+To improve performance, organization, and security.
+
+--------------------------------------------------
+34. Question:
+How does segmentation improve security?
+
+Answer:
+It prevents attackers from easily moving across the entire network if one system becomes compromised.
+
+--------------------------------------------------
+35. Question:
+Name three common network segmentation techniques.
+
+Answer:
+VLANs, subnets, and firewall-controlled zones.
+
+--------------------------------------------------
+36. Question (Attack Perspective):
+How might attackers exploit poorly designed network architecture?
+
+Answer:
+Attackers may move laterally across flat networks, exploit weak segmentation, or compromise central devices such as switches or routers.
+
+--------------------------------------------------
+37. Question (Defensive Perspective):
+How can defenders improve security through network architecture?
+
+Answer:
+Defenders can implement proper segmentation, isolate critical systems, use firewalls between network zones, and design resilient topologies to reduce the impact of attacks.

@@ -1,0 +1,351 @@
+Addressing & Identification
+- How devices, services, and communication endpoints are uniquely identified on a network
+
+
+==================================================
+1. Hardware Identification
+==================================================
+- Hardware identification refers to the unique identifiers assigned to network interfaces at the physical or data link layer.
+- These identifiers allow devices on the same local network to recognize and communicate with each other.
+
+
+MAC Addresses:
+- A MAC (Media Access Control) address is a unique hardware identifier assigned to a network interface card (NIC).
+- It is typically a 48-bit address written in hexadecimal format (for example: 00:1A:2B:3C:4D:5E).
+- MAC addresses operate at the Data Link layer (Layer 2) and are used by switches to deliver frames within a local network.
+
+
+==================================================
+2. Network Identification
+==================================================
+- Network identification refers to logical addressing systems used to identify devices across multiple interconnected networks.
+- These addresses enable routing and communication across the Internet and other large networks.
+
+
+IP Addresses:
+- An IP address is a logical identifier assigned to a device on a network that uses the Internet Protocol.
+- IP addresses allow routers to determine where packets should be delivered.
+- Unlike MAC addresses, IP addresses can change depending on the network the device connects to.
+
+
+IPv4:
+- IPv4 (Internet Protocol version 4) is the most widely used addressing system on the Internet.
+- It uses 32-bit addresses written in dotted-decimal format (for example: 192.168.1.1).
+- IPv4 supports approximately 4.3 billion unique addresses, which led to the development of IPv6 due to address exhaustion.
+
+
+IPv6:
+- IPv6 (Internet Protocol version 6) is the modern replacement for IPv4 and uses 128-bit addresses.
+- Addresses are written in hexadecimal and separated by colons (for example: 2001:0db8:85a3::8a2e:0370:7334).
+- IPv6 provides a vastly larger address space and improved support for modern networking features such as auto-configuration and improved routing.
+
+
+==================================================
+3. Service Identification
+==================================================
+- Service identification refers to how specific applications or services running on a device are distinguished from one another.
+
+
+Ports:
+- Ports are numerical identifiers used by transport protocols such as TCP and UDP to direct traffic to the correct service or application.
+- Each network service listens on a specific port number so incoming traffic can be delivered to the correct process.
+
+
+Well Known Ports:
+- Well-known ports range from 0 to 1023 and are reserved for common network services.
+- Examples include HTTP (port 80), HTTPS (port 443), DNS (port 53), and SSH (port 22).
+- These ports are standardized so that clients know where to connect for common services.
+
+
+Ephemeral Ports:
+- Ephemeral ports are temporary ports assigned by the operating system when a client application initiates a network connection.
+- They usually fall within the range of approximately 49152–65535.
+- These ports allow multiple simultaneous connections between clients and servers.
+
+
+==================================================
+4. Communication Endpoints
+==================================================
+- Communication endpoints define the specific location where a network connection begins or ends.
+
+
+Sockets:
+- A socket represents the combination of an IP address and a port number.
+- It uniquely identifies a communication endpoint used by an application.
+- For example, a web server might listen on socket 192.168.1.10:80 to receive HTTP requests.
+
+
+==================================================
+5. Questions & Answers
+==================================================
+1. Question:
+What is addressing and identification in networking?
+
+Answer:
+Addressing and identification refer to the mechanisms used to uniquely identify devices, services, and communication endpoints on a network.
+
+--------------------------------------------------
+2. Question:
+What is hardware identification in networking?
+
+Answer:
+Hardware identification refers to unique identifiers assigned to network interfaces at the physical or data link layer.
+
+--------------------------------------------------
+3. Question:
+Why is hardware identification important?
+
+Answer:
+It allows devices on the same local network to recognize and communicate with each other.
+
+--------------------------------------------------
+4. Question:
+What does MAC stand for?
+
+Answer:
+Media Access Control.
+
+--------------------------------------------------
+5. Question:
+What is a MAC address?
+
+Answer:
+A MAC address is a unique hardware identifier assigned to a Network Interface Card (NIC).
+
+--------------------------------------------------
+6. Question:
+How long is a MAC address?
+
+Answer:
+A MAC address is 48 bits long.
+
+--------------------------------------------------
+7. Question:
+How are MAC addresses typically written?
+
+Answer:
+In hexadecimal format, for example: 00:1A:2B:3C:4D:5E.
+
+--------------------------------------------------
+8. Question:
+At which OSI layer do MAC addresses operate?
+
+Answer:
+The Data Link Layer (Layer 2).
+
+--------------------------------------------------
+9. Question:
+Which network device primarily uses MAC addresses to forward frames?
+
+Answer:
+Switches.
+
+--------------------------------------------------
+10. Question:
+What is network identification?
+
+Answer:
+Network identification refers to logical addressing systems used to identify devices across interconnected networks.
+
+--------------------------------------------------
+11. Question:
+What protocol provides logical addressing across networks?
+
+Answer:
+The Internet Protocol (IP).
+
+--------------------------------------------------
+12. Question:
+What is an IP address?
+
+Answer:
+An IP address is a logical identifier assigned to a device so packets can be routed across networks.
+
+--------------------------------------------------
+13. Question:
+Why are IP addresses necessary?
+
+Answer:
+They allow routers to determine where packets should be delivered.
+
+--------------------------------------------------
+14. Question:
+How do MAC addresses differ from IP addresses?
+
+Answer:
+MAC addresses are hardware identifiers tied to network interfaces, while IP addresses are logical identifiers that can change depending on the network.
+
+--------------------------------------------------
+15. Question:
+What does IPv4 stand for?
+
+Answer:
+Internet Protocol version 4.
+
+--------------------------------------------------
+16. Question:
+How long are IPv4 addresses?
+
+Answer:
+32 bits.
+
+--------------------------------------------------
+17. Question:
+How are IPv4 addresses written?
+
+Answer:
+In dotted-decimal notation, for example: 192.168.1.1.
+
+--------------------------------------------------
+18. Question:
+Approximately how many unique IPv4 addresses exist?
+
+Answer:
+About 4.3 billion.
+
+--------------------------------------------------
+19. Question:
+Why was IPv6 developed?
+
+Answer:
+Because IPv4 addresses became exhausted.
+
+--------------------------------------------------
+20. Question:
+What does IPv6 stand for?
+
+Answer:
+Internet Protocol version 6.
+
+--------------------------------------------------
+21. Question:
+How long are IPv6 addresses?
+
+Answer:
+128 bits.
+
+--------------------------------------------------
+22. Question:
+How are IPv6 addresses written?
+
+Answer:
+In hexadecimal format separated by colons.
+
+--------------------------------------------------
+23. Question:
+What is an example of an IPv6 address?
+
+Answer:
+2001:0db8:85a3::8a2e:0370:7334.
+
+--------------------------------------------------
+24. Question:
+What advantages does IPv6 provide?
+
+Answer:
+A much larger address space, improved routing efficiency, and automatic address configuration.
+
+--------------------------------------------------
+25. Question:
+What is service identification?
+
+Answer:
+Service identification distinguishes applications or services running on a device so network traffic can be delivered correctly.
+
+--------------------------------------------------
+26. Question:
+What mechanism identifies services on a device?
+
+Answer:
+Ports.
+
+--------------------------------------------------
+27. Question:
+What are ports?
+
+Answer:
+Numerical identifiers used by transport protocols such as TCP and UDP to direct traffic to specific services.
+
+--------------------------------------------------
+28. Question:
+Why are ports necessary?
+
+Answer:
+They allow multiple services to run simultaneously on a single device.
+
+--------------------------------------------------
+29. Question:
+What range defines well-known ports?
+
+Answer:
+Ports 0–1023.
+
+--------------------------------------------------
+30. Question:
+Name four well-known ports.
+
+Answer:
+HTTP (80), HTTPS (443), DNS (53), and SSH (22).
+
+--------------------------------------------------
+31. Question:
+What are ephemeral ports?
+
+Answer:
+Temporary ports assigned by the operating system when a client initiates a network connection.
+
+--------------------------------------------------
+32. Question:
+What is the typical ephemeral port range?
+
+Answer:
+49152–65535.
+
+--------------------------------------------------
+33. Question:
+Why are ephemeral ports used?
+
+Answer:
+To allow multiple simultaneous client connections to servers.
+
+--------------------------------------------------
+34. Question:
+What is a communication endpoint in networking?
+
+Answer:
+A defined location where network communication begins or ends.
+
+--------------------------------------------------
+35. Question:
+What is a socket?
+
+Answer:
+A socket is the combination of an IP address and a port number.
+
+--------------------------------------------------
+36. Question:
+Why are sockets important?
+
+Answer:
+They uniquely identify communication endpoints used by applications.
+
+--------------------------------------------------
+37. Question:
+Give an example of a socket.
+
+Answer:
+192.168.1.10:80.
+
+--------------------------------------------------
+38. Question (Attack Perspective):
+How might attackers exploit addressing and identification mechanisms?
+
+Answer:
+Attackers may perform IP spoofing, MAC spoofing, port scanning, or enumeration to identify services and impersonate devices on a network.
+
+--------------------------------------------------
+39. Question (Defensive Perspective):
+How can defenders secure network addressing and service identification?
+
+Answer:
+Defenders can use network segmentation, firewall rules, port filtering, intrusion detection systems, and monitoring tools to detect spoofing and unauthorized access attempts.
