@@ -1,0 +1,12 @@
+Command & Control ========
+- Establishing communication channels between compromised systems and attacker-controlled infrastructure
+
+C2 Infrastructure
+- Reverse Shells
+- Beaconing
+- C2 Servers
+
+Communication Channels
+- HTTP C2
+- DNS C2
+- Encrypted Tunnels

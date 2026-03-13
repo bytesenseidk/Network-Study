@@ -1,0 +1,12 @@
+Evasion & Anti-Detection
+- Avoiding security controls and minimizing indicators that would reveal attacker presence
+
+Defense Evasion
+- Log Clearing
+- Traffic Obfuscation
+- Encryption
+
+Detection Avoidance
+- Living Off the Land
+- Fileless Execution
+- Process Injection

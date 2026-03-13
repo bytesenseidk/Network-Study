@@ -1,0 +1,12 @@
+Persistence
+- Establishing mechanisms that allow attackers to maintain access even after reboots, credential resets, or partial remediation
+
+Account Persistence
+- Backdoor Accounts
+- SSH Keys
+- Scheduled Tasks
+
+System Persistence
+- Startup Scripts
+- Registry Persistence
+- Service Persistence

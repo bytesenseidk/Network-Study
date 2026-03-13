@@ -1,0 +1,12 @@
+Privilege Escalation
+- Increasing access privileges after initial compromise in order to gain administrative or system-level control
+
+Local Privilege Escalation
+- Kernel Exploits
+- Misconfigured Services
+- SUID/SGID Abuse
+
+Credential Extraction
+- Password Dumping
+- Hash Extraction
+- Token Theft

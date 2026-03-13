@@ -1,0 +1,12 @@
+Endpoint Security
+- Protecting individual hosts and preventing compromise
+
+Host Protection
+- Endpoint Detection & Response
+- Anti-Malware
+- Application Control
+
+System Hardening
+- Secure Configuration
+- Patch Management
+- Service Minimization

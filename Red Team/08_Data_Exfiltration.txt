@@ -1,0 +1,12 @@
+Data Exfiltration
+- Collecting and transferring sensitive information from the target environment to attacker-controlled systems
+
+Data Collection
+- File Discovery
+- Database Extraction
+- Credential Harvesting
+
+Exfiltration Methods
+- HTTP Exfiltration
+- DNS Tunneling
+- Cloud Storage Abuse

@@ -1,0 +1,69 @@
+Initial Access
+- The techniques used by attackers to gain their first foothold inside a target system or network.
+
+Overview:
+- Initial access refers to the stage of an attack where an adversary successfully gains entry into a system, network, or application.
+- This is often achieved by exploiting exposed services, abusing weak credentials, or manipulating users through social engineering.
+- Once initial access is obtained, attackers can begin executing commands, exploring the environment, and preparing for further compromise.
+
+Exposed Services:
+- Exposed services are systems or applications that are reachable from external networks such as the Internet.
+- If these services are misconfigured or vulnerable, they can become entry points for attackers.
+
+Misconfigured Services:
+- Misconfigured services may expose unnecessary functionality, allow weak authentication, or reveal sensitive information.
+- Common examples include open databases, improperly secured file shares, or administrative interfaces accessable from the Internet.
+
+Default Credentials:
+- Many systems and devices ship with default usernames and passwords.
+- If administrators fail to change these credentials, attackers can easily gain access by using publicly known login information.
+
+Public Attack Surface:
+- The public attack surface include all systems, services, and applications that are accessible from outside the organization.
+- Examples include web servers, VPN gateways, cloud services, and remote access portals.
+
+
+Credential Attacks:
+- Credential attacks attempt to gain access by abusing authentication Mechanisms and weak password practices.
+
+Password Guessing:
+- Password guessing involves manually or automatically attempting common passwords based on known patterns or user behavior.
+- Attackers may try default passwords, simple combinations, or cmmonly reused credentials.
+
+Password Spraying:
+- Password spraying attempts to log in to many accounts using a small set of common passwords.
+- This method avoids account lockouts by limiting the number of attempts per account.
+
+Brute Force:
+- Brute force attacks systematically attempt all possible password combinations until the correct one is found.
+- This technique is often used against weak or poorly protected authentication systems.
+
+Credential Stuffing:
+- Credential stuffing uses previously leaked username and password combinations obtained from data breaches.
+- Attackers attempt to reuse these credentials across different services, exploiting the fact that many users reuse passwords.
+
+Social Engineering:
+- Social engineering techniques manipulate people into revealing information or performing actions that compromise security.
+
+Phishing:
+- Phishing involves sending fraudulent messages, typicallyemails, that appear to come from trusted sources.
+- These messages trick users into revealing credentials, downloading malware, or visiting malicious websites.
+
+Spear Phishing:
+- Spear phishing is a targeted form of phishing directed at specific individuals or organizations.
+- Attackers research their targets and craft convincing messages tailored to the victim.
+
+Pretexting:
+- Pretexting involves creating a fabricated scenario to persuade a victim to reveal sensitive information.
+- The attacker may impersonate a trusted individual such as an IT administrator or company executive.
+
+Purpose of Initial Access:
+- The goal of initial access is to gain a foothold that allows the attacker to execute commands or deploy malicious tools on a system.
+- From this point, attackers can begin exploring the network, escalating privileges, and expanding their access.
+
+Example Initial Access Scenario:
+1. Attacker identifies a public login portal during reconnaissance.
+2. Weak passwords are discovered through password spraying.
+3. Attacker successfully authenticates to a user account.
+4. Remote access to the system is optained.
+5. The attacker begins post-exploitation activities.

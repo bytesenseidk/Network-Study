@@ -1,0 +1,71 @@
+Reconnaissance
+- The process of gathering information about targets, infrastructure, and potential attack paths before attempting exploitation.
+
+Overview:
+- Reconnaissance is the first phase of an attack or penetration test.
+- During this stage, attackers collect as much information as possible bout a target organization, its systems, networks, and technologies.
+- This information helps identify potential weaknesses and determine the most effective attack methods.
+
+Passive Reconnaissance:
+- Passive reconnaissance gathers information about a target without directly interacting with the target systems.
+- Because it does not generate trafic toward the target network, it is difficult to detect.
+
+Open Source Intelligence (OSINT):
+- OSINT refers to information collected from publicly available sources such as websites, social media, search engines, public records, and leaked data repositories.
+- Attackers use OSINT to discover employee names, technologies used by the organization, email formats, and other usefull information.
+
+
+DNS Enumeration::
+- DNS enumeration involves collecting information from Domain Name System records.
+- These records can reveal subdomains, mail servers, name servers, and infrastructure used by an organization.
+- This information helps attackers map external services and potential entry points.
+
+Domain Intelligence:
+- Domain intelligence focuses on analyzing domain ownership, registration details, and infrastructure relationships.
+- Tools and public databases can reveal domain registration information, associated domains, and hosting providers.
+
+Metadata Collection:
+- Files published online may contain hidden metadata such as author names, software versions, internal usernames, and system paths.
+- Attackers can extract this metadata from documents, images, and PDFs to gain insights into the internal environment.
+
+Active Reconnaissance:
+- Active reconnaissance involves directly interacting with target systems to gather technical information.
+- Because it generates network traffic, it can potentially be detected by monitoring systems.
+
+Network Scanning:
+- Network scanning identifies systems that are reachable on a network.
+- Attackers send probes to determine which hosts are active and repsonding.
+
+Host Discovery:
+- Host discovery identifies which devices are currently active on a network.
+- Techniques may include ICMP requests, ARP scanning, or TCP probes to determine live systems.
+
+Port Scanning:
+- Port scanning identifies open ports on target systems.
+- Techniques may include ICMP requests, ARP scanning, or TCP probes to determine live systems.
+
+Port Scanning:
+- Port scanning identifies open ports on target systems.
+- Open ports indicate services that may be running and potentially vulnerable to attack.
+
+Service Enumeration:
+- Service enumeration gathers detailed information about services running on open ports.
+- Attackers attempt to identify the service type, configuration, and potential vulnerabilities.
+
+Version Detection:
+- Version detection attempts to identify the specific version of software running on a service.
+- Knowing the exact version allows attackers to search for known vulnerabilities or exploits targeting that software.
+
+
+Purpose of Reconnaissance:
+- The goal of reconnaissance is to reduce uncertenty about the target environment.
+- By gathering information about systems, services, and technologies, attackers can identify weak points and plan effective attack strategies.
+
+Example Reconnaissance Workflow:
+1. Collect public information about the organization.
+2. Identify domains and subdomains.
+3. Discover externally accessible hosts.
+4. Scan for open ports.
+5. Identify running services.
+6. Determine software versions.
+7. Search for known vulnerabilities.

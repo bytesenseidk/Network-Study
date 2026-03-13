@@ -1,0 +1,13 @@
+Security Foundations
+- Core concepts used to understand and manage security risks
+
+Core Principles
+- CIA Triad
+- Risk Management
+- Threat Modeling
+- Attack Surface Management
+
+Security Architecture
+- Defense in Depth
+- Zero Trust Architecture
+- Network Segmentation

@@ -1,0 +1,118 @@
+Defensive Security Fundamentals
+
+======== Security Foundations ========
+=== Core concepts used to understand and manage security risks ===
+Core Principles
+- CIA Triad
+- Risk Management
+- Threat Modeling
+- Attack Surface Management
+
+Security Architecture
+- Defense in Depth
+- Zero Trust Architecture
+- Network Segmentation
+
+
+======== Identity & Access Security ========
+=== Controlling who can access systems and what they are allowed to do ===
+Identity Management
+- Authentication
+- Authorization
+- Accounting (AAA)
+
+Access Controls
+- Least Privilege
+- Role-Based Access Control
+- Multi-Factor Authentication
+
+
+======== Network Defense Controls ========
+=== Protecting network boundaries and filtering malicious traffic ===
+Perimeter Security
+- Firewalls
+- Next Generation Firewalls
+- Network Segmentation
+
+Threat Prevention
+- Intrusion Detection Systems
+- Intrusion Prevention Systems
+- Web Application Firewalls
+
+
+======== Endpoint Security ========
+=== Protecting individual hosts and preventing compromise ===
+Host Protection
+- Endpoint Detection & Response
+- Anti-Malware
+- Application Control
+
+System Hardening
+- Secure Configuration
+- Patch Management
+- Service Minimization
+
+
+======== Monitoring & Detection ========
+=== Observing systems and identifying suspicious activity ===
+Security Monitoring
+- Network Monitoring
+- Log Collection
+- Security Telemetry
+
+Detection Systems
+- SIEM
+- Anomaly Detection
+- Threat Detection
+
+
+======== Incident Response ========
+=== Responding to and containing active security incidents ===
+Response Lifecycle
+- Preparation
+- Detection
+- Containment
+- Eradication
+- Recovery
+
+Post Incident
+- Root Cause Analysis
+- Lessons Learned
+- Security Improvements
+
+
+======== Forensics & Investigation ========
+=== Investigating incidents and collecting digital evidence ===
+Evidence Collection
+- Disk Forensics
+- Memory Forensics
+- Network Forensics
+
+Analysis Techniques
+- Log Analysis
+- Packet Analysis
+- Timeline Reconstruction
+
+
+======== Threat Intelligence ========
+=== Understanding attacker behavior and emerging threats ===
+Threat Awareness
+- Indicators of Compromise
+- Threat Feeds
+- Malware Analysis
+
+Threat Hunting
+- Hypothesis Driven Hunting
+- Behavioral Analysis
+- Attack Pattern Detection
+
+
+======== Resilience & Recovery ========
+=== Ensuring systems remain operational and recover after attacks ===
+Business Continuity
+- Backup Strategies
+- Disaster Recovery
+
+Operational Security
+- Security Auditing
+- Compliance Monitoring
