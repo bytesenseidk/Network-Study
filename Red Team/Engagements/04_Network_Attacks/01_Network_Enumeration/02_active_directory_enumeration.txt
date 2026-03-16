@@ -1,0 +1,298 @@
+Active Directory Enumeration
+- The process of gathering information about users, groups, computers, and privileges in an Active Directory environment.
+
+==================================================
+Attack Metadata
+==================================================
+
+Category:
+Network Attacks → Network Enumeration
+
+Attack Stage:
+Discovery
+Privilege Escalation Preparation
+Lateral Movement Preparation
+
+Difficulty:
+Intermediate
+
+Stealth Level:
+Medium (directory queries can generate logs)
+
+Requires Authentication:
+Yes (domain user account typically required)
+
+Tools Used:
+PowerView
+BloodHound
+SharpHound
+CrackMapExec
+LDAP tools
+
+
+==================================================
+1. Overview
+==================================================
+Active Directory enumeration is the process of collecting information about an organization's directory environment.
+
+Attackers use enumeration to understand the structure of the domain and identify potential attack paths.
+
+Active Directory contains valuable information such as:
+
+- domain users
+- administrative groups
+- computers and servers
+- domain trusts
+- service accounts
+- permissions and privileges
+
+Even low-privileged domain users can often query large amounts of directory information.
+
+Enumeration is a critical step before performing attacks such as:
+
+- privilege escalation
+- Kerberoasting
+- lateral movement
+- domain compromise
+
+
+==================================================
+2. Attack Scenario
+==================================================
+Assume an attacker gains access to a domain-joined workstation.
+
+The attacker authenticates as a low-privileged user.
+
+Using enumeration tools, the attacker begins mapping the Active Directory environment.
+
+The attacker identifies:
+
+- domain administrators
+- service accounts
+- high-value systems
+- misconfigured permissions
+
+This information is used to plan further attacks.
+
+
+==================================================
+3. Tools Required
+==================================================
+
+PowerView
+PowerShell toolkit used for Active Directory enumeration.
+
+BloodHound
+Graph-based tool that maps attack paths in Active Directory environments.
+
+SharpHound
+Data collection tool used by BloodHound.
+
+CrackMapExec
+Used for network enumeration and credential testing.
+
+LDAP tools
+Used to query directory information.
+
+
+==================================================
+4. Enumeration Workflow
+==================================================
+
+Obtain Domain User Access
+        ↓
+Identify Domain Information
+        ↓
+Enumerate Users and Groups
+        ↓
+Enumerate Computers and Servers
+        ↓
+Identify Privileged Accounts
+        ↓
+Map Attack Paths
+
+
+==================================================
+5. Step-by-Step Execution
+==================================================
+Step 1 — Identify Domain Information
+
+Example command:
+
+whoami /all
+
+This reveals:
+
+- domain name
+- group memberships
+- privileges
+
+
+Step 2 — Enumerate Domain Users
+
+Example using PowerView:
+
+Get-NetUser
+
+
+Step 3 — Enumerate Domain Groups
+
+Example command:
+
+Get-NetGroup
+
+
+Step 4 — Identify Domain Administrators
+
+Example command:
+
+Get-NetGroupMember "Domain Admins"
+
+
+Step 5 — Enumerate Domain Computers
+
+Example command:
+
+Get-NetComputer
+
+
+Step 6 — Map Attack Paths with BloodHound
+
+Example command:
+
+SharpHound.exe -c All
+
+
+Collected data can be imported into BloodHound for analysis.
+
+
+==================================================
+6. Example Enumeration Scenario
+==================================================
+Initial Access
+
+Attacker gains access to a domain workstation.
+
+
+User Enumeration
+
+The attacker identifies domain users and groups.
+
+
+Privilege Discovery
+
+The attacker identifies domain administrator accounts.
+
+
+Attack Path Discovery
+
+BloodHound reveals a privilege escalation path through a misconfigured group.
+
+
+==================================================
+7. Expected Results
+==================================================
+Successful Active Directory enumeration may reveal:
+
+- privileged accounts
+- service accounts
+- domain trust relationships
+- vulnerable configurations
+- systems with administrative access
+
+This information helps attackers plan further attacks.
+
+
+==================================================
+8. Defensive Considerations
+==================================================
+Organizations should implement multiple defenses to limit Active Directory enumeration.
+
+Least Privilege
+
+Limit permissions assigned to users and groups.
+
+Directory Monitoring
+
+Monitor abnormal LDAP queries.
+
+Privileged Access Management
+
+Limit administrative access across systems.
+
+Network Monitoring
+
+Detect unusual enumeration activity.
+
+Audit Policies
+
+Enable auditing for directory queries.
+
+
+==================================================
+9. MITRE ATT&CK Mapping
+==================================================
+
+Technique:
+T1087 — Account Discovery
+
+Sub-technique:
+T1087.002 — Domain Account Discovery
+
+Technique:
+T1069 — Permission Groups Discovery
+
+Sub-technique:
+T1069.002 — Domain Groups
+
+Technique:
+T1482 — Domain Trust Discovery
+
+Technique:
+T1046 — Network Service Discovery
+
+Technique:
+T1018 — Remote System Discovery
+
+
+==================================================
+10. Questions & Answers
+==================================================
+
+Question:
+What is Active Directory enumeration?
+
+Answer:
+The process of gathering information about users, groups, computers, and permissions within a domain.
+
+--------------------------------------------------
+
+Question:
+Why do attackers perform Active Directory enumeration?
+
+Answer:
+To understand the domain structure and identify potential attack paths.
+
+--------------------------------------------------
+
+Question:
+Which tool maps attack paths in Active Directory?
+
+Answer:
+BloodHound.
+
+--------------------------------------------------
+
+Question:
+What tool collects data for BloodHound?
+
+Answer:
+SharpHound.
+
+--------------------------------------------------
+
+Question:
+What is the main defense against excessive enumeration?
+
+Answer:
+Limiting privileges and monitoring directory queries.

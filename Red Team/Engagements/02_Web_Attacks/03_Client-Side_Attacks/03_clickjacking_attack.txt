@@ -1,0 +1,285 @@
+Clickjacking Attack
+- A client-side attack where a malicious website tricks users into clicking hidden elements on another website.
+
+==================================================
+Attack Metadata
+==================================================
+
+Category:
+Web Attacks → Client-Side Attacks
+
+Attack Stage:
+Initial Access
+Impact
+
+Difficulty:
+Beginner
+
+Stealth Level:
+High
+
+Requires Authentication:
+Yes (victim must be authenticated to target site)
+
+Tools Used:
+Web Browser Developer Tools
+HTML / CSS
+Burp Suite
+Custom Attack Page
+
+
+==================================================
+1. Overview
+==================================================
+Clickjacking is a web attack that manipulates the user interface to trick users into performing unintended actions.
+
+The attacker embeds a legitimate website inside a hidden or transparent frame and overlays it with deceptive content.
+
+When the victim clicks on what appears to be a harmless button or link, they are actually interacting with the hidden page.
+
+This technique can be used to:
+
+- perform unwanted actions
+- change account settings
+- authorize transactions
+- grant permissions
+- enable webcam or microphone access
+
+Clickjacking attacks exploit weaknesses in web browser rendering and application UI protections.
+
+
+==================================================
+2. Attack Scenario
+==================================================
+A user is logged into a trusted website such as:
+
+- a banking portal
+- a social media platform
+- a cloud management dashboard
+
+The attacker creates a malicious webpage that embeds the legitimate site inside an invisible iframe.
+
+The attacker then overlays fake buttons or graphics.
+
+When the victim clicks the visible content, the click is actually performed on the hidden legitimate page.
+
+This allows the attacker to trigger actions on behalf of the user.
+
+
+==================================================
+3. Tools Required
+==================================================
+
+Web Browser Developer Tools
+Used to inspect webpage elements.
+
+HTML / CSS
+Used to create hidden frames and overlay elements.
+
+Burp Suite
+Used to analyze HTTP responses and security headers.
+
+Custom Attack Page
+Used to host the clickjacking attack interface.
+
+
+==================================================
+4. Attack Workflow
+==================================================
+
+Identify Target Web Application
+        ↓
+Check for Clickjacking Protections
+        ↓
+Embed Target Page in Hidden iFrame
+        ↓
+Overlay Malicious UI Elements
+        ↓
+Victim Clicks Deceptive Content
+        ↓
+Hidden Action Executes
+
+
+==================================================
+5. Step-by-Step Execution
+==================================================
+Step 1 — Identify Target Page
+
+The attacker finds a page that performs sensitive actions.
+
+Examples include:
+
+- account settings
+- payment authorization
+- permission requests
+
+
+Step 2 — Check for Frame Protection
+
+The attacker inspects response headers.
+
+Example protections include:
+
+X-Frame-Options
+
+Content-Security-Policy (frame-ancestors)
+
+If these headers are missing, the page may be vulnerable.
+
+
+Step 3 — Create Malicious Page
+
+Example HTML:
+
+<html>
+<body>
+<div style="position:absolute; top:0; left:0;">
+Click here to win a prize!
+</div>
+
+<iframe src="https://targetsite.com/account/settings"
+style="opacity:0; position:absolute; top:0; left:0; width:800px; height:600px;">
+</iframe>
+</body>
+</html>
+
+
+Step 4 — Deliver Attack Page
+
+The attacker sends the malicious link to victims.
+
+
+Step 5 — Victim Interaction
+
+The victim clicks the visible content.
+
+
+Step 6 — Hidden Action Executes
+
+The click triggers an action on the embedded legitimate website.
+
+
+==================================================
+6. Example Clickjacking Scenario
+==================================================
+User Login
+
+A user logs into a cloud management dashboard.
+
+
+Malicious Page
+
+The attacker hosts a page with hidden iframe content.
+
+
+User Interaction
+
+The victim clicks a visible button on the malicious page.
+
+
+Hidden Request
+
+The click activates a hidden “grant admin access” button.
+
+
+Privilege Change
+
+The attacker gains elevated permissions.
+
+
+==================================================
+7. Expected Results
+==================================================
+Successful clickjacking attacks allow attackers to:
+
+- trick users into performing unintended actions
+- modify account settings
+- grant permissions
+- perform financial transactions
+- authorize malicious integrations
+
+
+==================================================
+8. Defensive Considerations
+==================================================
+Web applications should implement several protections.
+
+X-Frame-Options Header
+
+Prevent pages from being embedded in frames.
+
+Content Security Policy
+
+Use the frame-ancestors directive to restrict framing.
+
+User Confirmation
+
+Require confirmation dialogs for sensitive actions.
+
+SameSite Cookies
+
+Limit cross-site cookie usage.
+
+UI Design
+
+Use visual indicators and user verification steps.
+
+
+==================================================
+9. MITRE ATT&CK Mapping
+==================================================
+
+Technique:
+T1185 — Browser Session Hijacking
+
+Technique:
+T1204 — User Execution
+
+Technique:
+T1566 — Phishing (when used with malicious links)
+
+Technique:
+T1606 — Forge Web Credentials
+
+
+==================================================
+10. Questions & Answers
+==================================================
+
+Question:
+What is clickjacking?
+
+Answer:
+A web attack where users are tricked into clicking hidden elements on a webpage.
+
+--------------------------------------------------
+
+Question:
+What technique is commonly used to perform clickjacking?
+
+Answer:
+Embedding a target website inside a hidden iframe.
+
+--------------------------------------------------
+
+Question:
+Which HTTP header helps prevent clickjacking?
+
+Answer:
+X-Frame-Options.
+
+--------------------------------------------------
+
+Question:
+What directive in Content Security Policy can prevent framing?
+
+Answer:
+frame-ancestors.
+
+--------------------------------------------------
+
+Question:
+What is the primary weakness exploited by clickjacking?
+
+Answer:
+Lack of protections preventing webpages from being embedded in frames.

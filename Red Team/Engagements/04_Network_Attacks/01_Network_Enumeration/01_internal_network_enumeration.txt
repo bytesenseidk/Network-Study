@@ -1,0 +1,301 @@
+Internal Network Enumeration
+- The process of discovering hosts, services, and network structure after gaining access to an internal network.
+
+==================================================
+Attack Metadata
+==================================================
+
+Category:
+Network Attacks → Network Enumeration
+
+Attack Stage:
+Discovery
+Lateral Movement Preparation
+
+Difficulty:
+Beginner → Intermediate
+
+Stealth Level:
+Low to Medium (scanning activity can generate detectable network noise)
+
+Requires Authentication:
+No (basic enumeration)  
+Sometimes Yes (for deeper service enumeration)
+
+Tools Used:
+Nmap
+CrackMapExec
+Netcat
+Ping / ICMP tools
+PowerShell
+
+
+==================================================
+1. Overview
+==================================================
+Internal network enumeration is the process of gathering information about systems inside a network after initial access has been obtained.
+
+Once attackers gain access to a corporate network, they attempt to map the environment to identify:
+
+- active hosts
+- open ports
+- running services
+- operating systems
+- domain infrastructure
+- potential attack targets
+
+Internal enumeration helps attackers identify high-value systems such as:
+
+- domain controllers
+- file servers
+- database servers
+- backup servers
+- administrative workstations
+
+This information allows attackers to plan lateral movement and privilege escalation attacks.
+
+
+==================================================
+2. Attack Scenario
+==================================================
+Assume an attacker gains access to a workstation inside an internal network.
+
+The attacker begins scanning the network to discover other hosts and services.
+
+During enumeration, the attacker identifies:
+
+- a domain controller
+- file shares
+- SMB services
+- administrative hosts
+
+This information allows the attacker to plan further attacks against the environment.
+
+
+==================================================
+3. Tools Required
+==================================================
+
+Nmap
+Used for network scanning and service discovery.
+
+CrackMapExec
+Used for enumerating SMB services and testing credentials.
+
+Netcat
+Used to test connectivity and interact with network services.
+
+Ping / ICMP tools
+Used to identify active hosts on the network.
+
+PowerShell
+Used for internal network discovery in Windows environments.
+
+
+==================================================
+4. Enumeration Workflow
+==================================================
+
+Initial Network Access
+        ↓
+Identify Network Range
+        ↓
+Host Discovery
+        ↓
+Port Scanning
+        ↓
+Service Identification
+        ↓
+Identify High-Value Targets
+
+
+==================================================
+5. Step-by-Step Execution
+==================================================
+Step 1 — Identify Local Network Configuration
+
+Example command:
+
+ipconfig
+
+This reveals:
+
+- local IP address
+- subnet mask
+- default gateway
+
+
+Step 2 — Discover Active Hosts
+
+Example using ping sweep:
+
+for /L %i in (1,1,254) do ping -n 1 192.168.1.%i
+
+
+Example using Nmap:
+
+nmap -sn 192.168.1.0/24
+
+
+Step 3 — Scan for Open Ports
+
+Example command:
+
+nmap -p- 192.168.1.10
+
+
+Step 4 — Identify Running Services
+
+Example command:
+
+nmap -sV 192.168.1.10
+
+
+Step 5 — Enumerate SMB Services
+
+Example using CrackMapExec:
+
+crackmapexec smb 192.168.1.0/24
+
+
+Step 6 — Identify Domain Infrastructure
+
+Look for systems providing services such as:
+
+- LDAP (389)
+- Kerberos (88)
+- SMB (445)
+- DNS (53)
+
+These often indicate domain controllers.
+
+
+==================================================
+6. Example Enumeration Scenario
+==================================================
+Initial Access
+
+Attacker gains access to an internal workstation.
+
+
+Network Discovery
+
+The attacker performs a host discovery scan.
+
+
+Service Identification
+
+The attacker identifies SMB and LDAP services.
+
+
+Target Identification
+
+The attacker identifies the domain controller and file servers.
+
+
+Attack Planning
+
+The attacker prepares lateral movement and credential attacks.
+
+
+==================================================
+7. Expected Results
+==================================================
+Successful internal network enumeration reveals:
+
+- active hosts
+- open ports and services
+- network topology
+- domain infrastructure
+- potential attack paths
+
+This information helps attackers prioritize high-value targets.
+
+
+==================================================
+8. Defensive Considerations
+==================================================
+Organizations can reduce enumeration risk through several controls.
+
+Network Segmentation
+
+Limit communication between network segments.
+
+Host-Based Firewalls
+
+Restrict unnecessary inbound connections.
+
+Network Monitoring
+
+Detect large scanning activity.
+
+Intrusion Detection Systems
+
+Identify scanning behavior across the network.
+
+Least Privilege
+
+Limit attacker access to network resources.
+
+
+==================================================
+9. MITRE ATT&CK Mapping
+==================================================
+
+Technique:
+T1046 — Network Service Discovery
+
+Technique:
+T1018 — Remote System Discovery
+
+Technique:
+T1049 — System Network Connections Discovery
+
+Technique:
+T1087 — Account Discovery
+
+Technique:
+T1069 — Permission Groups Discovery
+
+
+==================================================
+10. Questions & Answers
+==================================================
+
+Question:
+What is internal network enumeration?
+
+Answer:
+The process of discovering hosts, services, and network structure after gaining internal network access.
+
+--------------------------------------------------
+
+Question:
+Why do attackers perform internal enumeration?
+
+Answer:
+To identify systems, services, and attack paths within the network.
+
+--------------------------------------------------
+
+Question:
+Which tool is commonly used for network scanning?
+
+Answer:
+Nmap.
+
+--------------------------------------------------
+
+Question:
+Which service ports often indicate domain controllers?
+
+Answer:
+LDAP (389), Kerberos (88), and SMB (445).
+
+--------------------------------------------------
+
+Question:
+What is a key defense against internal network enumeration?
+
+Answer:
+Network segmentation and monitoring unusual scanning activity.

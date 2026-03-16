@@ -1,0 +1,285 @@
+Kerberoasting Attack
+- An Active Directory attack that extracts service account Kerberos tickets for offline password cracking.
+
+==================================================
+Attack Metadata
+==================================================
+
+Category:
+Network Attacks → Active Directory Attacks
+
+Attack Stage:
+Credential Access
+Privilege Escalation
+Lateral Movement Preparation
+
+Difficulty:
+Intermediate
+
+Stealth Level:
+Medium
+
+Requires Authentication:
+Yes (low-privileged domain account required)
+
+Tools Used:
+Impacket
+Rubeus
+Mimikatz
+Hashcat
+
+
+==================================================
+1. Overview
+==================================================
+Kerberoasting is a credential attack targeting service accounts in Active Directory environments.
+
+Service accounts are used by applications and services to authenticate to the domain. These accounts are often configured with:
+
+- weak passwords
+- rarely rotated passwords
+- elevated privileges
+
+In Kerberos authentication, service accounts are associated with Service Principal Names (SPNs).
+
+When a user requests access to a service, the domain controller issues a **Kerberos service ticket (TGS)** that is encrypted using the service account’s password hash.
+
+Attackers can request these tickets and extract them from memory.
+
+The ticket can then be cracked offline to recover the service account password.
+
+
+==================================================
+2. Attack Scenario
+==================================================
+Assume an attacker has obtained domain user credentials inside a corporate network.
+
+Even a **low-privileged domain account** can request Kerberos service tickets.
+
+The attacker enumerates service accounts and requests Kerberos tickets for them.
+
+These tickets are then exported and cracked offline using password cracking tools.
+
+If the service account password is weak, it may be recovered.
+
+
+==================================================
+3. Tools Required
+==================================================
+
+Impacket
+Includes tools such as GetUserSPNs.py for requesting Kerberos service tickets.
+
+Rubeus
+Powerful Windows Kerberos abuse toolkit.
+
+Mimikatz
+Credential extraction and Kerberos ticket manipulation tool.
+
+Hashcat
+Used to crack Kerberos ticket hashes offline.
+
+
+==================================================
+4. Attack Workflow
+==================================================
+
+Obtain Domain User Access
+        ↓
+Enumerate Service Accounts (SPNs)
+        ↓
+Request Kerberos Service Tickets
+        ↓
+Extract Ticket Hashes
+        ↓
+Offline Password Cracking
+        ↓
+Compromise Service Account
+
+
+==================================================
+5. Step-by-Step Execution
+==================================================
+Step 1 — Enumerate Service Accounts
+
+Example using Impacket:
+
+GetUserSPNs.py domain.local/user:password -dc-ip 192.168.1.10
+
+This identifies service accounts with associated SPNs.
+
+Example output:
+
+MSSQLSvc/server.domain.local
+HTTP/webserver.domain.local
+
+
+Step 2 — Request Kerberos Service Tickets
+
+Attackers request tickets for identified SPNs.
+
+Example:
+
+GetUserSPNs.py domain.local/user:password -request
+
+
+Step 3 — Extract Ticket Hash
+
+The command outputs Kerberos ticket hashes in a format usable by cracking tools.
+
+Example:
+
+$krb5tgs$23$*svc_sql$DOMAIN.LOCAL$MSSQLSvc/server.domain.local...
+
+
+Step 4 — Save Hash for Cracking
+
+Store extracted hashes in a file.
+
+Example:
+
+hashes.txt
+
+
+Step 5 — Crack Password Offline
+
+Example using Hashcat:
+
+hashcat -m 13100 hashes.txt rockyou.txt
+
+
+Step 6 — Use Compromised Credentials
+
+Recovered passwords may allow:
+
+- service account access
+- privilege escalation
+- lateral movement
+
+
+==================================================
+6. Example Kerberoasting Scenario
+==================================================
+Initial Access
+
+Attacker gains domain user access through phishing.
+
+
+Service Enumeration
+
+Kerberos service accounts are identified.
+
+
+Ticket Extraction
+
+Kerberos tickets are requested and exported.
+
+
+Password Cracking
+
+Service account password is cracked offline.
+
+
+Impact
+
+Attacker gains access to a privileged service account.
+
+
+==================================================
+7. Expected Results
+==================================================
+Successful Kerberoasting may reveal:
+
+- service account credentials
+- domain administrative privileges
+- database or application account access
+- additional attack paths inside the network
+
+
+==================================================
+8. Defensive Considerations
+==================================================
+Organizations should implement several defenses against Kerberoasting attacks.
+
+Strong Service Account Passwords
+
+Use long and complex passwords.
+
+Managed Service Accounts
+
+Use Group Managed Service Accounts (gMSA) where possible.
+
+Password Rotation
+
+Regularly rotate service account credentials.
+
+Kerberos Monitoring
+
+Detect unusual Kerberos ticket requests.
+
+Least Privilege
+
+Limit service account privileges.
+
+
+==================================================
+9. MITRE ATT&CK Mapping
+==================================================
+
+Technique:
+T1558 — Steal or Forge Kerberos Tickets
+
+Sub-technique:
+T1558.003 — Kerberoasting
+
+Technique:
+T1110 — Brute Force
+
+Sub-technique:
+T1110.002 — Password Cracking
+
+Technique:
+T1078 — Valid Accounts
+
+
+==================================================
+10. Questions & Answers
+==================================================
+
+Question:
+What is Kerberoasting?
+
+Answer:
+An attack that extracts Kerberos service tickets for offline password cracking.
+
+--------------------------------------------------
+
+Question:
+Which accounts are targeted in Kerberoasting?
+
+Answer:
+Service accounts associated with Service Principal Names (SPNs).
+
+--------------------------------------------------
+
+Question:
+Why are service accounts vulnerable?
+
+Answer:
+They often have weak passwords that are rarely changed.
+
+--------------------------------------------------
+
+Question:
+What tool can request Kerberos service tickets?
+
+Answer:
+Impacket GetUserSPNs.py or Rubeus.
+
+--------------------------------------------------
+
+Question:
+What is the primary defense against Kerberoasting?
+
+Answer:
+Strong service account passwords and proper account management.

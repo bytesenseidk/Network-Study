@@ -1,0 +1,297 @@
+Azure AD Enumeration
+- The process of discovering information about an organization's Microsoft Azure Active Directory (Azure AD) tenant, users, and services.
+
+==================================================
+Attack Metadata
+==================================================
+
+Category:
+Cloud_Attacks → Azure
+
+Attack Stage:
+Reconnaissance
+Discovery
+Credential Access Preparation
+
+Difficulty:
+Beginner → Intermediate
+
+Stealth Level:
+Medium
+
+Requires Authentication:
+No (basic tenant discovery)
+Sometimes Yes (deeper tenant enumeration)
+
+Tools Used:
+AADInternals
+Azure CLI
+o365spray
+MSOLSpray
+PowerShell
+
+
+==================================================
+1. Overview
+==================================================
+Azure Active Directory (Azure AD), now commonly referred to as Microsoft Entra ID, is Microsoft's cloud identity and access management service.
+
+It manages:
+
+- user identities
+- authentication
+- access to Microsoft 365 services
+- access to Azure resources
+- enterprise application access
+
+Attackers often begin cloud attacks by enumerating Azure AD to gather information about:
+
+- tenant configuration
+- valid users
+- domains
+- authentication mechanisms
+- exposed services
+
+This information helps attackers identify potential entry points such as password spraying or phishing attacks.
+
+
+==================================================
+2. Attack Scenario
+==================================================
+Assume an attacker identifies a company domain:
+
+example.com
+
+Because the organization uses Microsoft 365, it likely has an Azure AD tenant associated with that domain.
+
+The attacker attempts to gather information about:
+
+- tenant ID
+- associated domains
+- valid usernames
+- authentication methods
+
+This information can later support credential attacks or social engineering campaigns.
+
+
+==================================================
+3. Tools Required
+==================================================
+
+AADInternals (optional)
+PowerShell toolkit for Azure AD enumeration.
+
+Azure CLI
+Interact with Azure resources and identity services.
+
+o365spray (optional)
+Tool used for Microsoft 365 user enumeration and password spraying.
+
+MSOLSpray (optional)
+Used for Azure AD user discovery and password spraying.
+
+PowerShell
+Commonly used for Azure AD queries.
+
+
+==================================================
+4. Attack Workflow
+==================================================
+
+Target Domain Identified
+        ↓
+Discover Azure Tenant
+        ↓
+Enumerate Associated Domains
+        ↓
+Identify Valid Users
+        ↓
+Analyze Authentication Methods
+        ↓
+Prepare Credential Attacks
+
+
+==================================================
+5. Step-by-Step Execution
+==================================================
+Step 1 — Identify Azure AD Tenant
+
+Check whether the target domain is associated with a Microsoft tenant.
+
+Example:
+
+https://login.microsoftonline.com/example.com/.well-known/openid-configuration
+
+This request may reveal tenant configuration details.
+
+
+Step 2 — Enumerate Tenant Information
+
+Use Azure endpoints to discover tenant identifiers.
+
+Example:
+
+https://login.microsoftonline.com/getuserrealm.srf?login=user@example.com&xml=1
+
+This response may reveal:
+
+- tenant name
+- authentication method
+- federation status
+
+
+Step 3 — Discover Valid Users
+
+Attackers may attempt user enumeration by testing login endpoints.
+
+Example tools:
+
+o365spray
+MSOLSpray
+
+Example username patterns:
+
+first.last@example.com
+f.last@example.com
+first@example.com
+
+
+Step 4 — Identify Authentication Type
+
+Responses may indicate authentication configuration such as:
+
+Managed authentication
+Federated authentication (ADFS)
+
+This helps attackers determine potential attack paths.
+
+
+==================================================
+6. Example Enumeration Scenario
+==================================================
+
+Target domain:
+
+example.com
+
+
+Enumeration reveals:
+
+Tenant ID
+example.onmicrosoft.com
+
+
+Valid user accounts:
+
+admin@example.com
+j.smith@example.com
+
+
+Authentication type:
+
+Managed Azure AD authentication
+
+
+This information allows attackers to prepare password spraying or phishing campaigns.
+
+
+==================================================
+7. Expected Results
+==================================================
+Successful enumeration may reveal:
+
+- Azure tenant name
+- associated domains
+- valid usernames
+- authentication configuration
+- potential login portals
+
+This information significantly improves the effectiveness of further attacks.
+
+
+==================================================
+8. Defensive Considerations
+==================================================
+Organizations can reduce Azure AD enumeration risks through several controls.
+
+Multi-Factor Authentication (MFA)
+
+Require MFA for all privileged and remote access accounts.
+
+Password Policies
+
+Enforce strong passwords and account lockout policies.
+
+Conditional Access
+
+Restrict login attempts based on location or device trust.
+
+Monitoring
+
+Monitor suspicious authentication attempts using:
+
+Azure AD sign-in logs
+Microsoft Defender for Cloud Apps
+
+
+==================================================
+9. MITRE ATT&CK Mapping
+==================================================
+
+Technique:
+T1589 — Gather Victim Identity Information
+
+Technique:
+T1590 — Gather Victim Network Information
+
+Technique:
+T1087 — Account Discovery
+
+Technique:
+T1580 — Cloud Infrastructure Discovery
+
+Technique:
+T1526 — Cloud Service Discovery
+
+
+==================================================
+10. Questions & Answers
+==================================================
+
+Question:
+What is Azure AD?
+
+Answer:
+Azure AD is Microsoft's cloud identity service used for authentication and access control.
+
+--------------------------------------------------
+
+Question:
+Why do attackers enumerate Azure AD?
+
+Answer:
+To discover valid users, tenant configuration, and authentication mechanisms.
+
+--------------------------------------------------
+
+Question:
+What information can enumeration reveal?
+
+Answer:
+Tenant IDs, domains, usernames, and authentication types.
+
+--------------------------------------------------
+
+Question:
+What attack often follows Azure AD enumeration?
+
+Answer:
+Password spraying or phishing attacks.
+
+--------------------------------------------------
+
+Question:
+What is the best defense against Azure AD credential attacks?
+
+Answer:
+Multi-factor authentication combined with strong monitoring and conditional access policies.

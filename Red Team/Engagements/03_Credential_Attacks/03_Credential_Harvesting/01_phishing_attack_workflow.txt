@@ -1,0 +1,308 @@
+Phishing Attack Workflow
+- A social engineering attack in which attackers trick users into revealing credentials or executing malicious actions through deceptive messages or websites.
+
+==================================================
+Attack Metadata
+==================================================
+
+Category:
+Social Engineering Attacks
+
+Attack Stage:
+Initial Access
+Credential Access
+
+Difficulty:
+Beginner → Intermediate
+
+Stealth Level:
+High (human-targeted attack)
+
+Requires Authentication:
+No
+
+Tools Used:
+Social Engineering Toolkit (SET)
+Evilginx
+Gophish
+Custom Phishing Pages
+Email Infrastructure
+
+
+==================================================
+1. Overview
+==================================================
+Phishing attacks attempt to deceive users into providing sensitive information such as:
+
+- usernames
+- passwords
+- authentication tokens
+- financial data
+
+Attackers typically impersonate trusted organizations or individuals.
+
+Common delivery methods include:
+
+- email messages
+- messaging platforms
+- fake login portals
+- malicious attachments
+- spoofed websites
+
+Phishing remains one of the most successful attack techniques because it targets human behavior rather than technical vulnerabilities.
+
+
+==================================================
+2. Attack Scenario
+==================================================
+Assume an attacker targets employees of an organization.
+
+The attacker prepares a phishing campaign designed to impersonate a legitimate service such as:
+
+- Microsoft 365
+- corporate VPN
+- internal HR portal
+- cloud storage service
+
+Victims receive a message directing them to a fake login page.
+
+When users enter their credentials, the attacker captures the information.
+
+
+==================================================
+3. Tools Required
+==================================================
+
+Social Engineering Toolkit (SET)
+Framework used to create phishing campaigns and credential harvesting pages.
+
+Evilginx (optional)
+Advanced phishing framework capable of capturing session cookies and bypassing some multi-factor authentication.
+
+Gophish (optional)
+Phishing campaign management platform.
+
+Custom phishing pages
+Fake login portals designed to mimic legitimate services.
+
+Email infrastructure
+Used to deliver phishing messages to targets.
+
+
+==================================================
+4. Attack Workflow
+==================================================
+
+Identify Target Organization
+        ↓
+Gather Target Information
+        ↓
+Create Phishing Infrastructure
+        ↓
+Craft Deceptive Messages
+        ↓
+Send Phishing Campaign
+        ↓
+Victim Interacts With Phishing Page
+        ↓
+Credentials Captured
+        ↓
+Use Credentials for System Access
+
+
+==================================================
+5. Step-by-Step Execution
+==================================================
+
+Step 1 — Reconnaissance
+
+Gather information about the target organization.
+
+Examples include:
+
+- employee names
+- email formats
+- commonly used services
+- internal terminology
+
+This information helps craft convincing phishing messages.
+
+
+Step 2 — Create Phishing Infrastructure
+
+Prepare phishing components such as:
+
+- fake login page
+- spoofed domain name
+- email sending infrastructure
+
+Example phishing domain:
+
+secure-company-login.com
+
+
+Step 3 — Craft Phishing Message
+
+Create a message designed to prompt immediate action.
+
+Examples:
+
+- password reset notification
+- security alert
+- invoice request
+- document sharing notification
+
+
+Step 4 — Deliver Phishing Emails
+
+Send the phishing message to targeted users.
+
+Example email content:
+
+"Your account password has expired. Please log in to update your credentials."
+
+
+Step 5 — Capture Credentials
+
+Victims visit the phishing page and enter their login information.
+
+Captured data may include:
+
+- username
+- password
+- authentication tokens
+
+
+Step 6 — Use Captured Credentials
+
+Attackers attempt to authenticate to the real service using the captured credentials.
+
+Example:
+
+VPN login
+Cloud service access
+Email account access
+
+
+==================================================
+6. Example Phishing Scenario
+==================================================
+
+Target Organization
+
+example.com
+
+
+Attack Message
+
+"Unusual login activity detected. Please verify your account."
+
+
+Victim Action
+
+User clicks phishing link and enters credentials.
+
+
+Result
+
+Attacker captures login information and accesses the victim's email account.
+
+
+==================================================
+7. Expected Results
+==================================================
+Successful phishing attacks may result in:
+
+- compromised user accounts
+- unauthorized access to internal systems
+- email account compromise
+- credential reuse across services
+- expanded attacker access within the organization
+
+
+==================================================
+8. Defensive Considerations
+==================================================
+Organizations should implement multiple defenses against phishing attacks.
+
+User Awareness Training
+
+Educate employees on identifying suspicious emails and links.
+
+Email Security Filtering
+
+Use email filtering solutions to detect phishing attempts.
+
+Multi-Factor Authentication
+
+Require MFA to prevent account compromise even if passwords are stolen.
+
+Domain Monitoring
+
+Monitor for domains that imitate the organization's brand.
+
+Incident Monitoring
+
+Investigate unusual login patterns or authentication attempts.
+
+
+==================================================
+9. MITRE ATT&CK Mapping
+==================================================
+
+Technique:
+T1566 — Phishing
+
+Sub-techniques:
+T1566.001 — Spearphishing Attachment  
+T1566.002 — Spearphishing Link  
+T1566.003 — Spearphishing via Service
+
+Technique:
+T1078 — Valid Accounts
+
+Technique:
+T1185 — Browser Session Hijacking
+
+
+==================================================
+10. Questions & Answers
+==================================================
+
+Question:
+What is a phishing attack?
+
+Answer:
+A social engineering attack that tricks users into revealing sensitive information such as credentials.
+
+--------------------------------------------------
+
+Question:
+Why are phishing attacks effective?
+
+Answer:
+Because they exploit human trust and urgency rather than technical vulnerabilities.
+
+--------------------------------------------------
+
+Question:
+What information do phishing attacks often target?
+
+Answer:
+Usernames, passwords, authentication tokens, and financial information.
+
+--------------------------------------------------
+
+Question:
+What tool can be used to manage phishing campaigns?
+
+Answer:
+Gophish.
+
+--------------------------------------------------
+
+Question:
+What is the most effective defense against phishing attacks?
+
+Answer:
+Multi-factor authentication combined with strong user awareness training.

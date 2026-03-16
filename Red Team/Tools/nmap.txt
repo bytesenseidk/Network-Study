@@ -1,0 +1,357 @@
+Nmap
+- A powerful network scanning and discovery tool used to identify hosts, open ports, running services, and potential vulnerabilities.
+
+Stage in Attack Lifecycle:
+Recon → **Active Reconnaissance / Enumeration** → Initial Access
+
+
+==================================================
+1. Overview
+==================================================
+- Nmap (Network Mapper) is one of the most widely used tools in network reconnaissance.
+- It allows security professionals to discover systems, identify services, and map network infrastructure.
+
+Nmap can identify:
+
+- Live hosts
+- Open ports
+- Running services
+- Service versions
+- Operating systems
+- Network topology
+
+This information helps attackers identify potential entry points.
+
+
+==================================================
+2. Basic Host Discovery
+==================================================
+- Determine which hosts are active on a network.
+
+Example:
+
+nmap 192.168.1.0/24
+
+This scans the entire subnet to find live hosts.
+
+
+==================================================
+3. Ping Scan (Host Discovery Only)
+==================================================
+- Identify active hosts without scanning ports.
+
+Example:
+
+nmap -sn 192.168.1.0/24
+
+Explanation:
+
+-sn
+    Ping scan only (no port scanning)
+
+
+==================================================
+4. Basic Port Scan
+==================================================
+- Scan common ports on a target host.
+
+Example:
+
+nmap 192.168.1.10
+
+This scans the most common ports.
+
+
+==================================================
+5. Scan Specific Ports
+==================================================
+- Target specific ports instead of scanning defaults.
+
+Example:
+
+nmap -p 22,80,443 192.168.1.10
+
+
+==================================================
+6. Scan All Ports
+==================================================
+- Scan the entire port range (1–65535).
+
+Example:
+
+nmap -p- 192.168.1.10
+
+
+==================================================
+7. Service Version Detection
+==================================================
+- Identify the software and version running on open ports.
+
+Example:
+
+nmap -sV 192.168.1.10
+
+Explanation:
+
+-sV
+    Service version detection
+
+
+==================================================
+8. Operating System Detection
+==================================================
+- Attempt to identify the target's operating system.
+
+Example:
+
+nmap -O 192.168.1.10
+
+
+==================================================
+9. Aggressive Scan
+==================================================
+- Combines multiple scan techniques.
+
+Example:
+
+nmap -A 192.168.1.10
+
+Includes:
+
+- OS detection
+- Version detection
+- Script scanning
+- Traceroute
+
+
+==================================================
+10. SYN Stealth Scan
+==================================================
+- Performs a stealth scan without completing TCP connections.
+
+Example:
+
+nmap -sS 192.168.1.10
+
+This scan is commonly used during reconnaissance.
+
+
+==================================================
+11. UDP Scan
+==================================================
+- Scan UDP services such as DNS or SNMP.
+
+Example:
+
+nmap -sU 192.168.1.10
+
+UDP scans are slower but reveal additional services.
+
+
+==================================================
+12. NSE Script Scanning
+==================================================
+- Nmap includes a scripting engine (NSE) for advanced scanning.
+
+Example:
+
+nmap --script vuln 192.168.1.10
+
+This runs vulnerability detection scripts.
+
+
+Example categories:
+
+--script vuln
+    Vulnerability detection
+
+--script discovery
+    Information gathering
+
+--script auth
+    Authentication testing
+
+
+==================================================
+13. Scan Output to File
+==================================================
+- Save scan results for later analysis.
+
+Example:
+
+nmap -oN scan_results.txt 192.168.1.10
+
+Common output options:
+
+-oN
+    Normal output
+
+-oX
+    XML output
+
+-oA
+    All output formats
+
+
+==================================================
+14. Nmap Workflow Example
+==================================================
+
+Target Identified
+        ↓
+Host Discovery
+        ↓
+Port Scanning
+        ↓
+Service Enumeration
+        ↓
+Version Detection
+        ↓
+Vulnerability Analysis
+        ↓
+Potential Entry Points Identified
+
+
+==================================================
+15. Useful Nmap Options
+==================================================
+
+Host Discovery
+
+-sn
+Ping scan only
+
+-Pn
+Skip host discovery
+
+
+Port Scanning
+
+-p
+Specify ports
+
+-p-
+Scan all ports
+
+
+Service Detection
+
+-sV
+Service version detection
+
+
+Operating System Detection
+
+-O
+OS detection
+
+
+Scan Types
+
+-sS
+SYN stealth scan
+
+-sT
+TCP connect scan
+
+-sU
+UDP scan
+
+
+Aggressive Scanning
+
+-A
+Aggressive scan
+
+
+Output
+
+-oN
+Normal output file
+
+-oX
+XML output
+
+-oA
+All formats
+
+
+==================================================
+16. Operational Notes
+==================================================
+- Nmap scans generate network traffic that may trigger security monitoring systems.
+
+Scanning activity may trigger:
+
+- Intrusion detection systems
+- Firewall alerts
+- Security monitoring tools
+
+Slow scans or stealth scans are sometimes used to reduce detection.
+
+
+==================================================
+17. Questions & Answers
+==================================================
+
+1. Question:
+What is Nmap used for?
+
+Answer:
+Nmap is used for network discovery and port scanning.
+
+--------------------------------------------------
+
+2. Question:
+What does host discovery do?
+
+Answer:
+It identifies which systems are active on a network.
+
+--------------------------------------------------
+
+3. Question:
+What is a port scan?
+
+Answer:
+A technique used to identify open ports and services on a host.
+
+--------------------------------------------------
+
+4. Question:
+What does the -sV option do?
+
+Answer:
+It detects the version of services running on open ports.
+
+--------------------------------------------------
+
+5. Question:
+What does the -O option attempt to detect?
+
+Answer:
+The operating system of the target host.
+
+--------------------------------------------------
+
+6. Question:
+What is the purpose of NSE scripts?
+
+Answer:
+They extend Nmap functionality for discovery, enumeration, and vulnerability scanning.
+
+--------------------------------------------------
+
+7. Question (Attack Perspective):
+Why is Nmap important during reconnaissance?
+
+Answer:
+It reveals network services and potential attack surfaces.
+
+--------------------------------------------------
+
+8. Question (Defensive Perspective):
+How can organizations detect Nmap scans?
+
+Answer:
+By monitoring abnormal port scanning activity and network probing behavior.

@@ -1,0 +1,277 @@
+Lateral Movement
+- Techniques used by attackers to move from one compromised system to other systems within a network.
+
+Stage in Attack Lifecycle:
+Recon → Initial Access → Exploitation → Privilege Escalation → **Lateral Movement** → Persistence → Command & Control → Data Exfiltration
+
+==================================================
+1. Overview
+==================================================
+- Lateral movement occurs after attackers gain initial access and often after privilege escalation.
+- During this stage, attackers attempt to expand their access across additional systems within the target environment.
+- By moving laterally, attackers can discover sensitive systems, access additional data, and increase their control over the network.
+
+
+==================================================
+2. Purpose of Lateral Movement
+==================================================
+- The goal of lateral movement is to extend the attacker's presence beyond the initially compromised machine.
+
+Attackers move laterally in order to:
+
+- Access additional systems
+- Reach sensitive servers
+- Obtain higher-value credentials
+- Access internal resources
+- Position themselves closer to valuable data
+
+
+==================================================
+3. Internal Reconnaissance
+==================================================
+- Before moving laterally, attackers often perform internal reconnaissance to understand the environment.
+
+This may involve discovering:
+
+- Internal IP ranges
+- Active hosts
+- Domain controllers
+- File servers
+- Authentication systems
+- Network shares
+
+Internal reconnaissance helps attackers identify potential targets.
+
+
+==================================================
+4. Credential Reuse
+==================================================
+- Credential reuse is one of the most common methods for lateral movement.
+
+Attackers may reuse credentials obtained from:
+
+- Password files
+- Memory dumps
+- Configuration files
+- Credential stores
+- Previous compromises
+
+If multiple systems share the same credentials, attackers can easily move between machines.
+
+
+==================================================
+5. Remote Administration Abuse
+==================================================
+- Many operating systems include remote administration tools that allow administrators to manage systems remotely.
+
+Attackers frequently abuse these legitimate tools for lateral movement.
+
+Examples include:
+
+- SSH
+- Remote Desktop Protocol (RDP)
+- Windows Management Instrumentation (WMI)
+- PowerShell Remoting
+- SMB file sharing
+
+Because these tools are legitimate, their usage may blend into normal administrative activity.
+
+
+==================================================
+6. Pass-the-Hash Attacks
+==================================================
+- Pass-the-Hash attacks allow attackers to authenticate using password hashes instead of plaintext passwords.
+
+If attackers obtain password hashes from a compromised system, they may reuse those hashes to authenticate to other systems.
+
+This technique is commonly used in Windows environments where authentication relies on NTLM hashes.
+
+
+==================================================
+7. Pass-the-Ticket Attacks
+==================================================
+- Pass-the-Ticket attacks involve stealing Kerberos authentication tickets.
+
+These tickets allow attackers to authenticate to services without needing the original password.
+
+If attackers capture a valid Kerberos ticket, they can reuse it to access other systems within the domain.
+
+
+==================================================
+8. Remote Execution
+==================================================
+- Remote execution techniques allow attackers to run commands on other systems within the network.
+
+Common methods include:
+
+- Remote shell access
+- Remote service execution
+- Remote scripting tools
+- Scheduled tasks executed remotely
+
+These techniques allow attackers to control multiple machines.
+
+
+==================================================
+9. Pivoting
+==================================================
+- Pivoting occurs when attackers use a compromised system as a stepping stone to access other systems.
+
+Example scenario:
+
+Internet Attacker
+        ↓
+Compromised Web Server
+        ↓
+Internal Network Access
+        ↓
+Internal Servers
+
+Pivoting allows attackers to reach systems that were not originally accessible.
+
+
+==================================================
+10. Network Shares
+==================================================
+- File shares often provide opportunities for lateral movement.
+
+If network shares allow weak authentication or improper permissions, attackers may:
+
+- Access sensitive files
+- Upload malicious tools
+- Execute scripts remotely
+
+File sharing protocols are commonly used in enterprise environments.
+
+
+==================================================
+11. Lateral Movement in Linux Systems
+==================================================
+Common Linux lateral movement techniques include:
+
+- SSH access with stolen keys
+- Credential reuse across systems
+- Accessing shared NFS directories
+- Abusing administrative scripts
+- Pivoting through compromised hosts
+
+
+==================================================
+12. Lateral Movement in Windows Systems
+==================================================
+Common Windows lateral movement techniques include:
+
+- Pass-the-Hash
+- Pass-the-Ticket
+- RDP access
+- SMB file sharing
+- PowerShell remoting
+- WMI execution
+
+Windows environments often rely heavily on centralized authentication systems, making credential theft particularly valuable.
+
+
+==================================================
+13. Example Lateral Movement Workflow
+==================================================
+
+1. Compromise initial system
+2. Enumerate internal network
+3. Discover other hosts
+4. Obtain credentials
+5. Attempt authentication to other systems
+6. Execute remote commands
+7. Compromise additional machines
+
+
+==================================================
+14. Why Lateral Movement Matters
+==================================================
+- Lateral movement allows attackers to escalate a small breach into a full network compromise.
+
+By moving between systems, attackers can:
+
+- Access sensitive infrastructure
+- Reach domain controllers
+- Deploy malware widely
+- Exfiltrate valuable data
+
+
+==================================================
+15. Questions & Answers
+==================================================
+1. Question:
+What is lateral movement?
+
+Answer:
+Lateral movement is the process of moving from one compromised system to other systems within a network.
+
+--------------------------------------------------
+2. Question:
+Why do attackers perform lateral movement?
+
+Answer:
+To expand their access, reach valuable systems, and gain control over more of the network.
+
+--------------------------------------------------
+3. Question:
+What is internal reconnaissance?
+
+Answer:
+Internal reconnaissance involves gathering information about systems and services inside a network.
+
+--------------------------------------------------
+4. Question:
+Why is credential reuse dangerous?
+
+Answer:
+Because the same credentials may allow access to multiple systems.
+
+--------------------------------------------------
+5. Question:
+What is Pass-the-Hash?
+
+Answer:
+Pass-the-Hash is an attack that allows authentication using password hashes instead of plaintext passwords.
+
+--------------------------------------------------
+6. Question:
+What is Pass-the-Ticket?
+
+Answer:
+Pass-the-Ticket involves stealing and reusing Kerberos authentication tickets.
+
+--------------------------------------------------
+7. Question:
+What is pivoting?
+
+Answer:
+Pivoting uses a compromised system as a bridge to access other systems within a network.
+
+--------------------------------------------------
+8. Question:
+Why are remote administration tools frequently abused?
+
+Answer:
+Because they are legitimate tools and may not immediately appear suspicious.
+
+--------------------------------------------------
+9. Question:
+What is remote execution?
+
+Answer:
+Remote execution allows attackers to run commands on other systems within the network.
+
+--------------------------------------------------
+10. Question (Attack Perspective):
+Why is lateral movement critical for attackers?
+
+Answer:
+Because it allows attackers to expand their access and reach valuable systems within a network.
+
+--------------------------------------------------
+11. Question (Defensive Perspective):
+How can defenders detect lateral movement?
+
+Answer:
+By monitoring unusual authentication events, abnormal remote connections, and suspicious administrative activity.

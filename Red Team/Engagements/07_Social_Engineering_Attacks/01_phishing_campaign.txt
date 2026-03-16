@@ -1,0 +1,303 @@
+Phishing Campaign
+- A social engineering attack designed to trick users into revealing credentials or executing malicious actions through deceptive communication.
+
+==================================================
+Attack Metadata
+==================================================
+
+Category:
+Social_Engineering_Attacks
+
+Attack Stage:
+Initial Access
+Credential Access
+
+Difficulty:
+Beginner → Intermediate
+
+Stealth Level:
+High
+
+Requires Authentication:
+No
+
+Tools Used:
+GoPhish
+SET (Social Engineering Toolkit)
+Email Spoofing Tools
+Web Hosting
+Credential Harvesting Tools
+
+
+==================================================
+1. Overview
+==================================================
+A phishing campaign is a coordinated attack where attackers send fraudulent messages to victims in order to steal credentials, deliver malware, or gain unauthorized access.
+
+These messages are typically delivered through:
+
+- email
+- messaging platforms
+- SMS (smishing)
+- voice calls (vishing)
+
+The attacker impersonates a trusted entity such as:
+
+- IT support
+- company management
+- cloud service providers
+- financial institutions
+
+Phishing remains one of the most successful initial access techniques used by attackers.
+
+
+==================================================
+2. Attack Scenario
+==================================================
+An attacker conducts reconnaissance to gather information about a target organization.
+
+Information collected may include:
+
+- employee names
+- email formats
+- internal services
+- company branding
+
+Using this information, the attacker crafts a convincing phishing email that appears legitimate.
+
+Victims are directed to:
+
+- fake login portals
+- malicious attachments
+- malware downloads
+
+When victims interact with the phishing content, attackers capture credentials or compromise the system.
+
+
+==================================================
+3. Tools Required
+==================================================
+
+GoPhish
+A phishing campaign framework used to send emails and track victim interaction.
+
+SET (Social Engineering Toolkit)
+Used to generate phishing pages and attack workflows.
+
+Email Spoofing Tools
+Used to craft emails that appear to come from trusted sources.
+
+Web Hosting
+Used to host fake login portals.
+
+Credential Harvesting Tools
+Used to capture usernames and passwords.
+
+
+==================================================
+4. Attack Workflow
+==================================================
+
+Target Reconnaissance
+        ↓
+Email Template Creation
+        ↓
+Fake Login Page Setup
+        ↓
+Phishing Emails Sent
+        ↓
+Victim Interaction
+        ↓
+Credential Harvesting
+        ↓
+Account Compromise
+
+
+==================================================
+5. Step-by-Step Execution
+==================================================
+Step 1 — Gather Target Information
+
+Attackers collect publicly available information about the organization.
+
+Examples:
+
+- employee emails
+- department names
+- cloud services used
+
+
+Step 2 — Create Phishing Email
+
+Example message:
+
+Subject: Password Expiration Notice
+
+Dear Employee,
+
+Your password will expire today.  
+Please log in immediately to update your credentials.
+
+[Update Password]
+
+
+Step 3 — Create Fake Login Page
+
+Attackers clone legitimate login pages.
+
+Example targets:
+
+- Microsoft 365
+- Google Workspace
+- VPN portals
+
+
+Step 4 — Launch Phishing Campaign
+
+Emails are sent to selected employees.
+
+
+Step 5 — Victim Interaction
+
+Victims click the link and enter credentials on the fake site.
+
+
+Step 6 — Capture Credentials
+
+The phishing server records submitted usernames and passwords.
+
+
+Step 7 — Account Access
+
+Attackers log into legitimate services using stolen credentials.
+
+
+==================================================
+6. Example Phishing Scenario
+==================================================
+Reconnaissance
+
+Attacker identifies employees using Microsoft 365.
+
+
+Email Delivery
+
+A phishing email is sent claiming password expiration.
+
+
+Credential Capture
+
+Employees enter credentials into a cloned login page.
+
+
+Account Compromise
+
+The attacker gains access to corporate email accounts.
+
+
+Network Expansion
+
+Compromised accounts are used for further attacks.
+
+
+==================================================
+7. Expected Results
+==================================================
+Successful phishing campaigns allow attackers to:
+
+- steal credentials
+- gain internal system access
+- spread malware
+- perform business email compromise
+- escalate attacks within the organization
+
+Phishing attacks often bypass technical security controls because they exploit human behavior.
+
+
+==================================================
+8. Defensive Considerations
+==================================================
+Organizations can defend against phishing attacks through multiple controls.
+
+Security Awareness Training
+
+Train employees to recognize suspicious emails.
+
+Multi-Factor Authentication
+
+Reduce risk from stolen credentials.
+
+Email Filtering
+
+Detect malicious links and attachments.
+
+Domain Monitoring
+
+Identify spoofed domains.
+
+Incident Response
+
+Quickly reset compromised credentials and investigate suspicious activity.
+
+
+==================================================
+9. MITRE ATT&CK Mapping
+==================================================
+
+Technique:
+T1566 — Phishing
+
+Sub-technique:
+T1566.001 — Spearphishing Attachment
+
+Sub-technique:
+T1566.002 — Spearphishing Link
+
+Sub-technique:
+T1566.003 — Spearphishing via Service
+
+Technique:
+T1078 — Valid Accounts
+
+
+==================================================
+10. Questions & Answers
+==================================================
+
+Question:
+What is a phishing campaign?
+
+Answer:
+A coordinated attack where fraudulent messages are used to trick victims into revealing credentials or executing malicious actions.
+
+--------------------------------------------------
+
+Question:
+What is the goal of most phishing attacks?
+
+Answer:
+To steal credentials or deliver malware.
+
+--------------------------------------------------
+
+Question:
+Which framework is commonly used for phishing simulations?
+
+Answer:
+GoPhish.
+
+--------------------------------------------------
+
+Question:
+Why are phishing attacks often successful?
+
+Answer:
+Because they exploit human trust rather than technical vulnerabilities.
+
+--------------------------------------------------
+
+Question:
+What is one of the best defenses against phishing attacks?
+
+Answer:
+Multi-factor authentication combined with security awareness training.

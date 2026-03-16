@@ -1,0 +1,265 @@
+Data Exfiltration
+- Techniques used by attackers to collect and transfer sensitive data out of a compromised environment.
+
+Stage in Attack Lifecycle:
+Recon → Initial Access → Exploitation → Privilege Escalation → Lateral Movement → Persistence → Command & Control → **Data Exfiltration**
+
+
+==================================================
+1. Overview
+==================================================
+- Data exfiltration is the process of stealing sensitive information from a compromised system or network.
+- Once attackers gain sufficient access and control over the environment, they often attempt to collect valuable data.
+
+Common targets include:
+
+- Customer databases
+- Intellectual property
+- Financial records
+- Credentials and authentication data
+- Internal documents
+
+The goal is typically financial gain, espionage, or long-term strategic advantage.
+
+
+==================================================
+2. Data Collection
+==================================================
+- Before exfiltrating data, attackers must identify and gather valuable information.
+
+Attackers may search for:
+
+- Database servers
+- File servers
+- Backup systems
+- Shared network drives
+- Cloud storage locations
+
+Sensitive data is often consolidated before transfer.
+
+
+==================================================
+3. Data Staging
+==================================================
+- Data staging is the process of preparing stolen data for exfiltration.
+
+This may involve:
+
+- Compressing files
+- Encrypting data
+- Splitting large files
+- Moving files to staging directories
+
+Staging helps attackers reduce the risk of detection and improve transfer efficiency.
+
+
+==================================================
+4. Direct Data Transfer
+==================================================
+- The simplest form of exfiltration involves directly transferring data from the compromised system to attacker infrastructure.
+
+Common methods include:
+
+- HTTP uploads
+- FTP transfers
+- Secure shell (SSH) file transfers
+- Cloud storage uploads
+
+These methods are straightforward but may be easier to detect.
+
+
+==================================================
+5. Exfiltration Over Command and Control Channels
+==================================================
+- Many attackers exfiltrate data through their existing command and control infrastructure.
+
+Example:
+
+Compromised Host
+        ↓
+Encrypted C2 Channel
+        ↓
+Attacker Server
+
+Because this traffic is already established, it may blend with normal communication.
+
+
+==================================================
+6. Covert Exfiltration Techniques
+==================================================
+- Attackers often attempt to hide data exfiltration within normal network activity.
+
+Examples include:
+
+- Encoding data within DNS queries
+- Hiding data in HTTP requests
+- Using legitimate cloud services
+- Sending data through encrypted messaging channels
+
+These covert techniques reduce the chance of detection.
+
+
+==================================================
+7. DNS Tunneling
+==================================================
+- DNS tunneling hides data inside DNS queries and responses.
+
+Example flow:
+
+Compromised Host
+        ↓
+Encoded DNS Query
+        ↓
+Attacker DNS Server
+        ↓
+Extracted Data
+
+Since DNS traffic is commonly allowed through firewalls, this method can bypass network restrictions.
+
+
+==================================================
+8. Data Compression and Encryption
+==================================================
+- Attackers often compress and encrypt stolen data before exfiltration.
+
+Reasons include:
+
+- Reducing transfer size
+- Preventing defenders from inspecting the contents
+- Hiding sensitive data from monitoring tools
+
+Encrypted archives are commonly used for staging stolen data.
+
+
+==================================================
+9. Slow Exfiltration Techniques
+==================================================
+- To avoid detection, attackers sometimes exfiltrate data slowly over long periods.
+
+This technique may involve:
+
+- Small periodic transfers
+- Blending transfers with normal traffic
+- Exfiltrating data during off-peak hours
+
+Slow exfiltration reduces the chance of triggering security alerts.
+
+
+==================================================
+10. Insider-Like Exfiltration
+==================================================
+- Some attackers mimic legitimate user behavior to avoid detection.
+
+Examples include:
+
+- Uploading files to cloud storage services
+- Sending data via email attachments
+- Copying files to remote collaboration platforms
+
+Because these actions resemble normal activity, they may bypass security monitoring.
+
+
+==================================================
+11. Example Data Exfiltration Workflow
+==================================================
+
+Sensitive Data Identified
+        ↓
+Files Collected
+        ↓
+Data Compressed
+        ↓
+Encrypted Archive Created
+        ↓
+Transfer via C2 or Covert Channel
+        ↓
+Data Stored on Attacker Infrastructure
+
+
+==================================================
+12. Why Data Exfiltration Matters
+==================================================
+- Data exfiltration represents the final objective of many cyber attacks.
+
+Consequences may include:
+
+- Financial loss
+- Exposure of personal data
+- Intellectual property theft
+- Regulatory penalties
+- Reputational damage
+
+Preventing exfiltration is a critical part of defensive security.
+
+
+==================================================
+13. Questions & Answers
+==================================================
+1. Question:
+What is data exfiltration?
+
+Answer:
+Data exfiltration is the process of stealing sensitive data from a compromised system or network.
+
+--------------------------------------------------
+2. Question:
+Why do attackers perform data exfiltration?
+
+Answer:
+To obtain valuable information such as credentials, financial data, or intellectual property.
+
+--------------------------------------------------
+3. Question:
+What is data staging?
+
+Answer:
+Data staging is the process of preparing stolen data for transfer, often by compressing or encrypting it.
+
+--------------------------------------------------
+4. Question:
+Why do attackers compress stolen data?
+
+Answer:
+To reduce transfer size and make exfiltration faster and less noticeable.
+
+--------------------------------------------------
+5. Question:
+Why do attackers encrypt exfiltrated data?
+
+Answer:
+To prevent defenders from inspecting the stolen data during transfer.
+
+--------------------------------------------------
+6. Question:
+What is DNS tunneling?
+
+Answer:
+DNS tunneling hides data inside DNS queries and responses to bypass network restrictions.
+
+--------------------------------------------------
+7. Question:
+Why do attackers use slow exfiltration techniques?
+
+Answer:
+To avoid detection by security monitoring systems.
+
+--------------------------------------------------
+8. Question:
+What is covert exfiltration?
+
+Answer:
+Covert exfiltration hides stolen data inside legitimate network traffic.
+
+--------------------------------------------------
+9. Question (Attack Perspective):
+Why is data exfiltration the final stage of many attacks?
+
+Answer:
+Because attackers ultimately want to steal valuable data from the target environment.
+
+--------------------------------------------------
+10. Question (Defensive Perspective):
+How can defenders detect data exfiltration?
+
+Answer:
+By monitoring abnormal outbound traffic, unusual DNS activity, large data transfers, and suspicious encrypted communications.

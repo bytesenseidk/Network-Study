@@ -1,0 +1,289 @@
+Directory Brute-Force Attack
+- A web enumeration technique used to discover hidden directories and files on a web server.
+
+==================================================
+Attack Metadata
+==================================================
+
+Category:
+Web Attacks → Enumeration and Discovery
+
+Attack Stage:
+Reconnaissance
+Discovery
+
+Difficulty:
+Beginner
+
+Stealth Level:
+Low
+
+Requires Authentication:
+No
+
+Tools Used:
+Gobuster
+Dirb
+FFUF
+Burp Suite
+Wordlists
+
+
+==================================================
+1. Overview
+==================================================
+Directory brute-forcing is a technique used to identify hidden or unlinked resources on a web server.
+
+Web applications often contain directories and files that are not directly accessible through navigation links.
+
+Examples include:
+
+- administrative panels
+- backup files
+- development endpoints
+- API routes
+- configuration files
+
+Attackers use automated tools to test thousands of potential directory and file names.
+
+If a valid resource exists, the server will return a response indicating that the path is accessible.
+
+
+==================================================
+2. Attack Scenario
+==================================================
+An attacker identifies a web server during reconnaissance.
+
+Example:
+
+http://example.com
+
+The attacker suspects that hidden directories may exist.
+
+Using automated enumeration tools, the attacker attempts to discover directories such as:
+
+- /admin
+- /backup
+- /dev
+- /api
+- /test
+
+If the server returns a successful response (HTTP 200 or similar), the attacker gains access to that resource.
+
+
+==================================================
+3. Tools Required
+==================================================
+
+Gobuster
+A fast directory and file brute-forcing tool.
+
+Dirb
+A classic web content scanner.
+
+FFUF
+A powerful fuzzing tool used for discovering web resources.
+
+Burp Suite
+Used for manual testing and request analysis.
+
+Wordlists
+Lists of common directory and file names.
+
+
+==================================================
+4. Attack Workflow
+==================================================
+
+Identify Target Website
+        ↓
+Select Wordlist
+        ↓
+Launch Directory Enumeration
+        ↓
+Analyze HTTP Responses
+        ↓
+Identify Hidden Resources
+        ↓
+Investigate Discovered Endpoints
+
+
+==================================================
+5. Step-by-Step Execution
+==================================================
+Step 1 — Identify Target
+
+Example target:
+
+http://example.com
+
+
+Step 2 — Select Wordlist
+
+Common wordlists include:
+
+- directory-list-2.3-medium.txt
+- common.txt
+- raft-large-directories.txt
+
+
+Step 3 — Launch Enumeration
+
+Example Gobuster command:
+
+gobuster dir -u http://example.com -w /usr/share/wordlists/dirb/common.txt
+
+
+Step 4 — Analyze Responses
+
+Example results:
+
+/admin (Status: 200)
+/backup (Status: 403)
+/api (Status: 200)
+
+
+Step 5 — Investigate Discovered Paths
+
+The attacker visits the discovered resources.
+
+Example:
+
+http://example.com/admin
+
+
+Step 6 — Identify Sensitive Content
+
+The attacker may discover:
+
+- admin dashboards
+- configuration files
+- development endpoints
+
+
+==================================================
+6. Example Directory Enumeration Scenario
+==================================================
+Initial Reconnaissance
+
+The attacker identifies a target web application.
+
+
+Directory Scan
+
+Gobuster is used with a large wordlist.
+
+
+Hidden Endpoint Discovered
+
+The scan reveals /admin.
+
+
+Administrative Interface
+
+The attacker accesses the admin login page.
+
+
+Further Exploitation
+
+Weak authentication or vulnerabilities may allow full compromise.
+
+
+==================================================
+7. Expected Results
+==================================================
+Successful directory brute-force attacks may reveal:
+
+- hidden admin panels
+- backup files
+- exposed APIs
+- development environments
+- sensitive application endpoints
+
+These resources often provide valuable entry points for further attacks.
+
+
+==================================================
+8. Defensive Considerations
+==================================================
+Organizations can reduce exposure through several security controls.
+
+Access Control
+
+Protect sensitive endpoints with authentication.
+
+Disable Directory Listing
+
+Prevent automatic listing of directory contents.
+
+Web Application Firewalls (WAF)
+
+Detect and block enumeration attempts.
+
+Rate Limiting
+
+Limit repeated requests from a single source.
+
+Security Testing
+
+Regularly audit exposed application endpoints.
+
+
+==================================================
+9. MITRE ATT&CK Mapping
+==================================================
+
+Technique:
+T1595 — Active Scanning
+
+Technique:
+T1046 — Network Service Discovery
+
+Technique:
+T1083 — File and Directory Discovery
+
+Technique:
+T1592 — Gather Victim Host Information
+
+
+==================================================
+10. Questions & Answers
+==================================================
+
+Question:
+What is directory brute-forcing?
+
+Answer:
+A technique used to discover hidden directories and files on a web server.
+
+--------------------------------------------------
+
+Question:
+Which tool is commonly used for directory brute-forcing?
+
+Answer:
+Gobuster.
+
+--------------------------------------------------
+
+Question:
+What type of file is required to perform directory brute-forcing?
+
+Answer:
+A wordlist containing possible directory names.
+
+--------------------------------------------------
+
+Question:
+What HTTP response code usually indicates a discovered resource?
+
+Answer:
+HTTP 200 (OK).
+
+--------------------------------------------------
+
+Question:
+Why is directory enumeration useful for attackers?
+
+Answer:
+It reveals hidden resources that may contain vulnerabilities or sensitive information.

@@ -1,0 +1,314 @@
+JWT Attack
+- An authentication attack targeting JSON Web Tokens (JWT) to bypass authentication, escalate privileges, or impersonate users.
+
+==================================================
+Attack Metadata
+==================================================
+
+Category:
+Web Attacks → Authentication Attacks
+
+Attack Stage:
+Credential Access
+Privilege Escalation
+Defense Evasion
+
+Difficulty:
+Intermediate
+
+Stealth Level:
+High
+
+Requires Authentication:
+Yes (valid JWT token required)
+
+Tools Used:
+Burp Suite
+jwt.io
+JWT Tool
+CyberChef
+
+
+==================================================
+1. Overview
+==================================================
+JSON Web Tokens (JWT) are widely used for authentication in web applications and APIs.
+
+A JWT is a signed token that contains user identity information and authorization data.
+
+JWTs are commonly used in:
+
+- web applications
+- REST APIs
+- Single Sign-On (SSO) systems
+- cloud services
+
+A typical JWT contains three parts:
+
+Header
+Payload
+Signature
+
+Example JWT:
+
+header.payload.signature
+
+If JWTs are improperly implemented, attackers may:
+
+- forge tokens
+- escalate privileges
+- bypass authentication
+- impersonate other users
+
+
+==================================================
+2. Attack Scenario
+==================================================
+A web application uses JWT tokens to authenticate users.
+
+After login, the server issues a JWT token to the client.
+
+The token is stored in:
+
+- cookies
+- local storage
+- Authorization headers
+
+The server trusts the token contents without properly validating its signature or configuration.
+
+An attacker intercepts or obtains a valid JWT and manipulates its contents to gain elevated privileges.
+
+
+==================================================
+3. Tools Required
+==================================================
+
+Burp Suite
+Used to intercept and modify JWT tokens.
+
+jwt.io
+Used to decode and analyze JWT tokens.
+
+JWT Tool
+A toolkit used to test and manipulate JWT vulnerabilities.
+
+CyberChef
+Used for encoding and decoding token components.
+
+
+==================================================
+4. Attack Workflow
+==================================================
+
+Obtain JWT Token
+        ↓
+Decode Token Contents
+        ↓
+Analyze Token Configuration
+        ↓
+Modify Payload
+        ↓
+Forge or Bypass Signature
+        ↓
+Replay Modified Token
+
+
+==================================================
+5. Step-by-Step Execution
+==================================================
+Step 1 — Capture JWT Token
+
+The attacker intercepts a request using Burp Suite.
+
+Example header:
+
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+
+
+Step 2 — Decode the Token
+
+The token can be decoded using jwt.io.
+
+Example payload:
+
+{
+  "user": "john",
+  "role": "user",
+  "exp": 1712345678
+}
+
+
+Step 3 — Modify Token Payload
+
+The attacker changes the role value:
+
+{
+  "user": "john",
+  "role": "admin"
+}
+
+
+Step 4 — Exploit Weak Signature Validation
+
+Common JWT vulnerabilities include:
+
+None Algorithm Attack
+
+The attacker changes the algorithm to:
+
+"alg": "none"
+
+Some poorly configured servers accept unsigned tokens.
+
+
+Weak Secret Keys
+
+If the server uses weak signing keys, attackers can brute-force the secret.
+
+
+Key Confusion Attacks
+
+The attacker manipulates the signing algorithm used by the server.
+
+
+Step 5 — Replay Forged Token
+
+The attacker sends the modified token back to the server.
+
+Example request:
+
+Authorization: Bearer forged_token_here
+
+If successful, the attacker gains elevated privileges.
+
+
+==================================================
+6. Example JWT Attack Scenario
+==================================================
+Login
+
+User authenticates to the web application.
+
+
+Token Issued
+
+The server returns a JWT token.
+
+
+Token Analysis
+
+The attacker decodes the token and discovers the role field.
+
+
+Payload Manipulation
+
+The attacker changes the role from "user" to "admin".
+
+
+Authentication Bypass
+
+The modified token grants administrative access.
+
+
+==================================================
+7. Expected Results
+==================================================
+Successful JWT attacks may allow attackers to:
+
+- escalate privileges
+- impersonate users
+- bypass authentication
+- access restricted resources
+- manipulate application data
+
+These vulnerabilities often occur when developers improperly validate JWT signatures.
+
+
+==================================================
+8. Defensive Considerations
+==================================================
+Organizations should implement secure JWT handling practices.
+
+Strong Signing Keys
+
+Use long and random secrets.
+
+Strict Signature Verification
+
+Always verify token signatures.
+
+Disable "None" Algorithm
+
+Reject unsigned tokens.
+
+Short Token Expiration
+
+Limit token lifetime.
+
+Secure Storage
+
+Avoid storing tokens in insecure locations such as local storage.
+
+Token Revocation
+
+Implement mechanisms to revoke compromised tokens.
+
+
+==================================================
+9. MITRE ATT&CK Mapping
+==================================================
+
+Technique:
+T1550 — Use of Alternate Authentication Material
+
+Sub-technique:
+T1550.001 — Application Access Token
+
+Technique:
+T1078 — Valid Accounts
+
+Technique:
+T1606 — Forge Web Credentials
+
+
+==================================================
+10. Questions & Answers
+==================================================
+
+Question:
+What is a JWT?
+
+Answer:
+A JSON Web Token is a signed token used to authenticate users and transmit identity information.
+
+--------------------------------------------------
+
+Question:
+What are the three components of a JWT?
+
+Answer:
+Header, Payload, and Signature.
+
+--------------------------------------------------
+
+Question:
+What is a common JWT misconfiguration?
+
+Answer:
+Accepting tokens with the "none" signing algorithm.
+
+--------------------------------------------------
+
+Question:
+What happens if attackers modify the JWT payload?
+
+Answer:
+They may escalate privileges or impersonate other users.
+
+--------------------------------------------------
+
+Question:
+What is the best defense against JWT attacks?
+
+Answer:
+Strict signature verification and strong secret keys.

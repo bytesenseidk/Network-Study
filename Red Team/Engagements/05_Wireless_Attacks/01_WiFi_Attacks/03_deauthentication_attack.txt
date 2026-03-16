@@ -1,0 +1,273 @@
+WiFi Deauthentication Attack
+- A wireless attack where attackers disconnect devices from a wireless network by sending forged deauthentication frames.
+
+==================================================
+Attack Metadata
+==================================================
+
+Category:
+Wireless Attacks → WiFi Attacks
+
+Attack Stage:
+Initial Access Preparation
+Credential Access
+Denial of Service
+
+Difficulty:
+Beginner
+
+Stealth Level:
+Low → Medium
+
+Requires Authentication:
+No
+
+Tools Used:
+Aircrack-ng Suite
+Aireplay-ng
+Wireshark
+Compatible Wireless Adapter
+
+
+==================================================
+1. Overview
+==================================================
+A deauthentication attack exploits the management frames used in WiFi networks.
+
+In IEEE 802.11 wireless networks, devices communicate using several frame types:
+
+- management frames
+- control frames
+- data frames
+
+Deauthentication frames are used by access points to disconnect clients from the network.
+
+However, these frames are not always authenticated.
+
+Attackers can forge deauthentication frames to force devices to disconnect.
+
+This attack is commonly used for:
+
+- denial of service
+- forcing reconnections
+- capturing WPA handshakes
+- preparing for Evil Twin attacks
+
+
+==================================================
+2. Attack Scenario
+==================================================
+A victim device is connected to a wireless network.
+
+The attacker sends forged deauthentication frames pretending to be the access point.
+
+The victim device believes the access point has disconnected it and drops the connection.
+
+When the victim reconnects to the network, the attacker may capture the WPA handshake.
+
+
+==================================================
+3. Tools Required
+==================================================
+
+Aircrack-ng Suite
+Provides wireless attack tools.
+
+Aireplay-ng
+Used to send deauthentication frames.
+
+Wireshark
+Used to monitor wireless traffic.
+
+Compatible Wireless Adapter
+Adapter must support monitor mode and packet injection.
+
+
+==================================================
+4. Attack Workflow
+==================================================
+
+Identify Target Network
+        ↓
+Enable Monitor Mode
+        ↓
+Identify Access Point and Client
+        ↓
+Send Deauthentication Frames
+        ↓
+Force Client Disconnect
+        ↓
+Capture WPA Handshake
+
+
+==================================================
+5. Step-by-Step Execution
+==================================================
+Step 1 — Enable Monitor Mode
+
+Example command:
+
+airmon-ng start wlan0
+
+
+Step 2 — Identify Wireless Networks
+
+Example command:
+
+airodump-ng wlan0mon
+
+This reveals:
+
+- BSSID
+- channel
+- connected clients
+
+
+Step 3 — Identify Target Client
+
+The attacker observes a client connected to the access point.
+
+
+Step 4 — Launch Deauthentication Attack
+
+Example command:
+
+aireplay-ng --deauth 10 -a <BSSID> -c <CLIENT_MAC> wlan0mon
+
+
+Example:
+
+aireplay-ng --deauth 10 -a AA:BB:CC:DD:EE:FF -c 11:22:33:44:55:66 wlan0mon
+
+
+Step 5 — Client Disconnects
+
+The victim device is forced off the network.
+
+
+Step 6 — Capture Handshake
+
+When the client reconnects, the WPA handshake may be captured.
+
+
+==================================================
+6. Example Attack Scenario
+==================================================
+Network Discovery
+
+The attacker identifies a wireless network.
+
+
+Client Identification
+
+A device connected to the network is identified.
+
+
+Deauthentication
+
+The attacker sends forged deauthentication frames.
+
+
+Client Reconnection
+
+The victim reconnects to the access point.
+
+
+Handshake Capture
+
+The WPA handshake is captured for password cracking.
+
+
+==================================================
+7. Expected Results
+==================================================
+Successful deauthentication attacks allow attackers to:
+
+- disconnect devices from networks
+- capture WPA handshakes
+- perform denial-of-service attacks
+- facilitate Evil Twin attacks
+
+These attacks exploit weaknesses in WiFi management frames.
+
+
+==================================================
+8. Defensive Considerations
+==================================================
+Organizations can mitigate deauthentication attacks using several controls.
+
+Protected Management Frames (PMF)
+
+802.11w protects management frames from spoofing.
+
+Wireless Intrusion Detection Systems
+
+Detect abnormal wireless activity.
+
+Strong Wireless Security
+
+Use WPA2/WPA3 with strong passwords.
+
+Network Monitoring
+
+Monitor wireless network behavior.
+
+
+==================================================
+9. MITRE ATT&CK Mapping
+==================================================
+
+Technique:
+T1499 — Endpoint Denial of Service
+
+Technique:
+T1040 — Network Sniffing
+
+Technique:
+T1110 — Brute Force
+
+Sub-technique:
+T1110.002 — Password Cracking
+
+
+==================================================
+10. Questions & Answers
+==================================================
+
+Question:
+What is a deauthentication attack?
+
+Answer:
+An attack where forged WiFi management frames disconnect devices from a wireless network.
+
+--------------------------------------------------
+
+Question:
+Which tool is commonly used to send deauthentication frames?
+
+Answer:
+Aireplay-ng.
+
+--------------------------------------------------
+
+Question:
+Why are deauthentication attacks possible?
+
+Answer:
+Because many WiFi management frames are not authenticated.
+
+--------------------------------------------------
+
+Question:
+What attack is often performed after deauthentication?
+
+Answer:
+WPA handshake capture.
+
+--------------------------------------------------
+
+Question:
+What technology can help prevent deauthentication attacks?
+
+Answer:
+Protected Management Frames (802.11w).

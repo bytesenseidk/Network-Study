@@ -1,0 +1,307 @@
+Hashcat
+- A high-performance password cracking tool used to recover plaintext passwords from captured hashes.
+
+Stage in Attack Lifecycle:
+Credential Harvesting → **Password Cracking** → Privilege Escalation / Lateral Movement
+
+
+==================================================
+1. Overview
+==================================================
+- Hashcat is one of the fastest password cracking tools available.
+- It uses CPU and GPU acceleration to perform large-scale password cracking attacks.
+
+Hashcat is commonly used after attackers capture authentication hashes from:
+
+- Responder
+- secretsdump (Impacket)
+- Kerberoasting attacks
+- Database breaches
+- Password dumps
+
+Recovered passwords can allow attackers to escalate privileges or move laterally through a network.
+
+
+==================================================
+2. Basic Hashcat Syntax
+==================================================
+Basic command structure:
+
+hashcat -m <hash_type> -a <attack_mode> hashfile wordlist
+
+
+Example:
+
+hashcat -m 1000 -a 0 hashes.txt rockyou.txt
+
+
+Explanation:
+
+-m
+Hash type
+
+-a
+Attack mode
+
+hashes.txt
+File containing captured hashes
+
+rockyou.txt
+Password wordlist
+
+
+==================================================
+3. Common Hash Types
+==================================================
+
+NTLM
+
+-m 1000
+
+
+NetNTLMv2
+
+-m 5600
+
+
+Kerberos TGS (Kerberoasting)
+
+-m 13100
+
+
+MD5
+
+-m 0
+
+
+SHA1
+
+-m 100
+
+
+==================================================
+4. Dictionary Attack
+==================================================
+- The most common password cracking method.
+
+Example:
+
+hashcat -m 1000 -a 0 hashes.txt /usr/share/wordlists/rockyou.txt
+
+
+This tests each password in the wordlist against the hash.
+
+
+==================================================
+5. Brute Force Attack
+==================================================
+- Attempts all possible combinations of characters.
+
+Example:
+
+hashcat -m 1000 -a 3 hashes.txt ?a?a?a?a?a?a
+
+
+Explanation:
+
+?a
+Represents all possible characters
+
+
+Example mask:
+
+?l = lowercase letters  
+?u = uppercase letters  
+?d = digits  
+?s = special characters
+
+
+Example:
+
+?l?l?l?l?d?d
+
+Would test:
+
+abcd12
+
+
+==================================================
+6. Rule-Based Attack
+==================================================
+- Applies transformation rules to a wordlist.
+
+Example:
+
+hashcat -m 1000 -a 0 hashes.txt rockyou.txt -r rules/best64.rule
+
+
+This modifies dictionary words using common password variations such as:
+
+- Capitalization
+- Appending numbers
+- Substituting characters
+
+
+==================================================
+7. Hybrid Attack
+==================================================
+- Combines dictionary and brute-force attacks.
+
+Example:
+
+hashcat -m 1000 -a 6 hashes.txt rockyou.txt ?d?d
+
+
+Example result:
+
+password12
+
+
+==================================================
+8. Example Workflow
+==================================================
+
+Responder Captures Hash
+        ↓
+Hashes Saved to File
+        ↓
+Hashcat Identifies Hash Type
+        ↓
+Dictionary Attack Executed
+        ↓
+Password Recovered
+        ↓
+Credentials Used for Lateral Movement
+
+
+==================================================
+9. Viewing Cracked Passwords
+==================================================
+Display cracked passwords:
+
+hashcat --show hashes.txt
+
+
+==================================================
+10. Benchmarking Hardware
+==================================================
+Test cracking performance:
+
+hashcat -b
+
+
+This shows GPU/CPU cracking speed.
+
+
+==================================================
+11. Useful Hashcat Options
+==================================================
+
+-m
+Hash type
+
+-a
+Attack mode
+
+-r
+Apply rule file
+
+-o
+Output cracked passwords
+
+--show
+Display cracked results
+
+--force
+Ignore warnings
+
+
+==================================================
+12. Operational Notes
+==================================================
+Password cracking effectiveness depends on:
+
+- Password complexity
+- Wordlist quality
+- Hardware performance
+- Attack strategy
+
+GPU acceleration significantly improves cracking speed.
+
+
+==================================================
+13. Defensive Considerations
+==================================================
+Organizations can reduce password cracking risk by:
+
+- Using strong password policies
+- Implementing multi-factor authentication
+- Preventing credential exposure
+- Using password hashing algorithms with salting and stretching
+
+
+==================================================
+14. Questions & Answers
+==================================================
+
+1. Question:
+What is Hashcat used for?
+
+Answer:
+Hashcat is used to recover plaintext passwords from cryptographic hashes.
+
+--------------------------------------------------
+
+2. Question:
+What is a dictionary attack?
+
+Answer:
+Testing passwords from a wordlist against a hash.
+
+--------------------------------------------------
+
+3. Question:
+What is a brute-force attack?
+
+Answer:
+Trying every possible password combination.
+
+--------------------------------------------------
+
+4. Question:
+What does the -m option specify?
+
+Answer:
+The hash type.
+
+--------------------------------------------------
+
+5. Question:
+What does the -a option control?
+
+Answer:
+The attack mode used by Hashcat.
+
+--------------------------------------------------
+
+6. Question:
+Why is GPU acceleration useful in password cracking?
+
+Answer:
+Because GPUs can test billions of password guesses per second.
+
+--------------------------------------------------
+
+7. Question (Attack Perspective):
+Why are cracked passwords valuable?
+
+Answer:
+They allow attackers to authenticate to systems and escalate privileges.
+
+--------------------------------------------------
+
+8. Question (Defensive Perspective):
+How can organizations prevent password cracking attacks?
+
+Answer:
+By enforcing strong passwords, hashing securely, and implementing multi-factor authentication.

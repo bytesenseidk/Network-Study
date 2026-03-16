@@ -1,0 +1,283 @@
+Cross-Site Request Forgery (CSRF) Attack
+- A web attack that tricks a victim's browser into performing unauthorized actions on a web application where the user is authenticated.
+
+==================================================
+Attack Metadata
+==================================================
+
+Category:
+Web Attacks → Client-Side Attacks
+
+Attack Stage:
+Initial Access
+Impact
+
+Difficulty:
+Beginner
+
+Stealth Level:
+High
+
+Requires Authentication:
+Yes (victim must be authenticated)
+
+Tools Used:
+Burp Suite
+Browser Developer Tools
+HTML / JavaScript
+Custom Attack Page
+
+
+==================================================
+1. Overview
+==================================================
+Cross-Site Request Forgery (CSRF) occurs when an attacker forces a victim's browser to send a request to a web application in which the victim is already authenticated.
+
+Because the browser automatically includes authentication credentials such as:
+
+- session cookies
+- authentication headers
+- stored tokens
+
+the server processes the request as if it came from the legitimate user.
+
+CSRF attacks can be used to:
+
+- change account settings
+- transfer funds
+- modify passwords
+- perform administrative actions
+- create or delete resources
+
+
+==================================================
+2. Attack Scenario
+==================================================
+A user logs into a banking website.
+
+The website maintains authentication using a session cookie.
+
+While the user remains logged in, they visit a malicious webpage controlled by the attacker.
+
+The malicious page contains a hidden request that triggers a sensitive action on the banking site.
+
+Because the browser automatically sends the session cookie, the server processes the request as a legitimate user action.
+
+
+==================================================
+3. Tools Required
+==================================================
+
+Burp Suite
+Used to capture and analyze HTTP requests.
+
+Browser Developer Tools
+Used to inspect requests and cookies.
+
+HTML / JavaScript
+Used to construct malicious requests.
+
+Custom Attack Page
+Used to host the CSRF payload.
+
+
+==================================================
+4. Attack Workflow
+==================================================
+
+Victim Authenticates to Web Application
+        ↓
+Attacker Crafts Malicious Request
+        ↓
+Victim Visits Malicious Page
+        ↓
+Browser Sends Authenticated Request
+        ↓
+Server Executes Action
+        ↓
+Attacker Achieves Goal
+
+
+==================================================
+5. Step-by-Step Execution
+==================================================
+Step 1 — Identify Sensitive Request
+
+The attacker identifies a request that performs a sensitive action.
+
+Example request:
+
+POST /transfer HTTP/1.1
+
+amount=1000&recipient=attacker
+
+
+Step 2 — Craft CSRF Payload
+
+Example HTML payload:
+
+<html>
+<body>
+<form action="https://bank.com/transfer" method="POST">
+<input type="hidden" name="amount" value="1000">
+<input type="hidden" name="recipient" value="attacker">
+</form>
+
+<script>
+document.forms[0].submit();
+</script>
+</body>
+</html>
+
+
+Step 3 — Deliver the Malicious Page
+
+The attacker tricks the victim into visiting the page.
+
+Example methods:
+
+- phishing email
+- malicious advertisement
+- compromised website
+
+
+Step 4 — Victim Loads the Page
+
+The browser automatically submits the request.
+
+
+Step 5 — Authenticated Request Sent
+
+The victim's browser includes authentication cookies.
+
+
+Step 6 — Server Executes the Action
+
+The server processes the request as if it came from the legitimate user.
+
+
+==================================================
+6. Example CSRF Scenario
+==================================================
+User Login
+
+A user logs into an online banking system.
+
+
+Malicious Link
+
+The user clicks a link in a phishing email.
+
+
+Hidden Request
+
+The malicious page submits a fund transfer request.
+
+
+Authenticated Request
+
+The browser includes the session cookie.
+
+
+Unauthorized Transaction
+
+The bank processes the transfer.
+
+
+==================================================
+7. Expected Results
+==================================================
+Successful CSRF attacks allow attackers to:
+
+- perform unauthorized actions
+- modify user settings
+- initiate transactions
+- escalate privileges
+
+These attacks rely on the victim being authenticated when the malicious request is triggered.
+
+
+==================================================
+8. Defensive Considerations
+==================================================
+Organizations should implement protections against CSRF attacks.
+
+CSRF Tokens
+
+Require unique tokens for sensitive requests.
+
+SameSite Cookies
+
+Restrict cookies from being sent with cross-site requests.
+
+Reauthentication
+
+Require password confirmation for critical actions.
+
+Referer or Origin Validation
+
+Verify request origin headers.
+
+User Interaction Checks
+
+Require CAPTCHA or confirmation prompts.
+
+
+==================================================
+9. MITRE ATT&CK Mapping
+==================================================
+
+Technique:
+T1185 — Browser Session Hijacking
+
+Technique:
+T1539 — Steal Web Session Cookie
+
+Technique:
+T1078 — Valid Accounts
+
+Technique:
+T1606 — Forge Web Credentials
+
+
+==================================================
+10. Questions & Answers
+==================================================
+
+Question:
+What is a CSRF attack?
+
+Answer:
+An attack that tricks a victim's browser into performing unauthorized actions on a web application where the user is authenticated.
+
+--------------------------------------------------
+
+Question:
+Why do CSRF attacks work?
+
+Answer:
+Because browsers automatically include authentication credentials in requests.
+
+--------------------------------------------------
+
+Question:
+What is the most common defense against CSRF?
+
+Answer:
+CSRF tokens.
+
+--------------------------------------------------
+
+Question:
+What cookie attribute helps mitigate CSRF attacks?
+
+Answer:
+SameSite cookies.
+
+--------------------------------------------------
+
+Question:
+What must be true for a CSRF attack to succeed?
+
+Answer:
+The victim must be authenticated to the target application.

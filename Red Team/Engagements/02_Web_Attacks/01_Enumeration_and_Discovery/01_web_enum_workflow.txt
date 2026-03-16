@@ -1,0 +1,290 @@
+Web Enumeration Workflow
+- A structured process used by attackers and penetration testers to discover web application attack surfaces.
+
+==================================================
+Attack Metadata
+==================================================
+
+Category:
+Web Attacks → Enumeration and Discovery
+
+Attack Stage:
+Reconnaissance
+Discovery
+
+Difficulty:
+Beginner
+
+Stealth Level:
+Medium
+
+Requires Authentication:
+No
+
+Tools Used:
+Nmap
+Gobuster
+FFUF
+Burp Suite
+WhatWeb
+Amass
+
+
+==================================================
+1. Overview
+==================================================
+Web enumeration is the process of gathering information about a web application before attempting exploitation.
+
+This phase focuses on identifying:
+
+- application endpoints
+- technologies used
+- hidden resources
+- authentication mechanisms
+- potential vulnerabilities
+
+A thorough enumeration phase greatly increases the likelihood of discovering exploitable weaknesses.
+
+Attackers often combine multiple tools and techniques to map the entire application surface.
+
+
+==================================================
+2. Enumeration Objectives
+==================================================
+The primary goals of web enumeration include discovering:
+
+- subdomains
+- directories and files
+- application technologies
+- API endpoints
+- authentication systems
+- input parameters
+
+Understanding these components helps attackers identify possible vulnerabilities.
+
+
+==================================================
+3. Tools Required
+==================================================
+
+Nmap
+Used to identify web services and open ports.
+
+Gobuster
+Used for directory and file enumeration.
+
+FFUF
+Used for fuzzing web parameters and endpoints.
+
+Burp Suite
+Used for manual inspection and request analysis.
+
+WhatWeb
+Used to identify web technologies.
+
+
+==================================================
+4. Enumeration Workflow
+==================================================
+
+Identify Target Domain
+        ↓
+Discover Subdomains
+        ↓
+Identify Open Web Ports
+        ↓
+Discover Web Technologies
+        ↓
+Enumerate Directories and Files
+        ↓
+Identify Input Parameters
+        ↓
+Map Application Structure
+
+
+==================================================
+5. Step-by-Step Execution
+==================================================
+Step 1 — Identify Target Domain
+
+Example:
+
+example.com
+
+
+Step 2 — Discover Subdomains
+
+Example command:
+
+amass enum -d example.com
+
+
+Step 3 — Identify Web Services
+
+Example command:
+
+nmap -p 80,443 -sV example.com
+
+
+Step 4 — Identify Technologies
+
+Example command:
+
+whatweb http://example.com
+
+
+Step 5 — Enumerate Directories
+
+Example command:
+
+gobuster dir -u http://example.com -w /usr/share/wordlists/dirb/common.txt
+
+
+Step 6 — Analyze Web Requests
+
+Using Burp Suite, the attacker identifies parameters such as:
+
+- id=
+- user=
+- search=
+
+
+Step 7 — Map Application Endpoints
+
+The attacker builds a list of all accessible URLs and functionality.
+
+
+==================================================
+6. Example Enumeration Scenario
+==================================================
+Target Identification
+
+The attacker targets example.com.
+
+
+Subdomain Discovery
+
+Multiple subdomains are identified.
+
+
+Technology Detection
+
+The application is discovered to use Apache and PHP.
+
+
+Directory Enumeration
+
+The attacker discovers hidden paths such as /admin.
+
+
+Parameter Discovery
+
+The attacker identifies user input fields.
+
+
+Attack Preparation
+
+The attacker begins testing for vulnerabilities.
+
+
+==================================================
+7. Expected Results
+==================================================
+Successful web enumeration allows attackers to:
+
+- map the application structure
+- identify hidden endpoints
+- detect technologies used
+- find input parameters
+- prepare for exploitation
+
+Enumeration is one of the most important phases of a web attack.
+
+
+==================================================
+8. Defensive Considerations
+==================================================
+Organizations can reduce the effectiveness of web enumeration.
+
+Information Disclosure Controls
+
+Limit technology and version exposure.
+
+Access Control
+
+Protect sensitive directories with authentication.
+
+Rate Limiting
+
+Prevent automated scanning.
+
+Web Application Firewalls
+
+Detect and block enumeration tools.
+
+Secure Development Practices
+
+Avoid exposing unnecessary endpoints.
+
+
+==================================================
+9. MITRE ATT&CK Mapping
+==================================================
+
+Technique:
+T1595 — Active Scanning
+
+Technique:
+T1590 — Gather Victim Network Information
+
+Technique:
+T1592 — Gather Victim Host Information
+
+Technique:
+T1046 — Network Service Discovery
+
+Technique:
+T1083 — File and Directory Discovery
+
+
+==================================================
+10. Questions & Answers
+==================================================
+
+Question:
+What is web enumeration?
+
+Answer:
+The process of gathering information about a web application before attempting exploitation.
+
+--------------------------------------------------
+
+Question:
+Why is enumeration important for attackers?
+
+Answer:
+It reveals the structure and attack surface of the application.
+
+--------------------------------------------------
+
+Question:
+Which tool is commonly used for directory enumeration?
+
+Answer:
+Gobuster.
+
+--------------------------------------------------
+
+Question:
+Which tool helps identify web technologies?
+
+Answer:
+WhatWeb.
+
+--------------------------------------------------
+
+Question:
+What is the primary goal of web enumeration?
+
+Answer:
+To identify potential entry points and vulnerabilities.
