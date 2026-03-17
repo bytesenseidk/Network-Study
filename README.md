@@ -1,147 +1,128 @@
-# Networking Fundamentals & Security Notes
+# Networking, Red Team & Detection Engineering Notes
 
-A structured collection of networking notes, diagrams, and study questions designed to build a deep understanding of how networks operate — from physical transmission to packet analysis and network security.
+A structured knowledge base covering:
 
-This repository is intended as a **learning resource**, **reference guide**, and **study companion** for anyone studying networking, cybersecurity, penetration testing, or system administration.
+- Networking fundamentals
+- Offensive security (Red Team)
+- Detection engineering (Blue Team)
+
+This repository is designed to build a **deep, practical understanding of how systems work, how they are attacked, and how they are defended**.
 
 ---
 
 # Project Goals
 
-This project was created to:
+This project aims to:
 
-* Build a **solid mental model of networking**
-* Understand **how data actually moves across the Internet**
-* Learn how **protocols interact across networking layers**
-* Develop **packet-level understanding of network communication**
-* Bridge networking knowledge with **security analysis**
-* Reinforce learning through **questions and answers**
-
-Each document explains a topic and ends with a **question section** designed to reinforce important concepts.
+- Build a **strong foundation in networking**
+- Understand **how attacks work across different surfaces**
+- Learn **real-world offensive techniques**
+- Develop **detection and defense strategies**
+- Connect **theory → attacks → detection**
 
 ---
 
-# Topics Covered
+# Core Areas Covered
 
-The repository covers the core areas required to understand modern networking and network security:
+## Networking Fundamentals
 
-* Internet architecture
-* Networking models (OSI / TCP-IP)
-* Physical networking
-* Network architecture and topologies
-* Network infrastructure devices
-* Addressing and identification
-* Subnetting
-* Private vs public IP addressing
-* Network Address Translation (NAT)
-* Protocol foundations
-* Routing and packet delivery
-* Transport communication (TCP / UDP)
-* Application communication
-* Packet structure and headers
-* Packet flow across the Internet
-* Packet analysis with Wireshark
-* Network performance and reliability
-* Observability and troubleshooting
-* Network security architecture
-
-The material is written to connect **concepts → protocols → packets → security**.
+- OSI / TCP-IP models
+- Routing and packet delivery
+- Protocol behavior
+- Packet analysis (Wireshark)
+- Network troubleshooting
 
 ---
 
-# Repository Structure
+## Red Team (Offensive Security)
 
-The files are organized in a logical learning order that follows the path data takes through a network.
+Organized by attack surface:
 
-```
-01_Overview.txt
-02_Networking_Models.txt
-03_Physical_Networking.txt
-04_Network_Architecture.txt
-05_Network_Infrastructure.txt
-06_Addressing_and_Identification.txt
-07_Subnetting.txt
-08_Private_vs_Public_IP.txt
-09_NAT.txt
-10_Protocol_Foundations.txt
-11_Routing_and_Packet_Delivery.txt
-12_Transport_Communication.txt
-13_Application_Communication.txt
-14_Packet_Structure_and_Headers.txt
-15_Packet_Flow.txt
-16_Packet_Analysis.txt
-17_Performance_and_Reliability.txt
-18_Observability_and_Troubleshooting.txt
-19_Security_Networking_Concepts.txt
-```
+- Web attacks (XSS, SQLi, SSRF, IDOR)
+- Credential attacks (spraying, token abuse)
+- Network attacks (NTLM relay, Kerberos abuse)
+- Wireless attacks (Evil Twin, WPA cracking)
+- Cloud attacks (AWS, Azure)
+- Social engineering (phishing, pretexting)
 
-The structure gradually moves from:
+Also includes:
 
-```
-Foundations
-    ↓
-Protocols
-    ↓
-Packet behavior
-    ↓
-Traffic analysis
-    ↓
-Security concepts
-```
+- Post-exploitation
+- Persistence techniques
+- Command and control
+- Evasion techniques
+
+---
+
+## Blue Team (Detection Engineering)
+
+- Sigma rules
+- Splunk detection strategies
+- KQL (Microsoft Sentinel)
+- Detection tuning
+- Threat hunting playbooks
+- Alert triage workflows
+
+---
+
+## Red vs Blue Labs
+
+Practical scenarios combining:
+
+- Attack execution
+- Detection logic
+- Investigation workflows
+
+Examples:
+
+- Password spraying detection
+- Kerberoasting detection
+- Phishing detection
+- DCSync detection
 
 ---
 
 # Learning Approach
 
-Each file follows a consistent format:
+Each topic includes:
 
-1. Concept explanation
-2. Visual examples
-3. Real-world context
-4. Question and answer section
+- clear explanations
+- real-world context
+- step-by-step workflows
+- commands and tools
+- defensive insights
+- Q&A sections
 
-The Q&A sections include:
+This reinforces:
 
-* Conceptual questions
-* Protocol understanding
-* Operational knowledge
-* **Attack perspective**
-* **Defensive perspective**
-
-This approach reinforces both **engineering knowledge** and **security thinking**.
+- understanding
+- retention
+- practical application
 
 ---
 
 # Tools Referenced
 
-Several common networking and analysis tools are discussed:
-
-* Wireshark
-* tcpdump
-* ping
-* traceroute
-* netstat / ss
-
-These tools are widely used by:
-
-* Network engineers
-* Security analysts
-* Incident responders
-* Penetration testers
+- Nmap
+- Gobuster
+- Hashcat
+- Responder
+- Impacket
+- Metasploit
+- Aircrack-ng
+- Wireshark
+- AWS CLI / Azure CLI
 
 ---
 
 # Who This Is For
 
-This repository may be useful for:
-
-* Networking students
-* Cybersecurity students
-* Self-taught learners
-* System administrators
-* Security analysts
-* Penetration testers
-* Anyone wanting a **deeper understanding of how networks actually work**
+- Cybersecurity students
+- Self-taught learners
+- Penetration testers
+- Security analysts
+- Blue team engineers
+- Anyone wanting to understand **how attacks actually work**
 
 ---
 
@@ -149,38 +130,41 @@ This repository may be useful for:
 
 Recommended approach:
 
-1. Start from the first file and move sequentially through the material.
-2. Read each section carefully.
-3. Answer the questions at the end of each file.
-4. Revisit sections while practicing with tools like Wireshark.
+1. Start with networking fundamentals
+2. Move into attack categories
+3. Study attack workflows
+4. Learn detection alongside attacks
+5. Practice using Red vs Blue labs
 
-The goal is to build a **packet-level understanding of networking**, not just memorize protocols.
+---
+
+# Key Philosophy
+
+This project focuses on:
+
+**Understanding systems deeply → simulating real attacks → building strong detection**
 
 ---
 
 # Future Improvements
 
-Possible future additions:
-
-* Practical networking labs
-* Packet capture walkthroughs
-* Wireshark investigation exercises
-* Common network attack scenarios
-* Network defense techniques
-* Protocol deep dives
+- More attack chains
+- Full lab environments
+- Detection rules (Sigma / SIEM)
+- Incident response scenarios
 
 ---
 
 # License
 
-This repository is intended for educational purposes.
-
-You are free to use and share the material for learning and study.
+For educational purposes.
 
 ---
 
 # Author
 
-Created as part of a personal project to build a strong foundation in networking and network security.
+Personal project focused on mastering:
 
----
+- Networking
+- Offensive security
+- Detection engineering
