@@ -1,0 +1,356 @@
+Attack & Detect: DCSync Attack
+- A Red vs Blue lab demonstrating how attackers replicate domain controller behavior to extract credentials and how defenders detect it.
+
+==================================================
+Lab Metadata
+==================================================
+
+Category:
+Red vs Blue Labs → Active Directory Attacks
+
+Attack Type:
+DCSync
+
+Attack Stage:
+Credential Access
+Privilege Escalation
+Domain Dominance
+
+Detection Focus:
+Directory replication activity
+Privileged account usage
+Domain controller communication patterns
+
+Difficulty:
+Advanced
+
+
+==================================================
+1. Overview
+==================================================
+A DCSync attack allows an attacker to simulate a domain controller and request password data directly from Active Directory.
+
+Instead of dumping credentials locally, the attacker:
+
+- uses replication protocols
+- requests password hashes remotely
+- extracts credentials for any user (including Domain Admins)
+
+This attack requires specific privileges:
+
+- Replicating Directory Changes
+- Replicating Directory Changes All
+
+This lab demonstrates:
+
+- how attackers perform DCSync
+- how credential extraction occurs
+- how defenders detect replication abuse
+
+
+==================================================
+2. Lab Scenario
+==================================================
+Environment:
+
+- Active Directory domain: example.local
+- Attacker has compromised a privileged account
+- Domain controller present
+
+Attacker Goal:
+
+- extract password hashes for domain users
+- obtain Domain Admin credentials
+- achieve full domain compromise
+
+Defender Goal:
+
+- detect abnormal replication behavior
+- identify unauthorized DCSync activity
+
+
+==================================================
+3. Red Team: Attack Execution
+==================================================
+
+Step 1 — Obtain Required Privileges
+
+Attacker must have:
+
+- Domain Admin privileges OR
+- replication permissions
+
+Common paths:
+
+- Kerberoasting → service account compromise
+- privilege escalation
+- lateral movement
+
+
+--------------------------------------------------
+
+Step 2 — Execute DCSync Attack
+
+Using Mimikatz:
+
+lsadump::dcsync /domain:example.local /user:Administrator
+
+
+--------------------------------------------------
+
+Step 3 — Extract Credentials
+
+Output includes:
+
+- NTLM hashes
+- password history
+- account details
+
+Example:
+
+Administrator:500:aad3b435b51404eeaad3b435b51404ee:8846f7eaee8fb117ad06bdd830b7586c
+
+
+--------------------------------------------------
+
+Step 4 — Use Extracted Credentials
+
+Attackers can:
+
+- perform Pass-the-Hash
+- access domain controllers
+- create new admin accounts
+- maintain persistence
+
+
+==================================================
+4. Blue Team: Detection Strategy
+==================================================
+
+Key Insight:
+
+DCSync mimics legitimate domain controller replication.
+
+Detection requires identifying:
+
+- replication requests from non-DC systems
+- abnormal use of replication permissions
+
+
+--------------------------------------------------
+
+Primary Detection Event:
+
+Event ID 4662 (Directory Service Access)
+
+
+Focus on:
+
+- replication-related permissions
+- unusual accounts performing replication
+
+
+==================================================
+5. Log Sources
+==================================================
+
+Domain Controller Security Logs:
+
+Event ID 4662 — Object access  
+Event ID 4624 — Logon events  
+
+
+Directory Services Logs:
+
+Replication activity  
+
+
+SIEM Platforms:
+
+Splunk  
+Elastic  
+Microsoft Sentinel  
+
+
+==================================================
+6. Example Detection Logic
+==================================================
+
+Splunk Example:
+
+index=windows EventCode=4662
+| search ObjectType="domainDNS"
+| stats count by user, src_ip
+
+
+--------------------------------------------------
+
+Filter for replication permissions:
+
+index=windows EventCode=4662
+| search AccessMask=0x100
+| stats count by user, src_ip
+| where count > 5
+
+
+--------------------------------------------------
+
+KQL (Microsoft Sentinel):
+
+SecurityEvent
+| where EventID == 4662
+| where Properties contains "Replicating Directory Changes"
+| summarize count() by Account, Computer
+
+
+==================================================
+7. Detection Indicators
+==================================================
+
+- replication requests from non-domain controllers
+- unexpected accounts performing replication
+- high-value account targeting (Administrator, KRBTGT)
+- unusual authentication source
+
+Critical indicator:
+
+- workstation requesting directory replication
+
+
+==================================================
+8. Investigation Workflow
+==================================================
+
+Step 1 — Identify Source System
+
+Is the request coming from a domain controller?
+
+
+Step 2 — Identify Account
+
+Which account performed the replication?
+
+
+Step 3 — Validate Permissions
+
+Does the account legitimately have replication rights?
+
+
+Step 4 — Analyze Targeted Accounts
+
+Were high-value accounts accessed?
+
+
+Step 5 — Check Follow-On Activity
+
+Look for:
+
+- Pass-the-Hash usage
+- lateral movement
+- persistence mechanisms
+
+
+==================================================
+9. Mitigation Strategies
+==================================================
+
+Preventive Controls:
+
+- restrict replication permissions
+- limit Domain Admin access
+- implement tiered admin model
+
+
+Detection Controls:
+
+- monitor Event ID 4662
+- alert on non-DC replication activity
+- track privileged account usage
+
+
+Response Actions:
+
+- reset compromised account passwords
+- rotate KRBTGT account password
+- isolate affected systems
+- perform full incident response
+
+
+==================================================
+10. Red vs Blue Insights
+==================================================
+
+Red Team Perspective:
+
+- extremely powerful attack
+- does not require touching the domain controller directly
+- difficult to detect without proper logging
+
+
+Blue Team Perspective:
+
+- requires deep visibility into AD logs
+- behavioral detection is critical
+- monitoring privileged accounts is essential
+
+
+==================================================
+11. Lab Exercise
+==================================================
+
+Red Team:
+
+- simulate privileged access
+- execute DCSync using Mimikatz
+- extract credentials
+
+
+Blue Team:
+
+- analyze Event ID 4662 logs
+- identify replication activity
+- detect unauthorized account usage
+- investigate source system
+
+
+==================================================
+12. Questions & Answers
+==================================================
+
+Question:
+What is a DCSync attack?
+
+Answer:
+An attack that simulates domain controller replication to extract credentials from Active Directory.
+
+--------------------------------------------------
+
+Question:
+What permissions are required?
+
+Answer:
+Replicating Directory Changes and Replicating Directory Changes All.
+
+--------------------------------------------------
+
+Question:
+Which event ID is critical for detection?
+
+Answer:
+Event ID 4662.
+
+--------------------------------------------------
+
+Question:
+Why is DCSync dangerous?
+
+Answer:
+Because it allows attackers to extract all domain credentials remotely.
+
+--------------------------------------------------
+
+Question:
+What is a key detection indicator?
+
+Answer:
+Replication requests originating from non-domain controller systems.

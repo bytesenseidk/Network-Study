@@ -1,0 +1,352 @@
+Attack & Detect: Kerberoasting
+- A Red vs Blue lab demonstrating how Kerberoasting works and how it is detected in Active Directory environments.
+
+==================================================
+Lab Metadata
+==================================================
+
+Category:
+Red vs Blue Labs → Active Directory Attacks
+
+Attack Type:
+Kerberoasting
+
+Attack Stage:
+Credential Access
+Privilege Escalation Preparation
+
+Detection Focus:
+Kerberos ticket requests
+Service account abuse
+Abnormal ticket volume
+
+Difficulty:
+Intermediate
+
+
+==================================================
+1. Overview
+==================================================
+Kerberoasting is an attack where an attacker requests **Kerberos service tickets (TGS)** for service accounts and extracts them for offline password cracking.
+
+Key points:
+
+- Any authenticated domain user can request service tickets
+- Tickets are encrypted using the service account password
+- Weak service account passwords can be cracked offline
+
+This lab demonstrates:
+
+- how attackers extract Kerberos tickets
+- how defenders detect abnormal ticket requests
+- how to identify compromised service accounts
+
+
+==================================================
+2. Lab Scenario
+==================================================
+Environment:
+
+- Active Directory domain: example.local
+- Domain user access (low privilege)
+- Service accounts with SPNs configured
+
+Attacker Goal:
+
+- extract Kerberos tickets
+- crack service account passwords
+- escalate privileges
+
+Defender Goal:
+
+- detect abnormal TGS requests
+- identify suspicious service account access
+
+
+==================================================
+3. Red Team: Attack Execution
+==================================================
+
+Step 1 — Enumerate Service Accounts
+
+Use PowerView or similar:
+
+Get-NetUser -SPN
+
+
+This identifies accounts with Service Principal Names (SPNs).
+
+
+--------------------------------------------------
+
+Step 2 — Request Kerberos Tickets
+
+Example using Rubeus:
+
+Rubeus kerberoast
+
+
+Output includes:
+
+- service account names
+- encrypted ticket hashes
+
+
+--------------------------------------------------
+
+Step 3 — Extract Hashes
+
+Example output format:
+
+$krb5tgs$23$*svc_account$example.local$...
+
+
+--------------------------------------------------
+
+Step 4 — Crack Hashes
+
+Using Hashcat:
+
+hashcat -m 13100 hashes.txt /usr/share/wordlists/rockyou.txt
+
+
+--------------------------------------------------
+
+Step 5 — Use Cracked Credentials
+
+If successful:
+
+- authenticate as service account
+- escalate privileges
+- move laterally
+
+
+==================================================
+4. Blue Team: Detection Strategy
+==================================================
+
+Key Indicator:
+
+- abnormal number of Kerberos TGS requests
+
+Kerberoasting generates:
+
+- many service ticket requests
+- often in a short timeframe
+
+
+--------------------------------------------------
+
+Detection Focus:
+
+- Event ID 4769 (Kerberos Service Ticket Request)
+- unusual service account targeting
+- requests from non-service hosts
+
+
+==================================================
+5. Log Sources
+==================================================
+
+Windows Security Logs:
+
+Event ID 4769 — TGS request  
+
+
+Domain Controller Logs:
+
+Kerberos authentication events  
+
+
+SIEM Platforms:
+
+Splunk  
+Elastic  
+Microsoft Sentinel  
+
+
+==================================================
+6. Example Detection Logic
+==================================================
+
+Splunk Example:
+
+index=windows EventCode=4769
+| stats count by user, service_name
+| where count > 10
+
+
+--------------------------------------------------
+
+Advanced Detection:
+
+index=windows EventCode=4769
+| stats dc(service_name) as services by user
+| where services > 10
+
+
+--------------------------------------------------
+
+KQL (Microsoft Sentinel):
+
+SecurityEvent
+| where EventID == 4769
+| summarize TicketCount = count(), Services = dcount(ServiceName) by Account, IPAddress
+| where Services > 10
+
+
+==================================================
+7. Detection Indicators
+==================================================
+
+- high volume of TGS requests
+- multiple service accounts targeted
+- requests from user workstations (not servers)
+- unusual service account usage patterns
+
+Optional indicators:
+
+- service accounts logging in interactively
+- anomalous authentication times
+
+
+==================================================
+8. Investigation Workflow
+==================================================
+
+Step 1 — Identify Source Account
+
+Which user requested the tickets?
+
+
+Step 2 — Identify Source Host
+
+Is it a workstation or server?
+
+
+Step 3 — Analyze Targeted Services
+
+Which service accounts were requested?
+
+
+Step 4 — Check for Password Cracking Activity
+
+Indicators:
+
+- lateral movement
+- privilege escalation
+- unusual authentication behavior
+
+
+Step 5 — Validate Compromise
+
+Look for:
+
+- service account logins
+- privilege escalation events
+
+
+==================================================
+9. Mitigation Strategies
+==================================================
+
+Preventive Controls:
+
+- use strong, complex passwords for service accounts
+- implement Group Managed Service Accounts (gMSA)
+- limit SPN exposure
+
+
+Detection Controls:
+
+- monitor Event ID 4769
+- detect abnormal ticket request patterns
+- alert on excessive service enumeration
+
+
+Response Actions:
+
+- reset service account passwords
+- rotate credentials regularly
+- audit SPN configurations
+
+
+==================================================
+10. Red vs Blue Insights
+==================================================
+
+Red Team Perspective:
+
+- low-privilege access is enough
+- attack is stealthy and offline
+- no lockout risk during cracking
+
+
+Blue Team Perspective:
+
+- requires behavioral detection
+- volume-based anomalies are key
+- service account monitoring is critical
+
+
+==================================================
+11. Lab Exercise
+==================================================
+
+Red Team:
+
+- enumerate SPNs
+- request Kerberos tickets
+- extract hashes
+- attempt password cracking
+
+
+Blue Team:
+
+- analyze Event ID 4769 logs
+- identify abnormal ticket requests
+- detect source user and system
+- investigate targeted service accounts
+
+
+==================================================
+12. Questions & Answers
+==================================================
+
+Question:
+What is Kerberoasting?
+
+Answer:
+An attack where Kerberos service tickets are requested and cracked offline.
+
+--------------------------------------------------
+
+Question:
+Why is Kerberoasting effective?
+
+Answer:
+Because any domain user can request service tickets.
+
+--------------------------------------------------
+
+Question:
+Which event ID is most important for detection?
+
+Answer:
+Event ID 4769.
+
+--------------------------------------------------
+
+Question:
+What is a strong defense against Kerberoasting?
+
+Answer:
+Using strong service account passwords or gMSA accounts.
+
+--------------------------------------------------
+
+Question:
+Why is Kerberoasting difficult to detect?
+
+Answer:
+Because requesting service tickets is normal behavior.

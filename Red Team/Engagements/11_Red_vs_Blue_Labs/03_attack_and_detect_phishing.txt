@@ -1,0 +1,385 @@
+Attack & Detect: Phishing Campaign
+- A Red vs Blue lab demonstrating how phishing attacks are executed and how they are detected.
+
+==================================================
+Lab Metadata
+==================================================
+
+Category:
+Red vs Blue Labs → Social Engineering
+
+Attack Type:
+Phishing (Credential Harvesting)
+
+Attack Stage:
+Initial Access
+Credential Access
+
+Detection Focus:
+Email logs
+User behavior
+Authentication anomalies
+
+Difficulty:
+Beginner → Intermediate
+
+
+==================================================
+1. Overview
+==================================================
+Phishing is a social engineering attack where attackers trick users into:
+
+- revealing credentials
+- clicking malicious links
+- downloading malware
+
+It is one of the most effective initial access techniques because it targets **human behavior instead of technical vulnerabilities**.
+
+This lab demonstrates:
+
+- how phishing campaigns are created
+- how credentials are captured
+- how defenders detect phishing activity
+
+
+==================================================
+2. Lab Scenario
+==================================================
+Environment:
+
+- Organization using Microsoft 365 / Google Workspace
+- Users with corporate email accounts
+- External email access enabled
+
+Attacker Goal:
+
+- send convincing phishing emails
+- redirect users to a fake login page
+- capture credentials
+
+Defender Goal:
+
+- detect phishing emails
+- identify compromised accounts
+- respond to credential theft
+
+
+==================================================
+3. Red Team: Attack Execution
+==================================================
+
+Step 1 — Reconnaissance
+
+Gather:
+
+- employee names (LinkedIn)
+- email format (first.last@company.com)
+- company branding
+- login portals used (Microsoft 365, VPN)
+
+
+--------------------------------------------------
+
+Step 2 — Craft Phishing Email
+
+Example:
+
+Subject: Password Expiration Notice
+
+Your password will expire today.
+Please log in to update your credentials:
+
+[Update Password]
+
+
+--------------------------------------------------
+
+Step 3 — Create Fake Login Page
+
+Clone a legitimate login portal:
+
+- Microsoft 365
+- Google Workspace
+- VPN portal
+
+Host it on attacker-controlled infrastructure.
+
+
+--------------------------------------------------
+
+Step 4 — Launch Campaign
+
+Use tools such as:
+
+- GoPhish
+- Social Engineering Toolkit (SET)
+
+Send emails to target users.
+
+
+--------------------------------------------------
+
+Step 5 — Capture Credentials
+
+Victims enter:
+
+- username
+- password
+
+Credentials are stored on attacker server.
+
+
+--------------------------------------------------
+
+Step 6 — Use Credentials
+
+Attacker logs into:
+
+- email accounts
+- VPN
+- cloud services
+
+May lead to:
+
+- internal access
+- lateral movement
+- further phishing
+
+
+==================================================
+4. Blue Team: Detection Strategy
+==================================================
+
+Phishing detection involves:
+
+- email analysis
+- user behavior monitoring
+- authentication anomaly detection
+
+
+--------------------------------------------------
+
+Key Indicators:
+
+- suspicious sender domains
+- lookalike domains
+- unusual login activity
+- multiple users clicking similar links
+
+
+==================================================
+5. Log Sources
+==================================================
+
+Email Security Logs:
+
+- message trace logs
+- spam filter logs
+- link click tracking
+
+
+Authentication Logs:
+
+- Azure AD / Entra ID sign-in logs
+- VPN logs
+- web authentication logs
+
+
+Endpoint Logs:
+
+- browser activity
+- downloaded files
+
+
+==================================================
+6. Example Detection Logic
+==================================================
+
+Email-Based Detection:
+
+- emails from newly registered domains
+- domains similar to company domain
+
+
+--------------------------------------------------
+
+Splunk Example:
+
+index=email_logs
+| stats count by sender, subject
+| where count > 10
+
+
+--------------------------------------------------
+
+KQL (Microsoft Sentinel):
+
+SigninLogs
+| where ResultType == 0
+| summarize count() by UserPrincipalName, IPAddress, Location
+| where Location != "ExpectedCountry"
+
+
+==================================================
+7. Detection Indicators
+==================================================
+
+Email Indicators:
+
+- spoofed sender addresses
+- mismatched URLs
+- urgent language
+
+
+Authentication Indicators:
+
+- login from unusual location
+- impossible travel
+- new device login
+
+
+User Behavior:
+
+- multiple users clicking same link
+- sudden spike in password resets
+
+
+==================================================
+8. Investigation Workflow
+==================================================
+
+Step 1 — Identify Phishing Email
+
+- review email headers
+- check sender domain
+
+
+Step 2 — Identify Affected Users
+
+- who received the email?
+- who clicked the link?
+
+
+Step 3 — Check Credential Use
+
+- login attempts after phishing
+- unusual authentication events
+
+
+Step 4 — Correlate Activity
+
+- login time vs email delivery
+- IP address analysis
+
+
+Step 5 — Confirm Compromise
+
+- successful login from attacker IP
+- abnormal account activity
+
+
+==================================================
+9. Mitigation Strategies
+==================================================
+
+Preventive Controls:
+
+- security awareness training
+- email filtering
+- domain monitoring
+- DMARC / SPF / DKIM
+
+
+Detection Controls:
+
+- monitor suspicious login activity
+- detect impossible travel
+- analyze email patterns
+
+
+Response Actions:
+
+- reset compromised accounts
+- revoke active sessions
+- block malicious domains
+- notify affected users
+
+
+==================================================
+10. Red vs Blue Insights
+==================================================
+
+Red Team Perspective:
+
+- targeting humans bypasses technical defenses
+- realistic emails increase success rate
+- timing (e.g., password expiry) improves effectiveness
+
+
+Blue Team Perspective:
+
+- email detection alone is insufficient
+- authentication monitoring is critical
+- user awareness is a key defense layer
+
+
+==================================================
+11. Lab Exercise
+==================================================
+
+Red Team:
+
+- create a phishing email template
+- simulate a login page
+- test credential capture (lab environment)
+
+
+Blue Team:
+
+- analyze email logs
+- identify phishing patterns
+- detect abnormal login behavior
+- investigate compromised accounts
+
+
+==================================================
+12. Questions & Answers
+==================================================
+
+Question:
+What is phishing?
+
+Answer:
+A social engineering attack that tricks users into revealing credentials or executing malicious actions.
+
+--------------------------------------------------
+
+Question:
+Why is phishing effective?
+
+Answer:
+Because it exploits human trust rather than technical vulnerabilities.
+
+--------------------------------------------------
+
+Question:
+What is a key detection method?
+
+Answer:
+Monitoring abnormal authentication activity.
+
+--------------------------------------------------
+
+Question:
+What is "impossible travel"?
+
+Answer:
+When a user logs in from two distant locations in an unrealistic timeframe.
+
+--------------------------------------------------
+
+Question:
+What is the best defense against phishing?
+
+Answer:
+Multi-factor authentication combined with user awareness training.
