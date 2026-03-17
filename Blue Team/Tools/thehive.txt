@@ -1,0 +1,285 @@
+TheHive
+- An open-source security incident response platform used for managing, tracking, and investigating security incidents.
+
+==================================================
+1. Overview
+==================================================
+TheHive is a Security Incident Response Platform (SIRP) designed to help security teams manage and investigate security incidents efficiently.
+
+It provides a collaborative environment where analysts can:
+
+- manage security alerts
+- investigate incidents
+- assign tasks
+- track investigation progress
+- coordinate response actions
+
+TheHive is commonly used in **Security Operations Centers (SOC)** and integrates with many security tools such as:
+
+- SIEM platforms
+- threat intelligence platforms
+- IDS / IPS systems
+- endpoint detection tools
+
+The platform allows analysts to convert security alerts into structured investigation cases.
+
+
+==================================================
+2. Primary Use Cases
+==================================================
+
+Incident Management
+
+Track and manage security incidents from detection to resolution.
+
+
+SOC Collaboration
+
+Allow multiple analysts to work on investigations simultaneously.
+
+
+Case Management
+
+Organize investigation artifacts, evidence, and notes.
+
+
+Threat Intelligence Integration
+
+Use threat intelligence to enrich investigations.
+
+
+Security Automation
+
+Integrate automated analysis tools such as Cortex.
+
+
+==================================================
+3. Key Features
+==================================================
+
+Case Management
+
+Organize investigations into structured cases.
+
+
+Task Assignment
+
+Assign tasks to analysts during investigations.
+
+
+Alert Management
+
+Import alerts from external security tools.
+
+
+Collaboration
+
+Analysts can share notes and investigation results.
+
+
+Timeline Tracking
+
+Track the sequence of investigation activities.
+
+
+Automation Integration
+
+Integrate with Cortex for automated analysis.
+
+
+==================================================
+4. Example Investigation Workflow
+==================================================
+
+Step 1 — Alert Generated
+
+A SIEM system detects suspicious activity.
+
+
+Step 2 — Alert Ingested
+
+The alert is imported into TheHive.
+
+
+Step 3 — Case Creation
+
+An analyst creates an investigation case.
+
+
+Step 4 — Investigation
+
+Tasks are assigned to analysts for analysis.
+
+
+Step 5 — Evidence Collection
+
+Indicators and logs are analyzed.
+
+
+Step 6 — Response
+
+Security team takes containment actions.
+
+
+Step 7 — Case Closure
+
+The investigation is completed and documented.
+
+
+==================================================
+5. Integration with Security Tools
+==================================================
+
+TheHive integrates with many security tools including:
+
+SIEM Platforms
+
+- Splunk
+- Elastic Stack
+- Microsoft Sentinel
+
+
+Threat Intelligence Platforms
+
+- MISP
+
+
+Automation Platforms
+
+- Cortex
+
+
+Detection Tools
+
+- Suricata
+- Snort
+
+
+==================================================
+6. Example Investigation Scenario
+==================================================
+
+Alert Trigger
+
+SIEM detects suspicious login attempts.
+
+
+Investigation
+
+The alert is imported into TheHive.
+
+
+Analysis
+
+Analysts review authentication logs and IP addresses.
+
+
+Conclusion
+
+A password spraying attack is confirmed.
+
+
+Response
+
+Affected accounts are secured and attacker IP is blocked.
+
+
+==================================================
+7. Advantages
+==================================================
+
+Structured incident response workflow.
+
+Supports collaboration between analysts.
+
+Integrates with many security tools.
+
+Improves incident investigation efficiency.
+
+
+==================================================
+8. Limitations
+==================================================
+
+Requires infrastructure deployment.
+
+Needs integration with other tools for full functionality.
+
+Requires analyst training for effective use.
+
+
+==================================================
+9. Related Blue Team Topics
+==================================================
+
+Incident Response  
+Threat Hunting  
+Detection Engineering  
+SIEM and Alerting
+
+
+==================================================
+10. MITRE ATT&CK Relevance
+==================================================
+
+Technique:
+T1078 — Valid Accounts
+
+Technique:
+T1110 — Brute Force
+
+Technique:
+T1046 — Network Service Discovery
+
+Technique:
+T1021 — Remote Services
+
+Technique:
+T1041 — Exfiltration Over C2 Channel
+
+
+==================================================
+11. Questions & Answers
+==================================================
+
+Question:
+What is TheHive?
+
+Answer:
+A security incident response platform used to manage and investigate security incidents.
+
+
+--------------------------------------------------
+
+Question:
+What is the main purpose of TheHive?
+
+Answer:
+To provide structured incident response case management.
+
+
+--------------------------------------------------
+
+Question:
+Which automation platform commonly integrates with TheHive?
+
+Answer:
+Cortex.
+
+
+--------------------------------------------------
+
+Question:
+What type of teams commonly use TheHive?
+
+Answer:
+Security Operations Center (SOC) teams.
+
+
+--------------------------------------------------
+
+Question:
+Why is case management important in incident response?
+
+Answer:
+It helps track investigations and coordinate response actions.

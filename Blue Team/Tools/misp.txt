@@ -1,0 +1,308 @@
+MISP (Malware Information Sharing Platform)
+- An open-source threat intelligence platform used for sharing, storing, and correlating indicators of compromise (IOCs) and threat intelligence.
+
+==================================================
+1. Overview
+==================================================
+MISP is a collaborative threat intelligence platform designed to help organizations collect, analyze, share, and correlate threat intelligence.
+
+It allows security teams to store and distribute indicators of compromise (IOCs) such as:
+
+- malicious IP addresses
+- domain names
+- file hashes
+- URLs
+- malware samples
+- attack techniques
+
+MISP is widely used by:
+
+- Security Operations Centers (SOC)
+- incident response teams
+- government organizations
+- threat intelligence communities
+- cybersecurity researchers
+
+Organizations can share intelligence internally or with trusted external partners to improve detection and response capabilities.
+
+
+==================================================
+2. Primary Use Cases
+==================================================
+
+Threat Intelligence Sharing
+
+Share threat intelligence between organizations.
+
+
+Indicator Management
+
+Store and track indicators of compromise.
+
+
+Threat Correlation
+
+Identify relationships between attacks and indicators.
+
+
+Malware Investigation
+
+Track malware artifacts and behaviors.
+
+
+Security Automation
+
+Integrate threat intelligence with detection systems.
+
+
+==================================================
+3. Common Indicator Types
+==================================================
+
+MISP can store many types of threat intelligence indicators.
+
+Examples include:
+
+IP addresses  
+Domain names  
+URLs  
+File hashes (MD5, SHA1, SHA256)  
+Email addresses  
+Malware filenames  
+SSL certificate fingerprints  
+Registry keys  
+User agent strings
+
+
+==================================================
+4. MISP Event Structure
+==================================================
+
+Threat intelligence in MISP is organized into **events**.
+
+An event represents a security incident or threat campaign.
+
+Each event contains:
+
+Attributes
+
+Individual indicators such as IPs or hashes.
+
+
+Tags
+
+Classification labels describing the threat.
+
+
+Metadata
+
+Information such as threat actor, malware family, or attack type.
+
+
+Example Event:
+
+Malware Campaign XYZ
+
+Attributes:
+
+- malicious domain
+- command-and-control IP
+- malware hash
+
+
+==================================================
+5. Example Threat Intelligence Workflow
+==================================================
+
+Step 1 — Incident Detection
+
+A security alert identifies suspicious activity.
+
+
+Step 2 — Extract Indicators
+
+Indicators such as IP addresses or domains are extracted.
+
+
+Step 3 — Search MISP
+
+Analysts search MISP to determine whether the indicators are known threats.
+
+
+Step 4 — Correlate Intelligence
+
+MISP correlates indicators with other events.
+
+
+Step 5 — Share Intelligence
+
+New indicators are shared with trusted partners.
+
+
+Step 6 — Update Detection Systems
+
+Indicators are added to detection tools such as:
+
+- IDS / IPS
+- SIEM platforms
+- firewall blocklists
+
+
+==================================================
+6. Integration with Security Tools
+==================================================
+
+MISP integrates with many security platforms.
+
+Common integrations include:
+
+SIEM platforms
+
+- Splunk
+- Elastic Stack
+- Microsoft Sentinel
+
+
+Intrusion Detection Systems
+
+- Suricata
+- Snort
+- Zeek
+
+
+Threat Analysis Platforms
+
+- Cortex
+- TheHive
+
+
+Endpoint Security
+
+- EDR platforms
+
+
+==================================================
+7. Example Investigation Scenario
+==================================================
+
+Security Alert
+
+An IDS detects outbound traffic to a suspicious domain.
+
+
+Threat Intelligence Lookup
+
+The domain is searched in MISP.
+
+
+Result
+
+The domain is linked to a known malware campaign.
+
+
+Response
+
+The security team blocks the domain and investigates affected hosts.
+
+
+==================================================
+8. Advantages
+==================================================
+
+Supports collaborative threat intelligence sharing.
+
+Highly flexible indicator storage.
+
+Strong community support.
+
+Integrates with many security tools.
+
+Supports automation and API access.
+
+
+==================================================
+9. Limitations
+==================================================
+
+Requires maintenance and proper configuration.
+
+Quality of intelligence depends on data sources.
+
+Sharing intelligence requires trust relationships.
+
+
+==================================================
+10. Related Blue Team Topics
+==================================================
+
+Threat Hunting  
+Incident Response  
+Detection Engineering  
+SIEM and Alerting
+
+
+==================================================
+11. MITRE ATT&CK Relevance
+==================================================
+
+Technique:
+T1583 — Acquire Infrastructure
+
+Technique:
+T1071 — Application Layer Protocol
+
+Technique:
+T1046 — Network Service Discovery
+
+Technique:
+T1105 — Ingress Tool Transfer
+
+Technique:
+T1041 — Exfiltration Over C2 Channel
+
+
+==================================================
+12. Questions & Answers
+==================================================
+
+Question:
+What is MISP?
+
+Answer:
+An open-source threat intelligence platform used to store and share indicators of compromise.
+
+
+--------------------------------------------------
+
+Question:
+What are indicators of compromise (IOCs)?
+
+Answer:
+Artifacts such as IP addresses, domains, or file hashes associated with malicious activity.
+
+
+--------------------------------------------------
+
+Question:
+What is a MISP event?
+
+Answer:
+A collection of indicators and metadata representing a specific security incident or threat.
+
+
+--------------------------------------------------
+
+Question:
+Why do organizations share threat intelligence?
+
+Answer:
+To improve detection and response to cyber threats.
+
+
+--------------------------------------------------
+
+Question:
+Which security tools commonly integrate with MISP?
+
+Answer:
+SIEM platforms, IDS systems, and incident response platforms.

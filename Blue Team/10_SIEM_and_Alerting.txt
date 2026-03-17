@@ -1,0 +1,402 @@
+SIEM and Alerting
+- The use of Security Information and Event Management (SIEM) systems to collect, analyze, and generate alerts from security events across an organization.
+
+==================================================
+Defense Metadata
+==================================================
+
+Category:
+Blue_Team → Security Monitoring
+
+Defense Stage:
+Detection
+Monitoring
+Investigation
+
+Difficulty:
+Intermediate → Advanced
+
+Primary Objectives:
+Centralize Security Logs
+Detect Security Incidents
+Generate Actionable Alerts
+Support Incident Response
+
+Technologies Used:
+SIEM Platforms
+Log Management Systems
+Security Analytics
+Threat Intelligence
+Security Automation
+
+
+==================================================
+1. Overview
+==================================================
+A SIEM (Security Information and Event Management) system collects and analyzes security data from multiple systems across an organization.
+
+These systems include:
+
+- endpoints
+- servers
+- network devices
+- applications
+- cloud infrastructure
+
+The SIEM aggregates logs into a centralized platform where security teams can:
+
+- search logs
+- detect suspicious activity
+- generate alerts
+- investigate incidents
+
+SIEM platforms play a critical role in Security Operations Centers (SOCs).
+
+
+==================================================
+2. Core SIEM Functions
+==================================================
+
+Log Collection
+
+Gather logs from multiple systems and security tools.
+
+
+Log Normalization
+
+Convert logs into a consistent format for analysis.
+
+
+Event Correlation
+
+Identify patterns across multiple log sources.
+
+
+Alert Generation
+
+Trigger alerts when suspicious activity is detected.
+
+
+Investigation Support
+
+Provide tools for security analysts to investigate incidents.
+
+
+==================================================
+3. Common Log Sources
+==================================================
+SIEM platforms ingest logs from many sources.
+
+Important log sources include:
+
+Endpoints
+
+Windows Event Logs  
+Linux Syslog  
+
+
+Network Devices
+
+Firewall logs  
+Router logs  
+VPN logs  
+
+
+Security Tools
+
+IDS/IPS alerts  
+EDR alerts  
+Antivirus logs  
+
+
+Authentication Systems
+
+Active Directory logs  
+Identity provider logs  
+
+
+Cloud Platforms
+
+AWS CloudTrail  
+Azure Activity Logs  
+Google Cloud Audit Logs  
+
+
+==================================================
+4. Event Correlation
+==================================================
+SIEM systems correlate events from different systems to identify complex attacks.
+
+Example correlation scenario:
+
+Event 1
+
+Multiple failed login attempts.
+
+
+Event 2
+
+Successful login from unusual location.
+
+
+Event 3
+
+Privilege escalation on the system.
+
+
+Correlation
+
+The SIEM links these events together and generates a high-priority alert.
+
+
+==================================================
+5. Alerting and Detection Rules
+==================================================
+SIEM platforms generate alerts using detection rules.
+
+Examples include:
+
+Brute Force Detection
+
+Alert when multiple failed logins occur within a short period.
+
+
+Privilege Escalation Detection
+
+Alert when a user is added to an administrative group.
+
+
+Suspicious Network Activity
+
+Alert when systems communicate with known malicious IP addresses.
+
+
+Data Exfiltration Detection
+
+Alert when large amounts of data are transferred externally.
+
+
+Detection rules are developed by detection engineers.
+
+
+==================================================
+6. Alert Severity Levels
+==================================================
+Alerts are often categorized by severity.
+
+Low Severity
+
+Minor suspicious activity that requires monitoring.
+
+
+Medium Severity
+
+Potential malicious activity that requires investigation.
+
+
+High Severity
+
+Likely malicious activity requiring immediate response.
+
+
+Critical Severity
+
+Confirmed attack or major security incident.
+
+
+Prioritizing alerts helps security teams focus on the most important threats.
+
+
+==================================================
+7. Example SIEM Detection Scenario
+==================================================
+
+Detection
+
+The SIEM detects multiple failed login attempts followed by a successful login.
+
+
+Alert
+
+A high-severity alert is generated for a possible brute force attack.
+
+
+Investigation
+
+Security analysts review authentication logs.
+
+
+Containment
+
+The compromised account is disabled and the source IP address is blocked.
+
+
+Outcome
+
+The attack is stopped before further damage occurs.
+
+
+==================================================
+8. Threat Intelligence Integration
+==================================================
+SIEM platforms often integrate threat intelligence feeds.
+
+Threat intelligence includes:
+
+Malicious IP addresses
+
+Known malware domains
+
+Attack signatures
+
+Indicators of compromise
+
+
+When logs match known malicious indicators, the SIEM generates alerts.
+
+
+==================================================
+9. Automation and Response
+==================================================
+Modern SIEM platforms often integrate automation.
+
+Examples include:
+
+Automatically blocking malicious IP addresses
+
+Disabling compromised accounts
+
+Isolating infected endpoints
+
+Opening incident response tickets
+
+
+Automation improves response speed and reduces analyst workload.
+
+
+==================================================
+10. SIEM Challenges
+==================================================
+While SIEM platforms are powerful, they present several challenges.
+
+High Data Volume
+
+Large environments generate massive log volumes.
+
+
+False Positives
+
+Poorly designed detection rules may generate excessive alerts.
+
+
+Storage Costs
+
+Long-term log retention can be expensive.
+
+
+Complex Configuration
+
+SIEM systems require careful tuning and maintenance.
+
+
+Effective SIEM management requires skilled security engineers.
+
+
+==================================================
+11. Example SIEM Platforms
+==================================================
+
+Common SIEM solutions include:
+
+Splunk Enterprise Security
+
+Elastic Security (ELK Stack)
+
+Microsoft Sentinel
+
+IBM QRadar
+
+LogRhythm
+
+
+Each platform provides log ingestion, search capabilities, and detection rule engines.
+
+
+==================================================
+12. MITRE ATT&CK Mapping
+==================================================
+
+Technique:
+T1078 — Valid Accounts
+
+
+Technique:
+T1110 — Brute Force
+
+
+Technique:
+T1046 — Network Service Discovery
+
+
+Technique:
+T1003 — Credential Dumping
+
+
+Technique:
+T1105 — Ingress Tool Transfer
+
+
+==================================================
+13. Questions & Answers
+==================================================
+
+Question:
+What is a SIEM?
+
+Answer:
+A system that collects, analyzes, and monitors security logs across an organization.
+
+
+--------------------------------------------------
+
+Question:
+Why are SIEM systems important?
+
+Answer:
+They provide centralized visibility into security events across multiple systems.
+
+
+--------------------------------------------------
+
+Question:
+What is event correlation?
+
+Answer:
+The process of linking related events to identify complex attack patterns.
+
+
+--------------------------------------------------
+
+Question:
+What generates alerts inside a SIEM?
+
+Answer:
+Detection rules.
+
+
+--------------------------------------------------
+
+Question:
+What helps identify known attacker infrastructure?
+
+Answer:
+Threat intelligence feeds.
+
+
+--------------------------------------------------
+
+Question:
+What is one challenge of SIEM systems?
+
+Answer:
+Large volumes of log data and false positives.

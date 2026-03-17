@@ -1,0 +1,434 @@
+Incident Response
+- The structured process used by security teams to detect, investigate, contain, and recover from security incidents.
+
+==================================================
+Defense Metadata
+==================================================
+
+Category:
+Blue_Team → Incident Handling
+
+Defense Stage:
+Detection
+Investigation
+Containment
+Recovery
+
+Difficulty:
+Intermediate → Advanced
+
+Primary Objectives:
+Identify Security Incidents
+Contain Active Threats
+Preserve Evidence
+Restore Systems Safely
+
+Technologies Used:
+SIEM Platforms
+EDR Systems
+Forensic Tools
+Threat Intelligence
+Security Monitoring
+
+
+==================================================
+1. Overview
+==================================================
+Incident response (IR) is the process used by security teams to handle cybersecurity incidents.
+
+A security incident may include:
+
+- unauthorized access
+- malware infections
+- data breaches
+- phishing compromises
+- ransomware attacks
+- insider threats
+
+Without a structured response process, organizations may:
+
+- lose critical evidence
+- allow attackers to remain inside the network
+- cause unnecessary downtime
+- increase the damage of the attack
+
+A well-defined incident response plan allows organizations to react quickly and reduce the impact of attacks.
+
+
+==================================================
+2. Incident Response Lifecycle
+==================================================
+Most organizations follow a structured incident response lifecycle.
+
+Common phases include:
+
+Preparation
+
+Develop procedures, tools, and monitoring capabilities.
+
+
+Detection and Analysis
+
+Identify suspicious activity and determine whether an incident occurred.
+
+
+Containment
+
+Stop the attack and prevent further damage.
+
+
+Eradication
+
+Remove malicious artifacts and attacker access.
+
+
+Recovery
+
+Restore affected systems and monitor for reinfection.
+
+
+Lessons Learned
+
+Analyze the incident and improve defenses.
+
+
+==================================================
+3. Preparation Phase
+==================================================
+Preparation ensures that the organization is ready to respond to incidents.
+
+Important preparation tasks include:
+
+Incident Response Plan
+
+Document procedures for responding to incidents.
+
+
+Security Monitoring
+
+Deploy SIEM and detection systems.
+
+
+Asset Inventory
+
+Maintain a list of critical systems and services.
+
+
+Backup Strategy
+
+Ensure reliable backups of important data.
+
+
+Security Training
+
+Train personnel to identify and report incidents.
+
+
+Preparation significantly improves response effectiveness.
+
+
+==================================================
+4. Detection and Analysis
+==================================================
+Incidents are usually discovered through monitoring systems.
+
+Common detection sources include:
+
+SIEM Alerts
+
+Automated detection rules triggered by suspicious activity.
+
+
+Endpoint Detection and Response (EDR)
+
+Detect malware or suspicious process activity.
+
+
+Network Monitoring
+
+Identify abnormal network traffic.
+
+
+User Reports
+
+Employees reporting suspicious emails or behavior.
+
+
+Security Logs
+
+Evidence of unauthorized access attempts.
+
+
+Security analysts must determine:
+
+- whether an incident occurred
+- the scope of the incident
+- affected systems
+
+
+==================================================
+5. Containment
+==================================================
+Containment stops attackers from continuing their activities.
+
+Containment strategies include:
+
+Isolating Compromised Systems
+
+Disconnect infected machines from the network.
+
+
+Disabling Compromised Accounts
+
+Prevent attackers from using stolen credentials.
+
+
+Blocking Malicious IP Addresses
+
+Prevent further communication with attacker infrastructure.
+
+
+Stopping Malicious Processes
+
+Terminate malware activity.
+
+
+Containment may be performed in two stages:
+
+Short-Term Containment
+
+Immediately stop the attack.
+
+
+Long-Term Containment
+
+Apply more permanent fixes while systems remain operational.
+
+
+==================================================
+6. Eradication
+==================================================
+After containment, security teams remove attacker presence.
+
+Eradication actions include:
+
+Removing Malware
+
+Delete malicious files or processes.
+
+
+Patching Vulnerabilities
+
+Fix security weaknesses exploited by attackers.
+
+
+Resetting Credentials
+
+Change compromised passwords and revoke tokens.
+
+
+Removing Unauthorized Accounts
+
+Delete attacker-created accounts.
+
+
+Verifying System Integrity
+
+Ensure no malicious artifacts remain.
+
+
+==================================================
+7. Recovery
+==================================================
+Recovery restores systems to normal operation.
+
+Recovery steps include:
+
+Restoring Systems from Backups
+
+Recover clean system states.
+
+
+Reconnecting Systems to the Network
+
+Ensure compromised systems are safe to rejoin.
+
+
+Monitoring for Reinfection
+
+Watch for signs of attacker return.
+
+
+Validating System Functionality
+
+Ensure systems operate normally.
+
+
+Recovery should occur carefully to prevent reinfection.
+
+
+==================================================
+8. Evidence Collection
+==================================================
+Proper evidence handling is critical for investigation.
+
+Important evidence sources include:
+
+System Logs
+
+Authentication and application activity.
+
+
+Network Logs
+
+Traffic patterns and connections.
+
+
+Endpoint Artifacts
+
+Files, processes, and registry entries.
+
+
+Memory Dumps
+
+In-memory evidence of malware.
+
+
+Disk Images
+
+Complete forensic copies of storage devices.
+
+
+Preserving evidence allows organizations to understand attacker actions.
+
+
+==================================================
+9. Example Incident Scenario
+==================================================
+
+Detection
+
+SIEM generates an alert for suspicious login activity.
+
+
+Investigation
+
+Logs reveal that a user account logged in from an unusual location.
+
+
+Containment
+
+The compromised account is disabled.
+
+
+Eradication
+
+Security analysts remove malicious scripts from the affected system.
+
+
+Recovery
+
+The system is restored and monitored for additional activity.
+
+
+Lessons Learned
+
+Security policies are updated and MFA is enforced.
+
+
+==================================================
+10. Post-Incident Review
+==================================================
+After incidents are resolved, organizations should analyze the event.
+
+Review questions include:
+
+How did the attack occur?
+
+What defenses failed?
+
+How quickly was the attack detected?
+
+What improvements are required?
+
+Lessons learned improve future response capabilities.
+
+
+==================================================
+11. MITRE ATT&CK Mapping
+==================================================
+
+Technique:
+T1078 — Valid Accounts
+
+
+Technique:
+T1059 — Command Execution
+
+
+Technique:
+T1046 — Network Service Discovery
+
+
+Technique:
+T1003 — Credential Dumping
+
+
+Technique:
+T1105 — Ingress Tool Transfer
+
+
+==================================================
+12. Questions & Answers
+==================================================
+
+Question:
+What is the goal of incident response?
+
+Answer:
+To detect, contain, and recover from security incidents while minimizing damage.
+
+
+--------------------------------------------------
+
+Question:
+What is the first phase of incident response?
+
+Answer:
+Preparation.
+
+
+--------------------------------------------------
+
+Question:
+What phase stops the attack from continuing?
+
+Answer:
+Containment.
+
+
+--------------------------------------------------
+
+Question:
+Why is evidence preservation important?
+
+Answer:
+It allows investigators to understand the attack and supports forensic analysis.
+
+
+--------------------------------------------------
+
+Question:
+What phase restores systems to normal operation?
+
+Answer:
+Recovery.
+
+
+--------------------------------------------------
+
+Question:
+Why is a post-incident review important?
+
+Answer:
+It helps organizations improve their defenses and response processes.

@@ -1,0 +1,270 @@
+Elastic Stack (ELK Stack)
+- A powerful open-source platform used for centralized logging, data analysis, security monitoring, and SIEM capabilities.
+
+==================================================
+1. Overview
+==================================================
+Elastic Stack, commonly known as the **ELK Stack**, is a collection of tools used to collect, process, store, and visualize large volumes of data.
+
+The stack consists of four primary components:
+
+Elasticsearch  
+Logstash  
+Kibana  
+Beats
+
+Together, these tools allow security teams to build centralized logging platforms and perform advanced log analysis.
+
+Elastic Stack is widely used in:
+
+- Security Operations Centers (SOC)
+- log management platforms
+- SIEM deployments
+- threat hunting environments
+- incident response investigations
+
+It allows analysts to detect suspicious activity by searching and analyzing logs from multiple sources across an environment.
+
+
+==================================================
+2. Elastic Stack Components
+==================================================
+
+Elasticsearch
+
+A distributed search and analytics engine used to store and query large volumes of data.
+
+Key capabilities:
+
+- fast search queries
+- scalable data storage
+- distributed architecture
+- indexing of structured and unstructured data
+
+
+Logstash
+
+A data processing pipeline used to collect, parse, and transform logs before storing them in Elasticsearch.
+
+Functions include:
+
+- ingesting logs from multiple sources
+- parsing and normalizing log data
+- filtering and enrichment
+
+
+Kibana
+
+A visualization and dashboard interface used to explore and analyze data stored in Elasticsearch.
+
+Capabilities include:
+
+- log searching
+- dashboard visualization
+- alert creation
+- threat investigation
+
+
+Beats
+
+Lightweight data shippers installed on endpoints or servers to forward logs to Elasticsearch or Logstash.
+
+Common Beats agents include:
+
+Filebeat – log file collection  
+Metricbeat – system metrics monitoring  
+Packetbeat – network traffic monitoring  
+Winlogbeat – Windows event log collection
+
+
+==================================================
+3. Primary Use Cases
+==================================================
+
+Centralized Log Management
+
+Collect logs from:
+
+- servers
+- firewalls
+- applications
+- cloud services
+- endpoints
+
+
+Security Monitoring
+
+Detect suspicious behavior across systems.
+
+
+Threat Hunting
+
+Search logs to identify malicious activity.
+
+
+Incident Investigation
+
+Investigate alerts and analyze system activity.
+
+
+Compliance and Auditing
+
+Maintain historical records of system events.
+
+
+==================================================
+4. Example Data Flow
+==================================================
+
+Endpoint / Server Logs
+        ↓
+Beats Agent
+        ↓
+Logstash (optional processing)
+        ↓
+Elasticsearch
+        ↓
+Kibana Dashboards and Analysis
+
+
+==================================================
+5. Example Log Sources
+==================================================
+
+Elastic Stack commonly ingests logs from:
+
+- Windows Event Logs
+- Linux system logs
+- firewall logs
+- IDS / IPS alerts
+- authentication logs
+- web server logs
+- cloud service logs
+- endpoint security tools
+
+
+==================================================
+6. Example Detection Scenario
+==================================================
+
+Alert Trigger
+
+Multiple failed login attempts are detected in authentication logs.
+
+
+Investigation
+
+Analysts search authentication logs in Kibana.
+
+
+Analysis
+
+Log data reveals a password spraying attack against several accounts.
+
+
+Response
+
+Security team blocks the attacking IP and resets affected credentials.
+
+
+==================================================
+7. Advantages
+==================================================
+
+Highly scalable log management platform.
+
+Powerful search and analytics capabilities.
+
+Flexible integration with many systems.
+
+Open-source and widely adopted.
+
+Strong visualization and dashboard features.
+
+
+==================================================
+8. Limitations
+==================================================
+
+Requires significant storage resources for large environments.
+
+Initial setup and configuration can be complex.
+
+May require tuning to optimize performance.
+
+
+==================================================
+9. Related Blue Team Topics
+==================================================
+
+Log Analysis and Detection  
+SIEM and Alerting  
+Threat Hunting  
+Incident Response
+
+
+==================================================
+10. MITRE ATT&CK Relevance
+==================================================
+
+Technique:
+T1110 — Brute Force
+
+Technique:
+T1046 — Network Service Discovery
+
+Technique:
+T1071 — Application Layer Protocol
+
+Technique:
+T1021 — Remote Services
+
+Technique:
+T1041 — Exfiltration Over C2 Channel
+
+
+==================================================
+11. Questions & Answers
+==================================================
+
+Question:
+What is the Elastic Stack?
+
+Answer:
+An open-source platform used for centralized log collection, analysis, and visualization.
+
+
+--------------------------------------------------
+
+Question:
+What are the main components of the Elastic Stack?
+
+Answer:
+Elasticsearch, Logstash, Kibana, and Beats.
+
+
+--------------------------------------------------
+
+Question:
+Which component stores and indexes data?
+
+Answer:
+Elasticsearch.
+
+
+--------------------------------------------------
+
+Question:
+Which component provides dashboards and visualizations?
+
+Answer:
+Kibana.
+
+
+--------------------------------------------------
+
+Question:
+What tool collects logs from endpoints?
+
+Answer:
+Beats agents such as Filebeat or Winlogbeat.

@@ -1,0 +1,272 @@
+Autopsy
+- An open-source digital forensics platform used to analyze disk images, recover files, and investigate compromised systems.
+
+==================================================
+1. Overview
+==================================================
+Autopsy is a graphical digital forensics tool built on top of **The Sleuth Kit**.  
+It provides investigators with an easy-to-use interface for performing forensic analysis on storage devices and disk images.
+
+Autopsy is widely used in:
+
+- incident response investigations
+- digital forensics examinations
+- malware analysis
+- law enforcement investigations
+- corporate security investigations
+
+It allows analysts to examine file systems, recover deleted files, identify suspicious artifacts, and build a timeline of system activity.
+
+Autopsy is commonly used when investigating:
+
+- compromised endpoints
+- insider threats
+- malware infections
+- data theft incidents
+
+
+==================================================
+2. Primary Use Cases
+==================================================
+
+Disk Image Analysis
+
+Analyze forensic images of disks and storage devices.
+
+
+Incident Response
+
+Investigate compromised systems after a security incident.
+
+
+File Recovery
+
+Recover deleted files and artifacts.
+
+
+Malware Investigation
+
+Identify suspicious executables and artifacts.
+
+
+Timeline Analysis
+
+Reconstruct system activity during an incident.
+
+
+==================================================
+3. Key Features
+==================================================
+
+Disk Image Analysis
+
+Supports forensic disk image formats including:
+
+- E01
+- raw disk images
+- AFF
+
+
+File System Analysis
+
+Supports multiple file systems including:
+
+- NTFS
+- FAT
+- EXT
+
+
+Deleted File Recovery
+
+Identify and recover deleted files.
+
+
+Keyword Search
+
+Search disk images for specific keywords or artifacts.
+
+
+Timeline Analysis
+
+Create a chronological timeline of system activity.
+
+
+Artifact Extraction
+
+Automatically identify forensic artifacts such as:
+
+- browser history
+- installed programs
+- recent documents
+- user accounts
+
+
+Hash Filtering
+
+Compare files against known hash databases to identify malware or known files.
+
+
+==================================================
+4. Example Investigation Workflow
+==================================================
+
+Step 1 — Acquire Disk Image
+
+Use forensic acquisition tools to capture a disk image from the system.
+
+
+Step 2 — Create New Case
+
+Launch Autopsy and create a new investigation case.
+
+
+Step 3 — Add Data Source
+
+Import the disk image into the case.
+
+
+Step 4 — Run Analysis Modules
+
+Autopsy automatically performs analysis including:
+
+- file type identification
+- hash lookup
+- artifact extraction
+- keyword indexing
+
+
+Step 5 — Investigate Artifacts
+
+Examine artifacts such as:
+
+- browser history
+- installed applications
+- suspicious files
+
+
+Step 6 — Build Timeline
+
+Analyze system activity through timeline reconstruction.
+
+
+Step 7 — Generate Report
+
+Export findings for incident response documentation.
+
+
+==================================================
+5. Advantages
+==================================================
+
+User-friendly graphical interface.
+
+Powerful forensic capabilities.
+
+Supports many disk image formats.
+
+Strong integration with The Sleuth Kit.
+
+Extensible through plugins.
+
+
+==================================================
+6. Limitations
+==================================================
+
+Large disk images require significant processing time.
+
+Not ideal for real-time monitoring.
+
+Requires forensic knowledge to interpret artifacts correctly.
+
+
+==================================================
+7. Common Investigation Artifacts
+==================================================
+
+Autopsy can identify many types of forensic artifacts including:
+
+- browser history
+- downloaded files
+- email artifacts
+- user activity
+- installed programs
+- recently opened documents
+- system logs
+
+
+==================================================
+8. Related Blue Team Topics
+==================================================
+
+Incident Response  
+Threat Hunting  
+Digital Forensics  
+Log Analysis and Detection
+
+
+==================================================
+9. MITRE ATT&CK Relevance
+==================================================
+
+Technique:
+T1070 — Indicator Removal on Host
+
+Technique:
+T1059 — Command and Scripting Interpreter
+
+Technique:
+T1005 — Data from Local System
+
+Technique:
+T1027 — Obfuscated Files or Information
+
+Technique:
+T1105 — Ingress Tool Transfer
+
+
+==================================================
+10. Questions & Answers
+==================================================
+
+Question:
+What is Autopsy?
+
+Answer:
+Autopsy is a digital forensics platform used to analyze disk images and investigate compromised systems.
+
+
+--------------------------------------------------
+
+Question:
+What framework powers Autopsy's forensic capabilities?
+
+Answer:
+The Sleuth Kit.
+
+
+--------------------------------------------------
+
+Question:
+What type of evidence can Autopsy recover?
+
+Answer:
+Deleted files, browser artifacts, user activity, and system artifacts.
+
+
+--------------------------------------------------
+
+Question:
+What is one common use of Autopsy in security operations?
+
+Answer:
+Investigating compromised systems during incident response.
+
+
+--------------------------------------------------
+
+Question:
+Why is disk imaging important for forensic analysis?
+
+Answer:
+Because it preserves the original system data for investigation without modifying evidence.

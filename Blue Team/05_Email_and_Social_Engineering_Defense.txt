@@ -1,0 +1,377 @@
+Email and Social Engineering Defense
+- Security practices used to detect and prevent attacks that manipulate users into revealing information or executing malicious actions.
+
+==================================================
+Defense Metadata
+==================================================
+
+Category:
+Blue_Team → Human Security / Social Engineering Defense
+
+Defense Stage:
+Prevention
+Detection
+Response
+
+Difficulty:
+Beginner → Advanced
+
+Primary Objectives:
+Prevent Credential Theft
+Detect Phishing Campaigns
+Protect Users from Social Engineering
+Reduce Human Attack Surface
+
+Technologies Used:
+Email Security Gateways
+Spam Filters
+Security Awareness Training
+Multi-Factor Authentication
+SIEM Monitoring
+
+
+==================================================
+1. Overview
+==================================================
+Social engineering attacks target human behavior rather than technical vulnerabilities.
+
+Attackers manipulate users into:
+
+- revealing credentials
+- downloading malware
+- executing malicious actions
+- granting unauthorized access
+
+Email is the most common delivery method for social engineering attacks.
+
+These attacks are dangerous because they bypass many traditional security controls.
+
+Common examples include:
+
+- phishing emails
+- business email compromise (BEC)
+- malicious attachments
+- credential harvesting websites
+- USB baiting attacks
+
+Defending against social engineering requires both technical controls and user awareness.
+
+
+==================================================
+2. Common Social Engineering Attacks
+==================================================
+
+Phishing
+
+Fraudulent emails designed to steal credentials or deliver malware.
+
+
+Spear Phishing
+
+Highly targeted phishing attacks against specific individuals.
+
+
+Business Email Compromise (BEC)
+
+Impersonating executives or vendors to request financial transfers.
+
+
+Pretexting
+
+Creating a believable scenario to manipulate victims into revealing information.
+
+
+Malicious Attachments
+
+Emails containing malware disguised as documents.
+
+
+USB Baiting
+
+Planting malicious USB devices for victims to connect to their computers.
+
+
+Credential Harvesting
+
+Fake login portals designed to capture usernames and passwords.
+
+
+==================================================
+3. Email Security Controls
+==================================================
+Organizations deploy several technologies to secure email systems.
+
+Spam Filtering
+
+Automatically detects and blocks suspicious emails.
+
+
+Email Security Gateways
+
+Scan messages for malicious attachments and links.
+
+
+URL Rewriting
+
+Inspect links before allowing users to access them.
+
+
+Attachment Sandboxing
+
+Execute attachments in isolated environments to detect malware.
+
+
+Domain Authentication
+
+Verify sender authenticity using email security protocols.
+
+
+==================================================
+4. Email Authentication Technologies
+==================================================
+Modern email systems use several authentication methods to prevent spoofing.
+
+SPF (Sender Policy Framework)
+
+Defines which servers are allowed to send emails for a domain.
+
+
+DKIM (DomainKeys Identified Mail)
+
+Digitally signs email messages to verify authenticity.
+
+
+DMARC (Domain-based Message Authentication)
+
+Enforces SPF and DKIM policies and reports spoofing attempts.
+
+
+These technologies help prevent attackers from impersonating trusted domains.
+
+
+==================================================
+5. User Awareness Training
+==================================================
+Human awareness is one of the most important defenses.
+
+Organizations should train employees to recognize:
+
+- suspicious email senders
+- urgent requests for credentials
+- unexpected attachments
+- links to login pages
+- requests for sensitive information
+
+Employees should be encouraged to:
+
+- verify suspicious requests
+- report suspicious emails
+- avoid opening unknown attachments
+
+
+==================================================
+6. Multi-Factor Authentication (MFA)
+==================================================
+Multi-factor authentication significantly reduces the risk of credential theft.
+
+Even if attackers obtain user credentials, MFA requires an additional authentication factor.
+
+Examples include:
+
+- mobile authentication apps
+- hardware tokens
+- biometric authentication
+
+MFA is one of the most effective defenses against phishing attacks.
+
+
+==================================================
+7. Email Monitoring and Detection
+==================================================
+Security teams monitor email activity for suspicious patterns.
+
+Indicators include:
+
+Large Phishing Campaigns
+
+Many users receiving similar suspicious emails.
+
+
+Unusual Login Activity
+
+Users logging in from unexpected locations.
+
+
+Email Forwarding Rules
+
+Attackers creating forwarding rules after account compromise.
+
+
+Suspicious Attachments
+
+Files containing macros or executable content.
+
+
+SIEM platforms often monitor email logs and generate alerts.
+
+
+==================================================
+8. Example Detection Scenario
+==================================================
+
+Alert Trigger
+
+Email security gateway detects a suspicious login page link.
+
+
+Log Analysis
+
+Multiple employees received a phishing email.
+
+
+Investigation
+
+The email domain closely resembles the legitimate company domain.
+
+
+Response
+
+The phishing domain is blocked and users are warned.
+
+
+Outcome
+
+Credential theft is prevented.
+
+
+==================================================
+9. Defending Against Malicious USB Attacks
+==================================================
+Organizations should implement controls to prevent USB-based attacks.
+
+Device Control Policies
+
+Restrict unauthorized USB devices.
+
+
+Endpoint Security
+
+Detect suspicious USB device behavior.
+
+
+Disable Auto-Run
+
+Prevent automatic execution of files.
+
+
+Security Awareness
+
+Train employees not to plug unknown USB devices into computers.
+
+
+Physical Security
+
+Prevent attackers from placing devices in sensitive locations.
+
+
+==================================================
+10. Incident Response for Phishing
+==================================================
+When phishing attacks occur, organizations should respond quickly.
+
+Response steps include:
+
+Identify affected users
+
+Reset compromised credentials
+
+Remove malicious emails from inboxes
+
+Block malicious domains
+
+Investigate attacker activity
+
+Notify affected users
+
+
+Rapid response helps prevent further compromise.
+
+
+==================================================
+11. MITRE ATT&CK Mapping
+==================================================
+
+Technique:
+T1566 — Phishing
+
+
+Technique:
+T1204 — User Execution
+
+
+Technique:
+T1078 — Valid Accounts
+
+
+Technique:
+T1556 — Modify Authentication Process
+
+
+Technique:
+T1098 — Account Manipulation
+
+
+==================================================
+12. Questions & Answers
+==================================================
+
+Question:
+What is the most common delivery method for social engineering attacks?
+
+Answer:
+Email.
+
+
+--------------------------------------------------
+
+Question:
+What type of phishing attack targets specific individuals?
+
+Answer:
+Spear phishing.
+
+
+--------------------------------------------------
+
+Question:
+Which technology prevents domain spoofing?
+
+Answer:
+SPF, DKIM, and DMARC.
+
+
+--------------------------------------------------
+
+Question:
+Why is multi-factor authentication important?
+
+Answer:
+Because it prevents attackers from accessing accounts even if passwords are stolen.
+
+
+--------------------------------------------------
+
+Question:
+What attack uses fake login pages to steal credentials?
+
+Answer:
+Credential harvesting.
+
+
+--------------------------------------------------
+
+Question:
+What defense helps prevent malicious USB attacks?
+
+Answer:
+Device control policies and security awareness training.

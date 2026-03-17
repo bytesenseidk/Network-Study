@@ -1,0 +1,191 @@
+Blue Team Tool Quick Reference
+- A quick reference guide to commonly used defensive security tools.
+
+==================================================
+1. Overview
+==================================================
+Blue Team tools help defenders monitor systems, detect malicious activity, investigate incidents, and protect infrastructure.
+
+These tools are used by:
+
+- SOC analysts
+- threat hunters
+- incident responders
+- security engineers
+- forensic investigators
+
+The tools documented in this folder support defensive capabilities such as:
+
+- network monitoring
+- log analysis
+- intrusion detection
+- incident response
+- threat intelligence
+- cloud security
+
+
+==================================================
+2. Network Monitoring Tools
+==================================================
+
+Wireshark
+Network packet analyzer used to inspect network traffic.
+
+tcpdump
+Command-line packet capture tool commonly used on Linux systems.
+
+Zeek
+Network security monitoring platform used to analyze network protocols and traffic.
+
+Suricata
+High-performance intrusion detection and intrusion prevention system.
+
+Snort
+Signature-based intrusion detection system.
+
+
+==================================================
+3. Log Analysis and SIEM Platforms
+==================================================
+
+Splunk
+Enterprise log analysis and SIEM platform used by many SOC teams.
+
+Elastic Stack (ELK)
+Open-source log management platform including Elasticsearch, Logstash, and Kibana.
+
+Microsoft Sentinel
+Cloud-native SIEM and security analytics platform.
+
+Graylog
+Log management platform designed for centralized log collection and analysis.
+
+
+==================================================
+4. Endpoint Detection and Threat Hunting Tools
+==================================================
+
+Wazuh
+Open-source security monitoring platform that provides host-based intrusion detection.
+
+OSQuery
+Endpoint visibility tool that allows analysts to query operating system data.
+
+Velociraptor
+Advanced endpoint monitoring and digital forensics tool.
+
+
+==================================================
+5. Digital Forensics Tools
+==================================================
+
+Autopsy
+Digital forensics platform used for disk and file system analysis.
+
+Volatility
+Memory forensics framework used to analyze RAM images.
+
+Sleuth Kit
+Collection of forensic tools used for file system investigation.
+
+
+==================================================
+6. Incident Response Platforms
+==================================================
+
+TheHive
+Security incident response platform used for case management.
+
+Cortex
+Automation engine used to analyze security indicators and automate investigations.
+
+
+==================================================
+7. Threat Intelligence Platforms
+==================================================
+
+MISP
+Threat intelligence sharing platform used by security teams.
+
+VirusTotal
+Service used to analyze files, domains, and IP addresses for malicious activity.
+
+AbuseIPDB
+Database of reported malicious IP addresses.
+
+
+==================================================
+8. Cloud Security Tools
+==================================================
+
+ScoutSuite
+Cloud security auditing tool used to identify misconfigurations.
+
+Prowler
+AWS security assessment tool used for auditing and compliance checks.
+
+AWS GuardDuty
+Cloud-native threat detection service for AWS environments.
+
+
+==================================================
+9. How to Use This Folder
+==================================================
+Each tool listed in this quick reference has a dedicated file in the Tools directory.
+
+Those files contain detailed information including:
+
+- tool overview
+- use cases
+- example commands
+- advantages and limitations
+- related Blue Team topics
+
+Use this quick reference as a starting point when searching for tools used in defensive security operations.
+
+
+==================================================
+10. Questions & Answers
+==================================================
+
+Question:
+What is the purpose of Blue Team tools?
+
+Answer:
+To monitor systems, detect malicious activity, and investigate security incidents.
+
+
+--------------------------------------------------
+
+Question:
+What tool is commonly used to analyze network packets?
+
+Answer:
+Wireshark.
+
+
+--------------------------------------------------
+
+Question:
+What platform is widely used for centralized log analysis?
+
+Answer:
+Splunk or the Elastic Stack.
+
+
+--------------------------------------------------
+
+Question:
+What tool is used for memory forensics?
+
+Answer:
+Volatility.
+
+
+--------------------------------------------------
+
+Question:
+What platform is used for incident response case management?
+
+Answer:
+TheHive.

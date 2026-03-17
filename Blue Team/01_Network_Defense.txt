@@ -1,0 +1,372 @@
+Network Defense
+- Defensive techniques used to monitor, protect, and secure enterprise networks against attacks.
+
+==================================================
+Defense Metadata
+==================================================
+
+Category:
+Blue_Team → Network Security
+
+Defense Stage:
+Prevention
+Detection
+Response
+
+Difficulty:
+Beginner → Advanced
+
+Primary Objectives:
+Protect Network Infrastructure
+Detect Malicious Activity
+Prevent Unauthorized Access
+Support Incident Response
+
+Technologies Used:
+Firewalls
+IDS / IPS
+Network Monitoring Tools
+SIEM Platforms
+Network Segmentation
+Access Control Systems
+
+
+==================================================
+1. Overview
+==================================================
+Network defense focuses on protecting the internal and external network infrastructure of an organization.
+
+A secure network prevents attackers from:
+
+- gaining unauthorized access
+- moving laterally between systems
+- exfiltrating sensitive data
+- exploiting network services
+
+Network defense combines multiple security controls including:
+
+- perimeter security
+- network segmentation
+- traffic monitoring
+- intrusion detection
+- access control
+
+Effective network defense relies on **visibility, detection, and rapid response**.
+
+
+==================================================
+2. Core Principles of Network Defense
+==================================================
+
+Defense in Depth
+
+Multiple layers of security controls should protect the network.  
+If one layer fails, additional layers continue to provide protection.
+
+
+Least Privilege Network Access
+
+Systems and users should only be able to access the network resources they require.
+
+
+Network Segmentation
+
+Networks should be divided into separate segments to limit attacker movement.
+
+
+Continuous Monitoring
+
+Network activity must be continuously monitored to detect abnormal behavior.
+
+
+Rapid Incident Response
+
+Security teams must quickly investigate and respond to suspicious activity.
+
+
+==================================================
+3. Network Defense Architecture
+==================================================
+
+A typical enterprise network defense architecture includes:
+
+Internet
+    ↓
+Perimeter Firewall
+    ↓
+Demilitarized Zone (DMZ)
+    ↓
+Internal Network Segmentation
+    ↓
+Sensitive Systems (Databases / Domain Controllers)
+
+
+Security monitoring may occur at multiple locations:
+
+- network perimeter
+- internal segments
+- endpoint monitoring systems
+- centralized SIEM platforms
+
+
+==================================================
+4. Key Defensive Technologies
+==================================================
+
+Firewalls
+
+Control inbound and outbound network traffic based on security rules.
+
+Examples:
+
+- Cisco ASA
+- Palo Alto Networks
+- Fortinet
+
+
+Intrusion Detection Systems (IDS)
+
+Monitor network traffic for suspicious patterns.
+
+Examples:
+
+- Snort
+- Suricata
+- Zeek
+
+
+Intrusion Prevention Systems (IPS)
+
+Actively block malicious traffic.
+
+
+Network Monitoring Tools
+
+Capture and analyze network traffic.
+
+Examples:
+
+- Wireshark
+- tcpdump
+- Zeek
+
+
+SIEM Platforms
+
+Aggregate logs from multiple systems for centralized analysis.
+
+Examples:
+
+- Splunk
+- Elastic Stack
+- Microsoft Sentinel
+
+
+==================================================
+5. Network Monitoring Workflow
+==================================================
+
+Traffic Collection
+        ↓
+Log Aggregation
+        ↓
+Traffic Analysis
+        ↓
+Threat Detection
+        ↓
+Alert Generation
+        ↓
+Security Investigation
+
+
+==================================================
+6. Common Network Attacks to Detect
+==================================================
+
+Blue teams must monitor for activity associated with attacks such as:
+
+Port Scanning
+
+Attackers probing for open services.
+
+Example tool:
+
+Nmap
+
+
+Brute Force Authentication
+
+Repeated login attempts against services.
+
+
+Lateral Movement
+
+Attackers moving between internal systems.
+
+
+Command and Control Traffic
+
+Compromised systems communicating with attacker infrastructure.
+
+
+Data Exfiltration
+
+Sensitive data being transferred outside the network.
+
+
+==================================================
+7. Example Detection Scenario
+==================================================
+
+Alert Trigger
+
+SIEM detects a large number of connection attempts from one host.
+
+
+Investigation
+
+Network logs reveal port scanning activity.
+
+
+Analysis
+
+The scanning host is identified as an internal workstation.
+
+
+Response
+
+Security team isolates the machine for investigation.
+
+
+Outcome
+
+Compromised system identified and malware removed.
+
+
+==================================================
+8. Defensive Best Practices
+==================================================
+
+Network Segmentation
+
+Separate networks for:
+
+- user systems
+- servers
+- sensitive systems
+
+
+Strong Firewall Policies
+
+Only allow required network traffic.
+
+
+Encrypted Traffic
+
+Use secure protocols such as:
+
+- HTTPS
+- SSH
+- TLS
+
+
+Network Monitoring
+
+Continuously analyze network traffic and logs.
+
+
+Security Logging
+
+Collect logs from:
+
+- firewalls
+- servers
+- endpoints
+- authentication systems
+
+
+Threat Intelligence Integration
+
+Use threat feeds to detect known malicious IP addresses.
+
+
+==================================================
+9. Incident Response Integration
+==================================================
+
+Network defense is closely connected to incident response.
+
+When suspicious activity is detected:
+
+1. Investigate alerts
+2. Identify affected systems
+3. Contain the threat
+4. Remove malicious activity
+5. Restore normal operations
+
+
+==================================================
+10. MITRE ATT&CK Mapping
+==================================================
+
+Technique:
+T1046 — Network Service Discovery
+
+Technique:
+T1040 — Network Sniffing
+
+Technique:
+T1021 — Remote Services
+
+Technique:
+T1071 — Application Layer Protocol
+
+Technique:
+T1562 — Impair Defenses
+
+
+==================================================
+11. Questions & Answers
+==================================================
+
+Question:
+What is the main goal of network defense?
+
+Answer:
+To protect network infrastructure and detect malicious activity.
+
+
+--------------------------------------------------
+
+Question:
+What technology is commonly used to detect network attacks?
+
+Answer:
+Intrusion Detection Systems (IDS).
+
+
+--------------------------------------------------
+
+Question:
+Why is network segmentation important?
+
+Answer:
+It limits the ability of attackers to move laterally through the network.
+
+
+--------------------------------------------------
+
+Question:
+What system aggregates logs from multiple security devices?
+
+Answer:
+A Security Information and Event Management (SIEM) platform.
+
+
+--------------------------------------------------
+
+Question:
+What is a key requirement for effective network defense?
+
+Answer:
+Continuous monitoring and rapid incident response.

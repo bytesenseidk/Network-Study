@@ -1,0 +1,239 @@
+Wazuh
+- An open-source security monitoring platform that provides threat detection, log analysis, intrusion detection, and endpoint security monitoring.
+
+==================================================
+1. Overview
+==================================================
+Wazuh is an open-source security platform used for **endpoint detection, log analysis, and threat monitoring**.
+
+It provides capabilities similar to an **Extended Detection and Response (XDR)** platform by collecting and analyzing security data from endpoints, servers, and cloud environments.
+
+Wazuh builds on the **OSSEC host-based intrusion detection system (HIDS)** and integrates with the **Elastic Stack** for visualization and analysis.
+
+It is commonly used for:
+
+- endpoint monitoring
+- threat detection
+- log analysis
+- security compliance monitoring
+- incident investigation
+
+Wazuh agents are installed on endpoints to collect security data and forward it to a centralized server.
+
+
+==================================================
+2. Primary Use Cases
+==================================================
+
+Endpoint Security Monitoring
+
+Monitor activity on servers and workstations.
+
+
+Intrusion Detection
+
+Detect suspicious behavior on endpoints.
+
+
+Log Analysis
+
+Analyze system and application logs.
+
+
+Compliance Monitoring
+
+Verify system configurations against security policies.
+
+
+File Integrity Monitoring
+
+Detect unauthorized file changes.
+
+
+==================================================
+3. Key Features
+==================================================
+
+Host-Based Intrusion Detection
+
+Detect suspicious activity on endpoints.
+
+
+Log Collection and Analysis
+
+Centralize logs from systems and applications.
+
+
+File Integrity Monitoring
+
+Detect modifications to critical system files.
+
+
+Rootkit Detection
+
+Identify kernel-level malware.
+
+
+Security Configuration Monitoring
+
+Ensure systems follow security best practices.
+
+
+Cloud Security Monitoring
+
+Monitor AWS, Azure, and other cloud environments.
+
+
+==================================================
+4. Wazuh Architecture
+==================================================
+
+Endpoint Agent
+        ↓
+Wazuh Manager
+        ↓
+Elasticsearch
+        ↓
+Kibana Dashboards
+
+
+==================================================
+5. Example Detection Scenario
+==================================================
+
+Alert Trigger
+
+Wazuh detects repeated failed login attempts on a server.
+
+
+Investigation
+
+Security analysts review authentication logs.
+
+
+Analysis
+
+Logs reveal a brute force attack against SSH.
+
+
+Response
+
+The attacker IP is blocked and additional monitoring is implemented.
+
+
+==================================================
+6. Example Security Events
+==================================================
+
+Unauthorized login attempts
+
+File integrity violations
+
+Suspicious process activity
+
+Privilege escalation attempts
+
+Malware indicators
+
+
+==================================================
+7. Advantages
+==================================================
+
+Open-source security monitoring platform.
+
+Provides endpoint visibility.
+
+Integrates with Elastic Stack.
+
+Supports compliance monitoring.
+
+Detects file integrity violations.
+
+
+==================================================
+8. Limitations
+==================================================
+
+Requires deployment of endpoint agents.
+
+Large environments may require infrastructure tuning.
+
+False positives may require rule tuning.
+
+
+==================================================
+9. Related Blue Team Topics
+==================================================
+
+Log Analysis and Detection  
+Threat Hunting  
+Incident Response  
+SIEM and Alerting
+
+
+==================================================
+10. MITRE ATT&CK Relevance
+==================================================
+
+Technique:
+T1110 — Brute Force
+
+Technique:
+T1078 — Valid Accounts
+
+Technique:
+T1059 — Command and Scripting Interpreter
+
+Technique:
+T1046 — Network Service Discovery
+
+Technique:
+T1041 — Exfiltration Over C2 Channel
+
+
+==================================================
+11. Questions & Answers
+==================================================
+
+Question:
+What is Wazuh?
+
+Answer:
+An open-source security monitoring platform used for endpoint detection and log analysis.
+
+
+--------------------------------------------------
+
+Question:
+What type of detection system is Wazuh?
+
+Answer:
+A host-based intrusion detection system (HIDS).
+
+
+--------------------------------------------------
+
+Question:
+What type of monitoring does Wazuh provide?
+
+Answer:
+Endpoint monitoring, log analysis, and file integrity monitoring.
+
+
+--------------------------------------------------
+
+Question:
+What visualization platform does Wazuh commonly integrate with?
+
+Answer:
+Elastic Stack (Elasticsearch and Kibana).
+
+
+--------------------------------------------------
+
+Question:
+Why is Wazuh useful for security teams?
+
+Answer:
+It provides centralized monitoring and detection across endpoints and systems.

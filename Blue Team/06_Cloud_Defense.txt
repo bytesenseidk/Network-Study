@@ -1,0 +1,14 @@
+Incident Response
+- Responding to and containing active security incidents
+
+Response Lifecycle
+- Preparation
+- Detection
+- Containment
+- Eradication
+- Recovery
+
+Post Incident
+- Root Cause Analysis
+- Lessons Learned
+- Security Improvements

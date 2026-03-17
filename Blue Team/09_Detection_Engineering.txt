@@ -1,0 +1,372 @@
+Detection Engineering
+- The process of designing, building, and maintaining security detections that identify malicious activity within an environment.
+
+==================================================
+Defense Metadata
+==================================================
+
+Category:
+Blue_Team → Detection Engineering
+
+Defense Stage:
+Detection
+Monitoring
+Investigation
+
+Difficulty:
+Intermediate → Advanced
+
+Primary Objectives:
+Detect Attacker Activity
+Create Reliable Security Alerts
+Reduce False Positives
+Improve Security Visibility
+
+Technologies Used:
+SIEM Platforms
+EDR Systems
+Threat Intelligence
+Log Analysis
+Security Automation
+
+
+==================================================
+1. Overview
+==================================================
+Detection engineering focuses on creating reliable methods to identify malicious activity.
+
+Security tools generate large amounts of logs and alerts. Detection engineers analyze this data and build rules that detect attacker behavior.
+
+These rules allow security systems to automatically identify:
+
+- unauthorized access
+- malware activity
+- privilege escalation
+- suspicious network activity
+- data exfiltration attempts
+
+Effective detection engineering improves the ability of security teams to identify threats quickly and respond before significant damage occurs.
+
+
+==================================================
+2. Detection Engineering Goals
+==================================================
+Detection engineers aim to build detections that are:
+
+Accurate
+
+Correctly identify malicious behavior.
+
+
+Actionable
+
+Provide useful alerts for security analysts.
+
+
+Reliable
+
+Consistently detect the targeted behavior.
+
+
+Low Noise
+
+Minimize false positives.
+
+
+Adaptable
+
+Continuously improve as attacker techniques evolve.
+
+
+==================================================
+3. Detection Sources
+==================================================
+Detection rules rely on data from multiple sources.
+
+Common data sources include:
+
+Endpoint Logs
+
+Process execution  
+File activity  
+Registry modifications  
+
+
+Authentication Logs
+
+Login attempts  
+Account changes  
+Privilege assignments  
+
+
+Network Logs
+
+Connection attempts  
+DNS queries  
+Firewall events  
+
+
+Application Logs
+
+Web requests  
+API usage  
+Application errors  
+
+
+Cloud Logs
+
+Cloud API activity  
+Identity authentication events  
+
+
+==================================================
+4. Detection Rule Lifecycle
+==================================================
+
+Threat Research
+        ↓
+Detection Design
+        ↓
+Rule Implementation
+        ↓
+Testing and Validation
+        ↓
+Deployment
+        ↓
+Continuous Improvement
+
+
+Detection rules are constantly updated as new threats are discovered.
+
+
+==================================================
+5. Detection Methods
+==================================================
+Several approaches are used when creating detection rules.
+
+Signature-Based Detection
+
+Matches known patterns such as malware hashes.
+
+
+Behavior-Based Detection
+
+Identifies suspicious behavior patterns.
+
+
+Anomaly Detection
+
+Detects unusual activity compared to normal behavior.
+
+
+Threat Intelligence Matching
+
+Detects activity associated with known malicious indicators.
+
+
+Each method has strengths and limitations.
+
+
+==================================================
+6. Example Detection Rule
+==================================================
+
+Objective
+
+Detect brute force login attempts.
+
+
+Detection Logic
+
+Trigger an alert if multiple failed login attempts occur within a short period.
+
+
+Example rule logic
+
+IF failed_logins > 10  
+AND timeframe < 5 minutes  
+THEN generate alert
+
+
+Detection rules are commonly implemented in SIEM systems.
+
+
+==================================================
+7. Reducing False Positives
+==================================================
+False positives occur when legitimate activity triggers alerts.
+
+Detection engineers reduce false positives by:
+
+Adding Context
+
+Use additional data to validate suspicious activity.
+
+
+Baseline Normal Behavior
+
+Understand what normal activity looks like.
+
+
+Whitelisting Trusted Systems
+
+Exclude known safe sources.
+
+
+Adjusting Thresholds
+
+Modify detection thresholds to reduce noise.
+
+
+Accurate detections improve analyst efficiency.
+
+
+==================================================
+8. Detection Validation
+==================================================
+Before deploying new detection rules, engineers validate them through testing.
+
+Validation methods include:
+
+Log Replay
+
+Testing rules against historical log data.
+
+
+Attack Simulation
+
+Running controlled attacks to verify detection.
+
+
+Red Team Exercises
+
+Simulated attacker activity used to evaluate defenses.
+
+
+Continuous testing ensures detections remain effective.
+
+
+==================================================
+9. Detection Engineering and Threat Hunting
+==================================================
+Threat hunting and detection engineering work closely together.
+
+Threat hunters identify suspicious behavior that may not trigger existing alerts.
+
+Detection engineers then convert those discoveries into automated detection rules.
+
+Example workflow:
+
+Threat hunter discovers suspicious PowerShell usage.
+
+Detection engineer creates a rule to detect similar behavior across the environment.
+
+This improves long-term detection capabilities.
+
+
+==================================================
+10. Detection Metrics
+==================================================
+Security teams evaluate detection effectiveness using metrics such as:
+
+Mean Time to Detect (MTTD)
+
+Average time required to identify a threat.
+
+
+Mean Time to Respond (MTTR)
+
+Average time required to contain a threat.
+
+
+False Positive Rate
+
+Percentage of alerts that are not malicious.
+
+
+Detection Coverage
+
+How many attacker techniques can be detected.
+
+
+Improving these metrics strengthens security operations.
+
+
+==================================================
+11. MITRE ATT&CK Mapping
+==================================================
+
+Technique:
+T1059 — Command Execution
+
+
+Technique:
+T1078 — Valid Accounts
+
+
+Technique:
+T1003 — Credential Dumping
+
+
+Technique:
+T1046 — Network Service Discovery
+
+
+Technique:
+T1110 — Brute Force
+
+
+==================================================
+12. Questions & Answers
+==================================================
+
+Question:
+What is detection engineering?
+
+Answer:
+The process of designing and implementing security detections to identify malicious activity.
+
+
+--------------------------------------------------
+
+Question:
+What system commonly hosts detection rules?
+
+Answer:
+A SIEM platform.
+
+
+--------------------------------------------------
+
+Question:
+What type of detection identifies suspicious behavior patterns?
+
+Answer:
+Behavior-based detection.
+
+
+--------------------------------------------------
+
+Question:
+Why is reducing false positives important?
+
+Answer:
+Because excessive false alerts reduce analyst efficiency.
+
+
+--------------------------------------------------
+
+Question:
+What process often leads to new detection rules?
+
+Answer:
+Threat hunting.
+
+
+--------------------------------------------------
+
+Question:
+What metric measures how quickly threats are identified?
+
+Answer:
+Mean Time to Detect (MTTD).

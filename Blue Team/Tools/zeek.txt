@@ -1,0 +1,269 @@
+Zeek
+- A powerful network security monitoring platform used for analyzing network traffic and detecting suspicious activity.
+
+==================================================
+1. Overview
+==================================================
+Zeek (formerly known as Bro) is an open-source **network security monitoring (NSM)** platform.
+
+Unlike traditional intrusion detection systems that rely mainly on signatures, Zeek focuses on **network behavior analysis**.
+
+Zeek analyzes network traffic and generates detailed logs describing:
+
+- network connections
+- DNS queries
+- HTTP activity
+- SSL/TLS sessions
+- file transfers
+- authentication events
+
+These logs provide valuable visibility into network activity and are commonly used by:
+
+- SOC teams
+- threat hunters
+- incident responders
+- network security engineers
+
+Zeek is often deployed in enterprise networks to monitor large volumes of traffic.
+
+
+==================================================
+2. Primary Use Cases
+==================================================
+
+Network Security Monitoring
+
+Provide detailed logs of network activity.
+
+
+Threat Detection
+
+Identify suspicious behavior patterns.
+
+
+Threat Hunting
+
+Search network logs for indicators of compromise.
+
+
+Incident Investigation
+
+Reconstruct attacker activity on the network.
+
+
+Network Visibility
+
+Understand how systems communicate across the network.
+
+
+==================================================
+3. Key Features
+==================================================
+
+Protocol Analysis
+
+Analyze many network protocols including:
+
+- HTTP
+- DNS
+- SMTP
+- FTP
+- SSL/TLS
+
+
+Behavior-Based Detection
+
+Identify suspicious activity patterns.
+
+
+Scriptable Framework
+
+Supports custom scripts for detection.
+
+
+Detailed Logging
+
+Generate structured logs for security analysis.
+
+
+Integration with SIEM
+
+Send logs to SIEM platforms such as:
+
+- Splunk
+- Elastic Stack
+- Microsoft Sentinel
+
+
+==================================================
+4. Zeek Logging Architecture
+==================================================
+
+Network Traffic
+        ↓
+Protocol Analysis
+        ↓
+Event Generation
+        ↓
+Log Files
+        ↓
+SIEM / Analysis Platforms
+
+
+==================================================
+5. Example Log Types
+==================================================
+
+conn.log
+
+Network connection logs.
+
+
+dns.log
+
+DNS query activity.
+
+
+http.log
+
+HTTP request and response data.
+
+
+ssl.log
+
+TLS session information.
+
+
+files.log
+
+Files transferred over the network.
+
+
+==================================================
+6. Example Detection Scenario
+==================================================
+
+Alert Trigger
+
+Security analysts notice unusual DNS traffic.
+
+
+Investigation
+
+Zeek DNS logs reveal repeated queries to suspicious domains.
+
+
+Analysis
+
+Domains are associated with a malware command-and-control network.
+
+
+Response
+
+Security team blocks the malicious domains.
+
+
+Outcome
+
+Potential malware infection is prevented.
+
+
+==================================================
+7. Advantages
+==================================================
+
+Provides deep visibility into network activity.
+
+Generates structured logs for investigation.
+
+Supports behavior-based detection.
+
+Highly customizable through scripting.
+
+
+==================================================
+8. Limitations
+==================================================
+
+Requires network visibility for traffic analysis.
+
+Large networks may generate massive log volumes.
+
+Requires expertise to interpret logs effectively.
+
+
+==================================================
+9. Related Blue Team Topics
+==================================================
+
+Network Defense  
+Threat Hunting  
+Log Analysis and Detection  
+Incident Response
+
+
+==================================================
+10. MITRE ATT&CK Relevance
+==================================================
+
+Technique:
+T1046 — Network Service Discovery
+
+Technique:
+T1071 — Application Layer Protocol
+
+Technique:
+T1041 — Exfiltration Over C2 Channel
+
+Technique:
+T1021 — Remote Services
+
+Technique:
+T1105 — Ingress Tool Transfer
+
+
+==================================================
+11. Questions & Answers
+==================================================
+
+Question:
+What is Zeek?
+
+Answer:
+A network security monitoring platform used to analyze and log network activity.
+
+
+--------------------------------------------------
+
+Question:
+How does Zeek differ from traditional IDS tools?
+
+Answer:
+Zeek focuses on network behavior analysis rather than only signature detection.
+
+
+--------------------------------------------------
+
+Question:
+What type of data does Zeek generate?
+
+Answer:
+Detailed logs describing network communication.
+
+
+--------------------------------------------------
+
+Question:
+Which protocols can Zeek analyze?
+
+Answer:
+Protocols such as HTTP, DNS, SMTP, SSL/TLS, and FTP.
+
+
+--------------------------------------------------
+
+Question:
+Why is Zeek valuable for threat hunting?
+
+Answer:
+Because it provides detailed logs that allow analysts to investigate suspicious activity.

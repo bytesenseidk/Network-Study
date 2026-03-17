@@ -1,0 +1,457 @@
+Web Application Defense
+- Security practices used to protect web applications from common attacks such as injection, authentication abuse, and malicious user input.
+
+==================================================
+Defense Metadata
+==================================================
+
+Category:
+Blue_Team → Application Security
+
+Defense Stage:
+Prevention
+Detection
+Response
+
+Difficulty:
+Beginner → Advanced
+
+Primary Objectives:
+Protect Web Applications
+Prevent Injection Attacks
+Secure Authentication Systems
+Detect Malicious Requests
+
+Technologies Used:
+Web Application Firewalls (WAF)
+Application Logging
+SIEM Platforms
+Secure Coding Practices
+Web Server Security
+
+
+==================================================
+1. Overview
+==================================================
+Web applications are one of the most common targets for attackers.
+
+Modern organizations rely heavily on web services for:
+
+- user portals
+- internal dashboards
+- APIs
+- e-commerce platforms
+- cloud applications
+
+Because web applications are accessible from the internet, they are frequently targeted by automated scanners and manual attackers.
+
+Common attacker goals include:
+
+- stealing user credentials
+- accessing sensitive data
+- executing remote commands
+- modifying application behavior
+- gaining access to backend systems
+
+Web application defense requires a combination of:
+
+- secure coding practices
+- application monitoring
+- security testing
+- defensive infrastructure.
+
+
+==================================================
+2. Common Web Application Attacks
+==================================================
+Attackers frequently exploit weaknesses in web applications.
+
+Common attack types include:
+
+SQL Injection
+
+Injecting SQL commands to manipulate database queries.
+
+
+Cross-Site Scripting (XSS)
+
+Injecting malicious JavaScript into web pages.
+
+
+Cross-Site Request Forgery (CSRF)
+
+Forcing authenticated users to perform unintended actions.
+
+
+Server-Side Template Injection (SSTI)
+
+Injecting malicious template expressions into server-side rendering engines.
+
+
+Command Injection
+
+Executing operating system commands through vulnerable input fields.
+
+
+Directory Enumeration
+
+Discovering hidden files and endpoints through automated scanning.
+
+
+Brute Force Login Attacks
+
+Attempting to guess user credentials through repeated login attempts.
+
+
+Clickjacking
+
+Tricking users into clicking hidden or malicious interface elements.
+
+
+==================================================
+3. Defensive Security Layers
+==================================================
+Effective web application defense uses multiple layers of protection.
+
+Application Security
+
+Secure coding practices and input validation.
+
+
+Web Application Firewall (WAF)
+
+Filters malicious HTTP requests before they reach the application.
+
+
+Authentication Security
+
+Strong password policies and multi-factor authentication.
+
+
+Monitoring and Logging
+
+Detect suspicious requests and attack attempts.
+
+
+Security Testing
+
+Regular vulnerability scans and penetration testing.
+
+
+==================================================
+4. Secure Coding Practices
+==================================================
+The most effective defense begins during development.
+
+Important practices include:
+
+Input Validation
+
+Validate and sanitize all user input.
+
+
+Output Encoding
+
+Encode user-generated content before rendering it in web pages.
+
+
+Parameterized Queries
+
+Use prepared statements to prevent SQL injection.
+
+
+Least Privilege
+
+Applications should operate with minimal database permissions.
+
+
+Secure Session Management
+
+Protect session tokens and enforce secure cookies.
+
+
+Error Handling
+
+Avoid exposing sensitive system information in error messages.
+
+
+==================================================
+5. Web Application Firewall (WAF)
+==================================================
+A Web Application Firewall filters incoming traffic and blocks malicious requests.
+
+Common capabilities include:
+
+Blocking Injection Attempts
+
+Detect and block SQL or command injection patterns.
+
+
+Rate Limiting
+
+Prevent brute force attacks by limiting request frequency.
+
+
+Bot Detection
+
+Identify automated scanning tools.
+
+
+Request Filtering
+
+Block requests containing suspicious payloads.
+
+
+Common WAF solutions include:
+
+Cloudflare WAF  
+AWS WAF  
+ModSecurity  
+F5 Advanced WAF  
+
+
+==================================================
+6. Authentication Security
+==================================================
+Authentication systems are a major attack target.
+
+Defensive measures include:
+
+Strong Password Policies
+
+Require long and complex passwords.
+
+
+Multi-Factor Authentication (MFA)
+
+Add an additional authentication factor.
+
+
+Account Lockout Policies
+
+Prevent repeated login attempts.
+
+
+CAPTCHA Systems
+
+Reduce automated login attacks.
+
+
+Session Expiration
+
+Automatically log out inactive users.
+
+
+==================================================
+7. Logging and Monitoring
+==================================================
+Web applications should log important security events.
+
+Examples include:
+
+Login Attempts
+
+Successful and failed authentication attempts.
+
+
+Privilege Changes
+
+Users gaining elevated permissions.
+
+
+Unusual Requests
+
+Requests containing suspicious parameters.
+
+
+File Access
+
+Access to sensitive files or endpoints.
+
+
+Error Events
+
+Application errors that may indicate probing.
+
+
+Logs should be centralized and monitored through a SIEM system.
+
+
+==================================================
+8. Example Detection Scenario
+==================================================
+
+Alert Trigger
+
+A WAF detects multiple requests containing SQL injection patterns.
+
+
+Log Analysis
+
+Application logs show repeated login attempts using malicious input.
+
+
+Investigation
+
+Security analysts determine that an automated SQL injection scanner is probing the application.
+
+
+Response
+
+The attacker's IP address is blocked and the vulnerability is reviewed.
+
+
+Outcome
+
+The attack is mitigated before database access is compromised.
+
+
+==================================================
+9. Hardening Web Infrastructure
+==================================================
+Organizations should secure the infrastructure supporting web applications.
+
+Recommended measures include:
+
+Use HTTPS Everywhere
+
+Encrypt all communication using TLS.
+
+
+Secure Web Servers
+
+Disable unnecessary modules and services.
+
+
+Protect APIs
+
+Require authentication and rate limiting.
+
+
+Implement Content Security Policy (CSP)
+
+Reduce XSS attack risk.
+
+
+Use Security Headers
+
+Examples:
+
+- X-Frame-Options
+- X-Content-Type-Options
+- Strict-Transport-Security
+
+
+Regular Patch Management
+
+Keep application frameworks and libraries updated.
+
+
+==================================================
+10. Security Testing
+==================================================
+Organizations should regularly test web applications for vulnerabilities.
+
+Methods include:
+
+Static Application Security Testing (SAST)
+
+Analyzing source code for security flaws.
+
+
+Dynamic Application Security Testing (DAST)
+
+Testing running applications for vulnerabilities.
+
+
+Penetration Testing
+
+Simulating real-world attacks.
+
+
+Bug Bounty Programs
+
+Allowing external researchers to report vulnerabilities.
+
+
+Security testing helps identify weaknesses before attackers exploit them.
+
+
+==================================================
+11. MITRE ATT&CK Mapping
+==================================================
+
+Technique:
+T1190 — Exploit Public-Facing Application
+
+
+Technique:
+T1059 — Command Execution
+
+
+Technique:
+T1071 — Application Layer Protocol
+
+
+Technique:
+T1566 — Phishing (credential harvesting portals)
+
+
+Technique:
+T1110 — Brute Force
+
+
+==================================================
+12. Questions & Answers
+==================================================
+
+Question:
+Why are web applications frequent attack targets?
+
+Answer:
+Because they are accessible from the internet and often process user input.
+
+
+--------------------------------------------------
+
+Question:
+What attack injects malicious SQL queries into database requests?
+
+Answer:
+SQL injection.
+
+
+--------------------------------------------------
+
+Question:
+What security device filters malicious HTTP requests?
+
+Answer:
+A Web Application Firewall (WAF).
+
+
+--------------------------------------------------
+
+Question:
+Why is input validation important?
+
+Answer:
+Because user input is the most common source of web application vulnerabilities.
+
+
+--------------------------------------------------
+
+Question:
+What security control helps prevent automated login attacks?
+
+Answer:
+Rate limiting and account lockout policies.
+
+
+--------------------------------------------------
+
+Question:
+What type of testing analyzes application code for vulnerabilities?
+
+Answer:
+Static Application Security Testing (SAST).

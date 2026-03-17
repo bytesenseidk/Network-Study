@@ -1,0 +1,284 @@
+Volatility
+- A powerful memory forensics framework used to analyze RAM dumps and investigate compromised systems.
+
+==================================================
+1. Overview
+==================================================
+Volatility is an open-source **memory forensics framework** used to analyze volatile memory (RAM) from computer systems.
+
+Memory analysis is critical in incident response because many malicious activities exist only in memory and never touch disk.
+
+Volatility allows analysts to extract valuable forensic artifacts such as:
+
+- running processes
+- active network connections
+- loaded drivers
+- injected code
+- command history
+- encryption keys
+- malware artifacts
+
+Volatility is widely used by:
+
+- digital forensic investigators
+- incident response teams
+- malware analysts
+- threat hunters
+
+Because attackers often hide malicious code in memory, memory forensics can reveal activity that traditional disk forensics may miss.
+
+
+==================================================
+2. Primary Use Cases
+==================================================
+
+Memory Forensics
+
+Analyze RAM dumps from compromised systems.
+
+
+Malware Analysis
+
+Identify malware running in memory.
+
+
+Incident Response
+
+Investigate active attacks on endpoints.
+
+
+Process Investigation
+
+Detect hidden or suspicious processes.
+
+
+Rootkit Detection
+
+Identify kernel-level malware.
+
+
+==================================================
+3. Key Features
+==================================================
+
+Process Analysis
+
+List running processes and identify suspicious activity.
+
+
+Network Connection Analysis
+
+Identify active network connections.
+
+
+DLL and Driver Inspection
+
+Analyze loaded modules and drivers.
+
+
+Malware Artifact Extraction
+
+Detect injected code or malicious memory regions.
+
+
+Registry Extraction
+
+Extract Windows registry artifacts from memory.
+
+
+Timeline Analysis
+
+Reconstruct system activity from memory artifacts.
+
+
+==================================================
+4. Example Investigation Workflow
+==================================================
+
+Step 1 — Acquire Memory Dump
+
+Capture RAM from the target system.
+
+
+Step 2 — Identify System Profile
+
+Determine the operating system profile.
+
+
+Step 3 — Analyze Processes
+
+Identify suspicious or hidden processes.
+
+
+Step 4 — Analyze Network Activity
+
+Identify active network connections.
+
+
+Step 5 — Inspect Memory Regions
+
+Search for injected code or malware artifacts.
+
+
+Step 6 — Extract Evidence
+
+Export suspicious files or memory artifacts.
+
+
+==================================================
+5. Example Commands
+==================================================
+
+List running processes
+
+volatility -f memory.raw pslist
+
+
+Identify hidden processes
+
+volatility -f memory.raw psxview
+
+
+List network connections
+
+volatility -f memory.raw netscan
+
+
+View command history
+
+volatility -f memory.raw cmdscan
+
+
+Dump process memory
+
+volatility -f memory.raw procdump
+
+
+==================================================
+6. Example Investigation Scenario
+==================================================
+
+Incident Detection
+
+An endpoint security alert indicates suspicious activity.
+
+
+Memory Capture
+
+Security team captures a memory dump.
+
+
+Analysis
+
+Volatility reveals a hidden malicious process.
+
+
+Investigation
+
+The process is communicating with an external command-and-control server.
+
+
+Response
+
+System is isolated and malware is removed.
+
+
+==================================================
+7. Advantages
+==================================================
+
+Extremely powerful memory analysis capabilities.
+
+Detects malware hidden in RAM.
+
+Widely used in forensic investigations.
+
+Open-source with strong community support.
+
+
+==================================================
+8. Limitations
+==================================================
+
+Requires memory dumps to perform analysis.
+
+Analysis can be complex for beginners.
+
+Large memory dumps require processing time.
+
+
+==================================================
+9. Related Blue Team Topics
+==================================================
+
+Digital Forensics  
+Incident Response  
+Threat Hunting  
+Endpoint Security
+
+
+==================================================
+10. MITRE ATT&CK Relevance
+==================================================
+
+Technique:
+T1055 — Process Injection
+
+Technique:
+T1059 — Command and Scripting Interpreter
+
+Technique:
+T1105 — Ingress Tool Transfer
+
+Technique:
+T1041 — Exfiltration Over C2 Channel
+
+Technique:
+T1071 — Application Layer Protocol
+
+
+==================================================
+11. Questions & Answers
+==================================================
+
+Question:
+What is Volatility?
+
+Answer:
+A memory forensics framework used to analyze RAM dumps.
+
+
+--------------------------------------------------
+
+Question:
+Why is memory forensics important?
+
+Answer:
+Because malware often hides in memory without leaving disk artifacts.
+
+
+--------------------------------------------------
+
+Question:
+What artifact can Volatility detect?
+
+Answer:
+Hidden processes, injected code, and suspicious network connections.
+
+
+--------------------------------------------------
+
+Question:
+What type of data does Volatility analyze?
+
+Answer:
+System memory (RAM).
+
+
+--------------------------------------------------
+
+Question:
+When is Volatility commonly used?
+
+Answer:
+During incident response and malware investigations.

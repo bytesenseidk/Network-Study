@@ -1,0 +1,271 @@
+Microsoft Sentinel
+- A cloud-native Security Information and Event Management (SIEM) and Security Orchestration, Automation, and Response (SOAR) platform built on Microsoft Azure.
+
+==================================================
+1. Overview
+==================================================
+Microsoft Sentinel is a cloud-based security monitoring platform designed to collect, analyze, and respond to security events across an organization's infrastructure.
+
+It provides SIEM and SOAR capabilities that allow security teams to:
+
+- collect logs from multiple systems
+- detect suspicious activity
+- investigate security incidents
+- automate response actions
+
+Microsoft Sentinel is built on **Azure Monitor and Log Analytics**, allowing it to process large volumes of data from cloud and on-premises environments.
+
+It is commonly used by Security Operations Centers (SOC) to monitor and respond to threats in environments using:
+
+- Microsoft 365
+- Azure infrastructure
+- Windows environments
+- hybrid enterprise networks
+
+
+==================================================
+2. Core Capabilities
+==================================================
+
+SIEM (Security Information and Event Management)
+
+Centralized log collection and threat detection across infrastructure.
+
+
+SOAR (Security Orchestration, Automation, and Response)
+
+Automated incident response using playbooks.
+
+
+Threat Intelligence Integration
+
+Enrich alerts using global threat intelligence feeds.
+
+
+Advanced Analytics
+
+Detect anomalies using machine learning and behavioral analytics.
+
+
+Security Investigation
+
+Provide tools for investigating alerts and incidents.
+
+
+==================================================
+3. Data Sources
+==================================================
+Microsoft Sentinel can ingest logs from a wide variety of sources.
+
+Common sources include:
+
+- Azure resources
+- Microsoft 365
+- Active Directory
+- Windows Event Logs
+- Linux servers
+- firewalls
+- network devices
+- endpoint security tools
+- cloud platforms
+- third-party security products
+
+Logs are typically ingested using:
+
+Azure Monitor Agents  
+Log Analytics Agents  
+API integrations  
+Syslog connectors
+
+
+==================================================
+4. Detection and Analytics
+==================================================
+
+Microsoft Sentinel uses several detection mechanisms.
+
+Analytics Rules
+
+Custom rules used to detect suspicious activity.
+
+
+Machine Learning Detection
+
+Identify anomalous behavior patterns.
+
+
+Threat Intelligence Matching
+
+Detect activity involving known malicious indicators.
+
+
+Behavior Analytics
+
+Identify suspicious user or system behavior.
+
+
+==================================================
+5. Example Detection Scenario
+==================================================
+
+Alert Trigger
+
+Sentinel detects multiple failed login attempts from a single IP address.
+
+
+Investigation
+
+Analysts review authentication logs in Sentinel.
+
+
+Analysis
+
+Login attempts target multiple user accounts.
+
+
+Conclusion
+
+Password spraying attack is suspected.
+
+
+Response
+
+Security team blocks the attacking IP and investigates affected accounts.
+
+
+==================================================
+6. Incident Investigation
+==================================================
+
+When alerts are generated, Sentinel creates incidents.
+
+Analysts can:
+
+- review related alerts
+- examine affected entities
+- analyze log data
+- correlate activity across systems
+
+Investigation tools include:
+
+- timeline analysis
+- entity mapping
+- log queries
+- visual investigation graphs
+
+
+==================================================
+7. Automation and Response
+==================================================
+
+Sentinel supports automated response actions using **playbooks** built on Azure Logic Apps.
+
+Examples include:
+
+- blocking malicious IP addresses
+- disabling compromised accounts
+- sending alerts to security teams
+- isolating compromised systems
+
+
+==================================================
+8. Advantages
+==================================================
+
+Cloud-native architecture with high scalability.
+
+Strong integration with Microsoft ecosystem.
+
+Built-in machine learning detection capabilities.
+
+Automated incident response features.
+
+Centralized visibility across environments.
+
+
+==================================================
+9. Limitations
+==================================================
+
+Requires Azure environment for full functionality.
+
+Log ingestion costs may increase with large data volumes.
+
+Requires configuration and tuning to reduce false positives.
+
+
+==================================================
+10. Related Blue Team Topics
+==================================================
+
+Log Analysis and Detection  
+SIEM and Alerting  
+Threat Hunting  
+Incident Response
+
+
+==================================================
+11. MITRE ATT&CK Relevance
+==================================================
+
+Technique:
+T1110 — Brute Force
+
+Technique:
+T1078 — Valid Accounts
+
+Technique:
+T1046 — Network Service Discovery
+
+Technique:
+T1021 — Remote Services
+
+Technique:
+T1041 — Exfiltration Over C2 Channel
+
+
+==================================================
+12. Questions & Answers
+==================================================
+
+Question:
+What is Microsoft Sentinel?
+
+Answer:
+A cloud-native SIEM and SOAR platform used for security monitoring and incident response.
+
+
+--------------------------------------------------
+
+Question:
+What type of platform is Microsoft Sentinel?
+
+Answer:
+A Security Information and Event Management (SIEM) platform with automation capabilities.
+
+
+--------------------------------------------------
+
+Question:
+What technology is used for automated response actions in Sentinel?
+
+Answer:
+Azure Logic Apps playbooks.
+
+
+--------------------------------------------------
+
+Question:
+What types of data can Sentinel analyze?
+
+Answer:
+Logs from cloud services, servers, applications, network devices, and security tools.
+
+
+--------------------------------------------------
+
+Question:
+What is the purpose of Sentinel analytics rules?
+
+Answer:
+To detect suspicious activity and generate security alerts.

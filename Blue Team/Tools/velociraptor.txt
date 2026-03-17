@@ -1,0 +1,233 @@
+Velociraptor
+- An advanced endpoint visibility and digital forensics tool used for threat hunting and incident response.
+
+==================================================
+1. Overview
+==================================================
+Velociraptor is an open-source endpoint monitoring and digital forensics platform designed for incident response and threat hunting.
+
+It allows security teams to collect and analyze data from endpoints across an environment.
+
+Velociraptor is commonly used for:
+
+- endpoint threat hunting
+- incident response investigations
+- forensic artifact collection
+- system monitoring
+- malware analysis
+
+The platform uses lightweight endpoint agents to gather data from systems and return results to a central server.
+
+It enables analysts to query endpoints in real time to investigate suspicious activity.
+
+
+==================================================
+2. Primary Use Cases
+==================================================
+
+Threat Hunting
+
+Search endpoints for suspicious artifacts.
+
+
+Incident Response
+
+Investigate compromised systems.
+
+
+Digital Forensics
+
+Collect forensic artifacts from endpoints.
+
+
+Endpoint Visibility
+
+Monitor system behavior across environments.
+
+
+Malware Investigation
+
+Identify malicious processes and files.
+
+
+==================================================
+3. Key Features
+==================================================
+
+Endpoint Querying
+
+Run queries across endpoints to gather system data.
+
+
+Artifact Collection
+
+Collect forensic artifacts such as logs and registry data.
+
+
+Remote Investigation
+
+Investigate endpoints without physical access.
+
+
+Live Response
+
+Analyze compromised systems in real time.
+
+
+Scalable Deployment
+
+Monitor large environments with many endpoints.
+
+
+==================================================
+4. Example Investigation Workflow
+==================================================
+
+Step 1 — Alert Detection
+
+A SIEM generates a suspicious activity alert.
+
+
+Step 2 — Endpoint Investigation
+
+Analyst queries the affected system using Velociraptor.
+
+
+Step 3 — Data Collection
+
+Velociraptor collects forensic artifacts.
+
+
+Step 4 — Analysis
+
+Security team reviews processes, files, and network activity.
+
+
+Step 5 — Containment
+
+Compromised system is isolated.
+
+
+Step 6 — Remediation
+
+Malware is removed and system restored.
+
+
+==================================================
+5. Example Query
+==================================================
+
+Query running processes:
+
+SELECT * FROM pslist()
+
+
+Query network connections:
+
+SELECT * FROM netstat()
+
+
+Query recently executed commands:
+
+SELECT * FROM bash_history()
+
+
+==================================================
+6. Advantages
+==================================================
+
+Powerful endpoint investigation capabilities.
+
+Highly flexible query system.
+
+Open-source and widely used in DFIR operations.
+
+Supports large-scale environments.
+
+
+==================================================
+7. Limitations
+==================================================
+
+Requires deployment of endpoint agents.
+
+Initial configuration can be complex.
+
+Large environments may require tuning.
+
+
+==================================================
+8. Related Blue Team Topics
+==================================================
+
+Threat Hunting  
+Incident Response  
+Digital Forensics  
+Endpoint Security
+
+
+==================================================
+9. MITRE ATT&CK Relevance
+==================================================
+
+Technique:
+T1059 — Command and Scripting Interpreter
+
+Technique:
+T1078 — Valid Accounts
+
+Technique:
+T1105 — Ingress Tool Transfer
+
+Technique:
+T1041 — Exfiltration Over C2 Channel
+
+Technique:
+T1046 — Network Service Discovery
+
+
+==================================================
+10. Questions & Answers
+==================================================
+
+Question:
+What is Velociraptor?
+
+Answer:
+An endpoint monitoring and digital forensics platform used for threat hunting and incident response.
+
+
+--------------------------------------------------
+
+Question:
+What type of investigations is Velociraptor commonly used for?
+
+Answer:
+Endpoint threat hunting and digital forensics.
+
+
+--------------------------------------------------
+
+Question:
+How does Velociraptor collect endpoint data?
+
+Answer:
+Using lightweight agents installed on systems.
+
+
+--------------------------------------------------
+
+Question:
+What type of queries can Velociraptor run?
+
+Answer:
+Queries for processes, network connections, logs, and system artifacts.
+
+
+--------------------------------------------------
+
+Question:
+Why is Velociraptor useful in incident response?
+
+Answer:
+It allows investigators to remotely analyze compromised systems.

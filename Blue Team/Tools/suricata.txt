@@ -1,0 +1,254 @@
+Suricata
+- A high-performance network intrusion detection and intrusion prevention system used to detect and analyze malicious network activity.
+
+==================================================
+1. Overview
+==================================================
+Suricata is an open-source **Intrusion Detection System (IDS)** and **Intrusion Prevention System (IPS)** developed by the Open Information Security Foundation (OISF).
+
+It monitors network traffic in real time and detects suspicious activity by analyzing:
+
+- network packets
+- protocol behavior
+- attack signatures
+- anomaly patterns
+
+Suricata can be deployed in several modes:
+
+- Intrusion Detection System (IDS)
+- Intrusion Prevention System (IPS)
+- Network Security Monitoring (NSM)
+
+It is widely used in enterprise environments and SOC operations to detect:
+
+- malware communication
+- exploit attempts
+- command-and-control traffic
+- data exfiltration
+- suspicious network behavior
+
+
+==================================================
+2. Primary Use Cases
+==================================================
+
+Network Intrusion Detection
+
+Detect malicious network traffic using signatures.
+
+
+Network Intrusion Prevention
+
+Block malicious packets in inline IPS mode.
+
+
+Network Security Monitoring
+
+Capture and analyze network activity for investigation.
+
+
+Threat Hunting
+
+Search for suspicious patterns in network traffic.
+
+
+==================================================
+3. Key Features
+==================================================
+
+Multi-threaded Architecture
+
+High performance traffic analysis on multi-core systems.
+
+
+Signature-Based Detection
+
+Uses rule sets similar to Snort.
+
+
+Protocol Detection
+
+Automatically identifies application layer protocols.
+
+
+File Extraction
+
+Can extract files transferred across network traffic.
+
+
+TLS Inspection
+
+Detect encrypted traffic characteristics.
+
+
+Integration with SIEM
+
+Produces structured logs for SIEM platforms.
+
+
+==================================================
+4. Example Suricata Architecture
+==================================================
+
+Network Traffic
+        ↓
+Packet Capture
+        ↓
+Protocol Detection
+        ↓
+Detection Engine
+        ↓
+Alert Generation
+        ↓
+Log Output
+
+
+==================================================
+5. Example Command Usage
+==================================================
+
+Run Suricata in IDS mode:
+
+suricata -c /etc/suricata/suricata.yaml -i eth0
+
+
+Run Suricata in IPS mode:
+
+suricata --af-packet -i eth0 -c /etc/suricata/suricata.yaml
+
+
+Check Suricata configuration:
+
+suricata -T -c /etc/suricata/suricata.yaml
+
+
+==================================================
+6. Example Detection Scenario
+==================================================
+
+Alert Trigger
+
+Suricata detects outbound traffic to a known malicious domain.
+
+
+Investigation
+
+Analysts review Suricata alerts and logs.
+
+
+Analysis
+
+Traffic matches a command-and-control communication pattern.
+
+
+Response
+
+Security team isolates the compromised host.
+
+
+Outcome
+
+Malware infection is confirmed and removed.
+
+
+==================================================
+7. Advantages
+==================================================
+
+High-performance network analysis.
+
+Supports multi-threaded processing.
+
+Compatible with Snort rule sets.
+
+Provides detailed network logs.
+
+Strong integration with SIEM systems.
+
+
+==================================================
+8. Limitations
+==================================================
+
+Requires tuning to reduce false positives.
+
+Encrypted traffic inspection may be limited.
+
+Large networks require powerful hardware.
+
+
+==================================================
+9. Related Blue Team Topics
+==================================================
+
+Network Defense  
+Threat Hunting  
+SIEM and Alerting  
+Incident Response
+
+
+==================================================
+10. MITRE ATT&CK Relevance
+==================================================
+
+Technique:
+T1046 — Network Service Discovery
+
+Technique:
+T1071 — Application Layer Protocol
+
+Technique:
+T1041 — Exfiltration Over C2 Channel
+
+Technique:
+T1021 — Remote Services
+
+Technique:
+T1105 — Ingress Tool Transfer
+
+
+==================================================
+11. Questions & Answers
+==================================================
+
+Question:
+What is Suricata?
+
+Answer:
+An intrusion detection and prevention system used to monitor and analyze network traffic.
+
+
+--------------------------------------------------
+
+Question:
+What detection methods does Suricata use?
+
+Answer:
+Signature-based detection and protocol analysis.
+
+
+--------------------------------------------------
+
+Question:
+What type of logs does Suricata generate?
+
+Answer:
+Network alerts, traffic logs, and protocol analysis data.
+
+
+--------------------------------------------------
+
+Question:
+Can Suricata operate as an IPS?
+
+Answer:
+Yes, it can run inline to block malicious traffic.
+
+
+--------------------------------------------------
+
+Question:
+What is one advantage of Suricata over older IDS tools?
+
+Answer:
+Its multi-threaded architecture allows better performance.

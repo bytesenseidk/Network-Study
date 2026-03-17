@@ -1,0 +1,266 @@
+
+tcpdump
+- A command-line network packet capture tool used to inspect and analyze network traffic.
+
+==================================================
+1. Overview
+==================================================
+tcpdump is a lightweight command-line tool used to capture and analyze network packets.
+
+It is widely used by:
+
+- network administrators
+- security analysts
+- incident responders
+- penetration testers
+
+tcpdump allows analysts to observe network communication in real time or capture traffic for later analysis.
+
+Captured traffic can be saved in **pcap format**, which can later be analyzed using tools such as:
+
+- Wireshark
+- Zeek
+- Suricata
+
+tcpdump is commonly used for:
+
+- troubleshooting network issues
+- investigating suspicious traffic
+- capturing evidence during incident response
+- analyzing protocol behavior
+
+
+==================================================
+2. Primary Use Cases
+==================================================
+
+Packet Capture
+
+Capture network traffic for analysis.
+
+
+Incident Response
+
+Investigate suspicious network behavior.
+
+
+Network Troubleshooting
+
+Diagnose connectivity problems.
+
+
+Threat Investigation
+
+Identify malicious communication patterns.
+
+
+Traffic Monitoring
+
+Monitor network activity in real time.
+
+
+==================================================
+3. Basic Command Structure
+==================================================
+
+tcpdump [options] [filter]
+
+
+Example:
+
+tcpdump -i eth0
+
+
+This command captures packets on the **eth0 network interface**.
+
+
+==================================================
+4. Common Command Examples
+==================================================
+
+Capture traffic on a specific interface
+
+tcpdump -i eth0
+
+
+Capture packets from a specific IP address
+
+tcpdump host 192.168.1.10
+
+
+Capture traffic on a specific port
+
+tcpdump port 80
+
+
+Capture only TCP traffic
+
+tcpdump tcp
+
+
+Capture packets and save to a file
+
+tcpdump -w capture.pcap
+
+
+Read packets from a saved file
+
+tcpdump -r capture.pcap
+
+
+==================================================
+5. Packet Filtering
+==================================================
+
+tcpdump uses **Berkeley Packet Filter (BPF)** syntax.
+
+Examples:
+
+Filter by source IP
+
+tcpdump src 192.168.1.5
+
+
+Filter by destination port
+
+tcpdump dst port 443
+
+
+Filter HTTP traffic
+
+tcpdump tcp port 80
+
+
+Combine filters
+
+tcpdump host 192.168.1.5 and port 22
+
+
+==================================================
+6. Example Investigation Scenario
+==================================================
+
+Security Alert
+
+A system begins communicating with an unknown external server.
+
+
+Packet Capture
+
+The analyst runs tcpdump to capture network traffic.
+
+
+Analysis
+
+Captured packets reveal suspicious outbound connections.
+
+
+Investigation
+
+The destination IP is identified as a known malicious server.
+
+
+Response
+
+The compromised system is isolated from the network.
+
+
+==================================================
+7. Advantages
+==================================================
+
+Lightweight and fast.
+
+Available on most Linux systems.
+
+Powerful packet filtering capabilities.
+
+Can capture large volumes of traffic.
+
+
+==================================================
+8. Limitations
+==================================================
+
+Command-line interface may be difficult for beginners.
+
+Large captures can be difficult to analyze without additional tools.
+
+Limited visualization compared to graphical tools like Wireshark.
+
+
+==================================================
+9. Related Blue Team Topics
+==================================================
+
+Network Defense  
+Threat Hunting  
+Incident Response  
+Packet Analysis
+
+
+==================================================
+10. MITRE ATT&CK Relevance
+==================================================
+
+Technique:
+T1040 — Network Sniffing
+
+Technique:
+T1071 — Application Layer Protocol
+
+Technique:
+T1041 — Exfiltration Over C2 Channel
+
+Technique:
+T1021 — Remote Services
+
+Technique:
+T1105 — Ingress Tool Transfer
+
+
+==================================================
+11. Questions & Answers
+==================================================
+
+Question:
+What is tcpdump?
+
+Answer:
+A command-line tool used to capture and analyze network packets.
+
+
+--------------------------------------------------
+
+Question:
+What file format does tcpdump use to save captured packets?
+
+Answer:
+The PCAP format.
+
+
+--------------------------------------------------
+
+Question:
+What filtering system does tcpdump use?
+
+Answer:
+Berkeley Packet Filter (BPF).
+
+
+--------------------------------------------------
+
+Question:
+Which graphical tool can analyze tcpdump capture files?
+
+Answer:
+Wireshark.
+
+
+--------------------------------------------------
+
+Question:
+Why is tcpdump useful in incident response?
+
+Answer:
+It allows analysts to capture and analyze suspicious network traffic.

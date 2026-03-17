@@ -1,0 +1,231 @@
+Snort
+- An open-source intrusion detection and intrusion prevention system used to detect malicious network activity.
+
+==================================================
+1. Overview
+==================================================
+Snort is a widely used open-source **Intrusion Detection System (IDS)** and **Intrusion Prevention System (IPS)** developed by Cisco.
+
+It analyzes network traffic in real time and detects malicious activity using:
+
+- signature-based detection
+- protocol analysis
+- traffic inspection
+
+Snort can generate alerts when it detects suspicious patterns such as:
+
+- port scans
+- exploit attempts
+- malware communication
+- command and control traffic
+
+Snort is commonly deployed at network boundaries or internal network segments to monitor traffic.
+
+It is used by:
+
+- Security Operations Centers (SOC)
+- incident response teams
+- network security engineers
+- threat hunters
+
+
+==================================================
+2. Primary Use Cases
+==================================================
+
+Network Intrusion Detection
+
+Detect known attack signatures within network traffic.
+
+
+Threat Monitoring
+
+Monitor networks for malicious communication.
+
+
+Security Alerting
+
+Generate alerts for suspicious network activity.
+
+
+Network Traffic Analysis
+
+Inspect packets for abnormal behavior.
+
+
+==================================================
+3. Detection Methods
+==================================================
+
+Signature-Based Detection
+
+Matches traffic against known attack signatures.
+
+
+Protocol Analysis
+
+Detects protocol anomalies or violations.
+
+
+Packet Inspection
+
+Analyzes network packets and payloads.
+
+
+Rule-Based Detection
+
+Uses customizable rules to detect threats.
+
+
+==================================================
+4. Snort Architecture
+==================================================
+
+Network Traffic
+        ↓
+Packet Decoder
+        ↓
+Preprocessors
+        ↓
+Detection Engine
+        ↓
+Logging and Alerting
+
+
+==================================================
+5. Example Snort Rule
+==================================================
+
+Example rule detecting HTTP traffic:
+
+alert tcp any any -> any 80 (msg:"HTTP traffic detected"; sid:1000001;)
+
+
+Example rule detecting Nmap scanning:
+
+alert tcp any any -> any any (msg:"Nmap Scan Detected"; flags:S; threshold:type threshold, track by_src, count 20, seconds 3; sid:1000002;)
+
+
+==================================================
+6. Example Detection Scenario
+==================================================
+
+Alert Trigger
+
+Snort detects repeated connection attempts to multiple ports.
+
+
+Investigation
+
+Security analysts examine the alert logs.
+
+
+Analysis
+
+Traffic pattern matches a port scanning attack.
+
+
+Response
+
+Firewall rules are updated to block the attacker.
+
+
+==================================================
+7. Advantages
+==================================================
+
+Widely used and well documented.
+
+Large community rule sets available.
+
+Highly customizable detection rules.
+
+Works well with SIEM platforms.
+
+
+==================================================
+8. Limitations
+==================================================
+
+Signature-based detection may miss new threats.
+
+Requires tuning to reduce false positives.
+
+High traffic environments may require performance tuning.
+
+
+==================================================
+9. Related Blue Team Topics
+==================================================
+
+Network Defense  
+Threat Hunting  
+SIEM and Alerting  
+Incident Response
+
+
+==================================================
+10. MITRE ATT&CK Relevance
+==================================================
+
+Technique:
+T1046 — Network Service Discovery
+
+Technique:
+T1071 — Application Layer Protocol
+
+Technique:
+T1021 — Remote Services
+
+Technique:
+T1040 — Network Sniffing
+
+Technique:
+T1041 — Exfiltration Over C2 Channel
+
+
+==================================================
+11. Questions & Answers
+==================================================
+
+Question:
+What is Snort?
+
+Answer:
+An intrusion detection and prevention system used to monitor network traffic for malicious activity.
+
+
+--------------------------------------------------
+
+Question:
+What type of detection does Snort primarily use?
+
+Answer:
+Signature-based detection.
+
+
+--------------------------------------------------
+
+Question:
+What does a Snort rule do?
+
+Answer:
+Defines patterns used to detect suspicious traffic.
+
+
+--------------------------------------------------
+
+Question:
+Where is Snort commonly deployed?
+
+Answer:
+At network boundaries or internal network segments.
+
+
+--------------------------------------------------
+
+Question:
+What is one limitation of signature-based IDS?
+
+Answer:
+It may not detect previously unknown attacks.

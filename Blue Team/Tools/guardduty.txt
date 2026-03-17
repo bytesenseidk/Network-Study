@@ -1,0 +1,286 @@
+AWS GuardDuty
+- A managed threat detection service that continuously monitors AWS environments for malicious activity and unauthorized behavior.
+
+==================================================
+1. Overview
+==================================================
+AWS GuardDuty is a cloud-native security monitoring service that analyzes AWS logs and events to detect suspicious activity.
+
+It automatically analyzes data sources such as:
+
+- AWS CloudTrail logs
+- VPC Flow Logs
+- DNS logs
+- Kubernetes audit logs (EKS)
+- AWS S3 data events
+
+GuardDuty uses machine learning, anomaly detection, and threat intelligence feeds to identify security threats.
+
+Common threats detected include:
+
+- compromised AWS credentials
+- cryptocurrency mining activity
+- reconnaissance behavior
+- data exfiltration
+- command and control communication
+
+GuardDuty operates as a **fully managed service**, meaning no infrastructure needs to be deployed.
+
+
+==================================================
+2. Primary Use Cases
+==================================================
+
+Account Compromise Detection
+
+Detect unauthorized access using stolen AWS credentials.
+
+
+Malicious Instance Detection
+
+Identify EC2 instances communicating with malicious infrastructure.
+
+
+Reconnaissance Detection
+
+Detect scanning and probing activity within AWS environments.
+
+
+Data Exfiltration Detection
+
+Identify suspicious access patterns to sensitive data.
+
+
+Threat Intelligence Monitoring
+
+Detect communication with known malicious IP addresses and domains.
+
+
+==================================================
+3. Data Sources Monitored
+==================================================
+
+GuardDuty analyzes multiple AWS telemetry sources.
+
+CloudTrail Logs
+
+Track AWS API activity and account behavior.
+
+
+VPC Flow Logs
+
+Monitor network traffic between AWS resources.
+
+
+DNS Logs
+
+Analyze DNS queries originating from AWS instances.
+
+
+S3 Data Events
+
+Detect suspicious data access patterns in S3 buckets.
+
+
+EKS Audit Logs
+
+Monitor activity within Kubernetes clusters.
+
+
+==================================================
+4. Detection Categories
+==================================================
+
+GuardDuty generates findings categorized by threat type.
+
+Unauthorized Access
+
+Example:
+
+Compromised IAM credentials used from unusual locations.
+
+
+Reconnaissance
+
+Example:
+
+Port scanning activity targeting EC2 instances.
+
+
+Instance Compromise
+
+Example:
+
+EC2 instance communicating with known command-and-control infrastructure.
+
+
+Privilege Escalation
+
+Example:
+
+Suspicious IAM behavior attempting to escalate privileges.
+
+
+Data Exfiltration
+
+Example:
+
+Large volumes of data transferred from S3 buckets.
+
+
+==================================================
+5. Example Detection Scenario
+==================================================
+
+Initial Event
+
+An EC2 instance begins communicating with a known malicious IP address.
+
+
+Detection
+
+GuardDuty identifies the IP as part of a command-and-control network.
+
+
+Alert Generated
+
+GuardDuty generates a finding labeled:
+
+Trojan:EC2/BlackholeTraffic
+
+
+Investigation
+
+Security analysts investigate the instance activity.
+
+
+Response
+
+The compromised instance is isolated and investigated.
+
+
+==================================================
+6. Example GuardDuty Finding
+==================================================
+
+Finding Type:
+
+UnauthorizedAccess:IAMUser/ConsoleLogin
+
+
+Description:
+
+An IAM user logged in from an unusual geographic location.
+
+
+Severity:
+
+Medium
+
+
+Recommended Action:
+
+Investigate login activity and verify user legitimacy.
+
+
+==================================================
+7. Advantages
+==================================================
+
+Fully managed threat detection service.
+
+No infrastructure deployment required.
+
+Integrates natively with AWS services.
+
+Uses machine learning and threat intelligence.
+
+Provides continuous monitoring of AWS environments.
+
+
+==================================================
+8. Limitations
+==================================================
+
+Only detects threats within AWS environments.
+
+Requires proper log sources to be enabled.
+
+May generate alerts requiring investigation to confirm legitimacy.
+
+
+==================================================
+9. Related Blue Team Topics
+==================================================
+
+Cloud Defense  
+Threat Hunting  
+SIEM and Alerting  
+Incident Response
+
+
+==================================================
+10. MITRE ATT&CK Relevance
+==================================================
+
+Technique:
+T1078 — Valid Accounts
+
+Technique:
+T1046 — Network Service Discovery
+
+Technique:
+T1562 — Impair Defenses
+
+Technique:
+T1041 — Exfiltration Over C2 Channel
+
+Technique:
+T1105 — Ingress Tool Transfer
+
+
+==================================================
+11. Questions & Answers
+==================================================
+
+Question:
+What is AWS GuardDuty?
+
+Answer:
+A managed threat detection service that monitors AWS environments for malicious activity.
+
+
+--------------------------------------------------
+
+Question:
+What types of logs does GuardDuty analyze?
+
+Answer:
+CloudTrail logs, VPC Flow Logs, DNS logs, S3 events, and Kubernetes audit logs.
+
+
+--------------------------------------------------
+
+Question:
+What type of threat can GuardDuty detect?
+
+Answer:
+Compromised credentials, reconnaissance activity, malware communication, and data exfiltration.
+
+
+--------------------------------------------------
+
+Question:
+Does GuardDuty require installing agents?
+
+Answer:
+No, it is a fully managed AWS service.
+
+
+--------------------------------------------------
+
+Question:
+What is a GuardDuty finding?
+
+Answer:
+A security alert generated when suspicious activity is detected.

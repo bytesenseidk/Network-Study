@@ -1,0 +1,287 @@
+ScoutSuite
+- An open-source multi-cloud security auditing tool used to identify security risks and misconfigurations in cloud environments.
+
+==================================================
+1. Overview
+==================================================
+ScoutSuite is a security auditing tool designed to assess the security posture of cloud environments. It performs automated configuration analysis and generates detailed reports highlighting security risks and misconfigurations.
+
+ScoutSuite supports multiple cloud platforms including:
+
+- Amazon Web Services (AWS)
+- Microsoft Azure
+- Google Cloud Platform (GCP)
+- Oracle Cloud Infrastructure (OCI)
+- Kubernetes environments
+
+It helps security teams quickly identify vulnerabilities such as:
+
+- publicly exposed storage
+- overly permissive IAM roles
+- insecure network configurations
+- weak authentication policies
+- disabled logging services
+
+ScoutSuite generates a detailed HTML report that allows analysts to explore findings and prioritize remediation.
+
+The tool is commonly used during:
+
+- cloud security assessments
+- red team engagements
+- blue team security audits
+- compliance reviews
+- DevSecOps pipeline checks
+
+
+==================================================
+2. Primary Use Cases
+==================================================
+
+Cloud Security Auditing
+
+Analyze cloud configurations and identify security weaknesses.
+
+
+Misconfiguration Detection
+
+Identify insecure settings across cloud services.
+
+
+Compliance Reviews
+
+Check cloud environments against security best practices.
+
+
+Threat Surface Discovery
+
+Identify exposed resources and potential attack paths.
+
+
+Security Monitoring
+
+Continuously evaluate cloud environments for risk.
+
+
+==================================================
+3. Supported Cloud Platforms
+==================================================
+
+AWS (Amazon Web Services)
+
+Audit IAM roles, S3 buckets, networking, and logging configurations.
+
+
+Microsoft Azure
+
+Evaluate Azure AD settings, storage accounts, and access policies.
+
+
+Google Cloud Platform (GCP)
+
+Assess IAM policies, storage buckets, and compute resources.
+
+
+Oracle Cloud Infrastructure (OCI)
+
+Analyze resource security configuration.
+
+
+Kubernetes
+
+Evaluate cluster configuration and security posture.
+
+
+==================================================
+4. Example Security Checks
+==================================================
+
+ScoutSuite performs hundreds of security checks.
+
+Examples include:
+
+Identity and Access Management
+
+- overly permissive IAM roles
+- users without MFA
+- unused access keys
+
+
+Storage Security
+
+- publicly accessible storage buckets
+- unencrypted storage
+
+
+Network Security
+
+- open security groups
+- exposed services
+- unrestricted inbound access
+
+
+Logging and Monitoring
+
+- disabled logging services
+- insufficient monitoring configurations
+
+
+Encryption
+
+- unencrypted storage resources
+- missing encryption keys
+
+
+==================================================
+5. Example Command Usage
+==================================================
+
+Audit an AWS account:
+
+scout aws
+
+
+Audit an Azure environment:
+
+scout azure
+
+
+Audit a Google Cloud environment:
+
+scout gcp
+
+
+Generate an HTML report:
+
+ScoutSuite automatically generates a detailed interactive HTML report after scanning.
+
+
+==================================================
+6. Example Investigation Scenario
+==================================================
+
+Security Audit
+
+A cloud security engineer runs ScoutSuite against a cloud environment.
+
+
+Finding
+
+ScoutSuite identifies a publicly accessible storage bucket.
+
+
+Investigation
+
+The bucket contains sensitive application logs.
+
+
+Response
+
+Access permissions are modified to restrict public access.
+
+
+Outcome
+
+Data exposure risk is eliminated.
+
+
+==================================================
+7. Advantages
+==================================================
+
+Supports multiple cloud platforms.
+
+Provides easy-to-read HTML security reports.
+
+Identifies cloud misconfigurations quickly.
+
+Open-source and widely used in security assessments.
+
+Helps visualize cloud attack surfaces.
+
+
+==================================================
+8. Limitations
+==================================================
+
+Requires appropriate cloud credentials to perform scans.
+
+Large environments may produce many findings.
+
+Some findings require manual verification.
+
+
+==================================================
+9. Related Blue Team Topics
+==================================================
+
+Cloud Defense  
+Threat Hunting  
+Incident Response  
+Detection Engineering
+
+
+==================================================
+10. MITRE ATT&CK Relevance
+==================================================
+
+Technique:
+T1526 — Cloud Service Discovery
+
+Technique:
+T1078 — Valid Accounts
+
+Technique:
+T1530 — Data from Cloud Storage
+
+Technique:
+T1098 — Account Manipulation
+
+Technique:
+T1046 — Network Service Discovery
+
+
+==================================================
+11. Questions & Answers
+==================================================
+
+Question:
+What is ScoutSuite?
+
+Answer:
+An open-source tool used to audit the security configuration of cloud environments.
+
+
+--------------------------------------------------
+
+Question:
+Which cloud providers does ScoutSuite support?
+
+Answer:
+AWS, Azure, GCP, Oracle Cloud, and Kubernetes environments.
+
+
+--------------------------------------------------
+
+Question:
+What type of risks can ScoutSuite identify?
+
+Answer:
+Publicly exposed resources, weak IAM policies, insecure network configurations, and disabled logging.
+
+
+--------------------------------------------------
+
+Question:
+What format does ScoutSuite use for reporting?
+
+Answer:
+An interactive HTML report.
+
+
+--------------------------------------------------
+
+Question:
+Why is ScoutSuite useful for cloud security?
+
+Answer:
+It helps quickly identify misconfigurations and security weaknesses in cloud infrastructure.

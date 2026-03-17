@@ -1,0 +1,279 @@
+Cortex
+- An open-source security automation and analysis engine used to enrich indicators and automate investigations during incident response.
+
+==================================================
+1. Overview
+==================================================
+Cortex is a security automation platform developed by TheHive Project.  
+It allows security teams to analyze indicators of compromise (IOCs) and automate security investigations.
+
+Cortex integrates with many external security services to perform automated analysis such as:
+
+- malware analysis
+- IP reputation lookup
+- domain reputation analysis
+- file sandboxing
+- threat intelligence enrichment
+
+Cortex is commonly used alongside **TheHive** incident response platform, where analysts can launch automated investigations directly from incident cases.
+
+The primary goal of Cortex is to **reduce manual investigation work and speed up security analysis**.
+
+
+==================================================
+2. Primary Use Cases
+==================================================
+
+Indicator Analysis
+
+Automatically analyze suspicious indicators such as:
+
+- IP addresses
+- domains
+- URLs
+- file hashes
+
+
+Threat Intelligence Enrichment
+
+Retrieve intelligence data from external sources.
+
+
+Malware Analysis
+
+Submit suspicious files to sandbox environments.
+
+
+Security Automation
+
+Automate repetitive investigation tasks.
+
+
+SOC Workflow Integration
+
+Integrate with incident response platforms such as TheHive.
+
+
+==================================================
+3. Key Features
+==================================================
+
+Analyzers
+
+Cortex uses analyzers to examine indicators and gather intelligence.
+
+
+Responders
+
+Automated actions that can respond to threats.
+
+
+Integration with External Services
+
+Examples:
+
+- VirusTotal
+- AbuseIPDB
+- Hybrid Analysis
+- MISP
+
+
+Automation Capabilities
+
+Allows analysts to automate investigation tasks.
+
+
+API Integration
+
+Supports integration with SIEM and SOC platforms.
+
+
+Scalable Architecture
+
+Can run multiple analyzers simultaneously.
+
+
+==================================================
+4. Common Indicator Types
+==================================================
+
+Cortex can analyze multiple types of security indicators including:
+
+- IP addresses
+- domain names
+- URLs
+- file hashes
+- email addresses
+- suspicious files
+
+
+==================================================
+5. Example Investigation Workflow
+==================================================
+
+Step 1 — Security Alert Triggered
+
+A SIEM or monitoring tool generates a security alert.
+
+
+Step 2 — Indicator Extraction
+
+Suspicious indicators are identified, such as:
+
+- IP addresses
+- domains
+- file hashes
+
+
+Step 3 — Submit Indicator to Cortex
+
+The analyst sends the indicator to Cortex for analysis.
+
+
+Step 4 — Automated Analysis
+
+Cortex queries external threat intelligence sources.
+
+
+Step 5 — Results Returned
+
+Cortex provides reputation scores, threat intelligence, and analysis results.
+
+
+Step 6 — Investigation Continues
+
+The analyst uses the results to determine whether the indicator is malicious.
+
+
+==================================================
+6. Example Analyzer Sources
+==================================================
+
+Cortex analyzers may query many external services including:
+
+VirusTotal
+
+File and hash reputation analysis.
+
+
+AbuseIPDB
+
+Malicious IP reputation database.
+
+
+Hybrid Analysis
+
+Malware sandbox analysis.
+
+
+MISP
+
+Threat intelligence sharing platform.
+
+
+URLScan
+
+Web page analysis and scanning.
+
+
+==================================================
+7. Advantages
+==================================================
+
+Reduces manual investigation workload.
+
+Automates repetitive analysis tasks.
+
+Integrates with many threat intelligence platforms.
+
+Improves SOC efficiency.
+
+Works well with TheHive incident response platform.
+
+
+==================================================
+8. Limitations
+==================================================
+
+Requires configuration and setup.
+
+Many analyzers require API keys.
+
+External services may have usage limits.
+
+
+==================================================
+9. Related Blue Team Topics
+==================================================
+
+Incident Response  
+Threat Hunting  
+Detection Engineering  
+SIEM and Alerting
+
+
+==================================================
+10. MITRE ATT&CK Relevance
+==================================================
+
+Technique:
+T1071 — Application Layer Protocol
+
+Technique:
+T1046 — Network Service Discovery
+
+Technique:
+T1566 — Phishing
+
+Technique:
+T1105 — Ingress Tool Transfer
+
+Technique:
+T1583 — Acquire Infrastructure
+
+
+==================================================
+11. Questions & Answers
+==================================================
+
+Question:
+What is Cortex?
+
+Answer:
+Cortex is a security automation and analysis platform used to analyze security indicators and automate investigations.
+
+
+--------------------------------------------------
+
+Question:
+Which platform is Cortex commonly integrated with?
+
+Answer:
+TheHive incident response platform.
+
+
+--------------------------------------------------
+
+Question:
+What are Cortex analyzers?
+
+Answer:
+Modules that analyze indicators such as IP addresses, domains, or file hashes.
+
+
+--------------------------------------------------
+
+Question:
+What is one benefit of Cortex?
+
+Answer:
+It automates repetitive security analysis tasks.
+
+
+--------------------------------------------------
+
+Question:
+Why is Cortex useful in a SOC environment?
+
+Answer:
+Because it speeds up investigations and enriches security alerts with threat intelligence.

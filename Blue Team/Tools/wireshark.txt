@@ -1,0 +1,278 @@
+Wireshark
+- A graphical network protocol analyzer used to capture and inspect network traffic.
+
+==================================================
+1. Overview
+==================================================
+Wireshark is one of the most widely used network packet analysis tools. It allows analysts to capture and inspect network traffic in real time or analyze previously captured packet files.
+
+Wireshark performs **deep packet inspection**, enabling analysts to view detailed protocol data and identify suspicious network behavior.
+
+It is commonly used for:
+
+- network troubleshooting
+- security investigations
+- malware traffic analysis
+- protocol debugging
+- incident response
+
+Wireshark supports hundreds of protocols and provides detailed visualization of packet structures.
+
+Captured traffic is typically stored in **PCAP format**, which can also be analyzed by other tools such as:
+
+- tcpdump
+- Suricata
+- Zeek
+
+
+==================================================
+2. Primary Use Cases
+==================================================
+
+Packet Analysis
+
+Inspect network packets and protocol behavior.
+
+
+Incident Response
+
+Investigate suspicious network activity.
+
+
+Malware Communication Analysis
+
+Analyze command-and-control traffic.
+
+
+Network Troubleshooting
+
+Diagnose connectivity issues and protocol errors.
+
+
+Protocol Investigation
+
+Study how network protocols operate.
+
+
+==================================================
+3. Key Features
+==================================================
+
+Deep Packet Inspection
+
+Analyze the full contents of network packets.
+
+
+Protocol Decoding
+
+Supports hundreds of network protocols.
+
+
+Display Filters
+
+Filter captured traffic for easier analysis.
+
+
+Packet Reconstruction
+
+Reassemble TCP streams and sessions.
+
+
+Graphical Interface
+
+User-friendly visualization of network traffic.
+
+
+Export Capabilities
+
+Export packets or files extracted from network sessions.
+
+
+==================================================
+4. Example Workflow
+==================================================
+
+Step 1 — Start Packet Capture
+
+Select the network interface and begin capturing traffic.
+
+
+Step 2 — Apply Filters
+
+Filter traffic to focus on relevant packets.
+
+
+Step 3 — Analyze Packets
+
+Inspect protocol fields and payload data.
+
+
+Step 4 — Reconstruct Sessions
+
+Rebuild communication sessions.
+
+
+Step 5 — Identify Suspicious Activity
+
+Investigate abnormal traffic patterns.
+
+
+==================================================
+5. Example Display Filters
+==================================================
+
+Filter HTTP traffic
+
+http
+
+
+Filter DNS queries
+
+dns
+
+
+Filter traffic from a specific IP
+
+ip.addr == 192.168.1.10
+
+
+Filter TCP port 443 traffic
+
+tcp.port == 443
+
+
+Filter failed authentication attempts
+
+tcp.flags.reset == 1
+
+
+==================================================
+6. Example Investigation Scenario
+==================================================
+
+Alert Trigger
+
+A security monitoring system detects suspicious outbound connections.
+
+
+Packet Capture
+
+An analyst captures traffic using Wireshark.
+
+
+Analysis
+
+Packets reveal connections to a suspicious domain.
+
+
+Investigation
+
+The domain is identified as part of a malware command-and-control network.
+
+
+Response
+
+The compromised system is isolated from the network.
+
+
+==================================================
+7. Advantages
+==================================================
+
+Extremely detailed packet inspection.
+
+Supports many network protocols.
+
+Powerful filtering capabilities.
+
+User-friendly graphical interface.
+
+Widely used in cybersecurity investigations.
+
+
+==================================================
+8. Limitations
+==================================================
+
+Not ideal for analyzing very large traffic captures.
+
+Requires networking knowledge to interpret packets.
+
+High traffic networks may require specialized capture hardware.
+
+
+==================================================
+9. Related Blue Team Topics
+==================================================
+
+Network Defense  
+Packet Analysis  
+Threat Hunting  
+Incident Response
+
+
+==================================================
+10. MITRE ATT&CK Relevance
+==================================================
+
+Technique:
+T1040 — Network Sniffing
+
+Technique:
+T1071 — Application Layer Protocol
+
+Technique:
+T1041 — Exfiltration Over C2 Channel
+
+Technique:
+T1021 — Remote Services
+
+Technique:
+T1105 — Ingress Tool Transfer
+
+
+==================================================
+11. Questions & Answers
+==================================================
+
+Question:
+What is Wireshark?
+
+Answer:
+A network protocol analyzer used to capture and inspect network traffic.
+
+
+--------------------------------------------------
+
+Question:
+What file format does Wireshark use for packet captures?
+
+Answer:
+PCAP.
+
+
+--------------------------------------------------
+
+Question:
+What feature allows analysts to focus on specific packets?
+
+Answer:
+Display filters.
+
+
+--------------------------------------------------
+
+Question:
+What type of analysis does Wireshark perform?
+
+Answer:
+Deep packet inspection.
+
+
+--------------------------------------------------
+
+Question:
+Why is Wireshark useful in incident response?
+
+Answer:
+It allows investigators to analyze suspicious network communication.

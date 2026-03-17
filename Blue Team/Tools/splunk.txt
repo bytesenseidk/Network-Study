@@ -1,0 +1,235 @@
+Splunk
+- A powerful log analysis and Security Information and Event Management (SIEM) platform used to collect, analyze, and monitor security data.
+
+==================================================
+1. Overview
+==================================================
+Splunk is a widely used platform for **log analysis, monitoring, and security analytics**.
+
+It allows organizations to collect machine-generated data from multiple sources such as:
+
+- servers
+- applications
+- network devices
+- security tools
+- cloud platforms
+
+Splunk indexes and analyzes log data to help security teams detect threats, investigate incidents, and monitor system activity.
+
+It is commonly used in:
+
+- Security Operations Centers (SOC)
+- threat hunting environments
+- incident response investigations
+- compliance monitoring
+
+
+==================================================
+2. Core Capabilities
+==================================================
+
+Log Collection
+
+Ingest logs from many systems and devices.
+
+
+Search and Analysis
+
+Perform advanced queries across large datasets.
+
+
+Security Monitoring
+
+Detect suspicious activity and security events.
+
+
+Alerting
+
+Generate alerts when specific conditions are met.
+
+
+Visualization
+
+Create dashboards and security reports.
+
+
+==================================================
+3. Data Sources
+==================================================
+
+Splunk commonly ingests data from:
+
+- Windows Event Logs
+- Linux system logs
+- firewall logs
+- IDS / IPS alerts
+- web server logs
+- authentication logs
+- endpoint security tools
+- cloud service logs
+
+
+==================================================
+4. Splunk Architecture
+==================================================
+
+Data Source
+        ↓
+Forwarder
+        ↓
+Indexer
+        ↓
+Search Head
+        ↓
+Dashboards and Alerts
+
+
+==================================================
+5. Example Splunk Queries
+==================================================
+
+Search for failed login attempts:
+
+index=security action="failed login"
+
+
+Search for specific IP activity:
+
+index=network src_ip="192.168.1.10"
+
+
+Detect multiple failed logins:
+
+index=authentication action=failure | stats count by user | where count > 10
+
+
+==================================================
+6. Example Detection Scenario
+==================================================
+
+Alert Trigger
+
+Splunk detects a high number of failed login attempts.
+
+
+Investigation
+
+Security analysts search authentication logs.
+
+
+Analysis
+
+Multiple accounts targeted from a single IP.
+
+
+Conclusion
+
+Password spraying attack detected.
+
+
+Response
+
+Attacking IP is blocked and affected accounts are investigated.
+
+
+==================================================
+7. Advantages
+==================================================
+
+Extremely powerful search capabilities.
+
+Handles large volumes of log data.
+
+Flexible integrations with many security tools.
+
+Strong visualization and dashboard features.
+
+Widely used in enterprise SOC environments.
+
+
+==================================================
+8. Limitations
+==================================================
+
+Commercial licensing can be expensive.
+
+Requires infrastructure resources for large deployments.
+
+Log ingestion costs increase with data volume.
+
+
+==================================================
+9. Related Blue Team Topics
+==================================================
+
+Log Analysis and Detection  
+SIEM and Alerting  
+Threat Hunting  
+Incident Response
+
+
+==================================================
+10. MITRE ATT&CK Relevance
+==================================================
+
+Technique:
+T1110 — Brute Force
+
+Technique:
+T1078 — Valid Accounts
+
+Technique:
+T1046 — Network Service Discovery
+
+Technique:
+T1021 — Remote Services
+
+Technique:
+T1041 — Exfiltration Over C2 Channel
+
+
+==================================================
+11. Questions & Answers
+==================================================
+
+Question:
+What is Splunk used for?
+
+Answer:
+Collecting, searching, and analyzing logs to detect security events.
+
+
+--------------------------------------------------
+
+Question:
+What type of platform is Splunk?
+
+Answer:
+A SIEM and log analysis platform.
+
+
+--------------------------------------------------
+
+Question:
+What is the Splunk query language called?
+
+Answer:
+SPL (Search Processing Language).
+
+
+--------------------------------------------------
+
+Question:
+Why do SOC teams use Splunk?
+
+Answer:
+To detect threats, investigate incidents, and monitor system activity.
+
+
+--------------------------------------------------
+
+Question:
+What is one limitation of Splunk?
+
+Answer:
+Licensing costs increase with large log volumes.

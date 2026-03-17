@@ -1,0 +1,275 @@
+Prowler
+- An open-source cloud security assessment and auditing tool used to identify security misconfigurations and compliance issues in AWS environments.
+
+==================================================
+1. Overview
+==================================================
+Prowler is a security auditing tool designed to assess the security posture of cloud environments, primarily AWS.
+
+It performs automated checks against cloud configurations to detect:
+
+- security misconfigurations
+- compliance violations
+- exposed resources
+- weak identity and access controls
+
+Prowler is widely used for:
+
+- cloud security assessments
+- compliance auditing
+- threat hunting
+- security monitoring
+- DevSecOps validation
+
+The tool evaluates cloud infrastructure against best practices and security frameworks such as:
+
+- CIS AWS Foundations Benchmark
+- NIST
+- PCI-DSS
+- GDPR
+- SOC2
+
+Prowler is commonly used by security teams, auditors, and cloud engineers to continuously monitor cloud environments.
+
+
+==================================================
+2. Primary Use Cases
+==================================================
+
+Cloud Security Auditing
+
+Evaluate AWS infrastructure against security best practices.
+
+
+Compliance Assessment
+
+Check cloud configurations against compliance frameworks.
+
+
+Security Misconfiguration Detection
+
+Identify insecure settings such as publicly exposed resources.
+
+
+Continuous Security Monitoring
+
+Automate security checks in cloud environments.
+
+
+DevSecOps Integration
+
+Integrate security checks into CI/CD pipelines.
+
+
+==================================================
+3. Supported Cloud Platforms
+==================================================
+Originally designed for AWS, Prowler now supports multiple cloud platforms.
+
+AWS
+
+Full security auditing capabilities.
+
+
+Azure
+
+Security posture assessment for Microsoft Azure environments.
+
+
+Google Cloud Platform (GCP)
+
+Security configuration analysis.
+
+
+==================================================
+4. Example Security Checks
+==================================================
+Prowler performs hundreds of automated security checks.
+
+Examples include:
+
+Identity and Access Management
+
+- overly permissive IAM policies
+- unused credentials
+- lack of MFA enforcement
+
+
+Storage Security
+
+- publicly accessible S3 buckets
+- unencrypted storage
+
+
+Network Security
+
+- exposed services
+- open security groups
+
+
+Logging and Monitoring
+
+- CloudTrail disabled
+- logging misconfigurations
+
+
+Encryption
+
+- unencrypted storage resources
+- missing encryption keys
+
+
+==================================================
+5. Example Command Usage
+==================================================
+
+Run a full AWS security audit:
+
+prowler aws
+
+
+Run specific checks:
+
+prowler aws --checks iam
+
+
+Generate output reports:
+
+prowler aws --output json
+
+
+Run compliance framework checks:
+
+prowler aws --compliance cis
+
+
+==================================================
+6. Example Detection Scenario
+==================================================
+
+Security Audit
+
+A security engineer runs Prowler against an AWS account.
+
+
+Finding
+
+The tool detects a publicly accessible S3 bucket.
+
+
+Investigation
+
+The bucket contains sensitive backup files.
+
+
+Response
+
+Public access is removed and bucket policies are updated.
+
+
+Outcome
+
+Sensitive data exposure risk is mitigated.
+
+
+==================================================
+7. Advantages
+==================================================
+
+Open-source and widely used in cloud security.
+
+Supports multiple compliance frameworks.
+
+Provides automated security auditing.
+
+Easy integration with DevSecOps pipelines.
+
+Produces detailed reports.
+
+
+==================================================
+8. Limitations
+==================================================
+
+Requires valid cloud credentials for scanning.
+
+Large environments may generate many findings.
+
+Requires manual investigation to confirm risks.
+
+
+==================================================
+9. Related Blue Team Topics
+==================================================
+
+Cloud Defense  
+Threat Hunting  
+Incident Response  
+Detection Engineering
+
+
+==================================================
+10. MITRE ATT&CK Relevance
+==================================================
+
+Technique:
+T1078 — Valid Accounts
+
+Technique:
+T1098 — Account Manipulation
+
+Technique:
+T1530 — Data from Cloud Storage
+
+Technique:
+T1526 — Cloud Service Discovery
+
+Technique:
+T1046 — Network Service Discovery
+
+
+==================================================
+11. Questions & Answers
+==================================================
+
+Question:
+What is Prowler?
+
+Answer:
+An open-source tool used to audit cloud environments and identify security misconfigurations.
+
+
+--------------------------------------------------
+
+Question:
+Which cloud platform was Prowler originally designed for?
+
+Answer:
+Amazon Web Services (AWS).
+
+
+--------------------------------------------------
+
+Question:
+What type of issues can Prowler detect?
+
+Answer:
+Misconfigured IAM policies, exposed storage, logging issues, and insecure cloud settings.
+
+
+--------------------------------------------------
+
+Question:
+What type of frameworks can Prowler check against?
+
+Answer:
+Compliance frameworks such as CIS benchmarks and PCI-DSS.
+
+
+--------------------------------------------------
+
+Question:
+Why is Prowler useful in cloud security?
+
+Answer:
+It automates security audits and identifies configuration weaknesses.

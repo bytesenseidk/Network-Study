@@ -1,0 +1,468 @@
+Active Directory Defense
+- Security practices used to protect Active Directory environments from compromise, privilege escalation, and lateral movement.
+
+==================================================
+Defense Metadata
+==================================================
+
+Category:
+Blue_Team → Identity and Access Security
+
+Defense Stage:
+Prevention
+Detection
+Response
+
+Difficulty:
+Intermediate → Advanced
+
+Primary Objectives:
+Protect Domain Controllers
+Prevent Privilege Escalation
+Detect Lateral Movement
+Secure Authentication Systems
+
+Technologies Used:
+Active Directory
+Kerberos
+Windows Event Logs
+SIEM Platforms
+Endpoint Detection and Response (EDR)
+
+
+==================================================
+1. Overview
+==================================================
+Active Directory (AD) is the central identity and access management system used in most Windows enterprise environments.
+
+It manages:
+
+- user authentication
+- computer identities
+- group memberships
+- access permissions
+- domain policies
+
+Because Active Directory controls access to nearly all systems within an organization, it is a primary target for attackers.
+
+Many large-scale breaches occur after attackers compromise Active Directory.
+
+Common attacker goals include:
+
+- gaining domain administrator privileges
+- extracting credential hashes
+- performing lateral movement
+- establishing persistent access
+
+Defending Active Directory is therefore one of the most critical responsibilities of a Blue Team.
+
+
+==================================================
+2. Key Components of Active Directory
+==================================================
+Understanding Active Directory architecture is essential for defense.
+
+Important components include:
+
+Domain Controllers
+
+Servers responsible for authentication and directory services.
+
+
+Domain Users and Groups
+
+Accounts used to authenticate users and define permissions.
+
+
+Organizational Units (OUs)
+
+Containers used to organize users, computers, and groups.
+
+
+Group Policy Objects (GPO)
+
+Policies that control system configuration and security settings.
+
+
+Service Accounts
+
+Accounts used by applications and services to authenticate.
+
+
+Kerberos Authentication
+
+Primary authentication protocol used in Active Directory.
+
+
+==================================================
+3. Common Active Directory Attacks
+==================================================
+Active Directory environments are targeted by many attack techniques.
+
+Examples include:
+
+Credential Dumping
+
+Extracting password hashes from memory or system files.
+
+
+Kerberoasting
+
+Extracting Kerberos service tickets for offline password cracking.
+
+
+AS-REP Roasting
+
+Targeting accounts without Kerberos pre-authentication.
+
+
+Pass-the-Hash
+
+Authenticating using stolen password hashes.
+
+
+Golden Ticket Attacks
+
+Forging Kerberos authentication tickets using the KRBTGT hash.
+
+
+Silver Ticket Attacks
+
+Forging service tickets for specific services.
+
+
+DCSync Attacks
+
+Impersonating a domain controller to retrieve password hashes.
+
+
+Privilege Escalation
+
+Gaining administrative privileges through misconfigured permissions.
+
+
+==================================================
+4. Defensive Strategy
+==================================================
+Active Directory defense relies on several security layers.
+
+Strong Identity Security
+
+Protect user accounts and enforce strong authentication.
+
+
+Privilege Management
+
+Limit administrative privileges and enforce least privilege.
+
+
+Monitoring and Logging
+
+Detect suspicious authentication and directory activity.
+
+
+Network Segmentation
+
+Limit access to domain controllers and sensitive systems.
+
+
+Security Hardening
+
+Apply secure configurations and disable unnecessary features.
+
+
+==================================================
+5. Domain Controller Protection
+==================================================
+Domain controllers are the most critical systems in an AD environment.
+
+Defensive measures include:
+
+Restrict Administrative Access
+
+Only authorized administrators should access domain controllers.
+
+
+Network Isolation
+
+Place domain controllers in protected network segments.
+
+
+Enable Logging
+
+Collect detailed logs from domain controllers.
+
+
+Apply Security Updates
+
+Ensure domain controllers are regularly patched.
+
+
+Disable Unnecessary Services
+
+Reduce the attack surface.
+
+
+==================================================
+6. Privileged Account Protection
+==================================================
+Administrative accounts represent the highest risk.
+
+Best practices include:
+
+Use Dedicated Admin Accounts
+
+Administrators should have separate accounts for administrative tasks.
+
+
+Limit Domain Admin Membership
+
+Only essential accounts should be members of the Domain Admins group.
+
+
+Implement Privileged Access Management (PAM)
+
+Control and monitor administrative access.
+
+
+Require Multi-Factor Authentication
+
+MFA significantly reduces credential abuse.
+
+
+Monitor Privilege Changes
+
+Track when users gain elevated privileges.
+
+
+==================================================
+7. Important Windows Security Events
+==================================================
+Active Directory activity generates security events in Windows logs.
+
+Important event IDs include:
+
+4624
+
+Successful login
+
+
+4625
+
+Failed login attempt
+
+
+4672
+
+Special privileges assigned to new login
+
+
+4720
+
+New user account created
+
+
+4728
+
+User added to privileged group
+
+
+4768
+
+Kerberos authentication ticket requested
+
+
+4769
+
+Kerberos service ticket requested
+
+
+4771
+
+Kerberos pre-authentication failure
+
+
+Monitoring these events can reveal suspicious activity.
+
+
+==================================================
+8. Example Detection Scenario
+==================================================
+
+Alert Trigger
+
+SIEM detects an unusual number of Kerberos service ticket requests.
+
+
+Log Analysis
+
+Event ID 4769 shows repeated requests for service tickets.
+
+
+Investigation
+
+Security analysts determine that a Kerberoasting attack is occurring.
+
+
+Response
+
+The service account password is rotated and access is reviewed.
+
+
+Outcome
+
+The attack is contained before credentials are cracked.
+
+
+==================================================
+9. Active Directory Hardening Techniques
+==================================================
+Organizations should apply multiple security hardening measures.
+
+Least Privilege
+
+Users should only have permissions necessary for their roles.
+
+
+Account Lockout Policies
+
+Prevent brute-force password attacks.
+
+
+Strong Password Policies
+
+Require long and complex passwords.
+
+
+Disable Legacy Protocols
+
+Disable NTLM where possible and enforce Kerberos.
+
+
+Protect Service Accounts
+
+Use long passwords or managed service accounts.
+
+
+Regular Security Audits
+
+Review account permissions and group memberships.
+
+
+==================================================
+10. Monitoring and Detection
+==================================================
+Security teams should monitor Active Directory for suspicious behavior.
+
+Examples include:
+
+Unusual Login Locations
+
+Users authenticating from unexpected systems.
+
+
+Multiple Failed Logins
+
+Possible password spraying attacks.
+
+
+Privileged Group Changes
+
+Unexpected additions to administrative groups.
+
+
+Kerberos Ticket Abuse
+
+Unusual patterns of Kerberos ticket requests.
+
+
+Replication Requests
+
+Possible DCSync attacks.
+
+
+These detections are often implemented through SIEM platforms.
+
+
+==================================================
+11. MITRE ATT&CK Mapping
+==================================================
+
+Technique:
+T1003 — Credential Dumping
+
+
+Technique:
+T1558 — Steal or Forge Kerberos Tickets
+
+
+Technique:
+T1078 — Valid Accounts
+
+
+Technique:
+T1098 — Account Manipulation
+
+
+Technique:
+T1484 — Domain Policy Modification
+
+
+Technique:
+T1003.006 — DCSync
+
+
+==================================================
+12. Questions & Answers
+==================================================
+
+Question:
+Why is Active Directory a high-value target?
+
+Answer:
+Because it controls authentication and authorization for most systems in a Windows environment.
+
+
+--------------------------------------------------
+
+Question:
+What authentication protocol is primarily used in Active Directory?
+
+Answer:
+Kerberos.
+
+
+--------------------------------------------------
+
+Question:
+What event ID indicates a successful login?
+
+Answer:
+4624.
+
+
+--------------------------------------------------
+
+Question:
+What attack involves requesting Kerberos service tickets for cracking?
+
+Answer:
+Kerberoasting.
+
+
+--------------------------------------------------
+
+Question:
+What account is used to sign Kerberos tickets?
+
+Answer:
+The KRBTGT account.
+
+
+--------------------------------------------------
+
+Question:
+Why should administrative accounts be limited?
+
+Answer:
+Because compromised administrative accounts can lead to full domain compromise.
