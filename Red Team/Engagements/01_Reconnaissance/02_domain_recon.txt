@@ -1,0 +1,349 @@
+Domain Reconnaissance
+- The process of gathering detailed information about a target domain, including DNS records, subdomains, and associated infrastructure.
+
+==================================================
+Attack Metadata
+==================================================
+
+Category:
+Reconnaissance
+
+Attack Stage:
+Reconnaissance
+Discovery
+Initial Access Preparation
+
+Difficulty:
+Beginner → Intermediate
+
+Stealth Level:
+Very High (Passive) → Medium (Active)
+
+Requires Authentication:
+No
+
+Tools Used:
+Amass
+Subfinder
+DNSrecon
+Dig
+Whois
+crt.sh
+Gobuster
+Shodan
+
+
+==================================================
+1. Overview
+==================================================
+Domain reconnaissance focuses on identifying and mapping a target organization's domain and its related assets.
+
+A domain often reveals:
+
+- subdomains
+- DNS configurations
+- associated IP addresses
+- external services
+- cloud infrastructure
+
+This information helps attackers understand the **attack surface** and identify entry points such as:
+
+- web applications
+- VPN portals
+- internal services exposed externally
+
+
+==================================================
+2. Objectives
+==================================================
+
+Identify Subdomains
+
+Discover hidden or internal services.
+
+Map DNS Infrastructure
+
+Understand how domain records are configured.
+
+Identify IP Addresses
+
+Determine hosting locations and providers.
+
+Detect Exposed Services
+
+Find publicly accessible applications.
+
+Discover Misconfigurations
+
+Identify weak DNS or cloud setups.
+
+
+==================================================
+3. Key Concepts
+==================================================
+
+DNS Records
+
+Common types:
+
+- A (IP mapping)
+- AAAA (IPv6)
+- MX (mail servers)
+- NS (name servers)
+- TXT (metadata, SPF, DKIM)
+- CNAME (aliases)
+
+
+Subdomains
+
+Examples:
+
+- dev.example.com
+- admin.example.com
+- vpn.example.com
+
+
+Wildcard DNS
+
+Resolves all subdomains to a single IP.
+
+
+Subdomain Takeover
+
+Occurs when DNS points to unused external services.
+
+
+==================================================
+4. Attack Workflow
+==================================================
+
+Identify Target Domain
+        ↓
+Enumerate Subdomains
+        ↓
+Resolve DNS Records
+        ↓
+Identify IP Addresses
+        ↓
+Scan for Services
+        ↓
+Analyze Attack Surface
+
+
+==================================================
+5. Step-by-Step Execution
+==================================================
+
+Step 1 — Identify Domain
+
+example.com
+
+
+Step 2 — Perform WHOIS Lookup
+
+whois example.com
+
+This reveals:
+
+- registrar
+- registration details
+- name servers
+
+
+Step 3 — Enumerate Subdomains
+
+Example:
+
+amass enum -d example.com
+
+
+Alternative tools:
+
+subfinder -d example.com
+
+
+Step 4 — Query DNS Records
+
+Example:
+
+dig example.com ANY
+
+
+Step 5 — Discover Certificate Data
+
+Use crt.sh:
+
+Search:
+
+%.example.com
+
+This may reveal additional subdomains.
+
+
+Step 6 — Resolve Subdomains to IPs
+
+Example:
+
+dig dev.example.com
+
+
+Step 7 — Identify Services
+
+Use Shodan:
+
+org:"example"
+
+Or scan:
+
+nmap -sV <IP>
+
+
+==================================================
+6. Example Domain Recon Scenario
+==================================================
+
+Target:
+
+example.com
+
+
+Subdomains Discovered:
+
+dev.example.com  
+vpn.example.com  
+admin.example.com  
+
+
+DNS Findings:
+
+MX records point to external mail provider  
+TXT records reveal SPF configuration  
+
+
+Infrastructure:
+
+Cloud hosting detected (AWS)  
+Public-facing services identified  
+
+
+Result:
+
+Multiple attack vectors identified:
+
+- VPN login (credential attacks)
+- dev environment (weaker security)
+- admin portal (high-value target)
+
+
+==================================================
+7. Common Findings
+==================================================
+
+- exposed development environments
+- forgotten subdomains
+- admin panels
+- staging environments
+- misconfigured DNS records
+- cloud service misconfigurations
+
+These often provide easier entry points than primary domains.
+
+
+==================================================
+8. Expected Results
+==================================================
+Successful domain reconnaissance may reveal:
+
+- hidden subdomains
+- external-facing services
+- hosting providers
+- DNS misconfigurations
+- potential takeover opportunities
+
+This significantly expands the attack surface.
+
+
+==================================================
+9. Defensive Considerations
+==================================================
+Organizations can reduce risk through:
+
+Attack Surface Management
+
+Continuously monitor exposed domains.
+
+DNS Auditing
+
+Review DNS records and remove unused entries.
+
+Subdomain Cleanup
+
+Remove unused or forgotten subdomains.
+
+Cloud Resource Management
+
+Ensure DNS entries point to active services.
+
+Certificate Monitoring
+
+Track certificates issued for domains.
+
+
+==================================================
+10. MITRE ATT&CK Mapping
+==================================================
+
+Technique:
+T1590 — Gather Victim Network Information
+
+Technique:
+T1593 — Search Open Websites/Domains
+
+Technique:
+T1596 — Search Open Technical Databases
+
+Technique:
+T1595 — Active Scanning
+
+
+==================================================
+11. Questions & Answers
+==================================================
+
+Question:
+What is domain reconnaissance?
+
+Answer:
+The process of gathering information about a domain and its associated infrastructure.
+
+--------------------------------------------------
+
+Question:
+What is a subdomain?
+
+Answer:
+A domain that is part of a larger domain (e.g., dev.example.com).
+
+--------------------------------------------------
+
+Question:
+What tool is commonly used for subdomain enumeration?
+
+Answer:
+Amass.
+
+--------------------------------------------------
+
+Question:
+What is subdomain takeover?
+
+Answer:
+A vulnerability where attackers can claim unused external services linked to a domain.
+
+--------------------------------------------------
+
+Question:
+Why is domain recon important?
+
+Answer:
+It helps identify attack surfaces and potential entry points.

@@ -1,0 +1,438 @@
+AWS IAM Privilege Escalation
+- Techniques used by attackers to gain higher privileges within an AWS environment by abusing IAM permissions and misconfigurations.
+
+==================================================
+Attack Metadata
+==================================================
+
+Category:
+Cloud Attacks → AWS
+
+Attack Stage:
+Privilege Escalation
+Persistence
+Defense Evasion
+
+Difficulty:
+Intermediate → Advanced
+
+Stealth Level:
+Medium → High
+
+Requires Authentication:
+Yes (valid AWS credentials required)
+
+Tools Used:
+AWS CLI
+Pacu
+ScoutSuite
+
+
+==================================================
+1. Overview
+==================================================
+AWS Identity and Access Management (IAM) controls access to resources within an AWS environment.
+
+Privilege escalation occurs when a user or role with limited permissions is able to obtain higher privileges, such as administrative access.
+
+This typically happens due to:
+
+- overly permissive IAM policies
+- misconfigured roles
+- the ability to attach policies or assume roles
+
+Successful privilege escalation may allow an attacker to gain full control over an AWS account.
+
+
+==================================================
+2. Attack Scenario
+==================================================
+Assume an attacker has obtained AWS credentials through one of the following:
+
+- exposed access keys
+- compromised EC2 instance
+- leaked configuration files
+- stolen developer credentials
+
+The attacker begins exploring the IAM environment to identify ways to escalate privileges.
+
+
+==================================================
+3. Tools Required
+==================================================
+
+AWS CLI
+Interact with AWS services from the command line.
+
+Pacu (optional)
+AWS exploitation framework used for enumeration and privilege escalation testing.
+
+ScoutSuite (optional)
+Security auditing tool for AWS environments.
+
+
+==================================================
+4. Attack Workflow
+==================================================
+
+Compromised Credentials
+        ↓
+Enumerate IAM Permissions
+        ↓
+Identify Escalation Opportunity
+        ↓
+Abuse IAM Misconfiguration
+        ↓
+Attach Admin Policy or Assume Privileged Role
+        ↓
+Gain Administrative Access
+
+
+==================================================
+5. Step-by-Step Execution
+==================================================
+Step 1 — Validate Credentials
+
+Confirm the compromised credentials are valid.
+
+Example:
+
+aws sts get-caller-identity
+
+This command returns:
+
+- account ID
+- user or role name
+- ARN
+
+
+Step 2 — Enumerate IAM Permissions
+
+List attached policies for the current user.
+
+Example:
+
+aws iam list-attached-user-policies --user-name <username>
+
+
+List inline policies.
+
+Example:
+
+aws iam list-user-policies --user-name <username>
+
+
+Step 3 — Identify Escalation Permissions
+
+Look for permissions such as:
+
+iam:AttachUserPolicy
+iam:AttachRolePolicy
+iam:PutUserPolicy
+iam:CreatePolicy
+iam:PassRole
+sts:AssumeRole
+
+These permissions can potentially allow privilege escalation.
+
+
+==================================================
+6. Common Privilege Escalation Techniques
+==================================================
+
+Policy Attachment
+
+If the user has permission to attach policies, they may attach the AdministratorAccess policy to themselves.
+
+Example:
+
+aws iam attach-user-policy \
+--user-name <username> \
+--policy-arn arn:aws:iam::aws:policy/AdministratorAccess
+
+
+Role Assumption
+
+If a role can be assumed and has higher privileges, attackers can switch to that role.
+
+Example:
+
+aws sts assume-role \
+--role-arn arn:aws:iam::ACCOUNT_ID:role/AdminRole \
+--role-session-name escalation
+
+
+Policy Creation
+
+If policy creation is allowed, an attacker may create a custom policy granting admin privileges.
+
+
+==================================================
+7. Example Privilege Escalation Scenario
+==================================================
+
+Initial Access
+
+Compromised IAM user credentials
+
+
+Enumeration
+
+Attacker identifies permission:
+
+iam:AttachUserPolicy
+
+
+Privilege Escalation
+
+Attach AdministratorAccess policy to the compromised user
+
+
+Result
+
+Full administrative access to the AWS account
+
+
+==================================================
+8. Expected Results
+==================================================
+Successful escalation may allow attackers to:
+
+- create new IAM users
+- access sensitive data
+- modify infrastructure
+- deploy malicious resources
+- disable logging or monitoring
+
+
+==================================================
+9. Defensive Considerations
+==================================================
+Organizations can reduce privilege escalation risks by:
+
+Principle of Least Privilege
+
+Users should only have the permissions required for their tasks.
+
+IAM Policy Auditing
+
+Regularly review IAM policies for excessive permissions.
+
+Multi-Factor Authentication
+
+Require MFA for sensitive operations.
+
+Logging and Monitoring
+
+Enable CloudTrail to detect suspicious IAM activity.
+
+IAM Access Analyzer
+
+Identify policies that allow unintended access.
+
+
+==================================================
+10. MITRE ATT&CK Mapping
+==================================================
+
+Technique:
+T1098 — Account Manipulation
+
+Technique:
+T1078 — Valid Accounts
+
+Technique:
+T1484 — Domain or Tenant Policy Modification
+
+Technique:
+T1528 — Steal Application Access Token
+
+Technique:
+T1068 — Exploitation for Privilege Escalation
+
+
+==================================================
+11. Blue Team Detection
+==================================================
+IAM privilege escalation attempts often generate identifiable activity in AWS logs.
+
+Indicators may include:
+
+- attaching high-privilege IAM policies
+- creation of new IAM policies with excessive permissions
+- role assumption activity from unusual locations
+- unusual policy modifications
+- privilege changes performed by non-administrative accounts
+
+Security teams should monitor for unexpected administrative permission assignments.
+
+
+==================================================
+12. Relevant Logs
+==================================================
+
+AWS CloudTrail Logs
+
+IAM policy attachment events  
+Role assumption activity  
+Policy creation and modification events
+
+
+AWS GuardDuty Alerts
+
+Detection of suspicious IAM behavior.
+
+
+AWS Config Logs
+
+Changes to IAM policies and roles.
+
+
+SIEM Correlation Logs
+
+Correlation of policy modifications and credential activity.
+
+
+==================================================
+13. Detection Tools
+==================================================
+
+AWS Security Services
+
+Examples:
+
+- AWS GuardDuty
+- AWS Security Hub
+- AWS IAM Access Analyzer
+
+
+Cloud Security Tools
+
+Examples:
+
+- Prowler
+- ScoutSuite
+- Prisma Cloud
+
+
+SIEM Platforms
+
+Examples:
+
+- Splunk
+- Elastic Stack
+- Microsoft Sentinel
+
+
+==================================================
+14. SOC Detection Queries
+==================================================
+
+Splunk Query (Detect Administrator Policy Attachment)
+
+index=aws_cloudtrail eventName=AttachUserPolicy
+policyArn="arn:aws:iam::aws:policy/AdministratorAccess"
+| stats count by userIdentity.arn, sourceIPAddress
+
+
+Sigma Rule Example
+
+title: Suspicious IAM Privilege Escalation
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventName: AttachUserPolicy
+    requestParameters.policyArn: "*AdministratorAccess*"
+  condition: selection
+level: high
+
+
+Microsoft Sentinel (KQL) Example
+
+AWSCloudTrail
+| where EventName == "AttachUserPolicy"
+| where RequestParameters contains "AdministratorAccess"
+| summarize count() by UserIdentityArn, SourceIpAddress
+
+
+==================================================
+15. Mitigation Strategies
+==================================================
+
+Implement Least Privilege IAM Policies
+
+Grant only required permissions.
+
+Monitor IAM Policy Changes
+
+Alert on privilege escalation activity.
+
+Require MFA for IAM Changes
+
+Protect administrative operations.
+
+Enable AWS GuardDuty
+
+Detect suspicious cloud activity.
+
+Audit IAM Roles and Policies Regularly
+
+Identify excessive permissions.
+
+
+==================================================
+16. Blue Team Knowledge Base Cross-References
+==================================================
+
+Blue Team → Cloud Security
+
+Blue Team → Threat Hunting
+
+Blue Team → Detection Engineering
+
+Blue Team → Incident Response
+
+
+==================================================
+17. Questions & Answers
+==================================================
+
+Question:
+What is IAM in AWS?
+
+Answer:
+IAM is a service that controls authentication and authorization for AWS resources.
+
+--------------------------------------------------
+
+Question:
+What is privilege escalation?
+
+Answer:
+Privilege escalation occurs when a user gains higher permissions than originally intended.
+
+--------------------------------------------------
+
+Question:
+Why are IAM misconfigurations dangerous?
+
+Answer:
+Because attackers can abuse excessive permissions to gain full administrative access.
+
+--------------------------------------------------
+
+Question:
+Which permissions commonly enable IAM privilege escalation?
+
+Answer:
+Permissions such as iam:AttachUserPolicy, iam:PassRole, and sts:AssumeRole.
+
+--------------------------------------------------
+
+Question:
+What is the main defense against IAM privilege escalation?
+
+Answer:
+Applying the principle of least privilege and continuously auditing IAM permissions.

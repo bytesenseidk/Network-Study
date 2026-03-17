@@ -1,0 +1,366 @@
+Attack Surface Mapping
+- The process of identifying, organizing, and analyzing all exposed assets of a target to determine potential entry points for an attack.
+
+==================================================
+Attack Metadata
+==================================================
+
+Category:
+Reconnaissance
+
+Attack Stage:
+Reconnaissance
+Discovery
+Initial Access Preparation
+
+Difficulty:
+Intermediate → Advanced
+
+Stealth Level:
+High (Passive) → Medium (Active)
+
+Requires Authentication:
+No
+
+Tools Used:
+Amass
+Nmap
+Shodan
+Gobuster
+Burp Suite
+Recon-ng
+Maltego
+
+
+==================================================
+1. Overview
+==================================================
+Attack surface mapping is the process of building a complete picture of a target organization's externally accessible assets.
+
+This includes:
+
+- domains and subdomains
+- IP addresses and infrastructure
+- web applications and APIs
+- authentication portals
+- exposed services
+
+The goal is to move from **raw reconnaissance data → actionable attack paths**.
+
+This phase transforms collected OSINT into a structured map of potential entry points.
+
+
+==================================================
+2. Objectives
+==================================================
+
+Identify All Exposed Assets
+
+Map domains, IPs, services, and endpoints.
+
+Categorize Entry Points
+
+Group assets based on attack type (web, network, cloud).
+
+Prioritize Targets
+
+Identify weak or high-value systems.
+
+Understand Relationships
+
+Link systems, users, and infrastructure together.
+
+Support Attack Planning
+
+Define realistic attack paths.
+
+
+==================================================
+3. Attack Surface Categories
+==================================================
+
+Web Applications
+
+- main websites
+- admin panels
+- APIs
+
+
+Authentication Systems
+
+- VPN portals
+- SSO login pages
+- cloud authentication portals
+
+
+Network Services
+
+- SSH
+- RDP
+- SMB
+- FTP
+
+
+Cloud Resources
+
+- AWS services
+- Azure endpoints
+- storage buckets
+
+
+User & Identity Layer
+
+- email accounts
+- usernames
+- service accounts
+
+
+==================================================
+4. Attack Workflow
+==================================================
+
+Collect OSINT Data
+        ↓
+Enumerate Domains and Subdomains
+        ↓
+Resolve Infrastructure (IPs, Hosting)
+        ↓
+Identify Services and Ports
+        ↓
+Categorize Assets
+        ↓
+Prioritize Attack Vectors
+
+
+==================================================
+5. Step-by-Step Execution
+==================================================
+
+Step 1 — Collect All Known Assets
+
+Combine results from:
+
+- OSINT
+- domain reconnaissance
+- email enumeration
+
+
+Step 2 — Enumerate Subdomains
+
+Example:
+
+amass enum -d example.com
+
+
+Step 3 — Resolve IP Addresses
+
+Example:
+
+dig dev.example.com
+
+
+Step 4 — Scan for Open Ports
+
+Example:
+
+nmap -sV -p- <IP>
+
+
+Step 5 — Identify Web Endpoints
+
+Example:
+
+gobuster dir -u http://example.com -w wordlist.txt
+
+
+Step 6 — Identify Technologies
+
+Use:
+
+- Wappalyzer
+- BuiltWith
+
+
+Step 7 — Categorize Findings
+
+Group assets into:
+
+- web
+- network
+- cloud
+- identity
+
+
+Step 8 — Prioritize Targets
+
+Focus on:
+
+- exposed admin panels
+- outdated services
+- authentication endpoints
+
+
+==================================================
+6. Example Attack Surface Map
+==================================================
+
+Target:
+
+example.com
+
+
+Discovered Assets:
+
+Web:
+
+- www.example.com
+- dev.example.com
+- api.example.com
+
+
+Authentication:
+
+- vpn.example.com
+- login.example.com
+
+
+Network:
+
+- SSH (22) open
+- RDP (3389) exposed
+
+
+Cloud:
+
+- S3 bucket (example-assets)
+- Azure tenant identified
+
+
+Users:
+
+- john.doe@example.com
+- admin@example.com
+
+
+Prioritized Targets:
+
+1. VPN portal → password spraying  
+2. dev environment → web exploitation  
+3. exposed RDP → credential attacks  
+
+
+==================================================
+7. Expected Results
+==================================================
+Successful attack surface mapping allows attackers to:
+
+- identify all entry points
+- prioritize high-value targets
+- discover weak or misconfigured systems
+- plan efficient attack paths
+
+This significantly increases the success rate of engagements.
+
+
+==================================================
+8. Common Weak Points Identified
+==================================================
+
+- exposed development environments
+- weak authentication portals
+- outdated web applications
+- open remote access services
+- misconfigured cloud resources
+- forgotten subdomains
+
+These are often easier to exploit than primary systems.
+
+
+==================================================
+9. Defensive Considerations
+==================================================
+Organizations can reduce attack surface risk through:
+
+Attack Surface Management
+
+Continuously monitor exposed assets.
+
+Asset Inventory
+
+Maintain accurate records of all systems.
+
+Service Hardening
+
+Restrict exposed services and ports.
+
+Access Controls
+
+Protect authentication endpoints with MFA.
+
+Regular Scanning
+
+Identify exposed or vulnerable systems.
+
+Cloud Security Controls
+
+Audit cloud configurations and permissions.
+
+
+==================================================
+10. MITRE ATT&CK Mapping
+==================================================
+
+Technique:
+T1595 — Active Scanning
+
+Technique:
+T1590 — Gather Victim Network Information
+
+Technique:
+T1593 — Search Open Websites/Domains
+
+Technique:
+T1596 — Search Open Technical Databases
+
+
+==================================================
+11. Questions & Answers
+==================================================
+
+Question:
+What is attack surface mapping?
+
+Answer:
+The process of identifying and organizing all exposed assets of a target.
+
+--------------------------------------------------
+
+Question:
+Why is attack surface mapping important?
+
+Answer:
+It helps attackers identify entry points and prioritize targets.
+
+--------------------------------------------------
+
+Question:
+What types of assets are included in an attack surface?
+
+Answer:
+Web applications, network services, cloud resources, and user identities.
+
+--------------------------------------------------
+
+Question:
+What is a high-value target?
+
+Answer:
+A system that provides access to sensitive data or critical infrastructure.
+
+--------------------------------------------------
+
+Question:
+What is the best defense against attack surface mapping?
+
+Answer:
+Reducing exposed assets and continuously monitoring external exposure.

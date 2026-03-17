@@ -1,0 +1,129 @@
+Email Enumeration
+- The process of identifying valid email addresses within a target organization to support credential attacks, phishing campaigns, and social engineering.
+
+==================================================
+Attack Metadata
+==================================================
+
+Category:
+Reconnaissance
+
+Attack Stage:
+Reconnaissance
+Discovery
+Credential Access Preparation
+
+Difficulty:
+Beginner → Intermediate
+
+Stealth Level:
+High (Passive) → Medium (Active)
+
+Requires Authentication:
+No
+
+Tools Used:
+theHarvester
+Hunter.io
+Recon-ng
+LinkedIn
+o365spray
+MSOLSpray
+
+
+==================================================
+1. Overview
+==================================================
+Email enumeration is the process of discovering valid email addresses associated with a target organization.
+
+Email addresses are critical because they:
+
+- serve as usernames for authentication systems
+- are targets for phishing campaigns
+- enable password spraying attacks
+- reveal internal naming conventions
+
+Attackers combine multiple data sources to build accurate email lists.
+
+
+==================================================
+2. Objectives
+==================================================
+
+Identify Valid Email Addresses
+
+Discover active user accounts.
+
+Determine Email Format
+
+Understand how emails are structured.
+
+Build Target Lists
+
+Prepare for credential or phishing attacks.
+
+Validate Accounts
+
+Confirm which emails exist in authentication systems.
+
+
+==================================================
+3. Common Email Formats
+==================================================
+
+Organizations typically use consistent patterns:
+
+- first.last@example.com
+- first@example.com
+- f.last@example.com
+- firstl@example.com
+- lastname@example.com
+
+Identifying the pattern allows attackers to generate large numbers of valid addresses.
+
+
+==================================================
+4. Attack Workflow
+==================================================
+
+Identify Target Domain
+        ↓
+Collect Employee Names
+        ↓
+Determine Email Format
+        ↓
+Generate Email List
+        ↓
+Validate Email Addresses
+        ↓
+Prepare for Credential Attacks
+
+
+==================================================
+5. Step-by-Step Execution
+==================================================
+
+Step 1 — Identify Target Domain
+
+example.com
+
+
+Step 2 — Collect Employee Names
+
+Sources:
+
+- LinkedIn
+- company website
+- press releases
+
+
+Step 3 — Determine Email Format
+
+Example:
+
+john.doe@example.com
+
+
+Step 4 — Generate Email List
+
+Create variations based on

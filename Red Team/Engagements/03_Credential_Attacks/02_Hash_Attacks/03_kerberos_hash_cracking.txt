@@ -1,0 +1,423 @@
+Kerberos Hash Cracking
+- The process of recovering plaintext passwords from captured Kerberos authentication hashes.
+
+==================================================
+Attack Metadata
+==================================================
+
+Category:
+Credential Attacks → Hash Attacks
+
+Attack Stage:
+Credential Access
+Privilege Escalation
+Lateral Movement
+
+Difficulty:
+Intermediate
+
+Stealth Level:
+High (offline attack)
+
+Requires Authentication:
+No (requires captured hash)
+
+Tools Used:
+Hashcat
+John the Ripper
+Impacket
+Wordlists
+
+
+==================================================
+1. Overview
+==================================================
+Kerberos is the authentication protocol used in many enterprise environments, especially within Active Directory networks.
+
+During authentication, Kerberos may generate encrypted tickets or hashes that are based on the user's password.
+
+Attackers may capture these Kerberos hashes through techniques such as:
+
+- Kerberoasting
+- AS-REP Roasting
+- credential dumping
+- network interception
+
+Once obtained, attackers attempt to crack the hashes offline in order to recover the original plaintext passwords.
+
+Offline password cracking allows attackers to test many password combinations without interacting with the target system.
+
+
+==================================================
+2. Attack Scenario
+==================================================
+Assume an attacker has gained access to an internal network or compromised a system.
+
+The attacker performs enumeration and identifies service accounts associated with Kerberos Service Principal Names (SPNs).
+
+Using Kerberoasting or AS-REP roasting, the attacker retrieves Kerberos authentication hashes.
+
+These hashes are then cracked offline to recover the associated account passwords.
+
+
+==================================================
+3. Tools Required
+==================================================
+
+Hashcat
+High-performance password cracking tool used to recover passwords from hashes.
+
+John the Ripper (optional)
+Alternative password cracking tool.
+
+Impacket (optional)
+Used to extract Kerberos tickets and authentication hashes.
+
+Wordlists
+Password dictionaries used during cracking attempts.
+
+
+==================================================
+4. Attack Workflow
+==================================================
+
+Internal Network Access
+        ↓
+Kerberos Hash Obtained
+        ↓
+Export Hash to File
+        ↓
+Offline Password Cracking
+        ↓
+Plaintext Password Recovered
+        ↓
+Use Credentials for Authentication
+
+
+==================================================
+5. Step-by-Step Execution
+==================================================
+
+Step 1 — Obtain Kerberos Hash
+
+Hashes may be captured through techniques such as:
+
+Kerberoasting  
+AS-REP roasting  
+credential dumping  
+
+
+Example Kerberos hash format:
+
+$krb5tgs$23$*service_account$domain.local$...
+
+
+Step 2 — Save Hash to File
+
+Store the captured hash in a file.
+
+Example:
+
+hash.txt
+
+
+Step 3 — Run Hashcat
+
+Use Hashcat with the correct mode for Kerberos hashes.
+
+Example:
+
+hashcat -m 13100 hash.txt wordlist.txt
+
+
+Common Kerberos hash modes include:
+
+13100 — Kerberos 5 TGS-REP (Kerberoasting)  
+18200 — Kerberos 5 AS-REP (AS-REP roasting)
+
+
+Step 4 — Monitor Cracking Process
+
+Hashcat attempts to match password candidates from the wordlist to the captured hash.
+
+If a match is found, the plaintext password is recovered.
+
+
+Step 5 — Verify Credentials
+
+Test the recovered password against the target system.
+
+Example:
+
+ssh user@target-host
+
+or authenticate to domain services.
+
+
+==================================================
+6. Example Hash Cracking Scenario
+==================================================
+
+Initial Access
+
+Attacker gains internal network access.
+
+
+Hash Capture
+
+Kerberoasting reveals a service account hash.
+
+
+Offline Cracking
+
+Hashcat cracks the password:
+
+Password: Winter2024!
+
+
+Impact
+
+Attacker gains access to the service account.
+
+
+==================================================
+7. Expected Results
+==================================================
+Successful Kerberos hash cracking may reveal:
+
+- service account passwords
+- domain user passwords
+- administrative credentials
+
+Recovered passwords may allow attackers to authenticate to additional systems or escalate privileges.
+
+
+==================================================
+8. Defensive Considerations
+==================================================
+Organizations can reduce the risk of Kerberos hash attacks by implementing the following controls.
+
+Strong Password Policies
+
+Use long and complex passwords for service accounts.
+
+Service Account Management
+
+Use managed service accounts when possible.
+
+Monitoring
+
+Detect abnormal Kerberos ticket requests.
+
+Privileged Account Protection
+
+Restrict permissions of service accounts.
+
+Credential Rotation
+
+Regularly rotate service account passwords.
+
+
+==================================================
+9. MITRE ATT&CK Mapping
+==================================================
+
+Technique:
+T1558 — Steal or Forge Kerberos Tickets
+
+Sub-technique:
+T1558.003 — Kerberoasting
+
+Sub-technique:
+T1558.004 — AS-REP Roasting
+
+Technique:
+T1110 — Brute Force
+
+Sub-technique:
+T1110.002 — Password Cracking
+
+
+==================================================
+10. Blue Team Detection
+==================================================
+Kerberos hash cracking occurs offline, but the hash acquisition phase produces detectable activity within Active Directory environments.
+
+Common indicators include:
+
+- unusual Kerberos service ticket requests (TGS requests)
+- abnormal numbers of service ticket requests from a single host
+- Kerberos ticket requests targeting many service accounts
+- authentication requests from compromised or non-standard hosts
+
+Other indicators may include:
+
+- enumeration of Service Principal Names (SPNs)
+- abnormal Kerberos authentication patterns
+- authentication activity occurring shortly after ticket extraction.
+
+
+==================================================
+11. Relevant Logs
+==================================================
+
+Windows Security Logs
+
+Event ID 4768 — Kerberos Authentication Ticket (TGT) requested  
+Event ID 4769 — Kerberos Service Ticket requested  
+Event ID 4771 — Kerberos Pre-authentication failed  
+
+
+Domain Controller Logs
+
+Domain controllers record Kerberos ticket requests and authentication events.
+
+
+Active Directory Logs
+
+Service ticket requests associated with SPNs may reveal Kerberoasting attempts.
+
+
+Sysmon Logs
+
+Event ID 1 — Process Creation  
+Event ID 3 — Network Connections
+
+
+SIEM Correlation Logs
+
+Multiple Kerberos service ticket requests correlated across systems.
+
+
+==================================================
+12. Detection Tools
+==================================================
+
+SIEM Platforms
+
+Examples:
+
+- Splunk
+- Elastic Stack
+- Microsoft Sentinel
+
+Used to correlate Kerberos authentication events.
+
+
+Active Directory Monitoring
+
+Examples:
+
+- Microsoft Defender for Identity
+- Azure AD Identity Protection
+
+
+Threat Hunting Tools
+
+Examples:
+
+- Velociraptor
+- Wazuh
+
+
+Network Monitoring
+
+Examples:
+
+- Zeek
+- Suricata
+
+
+Endpoint Detection and Response
+
+Examples:
+
+- Microsoft Defender for Endpoint
+- CrowdStrike Falcon
+
+
+==================================================
+13. Mitigation Strategies
+==================================================
+
+Use Strong Service Account Passwords
+
+Service accounts should have long, complex passwords.
+
+Deploy Managed Service Accounts
+
+Use Group Managed Service Accounts (gMSA) to automatically rotate credentials.
+
+Limit SPN Exposure
+
+Reduce unnecessary service accounts with SPNs.
+
+Monitor Kerberos Ticket Requests
+
+Detect abnormal ticket request patterns.
+
+Apply Least Privilege
+
+Limit service account permissions.
+
+Rotate Credentials Regularly
+
+Reduce the window of exposure if hashes are cracked.
+
+
+==================================================
+14. Blue Team Knowledge Base Cross-References
+==================================================
+
+Blue Team → Active Directory Defense
+
+Blue Team → Log Analysis and Detection
+
+Blue Team → Threat Hunting
+
+Blue Team → Detection Engineering
+
+Blue Team → Incident Response
+
+
+==================================================
+15. Questions & Answers
+==================================================
+
+Question:
+What is Kerberos?
+
+Answer:
+Kerberos is an authentication protocol commonly used in enterprise environments and Active Directory networks.
+
+--------------------------------------------------
+
+Question:
+Why do attackers crack Kerberos hashes offline?
+
+Answer:
+Because offline cracking allows unlimited password attempts without alerting the target system.
+
+--------------------------------------------------
+
+Question:
+What tool is commonly used for Kerberos hash cracking?
+
+Answer:
+Hashcat.
+
+--------------------------------------------------
+
+Question:
+Which attack technique commonly produces Kerberos hashes?
+
+Answer:
+Kerberoasting.
+
+--------------------------------------------------
+
+Question:
+What is the primary defense against Kerberos hash cracking?
+
+Answer:
+Strong passwords and proper service account management.

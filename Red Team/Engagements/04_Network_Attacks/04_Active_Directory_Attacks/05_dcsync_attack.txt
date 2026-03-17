@@ -1,0 +1,429 @@
+DCSync Attack
+- An Active Directory attack that allows attackers to impersonate a domain controller and retrieve password hashes from the domain.
+
+==================================================
+Attack Metadata
+==================================================
+
+Category:
+Network Attacks → Active Directory Attacks
+
+Attack Stage:
+Credential Access
+Privilege Escalation
+Persistence
+
+Difficulty:
+Advanced
+
+Stealth Level:
+High
+
+Requires Authentication:
+Yes (privileged replication rights required)
+
+Tools Used:
+Mimikatz
+Impacket
+PowerShell AD tools
+
+
+==================================================
+1. Overview
+==================================================
+A DCSync attack allows an attacker to request password data from Active Directory as if they were a domain controller.
+
+Domain controllers replicate directory data between each other using a protocol called **Directory Replication Service (DRS)**.
+
+If an attacker has the appropriate privileges, they can request this replication data and obtain password hashes for domain accounts.
+
+The attacker does not need direct access to a domain controller system.
+
+Instead, the attacker sends replication requests that cause the domain controller to return credential information.
+
+DCSync attacks can expose:
+
+- NTLM password hashes
+- Kerberos keys
+- domain administrator credentials
+- KRBTGT account hashes
+
+
+==================================================
+2. Attack Scenario
+==================================================
+Assume an attacker has compromised an account with sufficient privileges in an Active Directory environment.
+
+The attacker uses these privileges to request domain replication data from the domain controller.
+
+The domain controller responds with credential data for domain users.
+
+The attacker extracts the password hashes and uses them for further attacks such as:
+
+- pass-the-hash
+- privilege escalation
+- golden ticket attacks
+
+
+==================================================
+3. Required Privileges
+==================================================
+A DCSync attack requires specific Active Directory permissions.
+
+Accounts must have one of the following rights:
+
+Replicating Directory Changes  
+Replicating Directory Changes All  
+Replicating Directory Changes In Filtered Set
+
+These permissions are typically granted to:
+
+- Domain Administrators
+- Enterprise Administrators
+- Domain Controllers
+
+However, misconfigurations may grant these permissions to other accounts.
+
+
+==================================================
+4. Tools Required
+==================================================
+Mimikatz
+Used to perform DCSync operations and extract credential hashes.
+
+Impacket
+Includes tools capable of interacting with Active Directory replication.
+
+PowerShell AD tools
+Used to enumerate directory permissions.
+
+
+==================================================
+5. Attack Workflow
+==================================================
+
+Compromise Privileged Account
+        ↓
+Verify Replication Permissions
+        ↓
+Request Directory Replication
+        ↓
+Extract Password Hashes
+        ↓
+Reuse Credentials
+
+
+==================================================
+6. Step-by-Step Execution
+==================================================
+Step 1 — Confirm Privileges
+
+The attacker confirms that their account has replication permissions in Active Directory.
+
+
+Step 2 — Launch DCSync Attack
+
+Example using Mimikatz:
+
+mimikatz
+
+Inside Mimikatz:
+
+lsadump::dcsync /domain:corp.local /user:Administrator
+
+
+Step 3 — Extract Hash Data
+
+Example output:
+
+Administrator:500:aad3b435b51404eeaad3b435b51404ee:cc36cf7a8514893efccd332446158b1a
+
+
+Step 4 — Extract KRBTGT Hash
+
+The attacker may also retrieve the KRBTGT account hash:
+
+lsadump::dcsync /domain:corp.local /user:krbtgt
+
+
+Step 5 — Use Retrieved Credentials
+
+Extracted hashes can be used for:
+
+- pass-the-hash authentication
+- forging Golden Tickets
+- lateral movement within the domain
+
+
+==================================================
+7. Example DCSync Scenario
+==================================================
+Initial Access
+
+Attacker compromises a privileged domain account.
+
+
+Privilege Abuse
+
+The attacker discovers the account has replication privileges.
+
+
+Replication Request
+
+The attacker performs a DCSync attack.
+
+
+Credential Extraction
+
+Domain password hashes are retrieved.
+
+
+Domain Compromise
+
+The attacker gains control over domain authentication mechanisms.
+
+
+==================================================
+8. Expected Results
+==================================================
+Successful DCSync attacks allow attackers to obtain:
+
+- domain user password hashes
+- domain administrator credentials
+- service account hashes
+- KRBTGT account hash
+
+These credentials can lead to full domain compromise.
+
+
+==================================================
+9. Defensive Considerations
+==================================================
+Organizations should implement strong controls to prevent DCSync attacks.
+
+Privilege Management
+
+Restrict replication permissions to domain controllers only.
+
+Active Directory Monitoring
+
+Monitor directory replication requests.
+
+Security Logging
+
+Enable auditing of directory service replication events.
+
+Network Monitoring
+
+Detect abnormal replication traffic originating from non-domain controllers.
+
+Least Privilege
+
+Ensure that privileged permissions are tightly controlled.
+
+
+==================================================
+10. MITRE ATT&CK Mapping
+==================================================
+
+Technique:
+T1003 — OS Credential Dumping
+
+Sub-technique:
+T1003.006 — DCSync
+
+Technique:
+T1078 — Valid Accounts
+
+Technique:
+T1558.001 — Golden Ticket
+
+Technique:
+T1550.002 — Pass the Hash
+
+
+==================================================
+11. Blue Team Detection
+==================================================
+DCSync attacks generate abnormal Active Directory replication behavior.
+
+Common indicators include:
+
+- directory replication requests originating from non-domain controller systems
+- accounts requesting replication privileges outside normal operations
+- authentication activity involving replication permissions
+- large amounts of directory data requested in a short time period
+- replication requests involving privileged accounts such as KRBTGT
+
+Additional suspicious indicators may include:
+
+- replication traffic initiated by user workstations
+- unusual replication requests outside normal replication schedules
+- domain controller communication initiated by unexpected hosts.
+
+
+==================================================
+12. Relevant Logs
+==================================================
+
+Windows Security Logs
+
+Event ID 4624 — Successful Logon  
+Event ID 4672 — Special Privileges Assigned  
+Event ID 4662 — Operation performed on an object  
+
+
+Directory Service Logs
+
+Event ID 4928 — Active Directory replication started  
+Event ID 4929 — Active Directory replication completed  
+
+
+Kerberos Authentication Logs
+
+Event ID 4768 — Kerberos authentication ticket requested  
+Event ID 4769 — Kerberos service ticket requested  
+
+
+Sysmon Logs
+
+Event ID 1 — Process Creation  
+Event ID 3 — Network Connection  
+
+
+SIEM Correlation Logs
+
+Replication requests originating from non-domain controller systems.
+
+
+==================================================
+13. Detection Tools
+==================================================
+
+SIEM Platforms
+
+Examples:
+
+- Splunk
+- Elastic Stack
+- Microsoft Sentinel
+
+
+Endpoint Detection and Response
+
+Examples:
+
+- Microsoft Defender for Endpoint
+- CrowdStrike Falcon
+- SentinelOne
+
+
+Threat Hunting Platforms
+
+Examples:
+
+- Velociraptor
+- Wazuh
+
+
+Active Directory Security Tools
+
+Examples:
+
+- Microsoft Defender for Identity
+- PingCastle
+- BloodHound (defensive analysis)
+
+
+Network Monitoring Tools
+
+Examples:
+
+- Zeek
+- Wireshark
+
+
+==================================================
+14. Mitigation Strategies
+==================================================
+
+Restrict Replication Permissions
+
+Ensure only domain controllers have replication privileges.
+
+Audit Directory Permissions
+
+Review Active Directory ACLs regularly.
+
+Monitor Replication Requests
+
+Detect unusual replication activity.
+
+Protect Domain Controllers
+
+Implement strong access controls and monitoring.
+
+Deploy Endpoint Detection
+
+Identify credential dumping tools such as Mimikatz.
+
+Implement Privileged Access Management
+
+Limit and monitor high-privilege account usage.
+
+
+==================================================
+15. Blue Team Knowledge Base Cross-References
+==================================================
+
+Blue Team → Active Directory Defense
+
+Blue Team → Log Analysis and Detection
+
+Blue Team → Threat Hunting
+
+Blue Team → Detection Engineering
+
+Blue Team → Incident Response
+
+
+==================================================
+16. Questions & Answers
+==================================================
+Question:
+What is a DCSync attack?
+
+Answer:
+An attack that impersonates a domain controller to request password data from Active Directory.
+
+--------------------------------------------------
+
+Question:
+What protocol does DCSync abuse?
+
+Answer:
+The Directory Replication Service used by domain controllers.
+
+--------------------------------------------------
+
+Question:
+What tool is commonly used to perform a DCSync attack?
+
+Answer:
+Mimikatz.
+
+--------------------------------------------------
+
+Question:
+Which sensitive account is often targeted during DCSync attacks?
+
+Answer:
+The KRBTGT account.
+
+--------------------------------------------------
+
+Question:
+What is the main defense against DCSync attacks?
+
+Answer:
+Restricting replication permissions and monitoring directory replication activity.

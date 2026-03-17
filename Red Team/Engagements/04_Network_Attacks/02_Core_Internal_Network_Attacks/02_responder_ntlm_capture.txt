@@ -1,0 +1,418 @@
+Responder NTLM Capture Attack
+- An internal network attack that captures NTLM authentication hashes using LLMNR and NetBIOS poisoning.
+
+==================================================
+Attack Metadata
+==================================================
+
+Category:
+Network Attacks → Protocol Abuse
+
+Attack Stage:
+Credential Access
+Lateral Movement Preparation
+
+Difficulty:
+Beginner → Intermediate
+
+Stealth Level:
+Medium
+
+Requires Authentication:
+No (requires internal network presence)
+
+Tools Used:
+Responder
+Hashcat
+Impacket
+
+
+==================================================
+1. Overview
+==================================================
+Responder is a tool used in internal network environments to capture NTLM authentication hashes.
+
+It works by poisoning name resolution protocols such as:
+
+- LLMNR (Link-Local Multicast Name Resolution)
+- NBT-NS (NetBIOS Name Service)
+- mDNS (Multicast DNS)
+
+When a system cannot resolve a hostname through DNS, it may fall back to these protocols.
+
+Responder listens for these broadcast queries and responds pretending to be the requested service.
+
+The victim system then attempts to authenticate using NTLM, allowing the attacker to capture the authentication hash.
+
+
+==================================================
+2. Attack Scenario
+==================================================
+Assume an attacker has gained access to an internal corporate network.
+
+The attacker launches Responder on their system.
+
+A victim machine attempts to access a network resource using a hostname that cannot be resolved through DNS.
+
+The victim broadcasts a name resolution request using LLMNR.
+
+Responder responds to the request and impersonates the requested service.
+
+The victim system attempts to authenticate using NTLM credentials.
+
+Responder captures the NTLM authentication hash.
+
+
+==================================================
+3. Tools Required
+==================================================
+
+Responder
+Primary tool used to perform LLMNR/NBT-NS poisoning and capture NTLM hashes.
+
+Hashcat
+Used to crack captured NTLM hashes offline.
+
+Impacket
+Used for pass-the-hash attacks if the hash cannot be cracked.
+
+
+==================================================
+4. Attack Workflow
+==================================================
+
+Internal Network Access
+        ↓
+Start Responder
+        ↓
+Wait for Name Resolution Broadcast
+        ↓
+Poison LLMNR / NBT-NS Response
+        ↓
+Victim Attempts Authentication
+        ↓
+Capture NTLM Hash
+
+
+==================================================
+5. Step-by-Step Execution
+==================================================
+Step 1 — Gain Internal Network Access
+
+The attacker must be present on the same network segment as the victim.
+
+
+Step 2 — Identify Network Interface
+
+Example command:
+
+ip a
+
+Identify the interface connected to the internal network.
+
+
+Step 3 — Launch Responder
+
+Example command:
+
+sudo responder -I eth0
+
+
+Responder begins listening for name resolution requests.
+
+
+Step 4 — Wait for Authentication Attempts
+
+When a victim system sends a broadcast request, Responder replies and requests authentication.
+
+
+Step 5 — Capture NTLM Hash
+
+Example captured hash:
+
+[SMB] NTLMv2-SSP Hash captured from user: DOMAIN\alice
+
+
+Hashes are stored in the Responder logs directory.
+
+
+==================================================
+6. Example Attack Scenario
+==================================================
+
+Internal Access
+
+Attacker connects to the internal corporate network.
+
+
+Responder Deployment
+
+Responder is started to listen for LLMNR traffic.
+
+
+Victim Broadcast
+
+A user mistypes a network share name.
+
+
+Poisoned Response
+
+Responder replies to the broadcast.
+
+
+Hash Capture
+
+The victim attempts authentication and the NTLM hash is captured.
+
+
+==================================================
+7. Expected Results
+==================================================
+Successful attacks may produce:
+
+- NTLMv1 hashes
+- NTLMv2 hashes
+- domain user credentials
+- local administrator authentication attempts
+
+Captured hashes can be used for:
+
+- offline password cracking
+- pass-the-hash attacks
+- lateral movement
+
+
+==================================================
+8. Defensive Considerations
+==================================================
+Organizations can reduce the effectiveness of Responder attacks through several controls.
+
+Disable LLMNR
+
+Disable Link-Local Multicast Name Resolution through group policy.
+
+Disable NetBIOS Name Resolution
+
+Prevent fallback name resolution methods.
+
+Network Segmentation
+
+Limit broadcast traffic between network segments.
+
+SMB Signing
+
+Require SMB signing to prevent relay attacks.
+
+Security Monitoring
+
+Monitor unusual name resolution responses or NTLM authentication patterns.
+
+
+==================================================
+9. MITRE ATT&CK Mapping
+==================================================
+
+Technique:
+T1557 — Adversary-in-the-Middle
+
+Sub-technique:
+T1557.001 — LLMNR/NBT-NS Poisoning and SMB Relay
+
+Technique:
+T1110 — Brute Force
+
+Sub-technique:
+T1110.002 — Password Cracking
+
+Technique:
+T1078 — Valid Accounts
+
+
+==================================================
+10. Blue Team Detection
+==================================================
+Responder attacks create abnormal name resolution behavior and NTLM authentication patterns on internal networks.
+
+Common indicators include:
+
+- unexpected responses to LLMNR or NetBIOS name resolution queries
+- multiple systems receiving name resolution responses from non-DNS hosts
+- unusual NTLM authentication attempts between internal hosts
+- authentication attempts to systems that are not legitimate file servers
+- repeated LLMNR or NBT-NS broadcasts across the network
+
+Other indicators may include:
+
+- suspicious SMB authentication attempts
+- internal systems acting as unauthorized authentication servers
+- NTLM authentication traffic originating from unusual hosts.
+
+
+==================================================
+11. Relevant Logs
+==================================================
+
+Windows Security Logs
+
+Event ID 4624 — Successful Logon  
+Event ID 4625 — Failed Logon  
+
+
+NTLM Authentication Logs
+
+Event ID 4776 — NTLM authentication attempt
+
+
+Network Logs
+
+Detection of LLMNR and NetBIOS name resolution traffic.
+
+
+Sysmon Logs
+
+Event ID 3 — Network Connection  
+Event ID 1 — Process Creation  
+
+
+IDS / IPS Logs
+
+Detection of LLMNR or NBT-NS poisoning activity.
+
+
+SIEM Correlation Logs
+
+Authentication attempts correlated with suspicious name resolution traffic.
+
+
+==================================================
+12. Detection Tools
+==================================================
+
+Network Intrusion Detection Systems
+
+Examples:
+
+- Suricata
+- Snort
+
+
+Network Monitoring Tools
+
+Examples:
+
+- Zeek
+- Wireshark
+
+
+SIEM Platforms
+
+Examples:
+
+- Splunk
+- Elastic Stack
+- Microsoft Sentinel
+
+
+Endpoint Detection and Response
+
+Examples:
+
+- Microsoft Defender for Endpoint
+- CrowdStrike Falcon
+
+
+Threat Hunting Platforms
+
+Examples:
+
+- Velociraptor
+- Wazuh
+
+
+==================================================
+13. Mitigation Strategies
+==================================================
+
+Disable LLMNR
+
+Prevent fallback name resolution attacks.
+
+Disable NetBIOS over TCP/IP
+
+Reduce NetBIOS name resolution exposure.
+
+Enforce SMB Signing
+
+Prevent SMB relay attacks.
+
+Use Strong Authentication
+
+Implement multi-factor authentication where possible.
+
+Monitor NTLM Usage
+
+Detect suspicious NTLM authentication attempts.
+
+Implement Network Segmentation
+
+Reduce broadcast domains across large networks.
+
+
+==================================================
+14. Blue Team Knowledge Base Cross-References
+==================================================
+
+Blue Team → Network Defense
+
+Blue Team → Active Directory Defense
+
+Blue Team → Log Analysis and Detection
+
+Blue Team → Threat Hunting
+
+Blue Team → Detection Engineering
+
+Blue Team → Incident Response
+
+
+==================================================
+15. Questions & Answers
+==================================================
+
+Question:
+What does Responder do?
+
+Answer:
+Responder captures NTLM authentication hashes by poisoning name resolution protocols such as LLMNR and NBT-NS.
+
+--------------------------------------------------
+
+Question:
+Which protocols does Responder commonly abuse?
+
+Answer:
+LLMNR, NBT-NS, and mDNS.
+
+--------------------------------------------------
+
+Question:
+What type of credential can Responder capture?
+
+Answer:
+NTLM authentication hashes.
+
+--------------------------------------------------
+
+Question:
+What tool can crack captured NTLM hashes?
+
+Answer:
+Hashcat.
+
+--------------------------------------------------
+
+Question:
+What is the best defense against Responder attacks?
+
+Answer:
+Disabling LLMNR and NetBIOS name resolution in the network environment.

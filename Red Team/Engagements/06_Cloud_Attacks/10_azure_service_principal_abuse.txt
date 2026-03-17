@@ -1,0 +1,362 @@
+Azure Service Principal Abuse
+- An attack where attackers abuse or create service principals to gain persistent access and automate malicious actions in Azure.
+
+==================================================
+Attack Metadata
+==================================================
+
+Category:
+Cloud_Attacks → Azure
+
+Attack Stage:
+Persistence
+Privilege Escalation
+Defense Evasion
+
+Difficulty:
+Intermediate → Advanced
+
+Stealth Level:
+High
+
+Requires Authentication:
+Yes (Azure access required)
+
+Tools Used:
+Azure CLI
+PowerShell
+Az PowerShell Module
+
+
+==================================================
+1. Overview
+==================================================
+Service principals are identities used by applications to access Azure resources.
+
+They function similarly to service accounts.
+
+Attackers can abuse service principals by:
+
+- creating new service principals
+- assigning elevated roles
+- generating credentials (client secrets or certificates)
+
+These identities can operate without user interaction, making them ideal for persistence.
+
+
+==================================================
+2. Attack Scenario
+==================================================
+An attacker gains access to an Azure environment.
+
+The attacker creates a service principal and assigns it a privileged role.
+
+The attacker generates a client secret.
+
+The attacker uses this identity to maintain access even if user accounts are disabled.
+
+
+==================================================
+3. Tools Required
+==================================================
+
+Azure CLI
+
+Used to create and manage service principals.
+
+PowerShell
+
+Used for scripting Azure operations.
+
+Az PowerShell Module
+
+Provides Azure commands.
+
+
+==================================================
+4. Attack Workflow
+==================================================
+
+Gain Azure Access
+        ↓
+Create Service Principal
+        ↓
+Assign Privileged Role
+        ↓
+Generate Credentials
+        ↓
+Use for Persistent Access
+
+
+==================================================
+5. Step-by-Step Execution
+==================================================
+Step 1 — Create Service Principal
+
+Example:
+
+az ad sp create-for-rbac --name backdoor-app
+
+
+Step 2 — Assign Role
+
+Example:
+
+az role assignment create \
+--assignee <appId> \
+--role Owner
+
+
+Step 3 — Store Credentials
+
+Output includes:
+
+- appId
+- password (client secret)
+- tenant
+
+
+Step 4 — Authenticate Using Service Principal
+
+Example:
+
+az login --service-principal \
+-u <appId> \
+-p <password> \
+--tenant <tenant-id>
+
+
+Step 5 — Access Resources
+
+Use Azure CLI to manage resources.
+
+
+==================================================
+6. Example Abuse Scenario
+==================================================
+Initial Access
+
+Attacker compromises Azure account.
+
+
+Backdoor Creation
+
+Service principal created.
+
+
+Privilege Assignment
+
+Owner role assigned.
+
+
+Persistence
+
+Access maintained using client secret.
+
+
+==================================================
+7. Expected Results
+==================================================
+Successful abuse allows attackers to:
+
+- maintain persistent access
+- automate malicious actions
+- bypass user account controls
+- operate stealthily
+
+
+==================================================
+8. Defensive Considerations
+==================================================
+
+Monitor Service Principals
+
+Track creation and usage.
+
+Limit Permissions
+
+Restrict role assignments.
+
+Rotate Secrets
+
+Prevent long-term abuse.
+
+Use Managed Identities
+
+Avoid static credentials.
+
+Audit Logs
+
+Review application activity.
+
+
+==================================================
+9. MITRE ATT&CK Mapping
+==================================================
+
+Technique:
+T1098 — Account Manipulation
+
+Technique:
+T1078 — Valid Accounts
+
+Technique:
+T1550 — Use of Alternate Authentication Material
+
+
+==================================================
+10. Blue Team Detection
+==================================================
+Indicators include:
+
+- creation of new service principals
+- assignment of privileged roles
+- unusual application authentication activity
+- usage of service principals from unexpected locations
+
+Security teams should monitor:
+
+- application identities
+- role assignments
+- authentication patterns
+
+
+==================================================
+11. Relevant Logs
+==================================================
+
+Azure AD Logs
+
+Service principal creation  
+Application authentication  
+
+
+Azure Activity Logs
+
+Role assignments  
+
+
+SIEM Logs
+
+Correlation of identity activity  
+
+
+==================================================
+12. Detection Tools
+==================================================
+
+Microsoft Native Tools
+
+- Azure AD Identity Protection
+- Microsoft Defender for Cloud
+
+
+SIEM Platforms
+
+- Splunk
+- Elastic Stack
+- Microsoft Sentinel
+
+
+==================================================
+13. SOC Detection Queries
+==================================================
+
+Splunk Query (Service Principal Creation)
+
+index=azure
+| search operationName="Add service principal"
+
+
+Sigma Rule Example
+
+title: Suspicious Service Principal Creation
+logsource:
+  product: azure
+detection:
+  selection:
+    operationName: "Add service principal"
+  condition: selection
+level: high
+
+
+Microsoft Sentinel (KQL) Example
+
+AuditLogs
+| where OperationName contains "Add service principal"
+
+
+==================================================
+14. Mitigation Strategies
+==================================================
+
+Restrict App Registration Permissions
+
+Limit who can create service principals.
+
+Monitor Application Activity
+
+Detect suspicious behavior.
+
+Rotate Secrets
+
+Reduce persistence risk.
+
+Use Conditional Access
+
+Restrict access.
+
+Enable Logging
+
+Track all identity activity.
+
+
+==================================================
+15. Attack Chain Integration
+==================================================
+
+This attack commonly follows:
+
+- Azure Role Assignment Escalation
+- Azure Password Spraying
+
+This attack may lead to:
+
+- Long-Term Persistence
+- Resource Abuse
+- Data Exfiltration
+
+
+==================================================
+16. Questions & Answers
+==================================================
+
+Question:
+What is a service principal?
+
+Answer:
+An identity used by applications to access Azure resources.
+
+--------------------------------------------------
+
+Question:
+Why do attackers abuse service principals?
+
+Answer:
+To maintain persistent access.
+
+--------------------------------------------------
+
+Question:
+What credential is commonly used?
+
+Answer:
+Client secret or certificate.
+
+--------------------------------------------------
+
+Question:
+What is a key defense?
+
+Answer:
+Monitoring and restricting service principal creation.

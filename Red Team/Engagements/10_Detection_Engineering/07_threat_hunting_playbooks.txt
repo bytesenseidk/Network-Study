@@ -1,0 +1,389 @@
+Threat Hunting Playbooks
+- Structured methodologies used by security teams to proactively search for threats that have evaded automated detection.
+
+==================================================
+1. Overview
+==================================================
+Threat hunting is the proactive process of searching for malicious activity within an environment that has not triggered alerts.
+
+Unlike traditional detection:
+
+- Detection = reactive (alerts trigger investigation)
+- Hunting = proactive (analysts search for threats)
+
+Threat hunting focuses on:
+
+- attacker behavior
+- anomalies
+- weak signals
+
+Playbooks provide a repeatable structure for conducting hunts efficiently.
+
+
+==================================================
+2. Objectives
+==================================================
+
+Identify Undetected Threats
+
+Find activity that bypassed detection rules.
+
+Validate Detection Coverage
+
+Ensure existing detections are effective.
+
+Improve Security Posture
+
+Discover gaps in visibility or logging.
+
+Develop New Detections
+
+Turn findings into detection rules.
+
+
+==================================================
+3. Threat Hunting Workflow
+==================================================
+
+Define Hypothesis
+        ↓
+Collect Relevant Data
+        ↓
+Search for Indicators or Patterns
+        ↓
+Analyze Findings
+        ↓
+Confirm or Reject Hypothesis
+        ↓
+Create Detection or Response
+
+
+==================================================
+4. Types of Hunting Approaches
+==================================================
+
+Hypothesis-Driven Hunting
+
+Based on known attacker techniques.
+
+Example:
+"Attackers may use encoded PowerShell commands."
+
+
+Indicator-Based Hunting
+
+Search for known indicators (IOCs).
+
+Example:
+Known malicious IP addresses.
+
+
+Behavior-Based Hunting
+
+Search for suspicious behavior patterns.
+
+Example:
+Unusual login activity.
+
+
+Anomaly-Based Hunting
+
+Detect deviations from normal baseline.
+
+
+==================================================
+5. Example Hunting Playbooks
+==================================================
+
+Playbook 1 — Suspicious PowerShell Activity
+
+Hypothesis:
+Attackers use encoded PowerShell for execution.
+
+Query:
+
+DeviceProcessEvents
+| where FileName == "powershell.exe"
+| where ProcessCommandLine contains "-enc"
+
+Analysis:
+
+- review command line
+- identify parent process
+- check user context
+
+Outcome:
+
+- confirm malicious execution
+- create detection rule
+
+
+--------------------------------------------------
+
+Playbook 2 — Password Spraying
+
+Hypothesis:
+An attacker is attempting password spraying.
+
+Query:
+
+SigninLogs
+| where ResultType != 0
+| summarize FailedUsers=dcount(UserPrincipalName) by IPAddress
+| where FailedUsers > 10
+
+Analysis:
+
+- identify source IP
+- review affected accounts
+- check for successful logins
+
+Outcome:
+
+- confirm attack
+- block IP
+- alert SOC
+
+
+--------------------------------------------------
+
+Playbook 3 — Lateral Movement
+
+Hypothesis:
+Attackers are moving laterally within the network.
+
+Query:
+
+DeviceLogonEvents
+| where LogonType == "RemoteInteractive"
+
+Analysis:
+
+- identify unusual logins
+- check source and destination hosts
+- validate user activity
+
+Outcome:
+
+- detect unauthorized movement
+- initiate response
+
+
+==================================================
+6. Data Sources for Hunting
+==================================================
+
+Endpoint Telemetry
+
+- process execution
+- command line activity
+
+Authentication Logs
+
+- login attempts
+- account usage
+
+Network Logs
+
+- connections
+- traffic patterns
+
+Cloud Logs
+
+- API activity
+- IAM actions
+
+Application Logs
+
+- web requests
+- errors
+
+
+==================================================
+7. Step-by-Step Hunting Process
+==================================================
+
+Step 1 — Define Hypothesis
+
+Based on:
+
+- threat intelligence
+- MITRE ATT&CK
+- recent incidents
+
+
+Step 2 — Identify Data Sources
+
+Select relevant logs.
+
+
+Step 3 — Build Query
+
+Search for indicators or behavior.
+
+
+Step 4 — Analyze Results
+
+Look for anomalies or suspicious patterns.
+
+
+Step 5 — Investigate Findings
+
+Validate activity as benign or malicious.
+
+
+Step 6 — Take Action
+
+- create detection
+- escalate incident
+- improve monitoring
+
+
+==================================================
+8. Advanced Hunting Techniques
+==================================================
+
+Pivoting
+
+Move from one indicator to related data.
+
+Example:
+
+User → IP → device → process
+
+
+Timeline Analysis
+
+Reconstruct sequence of events.
+
+
+Entity-Based Analysis
+
+Focus on:
+
+- specific users
+- endpoints
+- applications
+
+
+Correlation
+
+Combine multiple weak signals.
+
+
+Threat Intelligence Integration
+
+Use external threat data to guide hunts.
+
+
+==================================================
+9. Common Mistakes
+==================================================
+
+No Hypothesis
+
+Unstructured hunting wastes time.
+
+Too Broad Queries
+
+Leads to excessive data.
+
+Ignoring Context
+
+Misinterpreting normal activity.
+
+No Follow-Up
+
+Failing to create detections from findings.
+
+Over-Reliance on IOCs
+
+Missing behavior-based threats.
+
+
+==================================================
+10. Best Practices
+==================================================
+
+Start with Clear Hypothesis
+
+Define what you are looking for.
+
+Use Structured Playbooks
+
+Follow repeatable workflows.
+
+Leverage MITRE ATT&CK
+
+Map hunts to known techniques.
+
+Document Findings
+
+Track results and improvements.
+
+Collaborate with SOC
+
+Share insights and detections.
+
+
+==================================================
+11. MITRE ATT&CK Mapping
+==================================================
+
+Technique:
+T1059 — Command and Scripting Interpreter
+
+Technique:
+T1078 — Valid Accounts
+
+Technique:
+T1110 — Brute Force
+
+Technique:
+T1021 — Remote Services
+
+Technique:
+T1040 — Network Sniffing
+
+
+==================================================
+12. Questions & Answers
+==================================================
+
+Question:
+What is threat hunting?
+
+Answer:
+A proactive search for malicious activity that has not triggered alerts.
+
+--------------------------------------------------
+
+Question:
+What is a hunting playbook?
+
+Answer:
+A structured approach for conducting threat hunting investigations.
+
+--------------------------------------------------
+
+Question:
+What is a hypothesis in threat hunting?
+
+Answer:
+A theory about potential attacker behavior being investigated.
+
+--------------------------------------------------
+
+Question:
+What is the difference between detection and hunting?
+
+Answer:
+Detection is reactive, hunting is proactive.
+
+--------------------------------------------------
+
+Question:
+What is a key outcome of threat hunting?
+
+Answer:
+Improved detections and identification of hidden threats.

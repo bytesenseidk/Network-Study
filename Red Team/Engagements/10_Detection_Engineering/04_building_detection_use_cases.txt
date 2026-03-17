@@ -1,0 +1,397 @@
+Building Detection Use Cases
+- A structured approach to turning attacker behavior into actionable SIEM detections.
+
+==================================================
+1. Overview
+==================================================
+A detection use case is a documented security scenario that defines:
+
+- what behavior should be detected
+- why it matters
+- what logs are needed
+- how the detection works
+- how analysts should investigate it
+
+A good use case connects attacker behavior to operational detection logic.
+
+It acts as a bridge between:
+
+- threat intelligence
+- red team knowledge
+- blue team monitoring
+- SOC investigations
+
+
+==================================================
+2. Why Detection Use Cases Matter
+==================================================
+
+Consistency
+
+Standardizes how detections are built.
+
+Coverage
+
+Helps identify visibility gaps.
+
+Quality
+
+Improves detection reliability and analyst response.
+
+Scalability
+
+Makes it easier to build and maintain many detections.
+
+
+==================================================
+3. Detection Use Case Components
+==================================================
+
+A complete detection use case should include:
+
+Title
+What the detection is called
+
+Objective
+What activity it is trying to identify
+
+Threat Scenario
+What attacker behavior is being detected
+
+Data Sources
+Which logs are required
+
+Detection Logic
+The rule, query, or pattern used
+
+Severity
+How serious the alert is
+
+False Positives
+Expected benign causes
+
+Tuning Notes
+How to reduce noise
+
+Investigation Steps
+How analysts should respond
+
+MITRE ATT&CK Mapping
+Which techniques it covers
+
+
+==================================================
+4. Basic Template
+==================================================
+
+Title:
+Suspicious PowerShell Execution
+
+Objective:
+Detect encoded or obfuscated PowerShell usage
+
+Threat Scenario:
+Attackers often use PowerShell for execution, download cradles, and defense evasion.
+
+Data Sources:
+- Windows Event Logs
+- Sysmon
+- EDR telemetry
+
+Detection Logic:
+Look for powershell.exe with encoded commands
+
+Severity:
+High
+
+False Positives:
+Administrative scripts, automation tools
+
+Tuning Notes:
+Exclude approved admin hosts and signed automation scripts
+
+Investigation Steps:
+- review command line
+- identify parent process
+- check user and host context
+- inspect related network connections
+
+MITRE ATT&CK:
+T1059.001 — PowerShell
+
+
+==================================================
+5. Detection Development Process
+==================================================
+
+Threat Identification
+        ↓
+Behavior Analysis
+        ↓
+Log Source Mapping
+        ↓
+Draft Detection Logic
+        ↓
+Test Against Data
+        ↓
+Tune for Noise
+        ↓
+Deploy Alert
+        ↓
+Review and Improve
+
+
+==================================================
+6. Starting From Attacker Behavior
+==================================================
+A strong use case starts with attacker tradecraft.
+
+Examples:
+
+Attacker Behavior:
+Password spraying
+
+Detection Goal:
+Identify one IP failing against many accounts
+
+Attacker Behavior:
+Kerberoasting
+
+Detection Goal:
+Identify unusual volumes of Kerberos service ticket requests
+
+Attacker Behavior:
+DCSync
+
+Detection Goal:
+Detect replication requests from non-domain controllers
+
+
+==================================================
+7. Starting From Data Sources
+==================================================
+Sometimes detections begin with available telemetry.
+
+Examples:
+
+Available Data:
+- SigninLogs
+- Sysmon
+- CloudTrail
+- Firewall logs
+
+Question:
+What attacker behaviors can be detected from this telemetry?
+
+This helps prioritize practical detections.
+
+
+==================================================
+8. High-Quality Detection Characteristics
+==================================================
+
+Specific
+
+Detects a real attacker technique
+
+Contextual
+
+Includes user, host, time, and environment context
+
+Actionable
+
+Analysts can investigate immediately
+
+Tunable
+
+False positives can be reduced over time
+
+Mapped
+
+Aligned to MITRE ATT&CK or internal threat models
+
+
+==================================================
+9. Example Use Cases
+==================================================
+
+Use Case:
+Password Spraying
+
+Objective:
+Detect one source failing logins across many accounts
+
+Data Sources:
+- Azure AD SigninLogs
+- VPN logs
+- Active Directory authentication logs
+
+Detection Logic:
+Count distinct users per source IP with failed logins
+
+False Positives:
+Misconfigured applications, shared proxies
+
+
+Use Case:
+Suspicious USB Execution
+
+Objective:
+Detect script execution shortly after USB insertion
+
+Data Sources:
+- Windows Event Logs
+- EDR telemetry
+- PowerShell logs
+
+Detection Logic:
+Correlate USB device connection with process creation
+
+
+Use Case:
+AWS IAM Privilege Escalation
+
+Objective:
+Detect high-risk IAM policy attachment
+
+Data Sources:
+- AWS CloudTrail
+
+Detection Logic:
+Alert on AdministratorAccess policy attached to users or roles
+
+
+==================================================
+10. Tuning and False Positives
+==================================================
+Every detection must be tuned.
+
+Common tuning methods:
+
+- exclude admin subnets
+- suppress known service accounts
+- exclude approved tools
+- raise thresholds for noisy systems
+- correlate multiple weak signals
+
+Never deploy detections without testing expected benign activity.
+
+
+==================================================
+11. Severity and Prioritization
+==================================================
+
+Low
+
+Suspicious but weak signal
+
+Medium
+
+Likely malicious or policy violation
+
+High
+
+Strong attacker behavior
+
+Critical
+
+Likely active compromise or high-impact threat
+
+
+==================================================
+12. Investigation Guidance
+==================================================
+Every detection should tell the analyst what to do next.
+
+Good investigation guidance includes:
+
+- what system was involved
+- which user was involved
+- what happened before and after
+- what logs to pivot into
+- whether containment may be needed
+
+
+==================================================
+13. Use Cases and MITRE ATT&CK
+==================================================
+Each detection use case should map to one or more ATT&CK techniques.
+
+Examples:
+
+Password Spraying
+T1110.003
+
+Kerberoasting
+T1558.003
+
+DCSync
+T1003.006
+
+Phishing
+T1566
+
+This helps measure detection coverage.
+
+
+==================================================
+14. Building a Detection Library
+==================================================
+Over time, detection use cases become a reusable library.
+
+Recommended fields:
+
+- title
+- technique
+- platform
+- log source
+- query language
+- severity
+- owner
+- tuning status
+- last reviewed date
+
+This supports mature detection engineering.
+
+
+==================================================
+15. Questions & Answers
+==================================================
+
+Question:
+What is a detection use case?
+
+Answer:
+A documented security scenario that defines how a specific attacker behavior should be detected and investigated.
+
+--------------------------------------------------
+
+Question:
+Why are detection use cases important?
+
+Answer:
+They turn threat behavior into structured, repeatable SOC detections.
+
+--------------------------------------------------
+
+Question:
+What should every use case include?
+
+Answer:
+Objective, threat scenario, data sources, detection logic, false positives, and investigation guidance.
+
+--------------------------------------------------
+
+Question:
+Why is tuning necessary?
+
+Answer:
+Because even good detections can create noise without environment-specific refinement.
+
+--------------------------------------------------
+
+Question:
+What is the main goal of building detection use cases?
+
+Answer:
+To create reliable, actionable detections for real attacker behavior.

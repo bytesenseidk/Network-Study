@@ -1,0 +1,411 @@
+WPA2 Handshake Attack
+- A wireless attack that captures the WPA2 four-way handshake and cracks the WiFi password using offline password cracking techniques.
+
+==================================================
+Attack Metadata
+==================================================
+
+Category:
+Wireless Attacks → WiFi Attacks
+
+Attack Stage:
+Credential Access
+Initial Access
+
+Difficulty:
+Beginner → Intermediate
+
+Stealth Level:
+Medium
+
+Requires Authentication:
+No
+
+Tools Used:
+Aircrack-ng Suite
+Airodump-ng
+Aireplay-ng
+Aircrack-ng
+Compatible Wireless Adapter
+
+
+==================================================
+1. Overview
+==================================================
+The WPA2 handshake attack targets the authentication process used when a client connects to a WPA2-protected wireless network.
+
+When a device connects to a WiFi access point, a **four-way handshake** occurs between the client and the access point.
+
+This handshake verifies that both sides know the network password without transmitting the password itself.
+
+Attackers can capture this handshake and perform **offline password cracking**.
+
+Because the attack occurs offline, it does not trigger repeated login attempts on the network.
+
+
+==================================================
+2. Attack Scenario
+==================================================
+An attacker identifies a WPA2 wireless network.
+
+The attacker monitors wireless traffic and waits for a client to connect.
+
+If no client connects, the attacker can force a reconnection using a **deauthentication attack**.
+
+When the client reconnects, the attacker captures the WPA2 four-way handshake.
+
+The captured handshake is then cracked offline using password-cracking tools.
+
+
+==================================================
+3. Tools Required
+==================================================
+
+Aircrack-ng Suite
+Used for wireless attacks and password cracking.
+
+Airodump-ng
+Used to capture wireless packets.
+
+Aireplay-ng
+Used to perform deauthentication attacks.
+
+Aircrack-ng
+Used to crack captured handshakes.
+
+Compatible Wireless Adapter
+Must support monitor mode and packet injection.
+
+
+==================================================
+4. Attack Workflow
+==================================================
+
+Identify Target Network
+        ↓
+Enable Monitor Mode
+        ↓
+Capture Wireless Traffic
+        ↓
+Force Client Reconnection
+        ↓
+Capture WPA2 Handshake
+        ↓
+Crack Password Offline
+
+
+==================================================
+5. Step-by-Step Execution
+==================================================
+Step 1 — Enable Monitor Mode
+
+Example command:
+
+airmon-ng start wlan0
+
+
+Step 2 — Identify Target Network
+
+Example command:
+
+airodump-ng wlan0mon
+
+This reveals:
+
+- SSID
+- BSSID
+- channel
+- connected clients
+
+
+Step 3 — Capture Handshake
+
+Example command:
+
+airodump-ng -c 6 --bssid AA:BB:CC:DD:EE:FF -w capture wlan0mon
+
+
+Step 4 — Force Client Reconnection
+
+Example command:
+
+aireplay-ng --deauth 10 -a AA:BB:CC:DD:EE:FF wlan0mon
+
+This disconnects clients from the network.
+
+
+Step 5 — Capture WPA2 Handshake
+
+When the client reconnects, the handshake is captured.
+
+Airodump-ng will display:
+
+WPA handshake: AA:BB:CC:DD:EE:FF
+
+
+Step 6 — Crack the Password
+
+Example command:
+
+aircrack-ng capture.cap -w /usr/share/wordlists/rockyou.txt
+
+
+Step 7 — Recover WiFi Password
+
+If the password exists in the wordlist, the attacker recovers the WiFi password.
+
+
+==================================================
+6. Example WPA2 Attack Scenario
+==================================================
+Wireless Reconnaissance
+
+The attacker identifies a target wireless network.
+
+
+Packet Capture
+
+Wireless traffic is monitored.
+
+
+Client Disconnection
+
+A deauthentication attack forces a device to reconnect.
+
+
+Handshake Capture
+
+The WPA2 handshake is captured.
+
+
+Password Cracking
+
+Aircrack-ng attempts to crack the password.
+
+
+Network Access
+
+The attacker connects to the WiFi network.
+
+
+==================================================
+7. Expected Results
+==================================================
+Successful WPA2 handshake attacks allow attackers to:
+
+- capture authentication data
+- crack WiFi passwords offline
+- gain unauthorized network access
+
+Weak passwords significantly increase the likelihood of success.
+
+
+==================================================
+8. Defensive Considerations
+==================================================
+Organizations can reduce the risk of WPA2 attacks through several controls.
+
+Strong Passwords
+
+Use long and complex WiFi passwords.
+
+WPA3 Security
+
+Upgrade to WPA3 where possible.
+
+Disable WPS
+
+WiFi Protected Setup can introduce vulnerabilities.
+
+Wireless Monitoring
+
+Detect deauthentication attacks and unusual activity.
+
+Network Segmentation
+
+Limit access for wireless networks.
+
+
+==================================================
+9. MITRE ATT&CK Mapping
+==================================================
+
+Technique:
+T1110 — Brute Force
+
+Sub-technique:
+T1110.002 — Password Cracking
+
+Technique:
+T1040 — Network Sniffing
+
+Technique:
+T1090 — Proxy / Network Manipulation
+
+
+==================================================
+10. Blue Team Detection
+==================================================
+WPA2 handshake attacks often involve monitoring wireless traffic and triggering client reconnections.
+
+Common indicators include:
+
+- repeated wireless deauthentication frames
+- unusual client disconnection patterns
+- multiple handshake captures within a short period
+- wireless monitoring activity near the network
+- unauthorized devices operating in monitor mode
+
+Additional suspicious indicators may include:
+
+- clients repeatedly reconnecting to the same access point
+- spikes in wireless management frame activity
+- rogue devices capturing wireless traffic.
+
+
+==================================================
+11. Relevant Logs
+==================================================
+
+Wireless Access Point Logs
+
+Client association and disassociation events  
+Authentication attempts  
+Repeated reconnection events
+
+
+Wireless IDS Logs
+
+Detection of deauthentication attacks.
+
+
+Network Monitoring Logs
+
+Wireless packet capture activity.
+
+
+SIEM Correlation Logs
+
+Correlation of repeated disconnections with wireless authentication attempts.
+
+
+==================================================
+12. Detection Tools
+==================================================
+
+Wireless Intrusion Detection Systems (WIDS)
+
+Examples:
+
+- Aruba Wireless IDS
+- Cisco Wireless IDS
+- Kismet
+
+
+Network Monitoring Tools
+
+Examples:
+
+- Wireshark
+- Zeek
+
+
+SIEM Platforms
+
+Examples:
+
+- Splunk
+- Elastic Stack
+- Microsoft Sentinel
+
+
+Threat Hunting Platforms
+
+Examples:
+
+- Velociraptor
+- Wazuh
+
+
+==================================================
+13. Mitigation Strategies
+==================================================
+
+Use WPA3 Security
+
+Upgrade wireless networks to WPA3 where possible.
+
+Enforce Strong WiFi Passwords
+
+Use long and complex passphrases.
+
+Disable WPS
+
+Prevent exploitation of WPS vulnerabilities.
+
+Deploy Wireless IDS
+
+Detect wireless reconnaissance and deauthentication attacks.
+
+Segment Wireless Networks
+
+Isolate wireless networks from internal infrastructure.
+
+Monitor Wireless Activity
+
+Detect unusual wireless client behavior.
+
+
+==================================================
+14. Blue Team Knowledge Base Cross-References
+==================================================
+
+Blue Team → Network Defense
+
+Blue Team → Threat Hunting
+
+Blue Team → Detection Engineering
+
+Blue Team → Incident Response
+
+
+==================================================
+15. Questions & Answers
+==================================================
+Question:
+What is a WPA2 handshake attack?
+
+Answer:
+An attack that captures the WPA2 four-way handshake to crack the WiFi password offline.
+
+--------------------------------------------------
+
+Question:
+Why is a client needed for a handshake attack?
+
+Answer:
+Because the handshake occurs when a client connects to the access point.
+
+--------------------------------------------------
+
+Question:
+Which tool captures WPA2 handshakes?
+
+Answer:
+Airodump-ng.
+
+--------------------------------------------------
+
+Question:
+Which tool cracks the captured handshake?
+
+Answer:
+Aircrack-ng.
+
+--------------------------------------------------
+
+Question:
+What is one defense against WPA2 cracking attacks?
+
+Answer:
+Using strong WiFi passwords or upgrading to WPA3.

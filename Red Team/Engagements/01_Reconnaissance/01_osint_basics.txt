@@ -1,0 +1,333 @@
+OSINT Basics
+- The process of collecting publicly available information about a target to support reconnaissance and attack planning.
+
+==================================================
+Attack Metadata
+==================================================
+
+Category:
+Reconnaissance
+
+Attack Stage:
+Reconnaissance
+Discovery
+Initial Access Preparation
+
+Difficulty:
+Beginner
+
+Stealth Level:
+Very High (Passive)
+
+Requires Authentication:
+No
+
+Tools Used:
+Google Dorking
+theHarvester
+Maltego
+Amass
+Recon-ng
+Shodan
+
+
+==================================================
+1. Overview
+==================================================
+Open Source Intelligence (OSINT) is the practice of gathering information from publicly available sources.
+
+These sources include:
+
+- websites
+- social media
+- public records
+- search engines
+- data breaches
+- DNS records
+
+OSINT is typically the **first phase of any attack**.
+
+It allows attackers to:
+
+- understand the target environment
+- identify attack surfaces
+- discover employees and credentials
+- map infrastructure
+
+Because OSINT uses public data, it is difficult to detect.
+
+
+==================================================
+2. Types of OSINT Data
+==================================================
+
+Domain Information
+
+- domain names
+- subdomains
+- DNS records
+
+Employee Information
+
+- names
+- roles
+- email formats
+
+Infrastructure Data
+
+- IP addresses
+- hosting providers
+- exposed services
+
+Technology Stack
+
+- web technologies
+- frameworks
+- cloud providers
+
+Credentials and Leaks
+
+- breached passwords
+- API keys
+- tokens
+
+
+==================================================
+3. Attack Workflow
+==================================================
+
+Identify Target Organization
+        ↓
+Collect Public Information
+        ↓
+Enumerate Domains and Subdomains
+        ↓
+Identify Employees and Emails
+        ↓
+Map Infrastructure
+        ↓
+Identify Attack Surface
+
+
+==================================================
+4. Common OSINT Techniques
+==================================================
+
+Search Engine Reconnaissance (Google Dorking)
+
+Example:
+
+site:example.com filetype:pdf  
+site:example.com intitle:"login"
+
+
+Subdomain Enumeration
+
+Identify hidden or internal services.
+
+
+Email Enumeration
+
+Discover valid email addresses.
+
+
+Metadata Extraction
+
+Extract information from documents.
+
+
+Social Media Profiling
+
+Identify employees and roles.
+
+
+Service Enumeration
+
+Identify exposed systems using tools like Shodan.
+
+
+==================================================
+5. Step-by-Step Execution
+==================================================
+
+Step 1 — Identify Target Domain
+
+Example:
+
+example.com
+
+
+Step 2 — Perform Google Reconnaissance
+
+Search for:
+
+- exposed documents
+- login portals
+- sensitive files
+
+
+Step 3 — Enumerate Subdomains
+
+Example:
+
+amass enum -d example.com
+
+
+Step 4 — Collect Emails
+
+Example:
+
+theHarvester -d example.com -b google
+
+
+Step 5 — Identify Infrastructure
+
+Use Shodan:
+
+Search for:
+
+org:"example"
+
+
+Step 6 — Analyze Results
+
+Identify:
+
+- attack surface
+- entry points
+- exposed services
+
+
+==================================================
+6. Example OSINT Scenario
+==================================================
+
+Target Identification
+
+example.com
+
+
+Subdomain Discovery
+
+dev.example.com  
+vpn.example.com  
+
+
+Employee Discovery
+
+john.doe@example.com  
+admin@example.com  
+
+
+Exposed Services
+
+VPN portal detected  
+Outdated web server identified  
+
+
+Result
+
+Multiple potential entry points for attack.
+
+
+==================================================
+7. Expected Results
+==================================================
+Successful OSINT may reveal:
+
+- valid usernames and emails
+- exposed services
+- sensitive documents
+- subdomains and internal systems
+- technology stack information
+
+This information is used to plan targeted attacks.
+
+
+==================================================
+8. Defensive Considerations
+==================================================
+Organizations can reduce OSINT exposure through:
+
+Data Minimization
+
+Limit publicly available information.
+
+Employee Awareness
+
+Avoid oversharing on social media.
+
+Document Sanitization
+
+Remove metadata from published files.
+
+Domain Monitoring
+
+Track exposed subdomains and services.
+
+Security Testing
+
+Regularly audit public exposure.
+
+
+==================================================
+9. MITRE ATT&CK Mapping
+==================================================
+
+Technique:
+T1592 — Gather Victim Host Information
+
+Technique:
+T1593 — Search Open Websites/Domains
+
+Technique:
+T1596 — Search Open Technical Databases
+
+Technique:
+T1589 — Gather Victim Identity Information
+
+Technique:
+T1590 — Gather Victim Network Information
+
+
+==================================================
+10. Questions & Answers
+==================================================
+
+Question:
+What is OSINT?
+
+Answer:
+The process of collecting publicly available information about a target.
+
+--------------------------------------------------
+
+Question:
+Why is OSINT important?
+
+Answer:
+It helps attackers understand the target and identify attack opportunities.
+
+--------------------------------------------------
+
+Question:
+What makes OSINT difficult to detect?
+
+Answer:
+It uses publicly accessible information without interacting with target systems.
+
+--------------------------------------------------
+
+Question:
+What tool is commonly used for subdomain enumeration?
+
+Answer:
+Amass.
+
+--------------------------------------------------
+
+Question:
+What is Google Dorking?
+
+Answer:
+Using advanced search queries to find sensitive information on search engines.

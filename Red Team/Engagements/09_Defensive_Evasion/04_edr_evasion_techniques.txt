@@ -1,0 +1,380 @@
+EDR Evasion Techniques
+- Advanced techniques used by attackers to bypass Endpoint Detection and Response (EDR) systems and avoid detection.
+
+==================================================
+Attack Metadata
+==================================================
+
+Category:
+Post_Exploitation → Defense Evasion
+
+Attack Stage:
+Defense Evasion
+Execution
+Persistence
+
+Difficulty:
+Advanced
+
+Stealth Level:
+Very High
+
+Requires Authentication:
+Yes (initial access required)
+
+Tools Used:
+Custom malware
+Reflective loaders
+Process injection tools
+PowerShell
+Cobalt Strike-like frameworks
+
+
+==================================================
+1. Overview
+==================================================
+EDR systems monitor:
+
+- processes
+- memory
+- behavior
+- system calls
+
+Attackers use evasion techniques to:
+
+- bypass detection
+- execute payloads in memory
+- avoid alerts
+
+EDR evasion focuses on:
+
+- hiding activity
+- blending with normal processes
+- avoiding known indicators
+
+
+==================================================
+2. Attack Scenario
+==================================================
+An attacker gains access to a system with EDR installed.
+
+Instead of using standard tools, the attacker:
+
+- injects code into trusted processes
+- executes payloads in memory
+- avoids writing files to disk
+
+The EDR fails to detect malicious activity.
+
+
+==================================================
+3. Tools Required
+==================================================
+
+Custom Loaders
+
+Used to execute payloads in memory.
+
+PowerShell
+
+Used for in-memory execution.
+
+Injection Tools
+
+Used for process injection.
+
+Red Team Frameworks
+
+Used to simulate advanced attacks.
+
+
+==================================================
+4. Attack Workflow
+==================================================
+
+Initial Access
+        ↓
+Avoid Disk-Based Payloads
+        ↓
+Execute In-Memory Payload
+        ↓
+Inject into Trusted Process
+        ↓
+Evade Detection
+
+
+==================================================
+5. Common EDR Evasion Techniques
+==================================================
+
+Process Injection
+
+Inject code into legitimate processes.
+
+
+Reflective DLL Injection
+
+Load DLLs directly into memory.
+
+
+In-Memory Execution
+
+Avoid writing files to disk.
+
+
+API Unhooking
+
+Bypass EDR hooks.
+
+
+Living Off the Land
+
+Use trusted binaries.
+
+
+Obfuscation
+
+Hide malicious commands.
+
+
+==================================================
+6. Example Evasion Scenario
+==================================================
+Initial Access
+
+Attacker gains shell.
+
+
+Execution
+
+Payload executed in memory.
+
+
+Injection
+
+Code injected into explorer.exe.
+
+
+Result
+
+EDR does not detect activity.
+
+
+==================================================
+7. Expected Results
+==================================================
+Successful evasion allows attackers to:
+
+- bypass security controls
+- operate undetected
+- execute advanced payloads
+- maintain persistence
+
+
+==================================================
+8. Defensive Considerations
+==================================================
+
+Behavioral Detection
+
+Detect abnormal activity.
+
+Memory Monitoring
+
+Analyze in-memory execution.
+
+Threat Hunting
+
+Search for anomalies.
+
+Zero Trust
+
+Limit trust assumptions.
+
+EDR Tuning
+
+Improve detection rules.
+
+
+==================================================
+9. MITRE ATT&CK Mapping
+==================================================
+
+Technique:
+T1562 — Impair Defenses
+
+Technique:
+T1055 — Process Injection
+
+Technique:
+T1027 — Obfuscated Files or Information
+
+
+==================================================
+10. Blue Team Detection
+==================================================
+Indicators include:
+
+- unusual process injection behavior
+- execution without files on disk
+- abnormal parent-child process relationships
+- suspicious memory activity
+
+Security teams should monitor:
+
+- process behavior
+- memory execution
+- system anomalies
+
+
+==================================================
+11. Relevant Logs
+==================================================
+
+Windows Event Logs
+
+Process creation events  
+
+
+Sysmon Logs
+
+Process injection  
+Memory access  
+
+
+EDR Telemetry
+
+Behavioral alerts  
+
+
+==================================================
+12. Detection Tools
+==================================================
+
+EDR Solutions
+
+- Microsoft Defender
+- CrowdStrike
+- SentinelOne
+
+
+SIEM Platforms
+
+- Splunk
+- Elastic Stack
+- Microsoft Sentinel
+
+
+Advanced Monitoring
+
+- Sysmon
+
+
+==================================================
+13. SOC Detection Queries
+==================================================
+
+Splunk Query (Suspicious Process Injection)
+
+index=windows
+| search "inject"
+
+
+Splunk Query (Parent-Child Anomalies)
+
+index=windows
+| stats count by parent_process, process
+
+
+Sigma Rule Example
+
+title: Suspicious Process Injection
+logsource:
+  product: windows
+detection:
+  selection:
+    Image: "*explorer.exe"
+  condition: selection
+level: high
+
+
+Microsoft Sentinel (KQL) Example
+
+SecurityEvent
+| summarize count() by ParentProcessName, ProcessName
+
+
+==================================================
+14. Mitigation Strategies
+==================================================
+
+Deploy Advanced EDR
+
+Use behavioral detection.
+
+Monitor Memory Activity
+
+Detect in-memory execution.
+
+Limit Privileges
+
+Reduce attack surface.
+
+Harden Systems
+
+Reduce exploitation opportunities.
+
+Conduct Threat Hunting
+
+Proactively detect evasion.
+
+
+==================================================
+15. Attack Chain Integration
+==================================================
+
+This attack commonly occurs during:
+
+- Obfuscated PowerShell Attack
+- Living Off the Land Attack
+- Post-Exploitation
+
+This attack may lead to:
+
+- Persistent Undetected Access
+- Data Exfiltration
+- Full System Compromise
+
+
+==================================================
+16. Questions & Answers
+==================================================
+Question:
+What is EDR evasion?
+
+Answer:
+Techniques used to bypass endpoint detection systems.
+
+--------------------------------------------------
+
+Question:
+What is a common method?
+
+Answer:
+Process injection.
+
+--------------------------------------------------
+
+Question:
+Why is it dangerous?
+
+Answer:
+It allows attackers to operate undetected.
+
+--------------------------------------------------
+
+Question:
+What is a key defense?
+
+Answer:
+Behavioral detection and monitoring.
