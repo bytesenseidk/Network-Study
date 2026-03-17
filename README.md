@@ -162,9 +162,4 @@ For educational purposes.
 ---
 
 # Author
-
-Personal project focused on mastering:
-
-- Networking
-- Offensive security
-- Detection engineering
+[**Byte Sensei**](https://github.com/bytesenseidk)
