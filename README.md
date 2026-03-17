@@ -181,27 +181,6 @@ This reinforces:
 - practical application  
 
 ---
-
-# Repository Structure
-Engagements/
-├── 00_Engagement_Methodology.txt
-├── 00_Practice_Labs
-├── 01_Reconnaissance
-├── 02_Web_Attacks
-├── 03_Credential_Attacks
-├── 04_Network_Attacks
-├── 05_Wireless_Attacks
-├── 06_Cloud_Attacks
-├── 07_Social_Engineering_Attacks
-├── 08_Post_Exploitation
-├── 09_Defensive_Evasion
-├── 10_Detection_Engineering
-└── 11_Red_vs_Blue_Labs
-
-The structure follows a **real attacker lifecycle**.
-
----
-
 # Tools Referenced
 
 - Nmap  
