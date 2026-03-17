@@ -1,0 +1,380 @@
+Business Email Compromise (BEC)
+- A targeted social engineering attack where attackers impersonate trusted individuals to manipulate victims into transferring money or sensitive data.
+
+==================================================
+Attack Metadata
+==================================================
+
+Category:
+Social_Engineering_Attacks
+
+Attack Stage:
+Initial Access
+Collection
+Impact
+
+Difficulty:
+Intermediate → Advanced
+
+Stealth Level:
+High
+
+Requires Authentication:
+No (sometimes Yes if account takeover occurs)
+
+Tools Used:
+Email Spoofing Tools
+Compromised Email Accounts
+Phishing Frameworks
+OSINT Tools
+
+
+==================================================
+1. Overview
+==================================================
+Business Email Compromise (BEC) is a highly targeted attack that exploits trust in email communication.
+
+Attackers impersonate:
+
+- executives (CEO fraud)
+- finance departments
+- vendors or suppliers
+
+The goal is to:
+
+- trick victims into transferring money
+- obtain sensitive information
+- redirect payments
+
+BEC attacks often do not involve malware.
+
+
+==================================================
+2. Attack Scenario
+==================================================
+An attacker researches a company and identifies key employees.
+
+The attacker impersonates a CEO and sends an urgent request:
+
+"Please process this payment immediately."
+
+The victim trusts the request and transfers funds.
+
+Alternatively, attackers may compromise a real email account and send legitimate-looking requests.
+
+
+==================================================
+3. Tools Required
+==================================================
+
+OSINT Tools
+
+Gather company information.
+
+Email Spoofing Tools
+
+Impersonate trusted domains.
+
+Phishing Frameworks
+
+Deliver emails.
+
+Compromised Accounts
+
+Used for more convincing attacks.
+
+
+==================================================
+4. Attack Workflow
+==================================================
+
+Target Reconnaissance
+        ↓
+Impersonate Trusted Entity
+        ↓
+Send Fraudulent Email
+        ↓
+Create Urgency
+        ↓
+Victim Takes Action
+        ↓
+Financial or Data Loss
+
+
+==================================================
+5. Step-by-Step Execution
+==================================================
+Step 1 — Reconnaissance
+
+Identify:
+
+- executives
+- finance staff
+- vendors
+
+
+Step 2 — Craft Email
+
+Example:
+
+Subject: Urgent Payment Request
+
+
+Step 3 — Send Email
+
+Spoof or use compromised account.
+
+
+Step 4 — Create Urgency
+
+"Immediate action required."
+
+
+Step 5 — Victim Response
+
+Victim sends funds or data.
+
+
+==================================================
+6. Common BEC Variants
+==================================================
+
+CEO Fraud
+
+Executive impersonation.
+
+
+Invoice Fraud
+
+Fake vendor invoices.
+
+
+Account Takeover BEC
+
+Use compromised email account.
+
+
+Payroll Diversion
+
+Change employee payment details.
+
+
+==================================================
+7. Example Scenario
+==================================================
+Reconnaissance
+
+Attacker identifies CFO.
+
+
+Impersonation
+
+Spoofs CEO email.
+
+
+Request
+
+Urgent wire transfer.
+
+
+Result
+
+Funds transferred to attacker.
+
+
+==================================================
+8. Expected Results
+==================================================
+Successful BEC attacks allow attackers to:
+
+- steal money
+- access sensitive data
+- manipulate financial processes
+
+BEC is one of the most financially damaging attack types.
+
+
+==================================================
+9. Defensive Considerations
+==================================================
+
+Email Authentication
+
+Use SPF, DKIM, DMARC.
+
+Verification Procedures
+
+Confirm financial requests.
+
+User Training
+
+Recognize suspicious emails.
+
+Multi-Person Approval
+
+Require approvals for transactions.
+
+
+==================================================
+10. MITRE ATT&CK Mapping
+==================================================
+
+Technique:
+T1566 — Phishing
+
+Technique:
+T1078 — Valid Accounts
+
+Technique:
+T1657 — Financial Theft
+
+
+==================================================
+11. Blue Team Detection
+==================================================
+Indicators include:
+
+- unusual payment requests
+- email domain spoofing
+- changes in payment instructions
+- abnormal communication patterns
+
+Security teams should monitor:
+
+- email logs
+- financial transactions
+
+
+==================================================
+12. Relevant Logs
+==================================================
+
+Email Logs
+
+Sender details  
+
+
+SIEM Logs
+
+Communication patterns  
+
+
+Financial Systems
+
+Transaction logs  
+
+
+==================================================
+13. Detection Tools
+==================================================
+
+Email Security
+
+- Microsoft Defender for Office 365
+- Proofpoint
+
+
+SIEM Platforms
+
+- Splunk
+- Elastic Stack
+- Microsoft Sentinel
+
+
+==================================================
+14. SOC Detection Queries
+==================================================
+
+Splunk (Suspicious Email Domains)
+
+index=email
+| search "urgent" OR "payment"
+
+
+Sigma Rule Example
+
+title: Possible BEC Activity
+logsource:
+  product: email
+detection:
+  selection:
+    subject: "*urgent*"
+  condition: selection
+level: medium
+
+
+Microsoft Sentinel (KQL)
+
+EmailEvents
+| where Subject contains "urgent"
+
+
+==================================================
+15. Mitigation Strategies
+==================================================
+
+Implement Email Security
+
+Use anti-spoofing controls.
+
+Verify Requests
+
+Out-of-band confirmation.
+
+Train Employees
+
+Recognize BEC.
+
+Monitor Transactions
+
+Detect anomalies.
+
+
+==================================================
+16. Attack Chain Integration
+==================================================
+
+This attack commonly follows:
+
+- Phishing Campaign
+- MFA Fatigue Attack
+- Account Takeover
+
+This attack may result in:
+
+- Financial Loss
+- Data Breach
+
+
+==================================================
+17. Questions & Answers
+==================================================
+Question:
+What is BEC?
+
+Answer:
+A targeted email attack to manipulate financial actions.
+
+--------------------------------------------------
+
+Question:
+What is the goal?
+
+Answer:
+Steal money or data.
+
+--------------------------------------------------
+
+Question:
+Why is it effective?
+
+Answer:
+It exploits trust and urgency.
+
+--------------------------------------------------
+
+Question:
+What is a key defense?
+
+Answer:
+Verification procedures.

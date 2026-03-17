@@ -1,0 +1,431 @@
+Engagement Methodology
+- A structured approach for conducting offensive security engagements and documenting attack workflows.
+
+Purpose:
+- This file defines how engagements are organized inside the Red Team vault.
+- It connects attack stages, tools, and engagement playbooks into a repeatable methodology.
+
+
+==================================================
+1. Overview
+==================================================
+Red Team engagements simulate real attacker behavior in order to:
+
+- identify security weaknesses
+- test detection capabilities
+- evaluate incident response
+- improve defensive controls
+
+Unlike vulnerability scanning, Red Team engagements attempt to replicate realistic attack chains.
+
+This vault organizes attacks into:
+
+1. Attack Lifecycle (Theory)
+2. Tools (Practical Capabilities)
+3. Engagement Playbooks (Real Attacks)
+
+
+==================================================
+2. Vault Structure
+==================================================
+The Red Team vault is divided into three major components:
+
+Lifecycle Knowledge
+- Theoretical knowledge describing how attacks progress.
+
+Tools
+- Individual tool references with usage examples and command notes.
+
+Engagement Playbooks
+- Real attack scenarios organized by attack surface and attack type.
+
+
+Red Team
+├── 00_Overview.txt
+├── 01_Reconnaissance.txt
+├── 02_initial_Access.txt
+├── 03_Exploitation.txt
+├── 04_Privilege_Escalation.txt
+├── 05_Lateral_Movement.txt
+├── 06_Persistence.txt
+├── 07_Command_and_Control.txt
+├── 08_Data_Exfiltration.txt
+├── 09_Evasion_and_Anti-Detection.txt
+├── 10_Operational_Security.txt
+├── 11_Post_Engagement_and_Reporting.txt
+├── 12_Tools.txt
+├── Engagements
+│   ├── 00_Engagement_Methodology.txt
+│   ├── 01_Practice_Labs
+│   │   ├── 01_Easy_Attacks.txt
+│   │   ├── 02_basic_network_attack.txt
+│   │   ├── 03_easy_internal_attack.txt
+│   │   └── 04_metasploitable_walkthrough.txt
+|   |
+│   ├── 02_Web_Attacks
+│   │   ├── 01_Enumeration_and_Discovery
+│   │   │   ├── 01_web_enum_workflow.txt
+│   │   │   ├── 02_subdomain_enum_attack.txt
+│   │   │   └── 03_directory_bruteforce_attack.txt
+|   |   |
+│   │   ├── 02_Authentication_Attacks
+│   │   │   ├── 01_login_bruteforce_attack.txt
+│   │   │   ├── 02_session_hijacking_attack.txt
+│   │   │   └── 03_jwt_attack.txt
+|   |   |
+│   │   ├── 03_Client-Side_Attacks
+│   │   │   ├── 01_cross_site_scripting_attack.txt
+│   │   │   ├── 02_csrf_attack.txt
+│   │   │   └── 03_clickjacking_attack.txt
+|   |   |
+│   │   └── 04_Injection_Attacks
+│   │       ├── 01_sql_injection_attack.txt
+│   │       ├── 02_command_injection_attack.txt
+│   │       ├── 03_ldap_injection_attack.txt
+│   │       └── 04_ssti_attack.txt
+|   |
+│   ├── 03_Credential_Attacks
+│   │   ├── 01_Password_Attacks
+│   │   │   ├── 01_password_bruteforce_attack.txt
+│   │   │   ├── 02_password_spraying_attack.txt
+│   │   │   └── 03_credential_stuffing_attack.txt
+|   |   |
+│   │   ├── 02_Hash_Attacks
+│   │   │   ├── 01_password_hash_extraction.txt
+│   │   │   ├── 02_ntlm_hash_cracking.txt
+│   │   │   └── 03_kerberos_hash_cracking.txt
+|   |   |
+│   │   └── 03_Credential_Harvesting
+│   │       ├── 01_phishing_attack_workflow.txt
+│   │       ├── 02_credential_capture_attack.txt
+│   │       └── 03_browser_credential_extraction.txt
+|   |
+│   ├── 04_Network_Attacks
+│   │   ├── 01_Network_Enumeration
+│   │   │   ├── 01_internal_network_enumeration.txt
+│   │   │   └── 02_active_directory_enumeration.txt
+|   |   |
+│   │   ├── 02_Core_Internal_Network_Attacks
+│   │   │   ├── 01_internal_network_attack.txt
+│   │   │   ├── 02_responder_ntlm_capture.txt
+│   │   │   ├── 03_pass_the_hash_attack.txt
+│   │   │   ├── 04_smb_lateral_movement.txt
+│   │   │   └── 05_kerberos_ticket_attack.txt
+|   |   |
+│   │   ├── 03_Protocol_Abuse
+│   │   │   ├── 01_llmnr_poisoning_attack.txt
+│   │   │   ├── 02_ntlm_relay_attack.txt
+│   │   │   └── 03_smb_relay_attack.txt
+|   |   |
+│   │   └── 04_Active_Directory_Attacks
+│   │       ├── 01_kerberoasting_attack.txt
+│   │       ├── 02_asrep_roasting_attack.txt
+│   │       ├── 03_silver_ticket_attack.txt
+│   │       ├── 04_golden_ticket_attack.txt
+│   │       └── 05_dcsync_attack.txt
+|   |
+│   ├── 05_Wireless_Attacks
+│   │   ├── 01_WiFi_Attacks
+│   │   │   ├── 01_wpa2_handshake_attack.txt
+│   │   │   ├── 02_pmkid_attack.txt
+│   │   │   ├── 03_deauthentication_attack.txt
+│   │   │   └── 04_evil_twin_attack.txt
+|   |   |
+│   │   ├── 01_WPA2_hacking.txt
+|   |   |
+│   │   └── 02_Wireless_Network_Compromise
+│   │       ├── 01_wifi_password_cracking.txt
+│   │       └── 02_rogue_access_point_attack.txt
+|   |
+│   ├── 06_Cloud_Attacks
+│   │   ├── 01_aws_s3_bucket_enumeration.txt
+│   │   ├── 02_aws_iam_privilege_escalation.txt
+│   │   ├── 03_azure_ad_enumeration.txt
+│   │   └── 04_cloud_metadata_attack.txt
+|   |
+│   └── 07_Social_Engineering_Attacks
+│       ├── 01_phishing_campaign.txt
+│       ├── 02_pretexting_attack.txt
+│       └── 03_malicious_usb_attack.txt
+└── Tools
+    ├── 00_Tool_Quick_Reference.txt
+    ├── aircrack-ng.txt
+    ├── gobuster.txt
+    ├── hashcat.txt
+    ├── hydra.txt
+    ├── impacket.txt
+    ├── metasploit.txt
+    ├── nmap.txt
+    └── responder.txt
+
+
+==================================================
+3. Engagement Workflow
+==================================================
+Most attacks follow a predictable sequence.
+
+Reconnaissance
+        ↓
+Target Discovery
+        ↓
+Attack Surface Identification
+        ↓
+Initial Access
+        ↓
+Exploitation
+        ↓
+Privilege Escalation
+        ↓
+Lateral Movement
+        ↓
+Persistence
+        ↓
+Command and Control
+        ↓
+Data Exfiltration
+
+
+==================================================
+4. Engagement Playbooks
+==================================================
+Each engagement file describes a specific attack scenario.
+
+Playbooks contain:
+
+- attack objective
+- required tools
+- step-by-step workflow
+- commands used
+- expected results
+- defensive considerations
+
+Example playbooks include:
+
+Internal Network Attacks
+
+Responder → Hashcat → Impacket
+
+
+Active Directory Attacks
+
+Kerberoasting
+AS-REP Roasting
+Pass-the-Hash
+DCSync
+
+
+Web Attacks
+
+Nmap → Gobuster → Web exploitation
+
+
+Credential Attacks
+
+Password spraying
+Credential stuffing
+Hash cracking
+
+
+Wireless Attacks
+
+Aircrack-ng handshake capture → password cracking
+
+
+Cloud Attacks
+
+S3 bucket enumeration
+Cloud metadata abuse
+IAM privilege escalation
+
+
+Social Engineering Attacks
+
+Phishing workflows
+Malicious USB delivery
+Pretext-based credential theft
+
+
+==================================================
+5. Tool Integration
+==================================================
+Tools support different stages of the attack lifecycle and attack surfaces.
+
+Reconnaissance
+
+Nmap
+Gobuster
+
+
+Credential Harvesting
+
+Responder
+
+
+Password Cracking
+
+Hashcat
+
+
+Credential Attacks
+
+Hydra
+
+
+Exploitation
+
+Metasploit
+
+
+Lateral Movement
+
+Impacket
+
+
+Wireless Attacks
+
+Aircrack-ng
+
+
+==================================================
+6. Example Attack Chains
+==================================================
+
+External Web Attack Scenario
+
+Nmap
+        ↓
+Open Service Discovered
+        ↓
+Gobuster
+        ↓
+Hidden Web Endpoint Found
+        ↓
+Metasploit or Manual Exploitation
+        ↓
+Remote Shell Obtained
+        ↓
+Privilege Escalation
+
+
+Internal Network Scenario
+
+Responder
+        ↓
+Capture NTLM Hash
+        ↓
+Hashcat
+        ↓
+Crack Password
+        ↓
+Impacket
+        ↓
+Lateral Movement
+
+
+Wireless Scenario
+
+Aircrack-ng
+        ↓
+Capture WPA Handshake
+        ↓
+Password Cracking
+        ↓
+Network Access
+
+
+Cloud Scenario
+
+Cloud Enumeration
+        ↓
+Misconfigured Resource Found
+        ↓
+Privilege Expansion
+        ↓
+Sensitive Data Access
+
+
+==================================================
+7. Documentation Standards
+==================================================
+All engagement playbooks should contain:
+
+Overview
+Purpose of the attack.
+
+Attack Scenario
+Context and assumed access level.
+
+Tools Required
+Tools used during the attack.
+
+Attack Workflow
+Step-by-step attack process.
+
+Commands
+Example commands used during the attack.
+
+Expected Results
+What successful execution looks like.
+
+Defensive Considerations
+How defenders may detect or prevent the attack.
+
+Questions & Answers
+Study and review section for learning reinforcement.
+
+
+==================================================
+8. Why Engagement Playbooks Matter
+==================================================
+Playbooks help security professionals:
+
+- reproduce attack techniques
+- train penetration testers
+- document successful attack paths
+- improve defensive monitoring
+- connect tools to real attack workflows
+
+Well-documented engagements allow organizations to continuously improve their security posture.
+
+
+==================================================
+9. Questions & Answers
+==================================================
+
+Question:
+What is the purpose of engagement playbooks?
+
+Answer:
+They document real attack workflows that can be reproduced during security testing.
+
+--------------------------------------------------
+
+Question:
+Why is a structured methodology important?
+
+Answer:
+It ensures consistent testing and documentation across different engagements.
+
+--------------------------------------------------
+
+Question:
+How do tools relate to attack stages?
+
+Answer:
+Different tools support different phases of the attack lifecycle and different attack surfaces.
+
+--------------------------------------------------
+
+Question:
+Why are playbooks valuable for training?
+
+Answer:
+They provide step-by-step examples of real attack scenarios.
+
+--------------------------------------------------
+
+Question:
+Why should engagement files include defensive considerations?
+
+Answer:
+Because offensive knowledge is most valuable when it helps improve detection and defense.

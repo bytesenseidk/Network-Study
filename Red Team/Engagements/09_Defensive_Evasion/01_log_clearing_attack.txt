@@ -1,0 +1,352 @@
+Log Clearing Attack
+- A defense evasion technique where attackers delete or modify logs to remove evidence of their activities.
+
+==================================================
+Attack Metadata
+==================================================
+
+Category:
+Post_Exploitation → Defense Evasion
+
+Attack Stage:
+Defense Evasion
+
+Difficulty:
+Beginner → Intermediate
+
+Stealth Level:
+High (if successful)
+
+Requires Authentication:
+Yes (typically requires elevated privileges)
+
+Tools Used:
+wevtutil
+PowerShell
+Linux log utilities
+Custom scripts
+
+
+==================================================
+1. Overview
+==================================================
+Log clearing is used by attackers to erase traces of their activity.
+
+Logs contain critical evidence such as:
+
+- login attempts
+- command execution
+- privilege escalation
+- lateral movement
+
+By clearing logs, attackers aim to:
+
+- avoid detection
+- delay incident response
+- hinder forensic analysis
+
+This technique is often used after major actions.
+
+
+==================================================
+2. Attack Scenario
+==================================================
+An attacker compromises a system and escalates privileges.
+
+After performing lateral movement and credential dumping, the attacker clears logs to hide activity.
+
+Security teams are unable to reconstruct the attack timeline.
+
+
+==================================================
+3. Tools Required
+==================================================
+
+wevtutil
+
+Used to clear Windows event logs.
+
+PowerShell
+
+Used for log manipulation.
+
+Linux Commands
+
+Used to delete or truncate logs.
+
+
+==================================================
+4. Attack Workflow
+==================================================
+
+Gain Elevated Access
+        ↓
+Identify Relevant Logs
+        ↓
+Clear or Modify Logs
+        ↓
+Continue Operations Undetected
+
+
+==================================================
+5. Step-by-Step Execution
+==================================================
+Step 1 — Clear Windows Logs
+
+Example:
+
+wevtutil cl Security
+wevtutil cl System
+wevtutil cl Application
+
+
+Step 2 — PowerShell Log Clearing
+
+Example:
+
+Clear-EventLog -LogName Security
+
+
+Step 3 — Linux Log Deletion
+
+Example:
+
+rm /var/log/auth.log
+
+
+Step 4 — Log Truncation
+
+Example:
+
+> /var/log/syslog
+
+
+==================================================
+6. Example Log Clearing Scenario
+==================================================
+Privilege Escalation
+
+Attacker gains admin access.
+
+
+Attack Activity
+
+Credentials dumped and lateral movement performed.
+
+
+Log Clearing
+
+Security logs deleted.
+
+
+Result
+
+Minimal forensic evidence remains.
+
+
+==================================================
+7. Expected Results
+==================================================
+Successful log clearing allows attackers to:
+
+- hide activity
+- delay detection
+- disrupt investigations
+- evade forensic analysis
+
+
+==================================================
+8. Defensive Considerations
+==================================================
+
+Centralized Logging
+
+Send logs to remote servers.
+
+Immutable Logs
+
+Prevent log modification.
+
+Monitoring
+
+Detect log clearing attempts.
+
+Access Control
+
+Restrict log access.
+
+Backup Logs
+
+Maintain log integrity.
+
+
+==================================================
+9. MITRE ATT&CK Mapping
+==================================================
+
+Technique:
+T1070 — Indicator Removal on Host
+
+Sub-technique:
+T1070.001 — Clear Windows Event Logs
+
+
+==================================================
+10. Blue Team Detection
+==================================================
+Indicators include:
+
+- sudden disappearance of logs
+- log clearing commands executed
+- gaps in log timelines
+- reduced log volume
+
+Security teams should monitor:
+
+- log integrity
+- administrative commands
+- unusual log behavior
+
+
+==================================================
+11. Relevant Logs
+==================================================
+
+Windows Event Logs
+
+Event ID 1102 (log cleared)  
+
+
+Linux Logs
+
+Missing or truncated log files  
+
+
+SIEM Logs
+
+Log ingestion gaps  
+
+
+==================================================
+12. Detection Tools
+==================================================
+
+SIEM Platforms
+
+- Splunk
+- Elastic Stack
+- Microsoft Sentinel
+
+
+EDR Solutions
+
+- Microsoft Defender
+- CrowdStrike
+
+
+Log Management Systems
+
+- Syslog servers
+
+
+==================================================
+13. SOC Detection Queries
+==================================================
+
+Splunk Query (Log Cleared Event)
+
+index=windows
+| search EventCode=1102
+
+
+Sigma Rule Example
+
+title: Windows Log Cleared
+logsource:
+  product: windows
+detection:
+  selection:
+    EventID: 1102
+  condition: selection
+level: high
+
+
+Microsoft Sentinel (KQL) Example
+
+SecurityEvent
+| where EventID == 1102
+
+
+==================================================
+14. Mitigation Strategies
+==================================================
+
+Centralize Logs
+
+Send logs off-host.
+
+Restrict Access
+
+Limit log permissions.
+
+Monitor Log Events
+
+Detect clearing attempts.
+
+Use Immutable Storage
+
+Prevent tampering.
+
+Enable Alerts
+
+Notify on log clearing.
+
+
+==================================================
+15. Attack Chain Integration
+==================================================
+
+This attack commonly follows:
+
+- Credential Dumping
+- Lateral Movement
+- Privilege Escalation
+
+This attack may lead to:
+
+- Prolonged Undetected Access
+- Delayed Incident Response
+
+
+==================================================
+16. Questions & Answers
+==================================================
+Question:
+What is log clearing?
+
+Answer:
+Deleting logs to remove evidence of activity.
+
+--------------------------------------------------
+
+Question:
+Why is it dangerous?
+
+Answer:
+It prevents detection and investigation.
+
+--------------------------------------------------
+
+Question:
+What is a key indicator?
+
+Answer:
+Event ID 1102.
+
+--------------------------------------------------
+
+Question:
+What is a key defense?
+
+Answer:
+Centralized logging.

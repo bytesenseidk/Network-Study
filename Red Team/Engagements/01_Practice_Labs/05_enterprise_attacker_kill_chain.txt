@@ -1,0 +1,315 @@
+Enterprise Attacker Kill Chain
+- A high-level attack model describing how attackers progress from initial access to full domain compromise in enterprise environments.
+
+==================================================
+Overview
+==================================================
+Enterprise breaches typically follow a structured progression where attackers gradually increase their level of access.
+
+This process is often referred to as an **attacker kill chain**.
+
+The kill chain describes how attackers move through stages such as:
+
+- reconnaissance
+- initial access
+- credential theft
+- lateral movement
+- domain compromise
+- persistence
+
+Understanding the kill chain helps defenders detect attacks earlier and respond effectively.
+
+
+==================================================
+Enterprise Attack Stages
+==================================================
+
+1. Reconnaissance
+2. Initial Access
+3. Credential Access
+4. Internal Discovery
+5. Lateral Movement
+6. Privilege Escalation
+7. Domain Compromise
+8. Persistence
+9. Data Exfiltration / Impact
+
+
+==================================================
+1. Reconnaissance
+==================================================
+Attackers gather information about the target organization.
+
+This may include:
+
+- domain names
+- employee identities
+- email formats
+- external infrastructure
+- public services
+
+Common techniques include:
+
+OSINT collection  
+DNS enumeration  
+service scanning  
+social media research
+
+Tools may include:
+
+- Nmap
+- theHarvester
+- Amass
+- Recon-ng
+
+
+==================================================
+2. Initial Access
+==================================================
+Attackers attempt to gain a foothold inside the network.
+
+Common entry methods include:
+
+Phishing attacks  
+Credential stuffing  
+password spraying  
+exposed remote services  
+vulnerable web applications  
+compromised VPN credentials
+
+Example attack files in your notebook:
+
+phishing_attack_workflow.txt  
+credential_stuffing_attack.txt  
+password_spraying_attack.txt
+
+
+==================================================
+3. Credential Access
+==================================================
+After initial access, attackers attempt to obtain credentials.
+
+This stage often involves:
+
+credential harvesting  
+password cracking  
+hash extraction  
+token theft
+
+Relevant techniques in your notebook:
+
+password_hash_extraction.txt  
+browser_credential_extraction.txt  
+ntlm_hash_cracking.txt  
+kerberos_hash_cracking.txt
+
+
+==================================================
+4. Internal Discovery
+==================================================
+Once inside the network, attackers begin mapping the environment.
+
+They identify:
+
+- active hosts
+- running services
+- domain controllers
+- administrative accounts
+- trust relationships
+
+Relevant attack files:
+
+internal_network_enumeration.txt  
+active_directory_enumeration.txt
+
+
+==================================================
+5. Lateral Movement
+==================================================
+Attackers move between systems to expand their access.
+
+Common techniques include:
+
+pass-the-hash  
+pass-the-ticket  
+SMB lateral movement  
+remote command execution
+
+Relevant files:
+
+pass_the_hash_attack.txt  
+pass_the_ticket_attack.txt  
+smb_lateral_movement.txt
+
+
+==================================================
+6. Privilege Escalation
+==================================================
+Attackers attempt to obtain higher privileges.
+
+This often involves:
+
+service account abuse  
+Kerberos ticket attacks  
+misconfigured permissions
+
+Relevant attack files:
+
+kerberoasting_attack.txt  
+asrep_roasting_attack.txt
+
+
+==================================================
+7. Domain Compromise
+==================================================
+At this stage attackers target Active Directory infrastructure.
+
+Techniques may include:
+
+DCSync attacks  
+credential replication abuse  
+domain administrator compromise
+
+Relevant attack files:
+
+dcsync_attack.txt
+
+
+==================================================
+8. Persistence
+==================================================
+Attackers establish long-term access to the environment.
+
+This ensures access remains even after credentials are changed.
+
+Common techniques include:
+
+Golden Ticket attacks  
+Silver Ticket attacks  
+backdoor accounts  
+scheduled tasks
+
+Relevant attack files:
+
+golden_ticket_attack.txt  
+silver_ticket_attack.txt
+
+
+==================================================
+9. Data Exfiltration / Impact
+==================================================
+In the final stage attackers achieve their objectives.
+
+This may include:
+
+data theft  
+financial fraud  
+system sabotage  
+ransomware deployment
+
+Attackers may:
+
+- exfiltrate sensitive data
+- encrypt systems
+- destroy infrastructure
+
+
+==================================================
+Example Enterprise Attack Timeline
+==================================================
+
+Phishing Email
+        ↓
+Initial Workstation Compromise
+        ↓
+Credential Extraction
+        ↓
+Internal Network Enumeration
+        ↓
+Kerberoasting
+        ↓
+Service Account Compromise
+        ↓
+DCSync Attack
+        ↓
+KRBTGT Hash Extraction
+        ↓
+Golden Ticket Creation
+        ↓
+Persistent Domain Access
+        ↓
+Data Exfiltration
+
+
+==================================================
+Defensive Strategy
+==================================================
+Organizations should implement layered defenses to disrupt the attacker kill chain.
+
+Key defensive controls include:
+
+strong authentication policies  
+multi-factor authentication  
+network segmentation  
+privileged access management  
+endpoint detection and response  
+SIEM monitoring  
+security awareness training
+
+
+==================================================
+Blue Team Knowledge Base Cross-References
+==================================================
+
+Blue Team → Network Defense  
+Blue Team → Log Analysis and Detection  
+Blue Team → Active Directory Defense  
+Blue Team → Threat Hunting  
+Blue Team → Incident Response  
+
+
+==================================================
+Questions & Answers
+==================================================
+
+Question:
+What is the attacker kill chain?
+
+Answer:
+A model describing how attackers progress from initial access to full system compromise.
+
+
+--------------------------------------------------
+
+Question:
+Why is the kill chain important for defenders?
+
+Answer:
+Because it helps defenders detect attacks earlier and break the attack sequence.
+
+
+--------------------------------------------------
+
+Question:
+What stage typically leads to domain compromise?
+
+Answer:
+Privilege escalation followed by attacks such as DCSync.
+
+
+--------------------------------------------------
+
+Question:
+What attack technique often provides long-term persistence?
+
+Answer:
+Golden Ticket attacks.
+
+
+--------------------------------------------------
+
+Question:
+What is the best defense against the attacker kill chain?
+
+Answer:
+Layered security controls that detect and disrupt each stage of the attack.

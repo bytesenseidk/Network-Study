@@ -1,0 +1,282 @@
+Splunk Detection Strategy
+- A structured approach to building effective detection use cases using Splunk.
+
+==================================================
+1. Overview
+==================================================
+Splunk is a SIEM platform used to collect, analyze, and detect security events.
+
+A detection strategy defines:
+
+- what to detect
+- how to detect it
+- how to reduce false positives
+- how to operationalize alerts
+
+Effective detection is not just about writing queries — it is about building reliable, actionable detections.
+
+
+==================================================
+2. Detection Lifecycle
+==================================================
+
+Log Collection
+        ↓
+Data Normalization
+        ↓
+Detection Rule Creation
+        ↓
+Alerting
+        ↓
+Investigation
+        ↓
+Tuning & Improvement
+
+
+==================================================
+3. Types of Detections
+==================================================
+
+Signature-Based
+
+Known patterns (e.g. specific commands)
+
+Behavior-Based
+
+Abnormal activity patterns
+
+Anomaly-Based
+
+Statistical deviations from normal behavior
+
+Threat Intelligence-Based
+
+Matches known malicious indicators
+
+
+==================================================
+4. Splunk Query Basics
+==================================================
+
+Basic search:
+
+index=windows EventCode=4688
+
+Filter by field:
+
+index=windows EventCode=4688 CommandLine="*powershell*"
+
+Aggregation:
+
+| stats count by user, host
+
+Filtering results:
+
+| where count > 10
+
+
+==================================================
+5. Example Detection Queries
+==================================================
+
+Suspicious PowerShell Execution
+
+index=windows EventCode=4688 CommandLine="*powershell*"
+| stats count by host, user
+
+
+Multiple Failed Logins
+
+index=auth_logs action=failure
+| stats count by user, src_ip
+| where count > 10
+
+
+New Administrator Account Created
+
+index=windows EventCode=4720
+| search user="*admin*"
+
+
+==================================================
+6. Detection Engineering Principles
+==================================================
+
+High Fidelity
+
+Low false positives
+
+Context-Aware
+
+Include user, host, and behavior context
+
+Actionable
+
+Alerts should lead to clear investigation steps
+
+Scalable
+
+Detections should work across environments
+
+
+==================================================
+7. Alerting Strategy
+==================================================
+
+Define thresholds
+
+Example:
+
+| where count > 5
+
+
+Set severity levels
+
+Low / Medium / High / Critical
+
+Avoid alert fatigue
+
+Tune rules to reduce noise
+
+
+==================================================
+8. Enrichment
+==================================================
+
+Enhance detections with additional data:
+
+- user roles
+- asset criticality
+- geolocation
+- threat intelligence
+
+Example:
+
+| lookup asset_list host OUTPUT criticality
+
+
+==================================================
+9. Tuning Detections
+==================================================
+
+Reduce false positives by:
+
+- excluding known safe processes
+- whitelisting trusted users
+- adjusting thresholds
+
+Example:
+
+| search NOT user="admin_backup"
+
+
+==================================================
+10. Common Detection Use Cases
+==================================================
+
+Credential Access
+
+Brute force attempts  
+Password spraying  
+
+Execution
+
+PowerShell abuse  
+Script execution  
+
+Persistence
+
+New scheduled tasks  
+New user accounts  
+
+Lateral Movement
+
+SMB authentication  
+Remote execution  
+
+Cloud Activity
+
+IAM changes  
+Login anomalies  
+
+
+==================================================
+11. Common Mistakes
+==================================================
+
+Too many alerts  
+No context in alerts  
+Overly broad queries  
+No tuning after deployment  
+Ignoring baseline behavior  
+
+
+==================================================
+12. Integration with Sigma
+==================================================
+
+Sigma rules can be converted into Splunk queries.
+
+Example:
+
+Sigma:
+
+CommandLine: "*powershell*"
+
+Splunk:
+
+CommandLine="*powershell*"
+
+
+==================================================
+13. Best Practices
+==================================================
+
+Use data models when possible  
+Leverage Splunk CIM (Common Information Model)  
+Build reusable queries  
+Document detection logic  
+Continuously improve detections  
+
+
+==================================================
+14. Questions & Answers
+==================================================
+
+Question:
+What is the goal of a detection strategy?
+
+Answer:
+To reliably identify malicious activity with minimal false positives.
+
+--------------------------------------------------
+
+Question:
+What is a high-quality detection?
+
+Answer:
+One that is accurate, actionable, and low-noise.
+
+--------------------------------------------------
+
+Question:
+Why is tuning important?
+
+Answer:
+To reduce false positives and improve detection quality.
+
+--------------------------------------------------
+
+Question:
+What is alert fatigue?
+
+Answer:
+When too many alerts reduce the effectiveness of security teams.
+
+--------------------------------------------------
+
+Question:
+How does Splunk help in detection?
+
+Answer:
+By enabling log analysis, correlation, and real-time alerting.

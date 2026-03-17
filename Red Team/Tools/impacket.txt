@@ -1,0 +1,266 @@
+Impacket
+- A collection of Python tools for working with network protocols and performing authentication abuse, lateral movement, and credential extraction.
+
+Stage in Attack Lifecycle:
+Initial Access → Privilege Escalation → **Lateral Movement**
+
+
+==================================================
+1. Overview
+==================================================
+- Impacket is a widely used toolkit that implements network protocols such as SMB, MSRPC, NTLM, and Kerberos.
+- It provides scripts that allow attackers to authenticate to remote systems, execute commands, dump credentials, and move laterally across networks.
+
+Impacket is commonly used during:
+
+- Post-exploitation
+- Lateral movement
+- Credential harvesting
+
+
+==================================================
+2. Common Impacket Tools
+==================================================
+Some of the most frequently used Impacket scripts include:
+
+psexec.py
+Execute commands on remote systems using SMB.
+
+wmiexec.py
+Execute commands using Windows Management Instrumentation (WMI).
+
+smbexec.py
+Execute commands through SMB service interaction.
+
+secretsdump.py
+Extract password hashes and secrets from systems.
+
+GetNPUsers.py
+Kerberos AS-REP roasting attack.
+
+GetUserSPNs.py
+Kerberoasting attack.
+
+
+==================================================
+3. Remote Command Execution (psexec)
+==================================================
+- psexec.py allows remote command execution on a Windows host using SMB.
+
+Example:
+
+psexec.py administrator:Password123@192.168.1.50
+
+If authentication succeeds, the attacker receives a remote shell.
+
+
+Example flow:
+
+Attacker
+        ↓
+SMB Authentication
+        ↓
+Service Created on Target
+        ↓
+Command Execution
+        ↓
+Remote Shell Access
+
+
+==================================================
+4. WMI Command Execution
+==================================================
+- wmiexec.py executes commands using Windows Management Instrumentation.
+
+Example:
+
+wmiexec.py administrator:Password123@192.168.1.50
+
+
+Advantages:
+
+- Does not create a service
+- Leaves fewer artifacts than psexec
+
+
+==================================================
+5. SMB Command Execution
+==================================================
+- smbexec.py executes commands through SMB.
+
+Example:
+
+smbexec.py administrator:Password123@192.168.1.50
+
+
+This method is useful when service creation is restricted.
+
+
+==================================================
+6. Credential Dumping
+==================================================
+- secretsdump.py extracts credential hashes from Windows systems.
+
+Example:
+
+secretsdump.py administrator:Password123@192.168.1.50
+
+
+Extracted credentials may include:
+
+- NTLM hashes
+- Kerberos keys
+- Domain secrets
+
+
+==================================================
+7. Pass-the-Hash Attacks
+==================================================
+- Impacket supports pass-the-hash authentication.
+
+Instead of using a password, attackers authenticate with a captured NTLM hash.
+
+Example:
+
+psexec.py administrator@192.168.1.50 -hashes :aad3b435b51404eeaad3b435b51404ee
+
+
+This allows lateral movement without knowing the plaintext password.
+
+
+==================================================
+8. Kerberoasting (GetUserSPNs)
+==================================================
+- Kerberoasting extracts service tickets for offline password cracking.
+
+Example:
+
+GetUserSPNs.py domain.local/user:Password123 -dc-ip 192.168.1.10 -request
+
+
+Captured service tickets can later be cracked with Hashcat.
+
+
+==================================================
+9. AS-REP Roasting
+==================================================
+- AS-REP roasting targets accounts without Kerberos pre-authentication.
+
+Example:
+
+GetNPUsers.py domain.local/ -usersfile users.txt -no-pass
+
+
+Captured tickets can also be cracked offline.
+
+
+==================================================
+10. Impacket Workflow
+==================================================
+
+Initial Access Obtained
+        ↓
+Credentials Harvested
+        ↓
+Impacket Used for Remote Authentication
+        ↓
+Remote Command Execution
+        ↓
+Credential Dumping
+        ↓
+Lateral Movement Across Network
+
+
+==================================================
+11. Operational Notes
+==================================================
+Impacket activity may trigger:
+
+- Windows event logs
+- Endpoint detection alerts
+- Network monitoring systems
+
+Many security tools specifically monitor:
+
+- Remote service creation
+- SMB authentication patterns
+- Credential dumping behavior
+
+
+==================================================
+12. Defensive Considerations
+==================================================
+Organizations can reduce Impacket attacks by:
+
+- Enforcing strong authentication policies
+- Using multi-factor authentication
+- Monitoring SMB activity
+- Limiting administrative privileges
+- Detecting suspicious remote service creation
+
+
+==================================================
+13. Questions & Answers
+==================================================
+
+1. Question:
+What is Impacket?
+
+Answer:
+Impacket is a toolkit of Python scripts used to interact with network protocols and perform post-exploitation tasks.
+
+--------------------------------------------------
+
+2. Question:
+What is psexec.py used for?
+
+Answer:
+It allows remote command execution on Windows systems through SMB.
+
+--------------------------------------------------
+
+3. Question:
+What is wmiexec.py used for?
+
+Answer:
+It executes commands remotely using Windows Management Instrumentation.
+
+--------------------------------------------------
+
+4. Question:
+What does secretsdump.py do?
+
+Answer:
+It extracts credential hashes and secrets from Windows systems.
+
+--------------------------------------------------
+
+5. Question:
+What is pass-the-hash?
+
+Answer:
+Authenticating to a system using an NTLM hash instead of a plaintext password.
+
+--------------------------------------------------
+
+6. Question:
+What is Kerberoasting?
+
+Answer:
+A technique that extracts Kerberos service tickets for offline password cracking.
+
+--------------------------------------------------
+
+7. Question (Attack Perspective):
+Why is Impacket powerful during lateral movement?
+
+Answer:
+Because it allows authentication abuse and remote command execution across Windows networks.
+
+--------------------------------------------------
+
+8. Question (Defensive Perspective):
+How can defenders detect Impacket activity?
+
+Answer:
+By monitoring SMB authentication patterns, remote service creation, and credential dumping behavior.

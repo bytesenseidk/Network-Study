@@ -1,0 +1,293 @@
+Privilege Escalation
+- Techniques used by attackers to gain higher levels of access after initial compromise.
+
+Stage in Attack Lifecycle:
+Recon → Initial Access → Exploitation → **Privilege Escalation** → Lateral Movement → Persistence → Command & Control → Data Exfiltration
+
+==================================================
+1. Overview
+==================================================
+- Privilege escalation occurs when an attacker increases their level of access on a system.
+- After gaining initial access, attackers often begin with limited privileges.
+- Escalating privileges allows attackers to gain administrative or system-level control over a machine.
+
+Higher privileges allow attackers to:
+
+- Access restricted files
+- Install software
+- Disable security controls
+- Create new accounts
+- Move laterally across a network
+
+
+==================================================
+2. Types of Privilege Escalation
+==================================================
+Privilege escalation typically occurs in two forms.
+
+Vertical Privilege Escalation:
+- The attacker gains higher privileges than the compromised account.
+- Example: A standard user account becoming an administrator.
+
+Horizontal Privilege Escalation:
+- The attacker gains access to another account with similar privileges.
+- Example: One user account accessing another user's data.
+
+
+==================================================
+3. Local Privilege Escalation
+==================================================
+- Local privilege escalation occurs on a system where the attacker already has access.
+- The attacker attempts to gain elevated privileges using vulnerabilities or misconfigurations.
+
+Common local escalation paths include:
+
+- Kernel vulnerabilities
+- Misconfigured services
+- Weak file permissions
+- Credential reuse
+- Insecure scheduled tasks
+
+
+==================================================
+4. Operating System Vulnerabilities
+==================================================
+- Operating system vulnerabilities can allow attackers to gain elevated privileges.
+
+Examples include:
+
+- Kernel memory corruption
+- Race conditions
+- Improper privilege validation
+- Vulnerable system drivers
+
+Attackers may exploit these vulnerabilities using publicly available exploits or custom exploit code.
+
+
+==================================================
+5. Misconfigured Permissions
+==================================================
+- Improper file and directory permissions often allow privilege escalation.
+
+Examples include:
+
+- Writable system files
+- Writable service binaries
+- Writable configuration files
+- Insecure application directories
+
+Attackers can modify these files to execute malicious code with higher privileges.
+
+
+==================================================
+6. Service Misconfigurations
+==================================================
+- System services often run with elevated privileges.
+
+If services are improperly configured, attackers may:
+
+- Replace service binaries
+- Modify service configurations
+- Abuse restart privileges
+- Inject malicious executables
+
+When the service restarts, the attacker's code executes with elevated privileges.
+
+
+==================================================
+7. Credential Abuse
+==================================================
+- Attackers often escalate privileges by abusing stored credentials.
+
+Sources of credentials may include:
+
+- Password files
+- Browser credential storage
+- Memory dumps
+- Configuration files
+- Backup files
+
+Once obtained, these credentials may provide administrative access.
+
+
+==================================================
+8. Token and Session Abuse
+==================================================
+- Some operating systems use authentication tokens to manage access.
+
+Attackers may abuse these tokens by:
+
+- Stealing authentication tokens
+- Impersonating privileged sessions
+- Injecting into privileged processes
+
+This can allow attackers to act as higher-privileged users.
+
+
+==================================================
+9. Scheduled Tasks and Automation
+==================================================
+- Scheduled tasks and automated scripts sometimes run with elevated privileges.
+
+If these tasks reference insecure files or directories, attackers may:
+
+- Replace scripts
+- Modify configuration files
+- Inject malicious commands
+
+The scheduled task will then execute attacker-controlled code.
+
+
+==================================================
+10. Environment Misconfigurations
+==================================================
+- System environment variables and execution paths can sometimes be abused.
+
+Examples include:
+
+- PATH variable manipulation
+- Insecure temporary directories
+- Executable search path vulnerabilities
+
+Attackers place malicious binaries in locations that privileged processes may execute.
+
+
+==================================================
+11. Privilege Escalation in Linux Systems
+==================================================
+Common Linux escalation techniques include:
+
+- SUID binary abuse
+- Writable system files
+- Weak sudo configurations
+- Cron job exploitation
+- Kernel vulnerabilities
+
+Linux systems often rely heavily on file permissions and configuration security.
+
+
+==================================================
+12. Privilege Escalation in Windows Systems
+==================================================
+Common Windows escalation techniques include:
+
+- Weak service permissions
+- DLL hijacking
+- Scheduled task abuse
+- Token impersonation
+- Credential dumping
+
+Windows privilege escalation often focuses on service configuration and authentication mechanisms.
+
+
+==================================================
+13. Example Privilege Escalation Workflow
+==================================================
+
+1. Attacker gains initial shell access.
+2. Identify current user privileges.
+3. Enumerate system configuration.
+4. Search for misconfigurations or vulnerabilities.
+5. Execute privilege escalation technique.
+6. Obtain administrative or root access.
+
+
+==================================================
+14. Why Privilege Escalation Matters
+==================================================
+- Privilege escalation allows attackers to fully compromise systems.
+- Without elevated privileges, attackers may be limited in what they can access or modify.
+
+With elevated privileges attackers can:
+
+- Disable security controls
+- Access sensitive data
+- Deploy persistence mechanisms
+- Pivot deeper into the network
+
+
+==================================================
+15. Questions & Answers
+==================================================
+1. Question:
+What is privilege escalation?
+
+Answer:
+Privilege escalation is the process of gaining higher levels of access on a system after initial compromise.
+
+--------------------------------------------------
+2. Question:
+Why do attackers attempt privilege escalation?
+
+Answer:
+Because higher privileges allow attackers to control systems and access restricted resources.
+
+--------------------------------------------------
+3. Question:
+What is vertical privilege escalation?
+
+Answer:
+Vertical privilege escalation occurs when an attacker gains higher privileges than the compromised account.
+
+--------------------------------------------------
+4. Question:
+What is horizontal privilege escalation?
+
+Answer:
+Horizontal privilege escalation occurs when an attacker accesses another account with similar privileges.
+
+--------------------------------------------------
+5. Question:
+What is local privilege escalation?
+
+Answer:
+Local privilege escalation occurs when an attacker increases privileges on a system they already have access to.
+
+--------------------------------------------------
+6. Question:
+What role do operating system vulnerabilities play in privilege escalation?
+
+Answer:
+They can allow attackers to bypass security restrictions and gain administrative privileges.
+
+--------------------------------------------------
+7. Question:
+How can misconfigured permissions lead to privilege escalation?
+
+Answer:
+If attackers can modify privileged files or executables, they may run malicious code with elevated privileges.
+
+--------------------------------------------------
+8. Question:
+What is credential abuse?
+
+Answer:
+Credential abuse involves using stolen or discovered credentials to gain higher privileges.
+
+--------------------------------------------------
+9. Question:
+What is token impersonation?
+
+Answer:
+Token impersonation allows attackers to assume the identity of another authenticated user or service.
+
+--------------------------------------------------
+10. Question:
+Why are scheduled tasks risky if misconfigured?
+
+Answer:
+Because they may execute attacker-controlled code with elevated privileges.
+
+--------------------------------------------------
+11. Question (Attack Perspective):
+Why is privilege escalation often necessary after initial access?
+
+Answer:
+Because the initial compromise often provides limited privileges.
+
+--------------------------------------------------
+12. Question (Defensive Perspective):
+How can defenders reduce privilege escalation risk?
+
+Answer:
+By applying patches, enforcing least privilege, monitoring system activity, and securing service configurations.

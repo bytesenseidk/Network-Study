@@ -1,0 +1,412 @@
+Evil Twin Attack
+- A wireless attack where an attacker creates a rogue access point that impersonates a legitimate WiFi network to capture traffic or credentials.
+
+==================================================
+Attack Metadata
+==================================================
+
+Category:
+Wireless Attacks → Rogue Access Point Attacks
+
+Attack Stage:
+Initial Access
+Credential Access
+Collection
+Adversary-in-the-Middle
+
+Difficulty:
+Intermediate
+
+Stealth Level:
+Medium → High
+
+Requires Authentication:
+No
+
+Tools Used:
+Airbase-ng
+Aireplay-ng
+WiFiPumpkin3
+Bettercap
+Wireless Adapter
+
+
+==================================================
+1. Overview
+==================================================
+An Evil Twin attack involves creating a fake wireless access point that mimics a legitimate network.
+
+The attacker configures the rogue access point with the same:
+
+- SSID (network name)
+- security configuration
+- appearance
+
+Victim devices may automatically connect to the stronger signal.
+
+Once connected, the attacker can:
+
+- intercept network traffic
+- perform man-in-the-middle attacks
+- capture login credentials
+- inject malicious content
+
+Evil Twin attacks are commonly used in:
+
+- public WiFi attacks
+- credential harvesting campaigns
+- red team engagements.
+
+
+==================================================
+2. Attack Scenario
+==================================================
+A victim is connected to a legitimate WiFi network.
+
+The attacker creates a rogue access point using the same SSID.
+
+To force reconnection, the attacker performs a deauthentication attack against connected clients.
+
+When victims reconnect, they may connect to the attacker's rogue access point instead of the real network.
+
+All victim traffic now passes through the attacker's system.
+
+
+==================================================
+3. Tools Required
+==================================================
+
+Airbase-ng
+Used to create rogue access points.
+
+Aireplay-ng
+Used to perform deauthentication attacks.
+
+WiFiPumpkin3
+A wireless rogue access point framework.
+
+Bettercap
+Used for network interception and man-in-the-middle attacks.
+
+Wireless Adapter
+Must support monitor mode and packet injection.
+
+
+==================================================
+4. Attack Workflow
+==================================================
+
+Identify Target Network
+        ↓
+Create Rogue Access Point
+        ↓
+Perform Deauthentication Attack
+        ↓
+Victims Reconnect to Fake Network
+        ↓
+Intercept Network Traffic
+        ↓
+Capture Credentials or Data
+
+
+==================================================
+5. Step-by-Step Execution
+==================================================
+Step 1 — Identify Target Network
+
+Example command:
+
+airodump-ng wlan0mon
+
+This reveals:
+
+- SSID
+- BSSID
+- channel
+- connected clients
+
+
+Step 2 — Create Rogue Access Point
+
+Example command:
+
+airbase-ng -e "TargetNetwork" -c 6 wlan0mon
+
+
+Step 3 — Deauthenticate Clients
+
+Example command:
+
+aireplay-ng --deauth 10 -a <BSSID> wlan0mon
+
+
+Step 4 — Victims Reconnect
+
+Disconnected devices attempt to reconnect to the network.
+
+They may connect to the attacker's rogue access point.
+
+
+Step 5 — Intercept Traffic
+
+The attacker routes victim traffic through their system.
+
+Tools such as Bettercap or Wireshark can capture data.
+
+
+Step 6 — Capture Credentials
+
+Login credentials entered by victims may be intercepted.
+
+
+==================================================
+6. Example Evil Twin Scenario
+==================================================
+Network Reconnaissance
+
+The attacker identifies a corporate wireless network.
+
+
+Rogue Access Point
+
+A fake network with the same SSID is created.
+
+
+Client Disconnection
+
+Users are forced off the legitimate network.
+
+
+Victim Reconnection
+
+Devices connect to the rogue network.
+
+
+Traffic Interception
+
+All network traffic flows through the attacker.
+
+
+Credential Theft
+
+User credentials are captured.
+
+
+==================================================
+7. Expected Results
+==================================================
+Successful Evil Twin attacks allow attackers to:
+
+- intercept user traffic
+- capture credentials
+- perform man-in-the-middle attacks
+- inject malicious content
+- monitor victim activity
+
+These attacks are particularly effective against users on public WiFi networks.
+
+
+==================================================
+8. Defensive Considerations
+==================================================
+Organizations can reduce the risk of Evil Twin attacks through several controls.
+
+WPA3 Security
+
+Improves protection against credential capture.
+
+Certificate-Based Authentication
+
+Use WPA2/WPA3 Enterprise with certificates.
+
+Wireless Intrusion Detection Systems
+
+Detect rogue access points.
+
+User Awareness
+
+Educate users about suspicious WiFi networks.
+
+VPN Usage
+
+Encrypt traffic over untrusted networks.
+
+
+==================================================
+9. MITRE ATT&CK Mapping
+==================================================
+
+Technique:
+T1557 — Adversary-in-the-Middle
+
+Technique:
+T1040 — Network Sniffing
+
+Technique:
+T1530 — Data from Network Shared Drive
+
+Technique:
+T1110 — Credential Access / Password Capture
+
+
+==================================================
+10. Blue Team Detection
+==================================================
+Evil Twin attacks create abnormal wireless behavior and rogue access points.
+
+Indicators may include:
+
+- duplicate SSIDs appearing on the wireless spectrum
+- devices associating with unexpected access points
+- repeated client disconnections followed by reconnections
+- suspicious DHCP servers on the wireless network
+- abnormal traffic routing patterns
+
+Security teams may also observe:
+
+- rogue MAC addresses broadcasting corporate SSIDs
+- unauthorized access points connected to wired infrastructure
+- unusual authentication failures.
+
+
+==================================================
+11. Relevant Logs
+==================================================
+
+Wireless Controller Logs
+
+Client association and disassociation events  
+Access point discovery events
+
+
+Wireless IDS Logs
+
+Detection of rogue access points.
+
+
+Network Monitoring Logs
+
+Abnormal DHCP or gateway behavior.
+
+
+SIEM Correlation Logs
+
+Correlation of repeated wireless disconnects and rogue SSID detection.
+
+
+==================================================
+12. Detection Tools
+==================================================
+
+Wireless Intrusion Detection Systems
+
+Examples:
+
+- Cisco WIDS
+- Aruba WIDS
+- Kismet
+
+
+Network Monitoring Tools
+
+Examples:
+
+- Zeek
+- Suricata
+
+
+Packet Analysis Tools
+
+Examples:
+
+- Wireshark
+- tcpdump
+
+
+SIEM Platforms
+
+Examples:
+
+- Splunk
+- Elastic Stack
+- Microsoft Sentinel
+
+
+==================================================
+13. Mitigation Strategies
+==================================================
+
+Use WPA2/WPA3 Enterprise
+
+Implement certificate-based authentication.
+
+Deploy Wireless IDS
+
+Detect rogue access points.
+
+Disable Auto-Connect
+
+Prevent automatic connection to unknown networks.
+
+Use VPN on Untrusted Networks
+
+Encrypt sensitive traffic.
+
+Monitor Wireless Spectrum
+
+Detect unauthorized access points.
+
+
+==================================================
+14. Blue Team Knowledge Base Cross-References
+==================================================
+
+Blue Team → Network Defense
+
+Blue Team → Threat Hunting
+
+Blue Team → Detection Engineering
+
+Blue Team → Incident Response
+
+
+==================================================
+15. Questions & Answers
+==================================================
+Question:
+What is an Evil Twin attack?
+
+Answer:
+A wireless attack where a rogue access point impersonates a legitimate network.
+
+--------------------------------------------------
+
+Question:
+Why do victims connect to rogue access points?
+
+Answer:
+Because the fake network appears identical to the legitimate one.
+
+--------------------------------------------------
+
+Question:
+Which attack is commonly used to force victims to reconnect?
+
+Answer:
+A deauthentication attack.
+
+--------------------------------------------------
+
+Question:
+What can attackers capture during an Evil Twin attack?
+
+Answer:
+Network traffic and login credentials.
+
+--------------------------------------------------
+
+Question:
+What is a strong defense against Evil Twin attacks?
+
+Answer:
+Using WPA2/WPA3 Enterprise with certificate-based authentication.

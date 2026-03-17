@@ -1,0 +1,373 @@
+AWS IAM Persistence Backdoor
+- An attack where attackers establish long-term access in an AWS environment by creating or modifying IAM users, roles, or policies.
+
+==================================================
+Attack Metadata
+==================================================
+
+Category:
+Cloud_Attacks → AWS
+
+Attack Stage:
+Persistence
+Privilege Escalation
+Defense Evasion
+
+Difficulty:
+Intermediate → Advanced
+
+Stealth Level:
+High
+
+Requires Authentication:
+Yes (privileged access required)
+
+Tools Used:
+AWS CLI
+Pacu
+ScoutSuite
+
+
+==================================================
+1. Overview
+==================================================
+After gaining access to an AWS environment, attackers often establish persistence to maintain long-term control.
+
+This is commonly achieved by modifying IAM configurations.
+
+Attackers may:
+
+- create new IAM users
+- attach admin policies
+- create access keys
+- modify trust relationships
+- add backdoor roles
+
+These changes allow attackers to retain access even if the original compromise is detected.
+
+
+==================================================
+2. Attack Scenario
+==================================================
+An attacker gains administrative access to an AWS account.
+
+To maintain persistence, the attacker creates a hidden IAM user and attaches administrative privileges.
+
+Alternatively, the attacker modifies an existing role to allow external access.
+
+The attacker can later return using these backdoors.
+
+
+==================================================
+3. Tools Required
+==================================================
+
+AWS CLI
+
+Used to create and modify IAM resources.
+
+Pacu (optional)
+
+Automates AWS persistence techniques.
+
+ScoutSuite (optional)
+
+Used for auditing IAM configurations.
+
+
+==================================================
+4. Attack Workflow
+==================================================
+
+Gain AWS Access
+        ↓
+Enumerate IAM Permissions
+        ↓
+Create or Modify IAM Entity
+        ↓
+Attach Privileged Policy
+        ↓
+Store Credentials
+        ↓
+Maintain Persistent Access
+
+
+==================================================
+5. Step-by-Step Execution
+==================================================
+Step 1 — Create IAM User
+
+Example:
+
+aws iam create-user --user-name backup-admin
+
+
+Step 2 — Attach Administrator Policy
+
+Example:
+
+aws iam attach-user-policy \
+--user-name backup-admin \
+--policy-arn arn:aws:iam::aws:policy/AdministratorAccess
+
+
+Step 3 — Create Access Keys
+
+Example:
+
+aws iam create-access-key --user-name backup-admin
+
+
+Step 4 — Store Credentials
+
+The attacker stores AccessKeyId and SecretAccessKey securely.
+
+
+Step 5 — Modify Role Trust Policy (Optional)
+
+Allow external account access:
+
+aws iam update-assume-role-policy
+
+
+==================================================
+6. Example Persistence Scenario
+==================================================
+Initial Compromise
+
+Attacker gains admin privileges.
+
+
+Backdoor Creation
+
+Hidden IAM user created.
+
+
+Privilege Assignment
+
+Admin policy attached.
+
+
+Persistence
+
+Attacker retains access via access keys.
+
+
+==================================================
+7. Expected Results
+==================================================
+Successful persistence allows attackers to:
+
+- maintain long-term access
+- bypass remediation efforts
+- re-enter the environment
+- escalate attacks later
+
+
+==================================================
+8. Defensive Considerations
+==================================================
+
+IAM Auditing
+
+Regularly review users and roles.
+
+Least Privilege
+
+Limit administrative permissions.
+
+Access Key Monitoring
+
+Detect unauthorized keys.
+
+MFA Enforcement
+
+Require MFA for IAM users.
+
+Logging
+
+Enable CloudTrail and monitor IAM changes.
+
+
+==================================================
+9. MITRE ATT&CK Mapping
+==================================================
+
+Technique:
+T1098 — Account Manipulation
+
+Technique:
+T1078 — Valid Accounts
+
+Technique:
+T1484 — Domain or Tenant Policy Modification
+
+
+==================================================
+10. Blue Team Detection
+==================================================
+Indicators include:
+
+- creation of new IAM users
+- unexpected policy attachments
+- new access keys generated
+- changes to trust relationships
+- IAM activity outside normal patterns
+
+Security teams should monitor:
+
+- IAM configuration changes
+- administrative actions
+- access key creation events
+
+
+==================================================
+11. Relevant Logs
+==================================================
+
+AWS CloudTrail
+
+CreateUser  
+AttachUserPolicy  
+CreateAccessKey  
+UpdateAssumeRolePolicy  
+
+
+SIEM Logs
+
+IAM change correlation  
+
+
+==================================================
+12. Detection Tools
+==================================================
+
+AWS Native Tools
+
+- CloudTrail
+- AWS Config
+- GuardDuty
+
+
+SIEM Platforms
+
+- Splunk
+- Elastic Stack
+- Microsoft Sentinel
+
+
+Cloud Security Tools
+
+- ScoutSuite
+
+
+==================================================
+13. SOC Detection Queries
+==================================================
+
+Splunk Query (New IAM User Creation)
+
+index=cloudtrail
+| search eventName=CreateUser
+
+
+Splunk Query (Admin Policy Attachment)
+
+index=cloudtrail
+| search eventName=AttachUserPolicy policyArn="*AdministratorAccess*"
+
+
+Sigma Rule Example
+
+title: Suspicious IAM Backdoor Creation
+logsource:
+  product: aws
+detection:
+  selection:
+    eventName:
+      - CreateUser
+      - AttachUserPolicy
+  condition: selection
+level: high
+
+
+Microsoft Sentinel (KQL) Example
+
+AWSCloudTrail
+| where EventName in ("CreateUser", "AttachUserPolicy")
+
+
+==================================================
+14. Mitigation Strategies
+==================================================
+
+Audit IAM Regularly
+
+Remove unauthorized users.
+
+Enable MFA
+
+Protect privileged accounts.
+
+Monitor IAM Changes
+
+Detect persistence attempts.
+
+Rotate Credentials
+
+Invalidate compromised keys.
+
+Use AWS Config Rules
+
+Detect misconfigurations automatically.
+
+
+==================================================
+15. Attack Chain Integration
+==================================================
+
+This attack commonly follows:
+
+- AWS IAM Privilege Escalation
+- EC2 Role Abuse
+
+This attack may lead to:
+
+- Long-Term Cloud Persistence
+- S3 Data Exfiltration
+- Infrastructure Manipulation
+
+
+==================================================
+16. Questions & Answers
+==================================================
+
+Question:
+What is IAM persistence?
+
+Answer:
+Maintaining access by creating or modifying IAM entities.
+
+--------------------------------------------------
+
+Question:
+How do attackers create backdoors?
+
+Answer:
+By creating users, roles, or access keys.
+
+--------------------------------------------------
+
+Question:
+Why is this dangerous?
+
+Answer:
+Because attackers can return even after detection.
+
+--------------------------------------------------
+
+Question:
+What is a key defense?
+
+Answer:
+Monitoring IAM changes and enforcing least privilege.

@@ -1,0 +1,248 @@
+Sigma Rules Basics
+- A standardized rule format used to describe log-based detection logic in a SIEM-agnostic way.
+
+==================================================
+1. Overview
+==================================================
+Sigma is an open-source rule format designed to describe detection logic in a structured, readable, and portable way.
+
+It allows security teams to:
+
+- write detection rules once
+- convert them into multiple SIEM query formats
+- standardize detection engineering practices
+
+Sigma rules can be converted into queries for:
+
+- Splunk
+- Elastic Stack
+- Microsoft Sentinel
+- QRadar
+- ArcSight
+
+This makes Sigma a powerful tool for sharing detections across teams and organizations.
+
+
+==================================================
+2. Why Sigma Matters
+==================================================
+
+Standardization
+
+Provides a consistent format for detection rules.
+
+Portability
+
+Rules can be converted to different SIEM platforms.
+
+Collaboration
+
+Security teams can share detection logic easily.
+
+Efficiency
+
+Reduces time needed to write platform-specific queries.
+
+
+==================================================
+3. Sigma Rule Structure
+==================================================
+
+A Sigma rule is written in YAML format and typically contains:
+
+title:
+Short description of the detection.
+
+id:
+Unique identifier (UUID recommended).
+
+status:
+experimental / stable / test
+
+description:
+Detailed explanation of what the rule detects.
+
+author:
+Rule creator.
+
+logsource:
+Defines where logs come from.
+
+detection:
+Core detection logic.
+
+fields:
+Relevant fields for investigation.
+
+level:
+Severity (low / medium / high / critical)
+
+
+==================================================
+4. Example Sigma Rule
+==================================================
+
+title: Suspicious PowerShell Execution
+id: 123e4567-e89b-12d3-a456-426614174000
+status: experimental
+description: Detects encoded PowerShell commands
+author: analyst
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4688
+    CommandLine: "*EncodedCommand*"
+  condition: selection
+level: high
+
+
+==================================================
+5. Detection Logic Explained
+==================================================
+
+selection:
+Defines what to look for.
+
+condition:
+Defines how selections are combined.
+
+Common conditions:
+
+selection  
+selection1 and selection2  
+selection1 or selection2  
+selection and not filter  
+
+
+==================================================
+6. Field Matching
+==================================================
+
+Exact match:
+
+CommandLine: "powershell.exe"
+
+Wildcard match:
+
+CommandLine: "*powershell*"
+
+Multiple values:
+
+EventID:
+  - 4688
+  - 4689
+
+
+==================================================
+7. Log Sources
+==================================================
+
+Examples:
+
+Windows Logs
+
+product: windows  
+service: security  
+
+Linux Logs
+
+product: linux  
+
+Cloud Logs
+
+product: aws  
+service: cloudtrail  
+
+
+==================================================
+8. Sigma Conversion
+==================================================
+
+Sigma rules are converted into SIEM queries using tools like:
+
+sigmac (legacy)  
+pySigma (modern)  
+
+Example conversion:
+
+Sigma → Splunk  
+Sigma → Elastic  
+Sigma → Sentinel (KQL)
+
+
+==================================================
+9. Use Cases
+==================================================
+
+Detect:
+
+- PowerShell abuse
+- credential dumping
+- lateral movement
+- suspicious logins
+- malware execution
+
+
+==================================================
+10. Best Practices
+==================================================
+
+Keep rules simple and readable  
+Use clear descriptions  
+Test rules before deployment  
+Avoid overly broad conditions  
+Map rules to MITRE ATT&CK  
+
+
+==================================================
+11. Limitations
+==================================================
+
+Requires conversion to SIEM queries  
+Dependent on log availability  
+May require tuning to reduce false positives  
+
+
+==================================================
+12. Questions & Answers
+==================================================
+
+Question:
+What is Sigma?
+
+Answer:
+A standardized format for writing SIEM detection rules.
+
+--------------------------------------------------
+
+Question:
+Why use Sigma instead of native SIEM queries?
+
+Answer:
+Because Sigma rules are portable and reusable across platforms.
+
+--------------------------------------------------
+
+Question:
+What format are Sigma rules written in?
+
+Answer:
+YAML.
+
+--------------------------------------------------
+
+Question:
+What is the purpose of the detection section?
+
+Answer:
+To define the logic used to identify suspicious activity.
+
+--------------------------------------------------
+
+Question:
+What is the main benefit of Sigma?
+
+Answer:
+Write once, use across multiple SIEM platforms.
