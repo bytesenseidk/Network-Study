@@ -1,0 +1,308 @@
+Sigma to SIEM Mapping
+- The process of translating Sigma detection rules into platform-specific queries for SIEM systems such as Splunk, Microsoft Sentinel, and Elastic.
+
+==================================================
+1. Overview
+==================================================
+Sigma is a generic detection rule format that allows security teams to write detections once and apply them across multiple SIEM platforms.
+
+However, Sigma rules must be translated into platform-specific query languages such as:
+
+- Splunk (SPL)
+- Microsoft Sentinel (KQL)
+- Elastic (EQL / Lucene)
+
+Sigma-to-SIEM mapping ensures:
+
+- portability of detection logic
+- consistency across environments
+- faster detection engineering workflows
+
+
+==================================================
+2. Why Sigma Matters
+==================================================
+
+Vendor-Agnostic Detection
+
+Write once, deploy anywhere.
+
+Standardized Format
+
+Consistent rule structure across teams.
+
+Community Driven
+
+Large library of publicly available rules.
+
+Rapid Detection Development
+
+Quickly convert attack techniques into detections.
+
+
+==================================================
+3. Sigma Rule Structure
+==================================================
+
+A Sigma rule typically includes:
+
+title:
+description:
+logsource:
+detection:
+condition:
+fields:
+falsepositives:
+level:
+
+Example:
+
+title: Suspicious PowerShell Execution
+
+logsource:
+  product: windows
+
+detection:
+  selection:
+    Image: powershell.exe
+    CommandLine|contains: "-enc"
+  condition: selection
+
+
+==================================================
+4. Mapping Concepts
+==================================================
+
+Field Mapping
+
+Different SIEMs use different field names.
+
+Example:
+
+Sigma:
+Image
+
+Splunk:
+process_name
+
+Sentinel:
+FileName
+
+
+Log Source Mapping
+
+Sigma defines generic sources:
+
+product: windows
+
+SIEMs require specific tables:
+
+Splunk:
+WinEventLog
+
+Sentinel:
+DeviceProcessEvents
+
+
+Operator Translation
+
+Sigma:
+|contains
+
+Splunk:
+LIKE "%value%"
+
+Sentinel:
+contains
+
+
+==================================================
+5. Example Rule Conversion
+==================================================
+
+Sigma Rule:
+
+Image: powershell.exe  
+CommandLine contains "-enc"
+
+
+Splunk (SPL):
+
+index=windows process_name="powershell.exe"
+| search CommandLine="*-enc*"
+
+
+Sentinel (KQL):
+
+DeviceProcessEvents
+| where FileName == "powershell.exe"
+| where ProcessCommandLine contains "-enc"
+
+
+Elastic (EQL):
+
+process where process.name == "powershell.exe"
+and process.command_line like "*-enc*"
+
+
+==================================================
+6. Conversion Workflow
+==================================================
+
+Select Sigma Rule
+        ↓
+Identify Log Source
+        ↓
+Map Fields to SIEM Schema
+        ↓
+Translate Operators
+        ↓
+Adapt Query Syntax
+        ↓
+Test Against Data
+        ↓
+Tune for False Positives
+
+
+==================================================
+7. Common Challenges
+==================================================
+
+Field Name Differences
+
+Different SIEM schemas require mapping adjustments.
+
+Missing Logs
+
+Required telemetry may not exist.
+
+Operator Differences
+
+Syntax varies between platforms.
+
+Data Normalization Issues
+
+Logs may be inconsistent or incomplete.
+
+Performance Optimization
+
+Queries must be efficient in production environments.
+
+
+==================================================
+8. Tools for Conversion
+==================================================
+
+sigmac
+
+Official Sigma conversion tool.
+
+Example:
+
+sigmac -t splunk rule.yml
+
+
+Uncoder.io
+
+Web-based Sigma converter.
+
+
+Sigma CLI
+
+Modern Sigma rule processing tool.
+
+
+Custom Pipelines
+
+Organizations often build internal converters.
+
+
+==================================================
+9. Best Practices
+==================================================
+
+Understand Your Data
+
+Know your SIEM schema and available logs.
+
+Validate Every Rule
+
+Test rules before deployment.
+
+Tune for Environment
+
+Adjust thresholds and filters.
+
+Avoid Blind Conversion
+
+Always review converted queries manually.
+
+Document Mappings
+
+Track how fields map between systems.
+
+
+==================================================
+10. Example Use Case
+==================================================
+
+Goal:
+Detect encoded PowerShell usage
+
+Sigma Rule:
+Detect powershell.exe with encoded command
+
+
+Converted Queries:
+
+Splunk:
+Search process_name="powershell.exe" with encoded command
+
+Sentinel:
+Query DeviceProcessEvents for encoded execution
+
+Result:
+Consistent detection across multiple platforms
+
+
+==================================================
+11. Questions & Answers
+==================================================
+
+Question:
+What is Sigma?
+
+Answer:
+A generic detection rule format for SIEM systems.
+
+--------------------------------------------------
+
+Question:
+Why is Sigma useful?
+
+Answer:
+It allows detection logic to be reused across different SIEM platforms.
+
+--------------------------------------------------
+
+Question:
+What must be done before using a Sigma rule?
+
+Answer:
+It must be converted to the SIEM’s query language.
+
+--------------------------------------------------
+
+Question:
+What is a key challenge in Sigma conversion?
+
+Answer:
+Field mapping differences between SIEM platforms.
+
+--------------------------------------------------
+
+Question:
+What tool is commonly used to convert Sigma rules?
+
+Answer:
+sigmac.

@@ -1,0 +1,365 @@
+Detection Tuning Workflow
+- The process of refining detection rules to reduce false positives, improve accuracy, and ensure reliable alerting in production environments.
+
+==================================================
+1. Overview
+==================================================
+Detection tuning is the process of adjusting detection rules to ensure they:
+
+- generate meaningful alerts
+- minimize false positives
+- remain relevant in a specific environment
+
+Even well-designed detections can produce excessive noise if not tuned properly.
+
+Tuning transforms detections from:
+
+"technically correct" → "operationally useful"
+
+
+==================================================
+2. Why Tuning Is Critical
+==================================================
+
+Reduce Alert Fatigue
+
+Too many false positives overwhelm analysts.
+
+Improve Detection Accuracy
+
+Focus on real threats.
+
+Increase SOC Efficiency
+
+Analysts spend time on real incidents.
+
+Adapt to Environment
+
+Each organization has unique behavior patterns.
+
+
+==================================================
+3. Types of Detection Outcomes
+==================================================
+
+False Positives
+
+Benign activity incorrectly flagged as malicious.
+
+False Negatives
+
+Malicious activity not detected.
+
+True Positives
+
+Correct detection of real threats.
+
+True Negatives
+
+Correctly ignored benign activity.
+
+
+==================================================
+4. Detection Tuning Workflow
+==================================================
+
+Deploy Initial Detection
+        ↓
+Collect Alert Data
+        ↓
+Analyze Alerts
+        ↓
+Identify False Positives
+        ↓
+Adjust Detection Logic
+        ↓
+Retest Detection
+        ↓
+Deploy Tuned Rule
+        ↓
+Continuous Monitoring
+
+
+==================================================
+5. Common Tuning Techniques
+==================================================
+
+Threshold Adjustment
+
+Modify alert thresholds.
+
+Example:
+
+Failed logins > 10 → Failed logins > 25
+
+
+Whitelisting
+
+Exclude known benign users, hosts, or IPs.
+
+Example:
+
+Exclude IT admin accounts.
+
+
+Time-Based Filtering
+
+Limit detection to relevant time windows.
+
+Example:
+
+Ignore scheduled maintenance periods.
+
+
+Field Filtering
+
+Refine based on:
+
+- process name
+- command line
+- user behavior
+
+
+Behavioral Baselines
+
+Compare activity against normal patterns.
+
+
+Correlation
+
+Combine multiple signals before alerting.
+
+
+==================================================
+6. Step-by-Step Tuning Process
+==================================================
+
+Step 1 — Deploy Detection
+
+Create initial rule based on attack behavior.
+
+
+Step 2 — Collect Alerts
+
+Run detection in:
+
+- test environment
+- or production (low severity)
+
+
+Step 3 — Analyze False Positives
+
+Identify:
+
+- common patterns
+- repeated benign activity
+
+
+Step 4 — Adjust Logic
+
+Example:
+
+Add condition:
+
+User NOT IN (admin1, admin2)
+
+
+Step 5 — Retest
+
+Verify detection still catches malicious behavior.
+
+
+Step 6 — Deploy Tuned Rule
+
+Promote to production alert.
+
+
+Step 7 — Monitor Continuously
+
+Adjust as environment evolves.
+
+
+==================================================
+7. Example Tuning Scenario
+==================================================
+
+Detection:
+
+Multiple failed login attempts
+
+
+Initial Rule:
+
+Alert if failed logins > 10
+
+
+Problem:
+
+Triggers on:
+
+- legitimate users mistyping passwords
+- automated systems
+
+
+Tuning Applied:
+
+- increase threshold to > 25
+- exclude known service accounts
+
+
+Result:
+
+Significant reduction in false positives.
+
+
+==================================================
+8. Advanced Tuning Techniques
+==================================================
+
+Entity-Based Tuning
+
+Focus on specific:
+
+- users
+- hosts
+- applications
+
+
+Dynamic Thresholds
+
+Adjust thresholds based on baseline behavior.
+
+
+Anomaly Detection
+
+Alert only on deviations from normal patterns.
+
+
+Multi-Event Correlation
+
+Require multiple conditions:
+
+Example:
+
+Failed logins + successful login + new location
+
+
+Risk Scoring
+
+Assign scores to events and alert above threshold.
+
+
+==================================================
+9. Common Mistakes
+==================================================
+
+Over-Tuning
+
+Too many exclusions may hide real attacks.
+
+No Baseline
+
+Without understanding normal behavior, tuning is ineffective.
+
+Ignoring Context
+
+Not considering user roles or system function.
+
+One-Time Tuning
+
+Detections must be continuously updated.
+
+Blind Whitelisting
+
+Excluding activity without validation.
+
+
+==================================================
+10. Best Practices
+==================================================
+
+Start Broad, Then Refine
+
+Avoid overly strict initial rules.
+
+Use Real Data
+
+Test against actual environment logs.
+
+Document Changes
+
+Track tuning decisions.
+
+Collaborate with SOC Analysts
+
+Use analyst feedback.
+
+Review Regularly
+
+Reassess detections periodically.
+
+
+==================================================
+11. Example Detection (Before & After)
+==================================================
+
+Before:
+
+Alert on any PowerShell execution.
+
+
+After:
+
+Alert on:
+
+- powershell.exe
+- AND command contains "-enc"
+- AND user NOT IN admin group
+
+
+Result:
+
+Reduced noise, improved accuracy.
+
+
+==================================================
+12. Questions & Answers
+==================================================
+
+Question:
+What is detection tuning?
+
+Answer:
+The process of refining detection rules to reduce false positives and improve accuracy.
+
+--------------------------------------------------
+
+Question:
+Why is tuning important?
+
+Answer:
+Because raw detections often generate too many false alerts.
+
+--------------------------------------------------
+
+Question:
+What is a common tuning method?
+
+Answer:
+Whitelisting known benign activity.
+
+--------------------------------------------------
+
+Question:
+What is over-tuning?
+
+Answer:
+Excluding too much, potentially missing real attacks.
+
+--------------------------------------------------
+
+Question:
+How often should detections be tuned?
+
+Answer:
+Continuously, as environments and threats evolve.
