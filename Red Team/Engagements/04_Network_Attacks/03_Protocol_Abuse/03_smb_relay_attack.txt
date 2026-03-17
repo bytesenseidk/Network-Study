@@ -1,0 +1,418 @@
+SMB Relay Attack
+- A network attack that relays captured SMB authentication to another host in order to gain unauthorized access.
+
+==================================================
+Attack Metadata
+==================================================
+
+Category:
+Network Attacks → Protocol Abuse
+
+Attack Stage:
+Credential Access
+Lateral Movement
+Privilege Escalation
+
+Difficulty:
+Intermediate
+
+Stealth Level:
+High
+
+Requires Authentication:
+No (requires captured SMB/NTLM authentication flow)
+
+Tools Used:
+Impacket ntlmrelayx
+Responder
+CrackMapExec
+Nmap
+
+
+==================================================
+1. Overview
+==================================================
+An SMB relay attack occurs when an attacker captures an SMB authentication attempt and forwards it to another system.
+
+SMB (Server Message Block) is widely used in Windows environments for:
+
+- file sharing
+- printer access
+- remote administration
+- authentication
+
+If SMB signing is not enforced, attackers can relay authentication requests to another system.
+
+The attacker does not need to know the password.
+
+Instead, the attacker forwards the authentication handshake to another host that trusts the authentication.
+
+If the authentication succeeds, the attacker gains access to the target system.
+
+
+==================================================
+2. Attack Scenario
+==================================================
+Assume an attacker gains access to an internal corporate network.
+
+A victim system attempts to connect to a network resource.
+
+The attacker captures the SMB authentication request.
+
+The attacker relays the authentication to another machine that accepts SMB connections.
+
+If the victim account has administrative privileges on that machine, the attacker may execute commands or access sensitive data.
+
+
+==================================================
+3. Tools Required
+==================================================
+
+Impacket ntlmrelayx
+Used to relay SMB authentication attempts.
+
+Responder
+Used to capture authentication attempts from victim systems.
+
+CrackMapExec
+Used to identify hosts that accept SMB authentication.
+
+Nmap
+Used to identify hosts running SMB services.
+
+
+==================================================
+4. Attack Workflow
+==================================================
+
+Internal Network Access
+        ↓
+Trigger SMB Authentication
+        ↓
+Capture NTLM Challenge-Response
+        ↓
+Relay SMB Authentication to Target
+        ↓
+Access Target System
+
+
+==================================================
+5. Step-by-Step Execution
+==================================================
+Step 1 — Identify Systems with SMB Enabled
+
+Example command:
+
+nmap -p 445 192.168.1.0/24
+
+
+Step 2 — Identify Targets Without SMB Signing
+
+Example using CrackMapExec:
+
+crackmapexec smb 192.168.1.0/24
+
+
+Hosts without SMB signing are vulnerable to relay attacks.
+
+
+Step 3 — Start SMB Relay Server
+
+Example command:
+
+ntlmrelayx.py -t smb://192.168.1.50 -smb2support
+
+
+Step 4 — Trigger SMB Authentication
+
+Responder or another technique triggers the victim to authenticate.
+
+
+Step 5 — Relay Authentication
+
+The captured authentication is forwarded to the target system.
+
+
+Step 6 — Execute Commands or Access Shares
+
+If successful, the attacker may gain access to:
+
+- file shares
+- remote command execution
+- administrative privileges
+
+
+==================================================
+6. Example SMB Relay Scenario
+==================================================
+
+Initial Access
+
+Attacker connects to the internal network.
+
+
+Authentication Capture
+
+Responder captures an SMB authentication attempt.
+
+
+Authentication Relay
+
+The authentication is forwarded to a file server.
+
+
+Access Granted
+
+The attacker gains access using the victim's credentials.
+
+
+==================================================
+7. Expected Results
+==================================================
+Successful SMB relay attacks may allow attackers to:
+
+- access shared files
+- execute commands remotely
+- create new administrative accounts
+- perform lateral movement
+
+If administrative credentials are relayed, attackers may fully compromise the target system.
+
+
+==================================================
+8. Defensive Considerations
+==================================================
+Organizations can reduce SMB relay risks through several controls.
+
+Enable SMB Signing
+
+Require SMB signing on all servers and clients.
+
+Disable LLMNR and NetBIOS
+
+Prevent attackers from triggering authentication attempts.
+
+Restrict NTLM Authentication
+
+Limit NTLM usage where possible.
+
+Network Segmentation
+
+Reduce trust relationships between systems.
+
+Monitoring
+
+Detect suspicious SMB authentication behavior.
+
+
+==================================================
+9. MITRE ATT&CK Mapping
+==================================================
+
+Technique:
+T1557 — Adversary-in-the-Middle
+
+Sub-technique:
+T1557.001 — LLMNR/NBT-NS Poisoning and SMB Relay
+
+Technique:
+T1021 — Remote Services
+
+Sub-technique:
+T1021.002 — SMB/Windows Admin Shares
+
+Technique:
+T1078 — Valid Accounts
+
+
+==================================================
+10. Blue Team Detection
+==================================================
+SMB relay attacks generate suspicious SMB authentication patterns across the network.
+
+Common indicators include:
+
+- SMB authentication attempts between unusual hosts
+- NTLM authentication originating from unexpected systems
+- multiple authentication attempts relayed between hosts
+- remote command execution following NTLM authentication
+- authentication events correlated with LLMNR or NetBIOS broadcast activity
+
+Additional suspicious indicators may include:
+
+- systems acting as unauthorized SMB servers
+- SMB authentication to hosts that normally do not receive administrative connections
+- authentication attempts immediately following name resolution broadcasts.
+
+
+==================================================
+11. Relevant Logs
+==================================================
+
+Windows Security Logs
+
+Event ID 4624 — Successful Logon  
+Event ID 4625 — Failed Logon  
+Event ID 4672 — Special Privileges Assigned  
+
+
+NTLM Authentication Logs
+
+Event ID 4776 — NTLM authentication attempt
+
+
+SMB Access Logs
+
+Event ID 5140 — Network Share Access  
+Event ID 5145 — Detailed File Share Access
+
+
+Sysmon Logs
+
+Event ID 3 — Network Connection  
+Event ID 1 — Process Creation  
+
+
+Network IDS / IPS Logs
+
+Detection of SMB relay activity or man-in-the-middle behavior.
+
+
+SIEM Correlation Logs
+
+Authentication events correlated with abnormal SMB traffic.
+
+
+==================================================
+12. Detection Tools
+==================================================
+
+Network Intrusion Detection Systems
+
+Examples:
+
+- Suricata
+- Snort
+
+
+Network Monitoring Tools
+
+Examples:
+
+- Zeek
+- Wireshark
+
+
+SIEM Platforms
+
+Examples:
+
+- Splunk
+- Elastic Stack
+- Microsoft Sentinel
+
+
+Endpoint Detection and Response
+
+Examples:
+
+- Microsoft Defender for Endpoint
+- CrowdStrike Falcon
+- SentinelOne
+
+
+Threat Hunting Platforms
+
+Examples:
+
+- Velociraptor
+- Wazuh
+
+
+==================================================
+13. Mitigation Strategies
+==================================================
+
+Enforce SMB Signing
+
+Prevent authentication relay attacks.
+
+Disable LLMNR and NetBIOS
+
+Reduce broadcast-based authentication triggers.
+
+Restrict NTLM Authentication
+
+Prefer Kerberos wherever possible.
+
+Segment Networks
+
+Reduce lateral authentication opportunities.
+
+Monitor SMB Activity
+
+Detect unusual SMB authentication behavior.
+
+Deploy Endpoint Detection
+
+Identify tools performing relay attacks or man-in-the-middle behavior.
+
+
+==================================================
+14. Blue Team Knowledge Base Cross-References
+==================================================
+
+Blue Team → Network Defense
+
+Blue Team → Active Directory Defense
+
+Blue Team → Log Analysis and Detection
+
+Blue Team → Threat Hunting
+
+Blue Team → Detection Engineering
+
+Blue Team → Incident Response
+
+
+==================================================
+15. Questions & Answers
+==================================================
+
+Question:
+What is an SMB relay attack?
+
+Answer:
+An attack where SMB authentication attempts are captured and relayed to another system.
+
+--------------------------------------------------
+
+Question:
+What vulnerability allows SMB relay attacks?
+
+Answer:
+The absence of SMB signing enforcement.
+
+--------------------------------------------------
+
+Question:
+Which tool is commonly used to perform SMB relay attacks?
+
+Answer:
+Impacket ntlmrelayx.
+
+--------------------------------------------------
+
+Question:
+What credential information is relayed during the attack?
+
+Answer:
+NTLM challenge-response authentication.
+
+--------------------------------------------------
+
+Question:
+What is the most effective defense against SMB relay attacks?
+
+Answer:
+Enforcing SMB signing and restricting NTLM authentication.

@@ -1,0 +1,357 @@
+Rogue Access Point Attack
+- A wireless attack where an attacker deploys an unauthorized wireless access point to intercept or manipulate network traffic.
+
+==================================================
+Attack Metadata
+==================================================
+
+Category:
+Wireless Attacks → WiFi Attacks
+
+Attack Stage:
+Initial Access
+Credential Access
+Adversary-in-the-Middle
+
+Difficulty:
+Intermediate
+
+Stealth Level:
+Medium → High
+
+Requires Authentication:
+No
+
+Tools Used:
+Airbase-ng
+WiFi Pineapple
+Hostapd
+WiFiPumpkin3
+Karma Attacks
+
+
+==================================================
+1. Overview
+==================================================
+A Rogue Access Point attack occurs when an attacker creates a wireless access point that appears legitimate to users.
+
+The rogue AP mimics a trusted network such as:
+
+- corporate WiFi
+- guest networks
+- public hotspots
+
+Victims unknowingly connect to the attacker-controlled network.
+
+Once connected, attackers can:
+
+- capture credentials
+- perform man-in-the-middle attacks
+- monitor network traffic
+- inject malicious content
+
+Rogue access points are commonly used in social engineering and wireless penetration testing.
+
+
+==================================================
+2. Attack Scenario
+==================================================
+An attacker positions themselves near a corporate office.
+
+The attacker creates a wireless network that mimics the company WiFi name (SSID).
+
+Employees accidentally connect to the rogue network.
+
+The attacker intercepts authentication traffic and captures credentials.
+
+
+==================================================
+3. Tools Required
+==================================================
+
+Airbase-ng
+Creates rogue access points.
+
+WiFi Pineapple
+Specialized wireless attack platform.
+
+Hostapd
+Used to create software-based access points.
+
+WiFiPumpkin3
+Framework for rogue AP and man-in-the-middle attacks.
+
+Karma Attack Tools
+Automatically respond to WiFi probe requests.
+
+
+==================================================
+4. Attack Workflow
+==================================================
+
+Identify Target Wireless Network
+        ↓
+Create Rogue Access Point
+        ↓
+Broadcast Legitimate SSID
+        ↓
+Victim Connects to Rogue AP
+        ↓
+Intercept Network Traffic
+        ↓
+Capture Credentials or Data
+
+
+==================================================
+5. Step-by-Step Execution
+==================================================
+Step 1 — Identify Target Network
+
+Example command:
+
+airodump-ng wlan0mon
+
+Identify the target SSID.
+
+
+Step 2 — Create Rogue Access Point
+
+Example using Airbase-ng:
+
+airbase-ng -e "CorporateWiFi" -c 6 wlan0mon
+
+
+Step 3 — Configure DHCP and Routing
+
+The attacker configures networking services so clients receive an IP address.
+
+
+Step 4 — Victim Connects
+
+Users connect to the rogue access point believing it is legitimate.
+
+
+Step 5 — Intercept Traffic
+
+The attacker captures network traffic using tools such as:
+
+- Wireshark
+- tcpdump
+- mitmproxy
+
+
+==================================================
+6. Example Rogue AP Scenario
+==================================================
+
+Reconnaissance
+
+Attacker identifies a corporate WiFi network.
+
+
+AP Creation
+
+The attacker creates a rogue network with the same SSID.
+
+
+User Connection
+
+Employees connect to the attacker-controlled network.
+
+
+Traffic Interception
+
+The attacker captures credentials and sensitive data.
+
+
+==================================================
+7. Expected Results
+==================================================
+Successful rogue access point attacks may allow attackers to:
+
+- capture user credentials
+- intercept network traffic
+- perform man-in-the-middle attacks
+- inject malicious content
+
+Attackers may gain access to internal systems or sensitive information.
+
+
+==================================================
+8. Defensive Considerations
+==================================================
+Organizations can mitigate rogue access point attacks through several controls.
+
+Wireless Network Monitoring
+
+Detect unauthorized access points.
+
+Use WPA3 Encryption
+
+Reduce credential capture risks.
+
+Implement Network Access Control
+
+Restrict unknown devices.
+
+Employee Awareness
+
+Educate users about connecting to trusted networks only.
+
+Wireless Intrusion Detection Systems
+
+Detect rogue wireless infrastructure.
+
+
+==================================================
+9. MITRE ATT&CK Mapping
+==================================================
+
+Technique:
+T1557 — Adversary-in-the-Middle
+
+Technique:
+T1040 — Network Sniffing
+
+Technique:
+T1071 — Application Layer Protocol
+
+
+==================================================
+10. Blue Team Detection
+==================================================
+Rogue access points may generate abnormal wireless activity.
+
+Indicators include:
+
+- duplicate SSIDs appearing in wireless scans
+- unauthorized access points broadcasting corporate SSIDs
+- clients connecting to unexpected access points
+- abnormal wireless traffic patterns
+
+
+==================================================
+11. Relevant Logs
+==================================================
+
+Wireless Controller Logs
+
+Access point discovery events  
+Client association events
+
+
+Wireless IDS Logs
+
+Rogue AP detection alerts.
+
+
+Network Monitoring Logs
+
+Unusual DHCP activity.
+
+
+==================================================
+12. Detection Tools
+==================================================
+
+Wireless IDS Systems
+
+Examples:
+
+- Cisco WIDS
+- Aruba WIDS
+- Kismet
+
+
+Network Monitoring Tools
+
+Examples:
+
+- Wireshark
+- Zeek
+
+
+SIEM Platforms
+
+Examples:
+
+- Splunk
+- Elastic Stack
+- Microsoft Sentinel
+
+
+==================================================
+13. Mitigation Strategies
+==================================================
+
+Deploy Wireless IDS
+
+Detect rogue access points.
+
+Use Certificate-Based Authentication
+
+Implement WPA2-Enterprise or WPA3-Enterprise.
+
+Disable Auto-Connect
+
+Prevent automatic connections to unknown networks.
+
+Monitor Wireless Spectrum
+
+Identify unauthorized access points.
+
+
+==================================================
+14. Blue Team Knowledge Base Cross-References
+==================================================
+
+Blue Team → Network Defense
+
+Blue Team → Threat Hunting
+
+Blue Team → Detection Engineering
+
+Blue Team → Incident Response
+
+
+==================================================
+15. Questions & Answers
+==================================================
+
+Question:
+What is a rogue access point?
+
+Answer:
+An unauthorized wireless access point created to intercept network traffic.
+
+--------------------------------------------------
+
+Question:
+What is the main risk of rogue access points?
+
+Answer:
+Users may unknowingly connect and expose credentials.
+
+--------------------------------------------------
+
+Question:
+Which tool can create rogue access points?
+
+Answer:
+Airbase-ng.
+
+--------------------------------------------------
+
+Question:
+What is a common defense against rogue access points?
+
+Answer:
+Wireless intrusion detection systems.
+
+--------------------------------------------------
+
+Question:
+What type of attack does a rogue access point enable?
+
+Answer:
+Man-in-the-middle attacks.

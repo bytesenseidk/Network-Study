@@ -1,0 +1,423 @@
+Internal Network Attack
+- A common internal network attack chain used to capture credentials and move laterally across Windows environments.
+
+==================================================
+Attack Metadata
+==================================================
+
+Category:
+Network Attacks → Core Internal Network Attacks
+
+Attack Stage:
+Credential Access
+Lateral Movement
+Privilege Escalation
+
+Difficulty:
+Intermediate
+
+Stealth Level:
+Medium
+
+Requires Authentication:
+No (initial internal access required)
+
+Tools Used:
+Responder
+Hashcat
+Impacket
+
+
+==================================================
+1. Overview
+==================================================
+This playbook describes a typical internal network attack workflow.
+
+The objective is to:
+
+- capture authentication hashes
+- crack passwords
+- authenticate to additional systems
+- move laterally across the network
+
+This attack chain is commonly used after an attacker gains initial access to a corporate network.
+
+
+==================================================
+2. Attack Scenario
+==================================================
+Assume the attacker has gained access to the internal network through one of the following:
+
+- compromised workstation
+- VPN access
+- physical network access
+- wireless network compromise
+
+Once inside the network, the attacker attempts to capture credentials and escalate access.
+
+
+==================================================
+3. Tools Required
+==================================================
+
+Responder
+Capture NTLM authentication hashes.
+
+Hashcat
+Crack captured password hashes.
+
+Impacket
+Authenticate to remote systems and execute commands.
+
+
+==================================================
+4. Attack Workflow
+==================================================
+
+Internal Network Access
+        ↓
+Start Responder
+        ↓
+Victim Sends LLMNR Request
+        ↓
+Responder Captures NTLM Hash
+        ↓
+Hashcat Cracks Password
+        ↓
+Valid Credentials Obtained
+        ↓
+Impacket Used for Remote Access
+        ↓
+Lateral Movement
+
+
+==================================================
+5. Step 1 — Start Credential Capture
+==================================================
+Launch Responder to listen for authentication attempts.
+
+Example:
+
+sudo responder -I eth0
+
+
+Responder will begin poisoning:
+
+LLMNR  
+NBT-NS  
+mDNS  
+
+If a victim attempts to access a non-existent network resource, authentication credentials may be captured.
+
+
+==================================================
+6. Step 2 — Capture NTLM Hash
+==================================================
+Example captured hash:
+
+username::DOMAIN:1122334455667788:abcdef1234567890abcdef1234567890
+
+Responder saves hashes to:
+
+/usr/share/responder/logs/
+
+
+==================================================
+7. Step 3 — Crack the Password
+==================================================
+Use Hashcat to crack the captured NTLM hash.
+
+Example:
+
+hashcat -m 5600 captured_hashes.txt rockyou.txt
+
+
+If successful, Hashcat reveals the plaintext password.
+
+
+==================================================
+8. Step 4 — Authenticate to Remote System
+==================================================
+Use Impacket to authenticate using the recovered credentials.
+
+Example:
+
+psexec.py DOMAIN/user:password@192.168.1.50
+
+
+Successful execution may provide a remote shell.
+
+
+==================================================
+9. Step 5 — Lateral Movement
+==================================================
+After gaining access to a system, the attacker may:
+
+- search for additional credentials
+- dump password hashes
+- access file shares
+- move to other systems
+
+
+Example command:
+
+secretsdump.py DOMAIN/user:password@192.168.1.50
+
+
+==================================================
+10. Example Attack Chain
+==================================================
+
+Responder
+        ↓
+Capture NTLM Hash
+        ↓
+Hashcat
+        ↓
+Crack Password
+        ↓
+Impacket
+        ↓
+Remote Command Execution
+        ↓
+Privilege Escalation
+        ↓
+Lateral Movement
+
+
+==================================================
+11. Expected Results
+==================================================
+If the attack succeeds, the attacker may obtain:
+
+- valid user credentials
+- remote shell access
+- additional password hashes
+- expanded network access
+
+
+==================================================
+12. Defensive Considerations
+==================================================
+Organizations can reduce the risk of this attack by:
+
+- disabling LLMNR and NBT-NS
+- enforcing SMB signing
+- using strong passwords
+- implementing multi-factor authentication
+- monitoring suspicious authentication behavior
+
+
+==================================================
+13. MITRE ATT&CK Mapping
+==================================================
+
+Technique:
+T1557 — Adversary-in-the-Middle
+
+Sub-technique:
+T1557.001 — LLMNR/NBT-NS Poisoning and SMB Relay
+
+Technique:
+T1110 — Brute Force
+
+Sub-technique:
+T1110.002 — Password Cracking
+
+Technique:
+T1021 — Remote Services
+
+Sub-technique:
+T1021.002 — SMB/Windows Admin Shares
+
+Technique:
+T1078 — Valid Accounts
+
+
+==================================================
+14. Blue Team Detection
+==================================================
+Internal credential capture and lateral movement attacks generate multiple observable indicators across network and endpoint systems.
+
+Common indicators include:
+
+- LLMNR and NBT-NS poisoning activity on the network
+- systems responding to name resolution requests unexpectedly
+- authentication attempts to attacker-controlled systems
+- unusual NTLM authentication traffic
+- execution of tools such as Impacket or credential dumping utilities
+- lateral movement using SMB administrative shares
+
+Other suspicious activity may include:
+
+- abnormal authentication patterns between internal hosts
+- rapid authentication attempts across multiple systems
+- command execution using administrative network shares.
+
+
+==================================================
+15. Relevant Logs
+==================================================
+
+Windows Security Logs
+
+Event ID 4624 — Successful Logon  
+Event ID 4625 — Failed Logon  
+Event ID 4672 — Special Privileges Assigned  
+
+
+NTLM Authentication Logs
+
+Event ID 4776 — NTLM authentication attempt
+
+
+Sysmon Logs
+
+Event ID 1 — Process Creation  
+Event ID 3 — Network Connection  
+Event ID 10 — Process Access  
+
+
+Network Logs
+
+Detection of LLMNR or NBT-NS poisoning traffic.
+
+
+SIEM Correlation Logs
+
+Multiple authentication attempts and lateral movement patterns.
+
+
+==================================================
+16. Detection Tools
+==================================================
+
+Network Intrusion Detection Systems
+
+Examples:
+
+- Suricata
+- Snort
+
+
+Network Monitoring Tools
+
+Examples:
+
+- Zeek
+- Wireshark
+
+
+SIEM Platforms
+
+Examples:
+
+- Splunk
+- Elastic Stack
+- Microsoft Sentinel
+
+
+Endpoint Detection and Response
+
+Examples:
+
+- Microsoft Defender for Endpoint
+- CrowdStrike Falcon
+- SentinelOne
+
+
+Threat Hunting Platforms
+
+Examples:
+
+- Velociraptor
+- Wazuh
+
+
+==================================================
+17. Mitigation Strategies
+==================================================
+
+Disable LLMNR and NetBIOS
+
+Prevent name resolution poisoning attacks.
+
+Enforce SMB Signing
+
+Protect SMB authentication sessions.
+
+Implement Multi-Factor Authentication
+
+Prevent credential abuse.
+
+Network Segmentation
+
+Limit lateral movement across systems.
+
+Monitor Authentication Activity
+
+Detect abnormal login behavior.
+
+Deploy Endpoint Detection
+
+Detect credential capture and lateral movement tools.
+
+
+==================================================
+18. Blue Team Knowledge Base Cross-References
+==================================================
+
+Blue Team → Network Defense
+
+Blue Team → Active Directory Defense
+
+Blue Team → Log Analysis and Detection
+
+Blue Team → Threat Hunting
+
+Blue Team → Detection Engineering
+
+Blue Team → Incident Response
+
+
+==================================================
+19. Questions & Answers
+==================================================
+
+Question:
+What is the purpose of Responder in this attack?
+
+Answer:
+Responder captures NTLM authentication hashes from victim systems.
+
+--------------------------------------------------
+
+Question:
+Why is Hashcat used?
+
+Answer:
+Hashcat cracks captured hashes to recover plaintext passwords.
+
+--------------------------------------------------
+
+Question:
+What role does Impacket play?
+
+Answer:
+Impacket allows attackers to authenticate and execute commands on remote systems.
+
+--------------------------------------------------
+
+Question:
+Why are internal networks vulnerable to this attack?
+
+Answer:
+Because many environments still rely on insecure name resolution protocols.
+
+--------------------------------------------------
+
+Question:
+What is the main objective of this attack chain?
+
+Answer:
+To obtain valid credentials and move laterally through the network.
