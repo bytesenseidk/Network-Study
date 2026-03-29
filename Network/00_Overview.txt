@@ -12,7 +12,7 @@ Internet Overview:
 ==================================================
 2. User Interaction
 ==================================================
-- Communication begins when a user performs an action such as opening a website, sending an email, or cnnecting to an online service.
+- Communication begins when a user performs an action such as opening a website, sending an email, or connecting to an online service.
 - The user's application generates a request that must be transmitted across the network.
 
 
