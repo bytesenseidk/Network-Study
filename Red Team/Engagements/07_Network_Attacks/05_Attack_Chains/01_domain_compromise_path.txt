@@ -1,0 +1,314 @@
+Domain Compromise Path
+- A structured attack chain describing how an attacker progresses from initial access to full Active Directory domain compromise.
+
+==================================================
+Attack Metadata
+==================================================
+
+Category:
+Engagement_Workflows → Active_Directory
+
+Attack Stage:
+Full Attack Lifecycle
+
+Difficulty:
+Intermediate → Advanced
+
+Stealth Level:
+Varies (Low → Very High)
+
+Requires Authentication:
+Often Yes (after initial access)
+
+Tools Used:
+Mimikatz
+BloodHound
+Impacket
+Rubeus
+CrackMapExec
+
+
+==================================================
+1. Overview
+==================================================
+A domain compromise path represents the sequence of steps an attacker takes to gain control over an Active Directory environment.
+
+The goal is typically:
+
+- Domain Administrator access
+- control over authentication systems
+- long-term persistence
+
+Attackers rarely jump directly to domain admin.
+
+Instead, they chain multiple techniques.
+
+
+==================================================
+2. High-Level Attack Path
+==================================================
+
+Initial Access
+        ↓
+Local Privilege Escalation
+        ↓
+Credential Dumping
+        ↓
+Credential Reuse
+        ↓
+Lateral Movement
+        ↓
+Active Directory Enumeration
+        ↓
+Privilege Escalation (AD)
+        ↓
+Domain Controller Compromise
+        ↓
+Persistence (Golden Ticket / Backdoor)
+
+
+==================================================
+3. Detailed Attack Phases
+==================================================
+
+Phase 1 — Initial Access
+
+Common entry points:
+
+- phishing
+- exposed services
+- web exploitation
+
+
+Phase 2 — Local Privilege Escalation
+
+Goal:
+
+- gain SYSTEM or admin access on host
+
+
+Phase 3 — Credential Access
+
+Techniques:
+
+- LSASS dumping
+- SAM extraction
+- browser credential theft
+
+
+Phase 4 — Credential Reuse
+
+Techniques:
+
+- pass-the-hash
+- pass-the-ticket
+
+
+Phase 5 — Lateral Movement
+
+Move to other systems:
+
+- SMB
+- WinRM
+- RDP
+
+
+Phase 6 — Active Directory Enumeration
+
+Tools:
+
+- BloodHound
+- PowerView
+
+Goal:
+
+- identify privilege escalation paths
+
+
+Phase 7 — Privilege Escalation (AD)
+
+Examples:
+
+- Kerberoasting
+- AS-REP roasting
+- ACL abuse
+
+
+Phase 8 — Domain Controller Compromise
+
+Access DC:
+
+- extract KRBTGT
+- perform DCSync
+
+
+Phase 9 — Persistence
+
+Techniques:
+
+- Golden Ticket
+- domain backdoor accounts
+
+
+==================================================
+4. Example Attack Chain
+==================================================
+
+Phishing → Initial Access  
+        ↓
+Local Admin → Privilege Escalation  
+        ↓
+Dump Credentials → Mimikatz  
+        ↓
+Reuse Credentials → Pass-the-Hash  
+        ↓
+Move Laterally → SMB  
+        ↓
+Enumerate AD → BloodHound  
+        ↓
+Escalate → Kerberoasting  
+        ↓
+Compromise DC → DCSync  
+        ↓
+Persist → Golden Ticket
+
+
+==================================================
+5. Expected Results
+==================================================
+Successful domain compromise allows attackers to:
+
+- control all domain systems
+- access all user accounts
+- disable security controls
+- maintain persistence
+
+
+==================================================
+6. Defensive Considerations
+==================================================
+
+Privileged Access Management
+
+Limit admin accounts.
+
+Credential Protection
+
+Use LSASS protection.
+
+Network Segmentation
+
+Limit lateral movement.
+
+Monitoring
+
+Detect abnormal activity.
+
+Least Privilege
+
+Reduce attack paths.
+
+
+==================================================
+7. MITRE ATT&CK Mapping
+==================================================
+
+Technique:
+T1078 — Valid Accounts
+
+Technique:
+T1003 — Credential Dumping
+
+Technique:
+T1021 — Remote Services
+
+Technique:
+T1558 — Kerberos Attacks
+
+Technique:
+T1550 — Use of Alternate Authentication Material
+
+
+==================================================
+8. Blue Team Detection
+==================================================
+Indicators include:
+
+- unusual authentication patterns
+- lateral movement behavior
+- privilege escalation events
+- abnormal Kerberos activity
+
+Security teams should correlate:
+
+- logins across multiple systems
+- credential usage anomalies
+- privilege changes
+
+
+==================================================
+9. SOC Detection Queries
+==================================================
+
+Splunk (Lateral Movement Detection)
+
+index=windows
+| stats count by user, src, dest
+
+
+Splunk (Credential Abuse)
+
+index=windows
+| search "NTLM" OR "Kerberos"
+
+
+Microsoft Sentinel (KQL)
+
+SecurityEvent
+| summarize count() by Account, Computer
+
+
+==================================================
+10. Attack Chain Integration
+==================================================
+
+This workflow connects:
+
+- Credential Attacks
+- Active Directory Attacks
+- Lateral Movement
+- Persistence
+
+
+==================================================
+11. Questions & Answers
+==================================================
+Question:
+What is a domain compromise path?
+
+Answer:
+A sequence of steps leading to full Active Directory control.
+
+--------------------------------------------------
+
+Question:
+What is the ultimate goal?
+
+Answer:
+Domain Administrator access.
+
+--------------------------------------------------
+
+Question:
+What tool maps attack paths?
+
+Answer:
+BloodHound.
+
+--------------------------------------------------
+
+Question:
+What is a key defense?
+
+Answer:
+Least privilege and monitoring.

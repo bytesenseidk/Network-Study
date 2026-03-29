@@ -1,0 +1,401 @@
+SMB Lateral Movement
+- An internal network attack technique where attackers use SMB authentication to move between systems and execute commands on remote hosts.
+
+==================================================
+Attack Metadata
+==================================================
+
+Category:
+Network Attacks → Core Internal Network Attacks
+
+Attack Stage:
+Lateral Movement
+Execution
+
+Difficulty:
+Intermediate
+
+Stealth Level:
+Medium
+
+Requires Authentication:
+Yes (valid credentials or NTLM hash required)
+
+Tools Used:
+Impacket
+CrackMapExec
+PsExec
+Nmap
+
+
+==================================================
+1. Overview
+==================================================
+SMB (Server Message Block) is a network protocol used for file sharing and remote administration in Windows environments.
+
+It allows systems to:
+
+- access shared files
+- authenticate users
+- execute remote commands
+- perform administrative operations
+
+If attackers obtain valid credentials or NTLM hashes, they can authenticate to other machines over SMB.
+
+This allows attackers to move laterally across the network and compromise additional systems.
+
+SMB lateral movement is one of the most common techniques used after initial internal access.
+
+
+==================================================
+2. Attack Scenario
+==================================================
+Assume an attacker compromises a workstation in an internal corporate network.
+
+The attacker captures credentials using a tool such as Responder or extracts hashes using credential dumping tools.
+
+Using these credentials, the attacker attempts to authenticate to other systems via SMB.
+
+If the credentials belong to an administrator or privileged account, the attacker can execute commands remotely and compromise additional machines.
+
+
+==================================================
+3. Tools Required
+==================================================
+
+Impacket
+Provides tools such as psexec.py, smbexec.py, and wmiexec.py for remote command execution.
+
+CrackMapExec
+Used for SMB enumeration and lateral movement.
+
+PsExec (Sysinternals)
+Microsoft tool capable of executing commands remotely via SMB.
+
+Nmap
+Used to identify hosts running SMB services.
+
+
+==================================================
+4. Attack Workflow
+==================================================
+
+Initial Internal Access
+        ↓
+Credential Capture or Dumping
+        ↓
+Identify Systems with SMB Enabled
+        ↓
+Attempt SMB Authentication
+        ↓
+Remote Command Execution
+        ↓
+Compromise Additional Hosts
+
+
+==================================================
+5. Step-by-Step Execution
+==================================================
+Step 1 — Identify SMB Hosts
+
+Example using Nmap:
+
+nmap -p 445 192.168.1.0/24
+
+Hosts with port 445 open are likely running SMB services.
+
+
+Step 2 — Test Credentials Against SMB
+
+Example using CrackMapExec:
+
+crackmapexec smb 192.168.1.0/24 -u administrator -p Password123
+
+This tests authentication across multiple hosts.
+
+
+Step 3 — Execute Remote Commands
+
+Example using Impacket:
+
+psexec.py DOMAIN/administrator:Password123@192.168.1.50
+
+
+If successful, the attacker receives a remote shell on the target system.
+
+
+Step 4 — Expand Access
+
+The attacker repeats this process to compromise additional hosts.
+
+
+==================================================
+6. Example SMB Lateral Movement Scenario
+==================================================
+Initial Compromise
+
+Attacker gains access to a workstation.
+
+
+Credential Capture
+
+NTLM credentials are captured using Responder.
+
+
+SMB Authentication
+
+The attacker tests captured credentials against internal systems.
+
+
+Remote Execution
+
+The attacker executes commands on another machine using SMB.
+
+
+Network Expansion
+
+Additional systems are compromised.
+
+
+==================================================
+7. Expected Results
+==================================================
+Successful SMB lateral movement may allow attackers to:
+
+- access remote file shares
+- execute commands on remote hosts
+- deploy malware across systems
+- compromise additional user accounts
+
+This technique often leads to broader network compromise.
+
+
+==================================================
+8. Defensive Considerations
+==================================================
+Organizations can reduce SMB lateral movement risks through several controls.
+
+Least Privilege
+
+Avoid granting administrative rights broadly across systems.
+
+Network Segmentation
+
+Restrict SMB access between network segments.
+
+SMB Signing
+
+Require SMB signing to reduce certain attack vectors.
+
+Credential Protection
+
+Protect administrative credentials from exposure.
+
+Monitoring
+
+Detect unusual SMB authentication attempts across the network.
+
+
+==================================================
+9. MITRE ATT&CK Mapping
+==================================================
+
+Technique:
+T1021 — Remote Services
+
+Sub-technique:
+T1021.002 — SMB/Windows Admin Shares
+
+Technique:
+T1078 — Valid Accounts
+
+Technique:
+T1550.002 — Pass the Hash
+
+Technique:
+T1047 — Windows Management Instrumentation
+
+
+==================================================
+10. Blue Team Detection
+==================================================
+SMB lateral movement produces observable authentication and remote execution activity across the network.
+
+Common indicators include:
+
+- authentication attempts across multiple internal hosts using the same account
+- remote command execution through SMB administrative shares
+- unexpected use of administrative tools such as PsExec
+- authentication attempts between systems that normally do not communicate
+- SMB connections originating from user workstations to multiple servers
+
+Other suspicious indicators may include:
+
+- repeated SMB authentication failures
+- administrative accounts logging into multiple systems rapidly
+- network connections on TCP port 445 between unusual hosts.
+
+
+==================================================
+11. Relevant Logs
+==================================================
+
+Windows Security Logs
+
+Event ID 4624 — Successful Logon  
+Event ID 4625 — Failed Logon  
+Event ID 4672 — Special Privileges Assigned  
+
+
+Logon Types
+
+Logon Type 3 — Network Logon  
+Logon Type 10 — Remote Interactive Logon  
+
+
+Service Creation Logs
+
+Event ID 7045 — New service installed on system
+
+
+NTLM Authentication Logs
+
+Event ID 4776 — NTLM authentication attempt
+
+
+Sysmon Logs
+
+Event ID 1 — Process Creation  
+Event ID 3 — Network Connection  
+
+
+SIEM Correlation Logs
+
+Multiple SMB authentication events involving the same account across multiple hosts.
+
+
+==================================================
+12. Detection Tools
+==================================================
+
+SIEM Platforms
+
+Examples:
+
+- Splunk
+- Elastic Stack
+- Microsoft Sentinel
+
+
+Endpoint Detection and Response
+
+Examples:
+
+- Microsoft Defender for Endpoint
+- CrowdStrike Falcon
+- SentinelOne
+
+
+Network Monitoring Tools
+
+Examples:
+
+- Zeek
+- Suricata
+- Wireshark
+
+
+Threat Hunting Platforms
+
+Examples:
+
+- Velociraptor
+- Wazuh
+
+
+==================================================
+13. Mitigation Strategies
+==================================================
+
+Implement Least Privilege
+
+Limit administrative access across systems.
+
+Use Local Administrator Password Solution (LAPS)
+
+Ensure local administrator passwords are unique.
+
+Enable SMB Signing
+
+Protect SMB communications.
+
+Segment Networks
+
+Restrict lateral movement across network segments.
+
+Monitor Administrative Logins
+
+Detect unusual authentication behavior.
+
+Deploy Endpoint Detection
+
+Identify remote execution tools and suspicious SMB activity.
+
+
+==================================================
+14. Blue Team Knowledge Base Cross-References
+==================================================
+
+Blue Team → Network Defense
+
+Blue Team → Active Directory Defense
+
+Blue Team → Log Analysis and Detection
+
+Blue Team → Threat Hunting
+
+Blue Team → Detection Engineering
+
+Blue Team → Incident Response
+
+
+==================================================
+15. Questions & Answers
+==================================================
+Question:
+What is SMB lateral movement?
+
+Answer:
+It is the use of SMB authentication and remote execution to move between systems inside a network.
+
+--------------------------------------------------
+
+Question:
+Which port is commonly associated with SMB?
+
+Answer:
+Port 445.
+
+--------------------------------------------------
+
+Question:
+What tool can perform remote SMB command execution?
+
+Answer:
+Impacket psexec.py.
+
+--------------------------------------------------
+
+Question:
+Why is SMB lateral movement effective?
+
+Answer:
+Because administrative credentials are often reused across multiple systems.
+
+--------------------------------------------------
+
+Question:
+What is a key defense against SMB lateral movement?
+
+Answer:
+Limiting administrative privileges and monitoring SMB authentication activity.
