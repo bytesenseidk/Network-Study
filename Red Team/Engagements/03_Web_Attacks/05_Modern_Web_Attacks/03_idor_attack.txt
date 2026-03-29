@@ -1,0 +1,374 @@
+Insecure Direct Object Reference (IDOR) Attack
+- A web vulnerability that allows attackers to access unauthorized resources by manipulating object identifiers.
+
+==================================================
+Attack Metadata
+==================================================
+
+Category:
+Web_Attacks → Authorization_Attacks
+
+Attack Stage:
+Discovery
+Collection
+Privilege Escalation
+
+Difficulty:
+Beginner → Intermediate
+
+Stealth Level:
+High
+
+Requires Authentication:
+Yes (typically low-privileged user)
+
+Tools Used:
+Burp Suite
+Browser
+Postman
+Custom scripts
+
+
+==================================================
+1. Overview
+==================================================
+IDOR occurs when an application exposes internal object references (such as IDs) without proper authorization checks.
+
+Attackers can manipulate these identifiers to access:
+
+- other users’ data
+- sensitive files
+- administrative resources
+
+This is a failure of **authorization**, not authentication.
+
+
+==================================================
+2. Attack Scenario
+==================================================
+A user accesses their profile:
+
+GET /api/user?id=1001
+
+The attacker modifies the ID:
+
+GET /api/user?id=1002
+
+If no authorization check is performed, the attacker gains access to another user's data.
+
+
+==================================================
+3. Tools Required
+==================================================
+
+Burp Suite
+
+Intercept and modify requests.
+
+Browser
+
+Manual testing.
+
+Postman
+
+API testing.
+
+Custom Scripts
+
+Automate enumeration.
+
+
+==================================================
+4. Attack Workflow
+==================================================
+
+Authenticate as Low-Privilege User
+        ↓
+Identify Object Reference
+        ↓
+Modify Identifier
+        ↓
+Send Request
+        ↓
+Access Unauthorized Data
+
+
+==================================================
+5. Step-by-Step Execution
+==================================================
+Step 1 — Identify Parameter
+
+Example:
+
+/api/order?id=5001
+
+
+Step 2 — Modify Identifier
+
+Example:
+
+/api/order?id=5002
+
+
+Step 3 — Analyze Response
+
+Check if unauthorized data is returned.
+
+
+Step 4 — Automate Enumeration
+
+Iterate through IDs:
+
+5001 → 5002 → 5003
+
+
+==================================================
+6. Common IDOR Targets
+==================================================
+
+User Profiles
+
+/api/user?id=
+
+
+Orders
+
+/api/order?id=
+
+
+Files
+
+/download?file_id=
+
+
+Admin Panels
+
+/admin?id=
+
+
+==================================================
+7. Example IDOR Scenario
+==================================================
+Application
+
+E-commerce platform.
+
+
+Exploit
+
+User modifies order ID.
+
+
+Result
+
+Access to another user’s order details.
+
+
+Impact
+
+Sensitive data exposure.
+
+
+==================================================
+8. Expected Results
+==================================================
+Successful IDOR allows attackers to:
+
+- access sensitive data
+- modify resources
+- escalate privileges
+- impersonate users
+
+
+==================================================
+9. Defensive Considerations
+==================================================
+
+Authorization Checks
+
+Verify access for every request.
+
+Use Indirect References
+
+Avoid exposing raw IDs.
+
+Access Control Enforcement
+
+Validate ownership.
+
+Least Privilege
+
+Limit access rights.
+
+
+==================================================
+10. MITRE ATT&CK Mapping
+==================================================
+
+Technique:
+T1213 — Data from Information Repositories
+
+Technique:
+T1078 — Valid Accounts
+
+
+==================================================
+11. Blue Team Detection
+==================================================
+Indicators include:
+
+- sequential ID access patterns
+- access to multiple user records
+- abnormal API usage
+- repeated parameter manipulation
+
+Security teams should monitor:
+
+- API request patterns
+- unusual access behavior
+
+
+==================================================
+12. Relevant Logs
+==================================================
+
+Web Server Logs
+
+Request parameters  
+
+
+Application Logs
+
+Authorization checks  
+
+
+API Gateway Logs
+
+User activity  
+
+
+==================================================
+13. Detection Tools
+==================================================
+
+WAF Solutions
+
+- Cloudflare
+- AWS WAF
+
+
+SIEM Platforms
+
+- Splunk
+- Elastic Stack
+- Microsoft Sentinel
+
+
+API Monitoring
+
+- API Gateways
+
+
+==================================================
+14. SOC Detection Queries
+==================================================
+
+Splunk Query (Sequential ID Access)
+
+index=web
+| stats count by user, id
+
+
+Splunk Query (Multiple Resource Access)
+
+index=web
+| stats dc(id) by user
+
+
+Sigma Rule Example
+
+title: Possible IDOR Enumeration
+logsource:
+  product: webserver
+detection:
+  selection:
+    uri: "*id=*"
+  condition: selection
+level: medium
+
+
+Microsoft Sentinel (KQL) Example
+
+AzureDiagnostics
+| summarize count() by user, requestUri
+
+
+==================================================
+15. Mitigation Strategies
+==================================================
+
+Enforce Authorization
+
+Check access per request.
+
+Use UUIDs
+
+Avoid predictable IDs.
+
+Implement RBAC
+
+Control access properly.
+
+Audit Logs
+
+Monitor abnormal access.
+
+
+==================================================
+16. Attack Chain Integration
+==================================================
+
+This attack commonly leads to:
+
+- Data Exfiltration
+- Account Takeover
+- Privilege Escalation
+
+This attack may result in:
+
+- Sensitive Data Exposure
+- Business Logic Abuse
+
+
+==================================================
+17. Questions & Answers
+==================================================
+Question:
+What is IDOR?
+
+Answer:
+Accessing unauthorized data by modifying object identifiers.
+
+--------------------------------------------------
+
+Question:
+Why is it dangerous?
+
+Answer:
+It exposes sensitive data without exploiting authentication.
+
+--------------------------------------------------
+
+Question:
+What is the root cause?
+
+Answer:
+Missing authorization checks.
+
+--------------------------------------------------
+
+Question:
+What is a key defense?
+
+Answer:
+Proper access control validation.

@@ -1,0 +1,410 @@
+Basic Network Attack Lab
+- A simple internal network attack scenario used to practice reconnaissance, credential capture, and lateral movement.
+
+==================================================
+Attack Metadata
+==================================================
+
+Category:
+Practice Labs → Internal Network Attacks
+
+Attack Stage:
+Reconnaissance
+Credential Access
+Lateral Movement
+
+Difficulty:
+Beginner
+
+Stealth Level:
+Low
+
+Requires Authentication:
+No (initial stages)
+
+Tools Used:
+Nmap
+Responder
+Hashcat
+Impacket
+
+
+==================================================
+1. Overview
+==================================================
+This practice lab simulates a basic internal network attack.
+
+The goal of the lab is to demonstrate how attackers move from initial network access to compromising additional systems.
+
+The lab focuses on the following attack stages:
+
+- internal network enumeration
+- credential capture
+- password cracking
+- lateral movement
+
+This scenario is commonly used in penetration testing training environments such as:
+
+- home labs
+- capture-the-flag environments
+- beginner penetration testing exercises
+
+
+==================================================
+2. Lab Environment
+==================================================
+Example lab setup:
+
+Attacker Machine
+- Kali Linux
+
+Victim Machine
+- Windows workstation
+
+Network Services
+- SMB file sharing
+- domain authentication
+
+Example network:
+
+Attacker:
+192.168.1.100
+
+Victim Workstation:
+192.168.1.50
+
+
+==================================================
+3. Tools Required
+==================================================
+
+Nmap
+Used for network discovery and port scanning.
+
+Responder
+Used to capture NTLM authentication hashes.
+
+Hashcat
+Used to crack captured password hashes.
+
+Impacket
+Used for remote command execution and lateral movement.
+
+
+==================================================
+4. Attack Workflow
+==================================================
+
+Internal Network Access
+        ↓
+Host Discovery
+        ↓
+Service Enumeration
+        ↓
+Credential Capture
+        ↓
+Password Cracking
+        ↓
+Remote Access
+
+
+==================================================
+5. Step-by-Step Execution
+==================================================
+Step 1 — Discover Active Hosts
+
+Example command:
+
+nmap -sn 192.168.1.0/24
+
+This identifies systems active on the network.
+
+
+Step 2 — Identify Services
+
+Example command:
+
+nmap -sV 192.168.1.50
+
+This reveals open ports and running services.
+
+
+Step 3 — Launch Responder
+
+Example command:
+
+sudo responder -I eth0
+
+Responder listens for LLMNR and NetBIOS authentication requests.
+
+
+Step 4 — Capture NTLM Hash
+
+When a victim system attempts authentication, Responder captures the NTLM hash.
+
+Example output:
+
+NTLMv2 hash captured from DOMAIN\user
+
+
+Step 5 — Crack the Hash
+
+Example command:
+
+hashcat -m 5600 hash.txt rockyou.txt
+
+
+Step 6 — Use the Credentials
+
+Example command:
+
+psexec.py DOMAIN/user:Password123@192.168.1.50
+
+This provides remote command execution on the victim system.
+
+
+==================================================
+6. Example Attack Scenario
+==================================================
+Initial Access
+
+Attacker connects to the internal lab network.
+
+
+Network Discovery
+
+Active hosts are discovered using Nmap.
+
+
+Credential Capture
+
+Responder captures NTLM authentication hashes.
+
+
+Password Cracking
+
+Hashcat cracks the captured hash.
+
+
+Remote Access
+
+The attacker gains shell access to the victim system.
+
+
+==================================================
+7. Expected Results
+==================================================
+Successful execution of this lab demonstrates:
+
+- internal network enumeration
+- credential capture techniques
+- password cracking
+- remote system compromise
+
+These steps mirror the early phases of real internal network attacks.
+
+
+==================================================
+8. Defensive Considerations
+==================================================
+Organizations can reduce these risks through several security controls.
+
+Disable LLMNR
+
+Prevent broadcast name resolution attacks.
+
+Strong Password Policies
+
+Reduce the effectiveness of password cracking.
+
+Network Monitoring
+
+Detect scanning and suspicious authentication behavior.
+
+Least Privilege
+
+Limit administrative privileges across systems.
+
+
+==================================================
+9. MITRE ATT&CK Mapping
+==================================================
+
+Technique:
+T1046 — Network Service Discovery
+
+Technique:
+T1557 — Adversary-in-the-Middle
+
+Sub-technique:
+LLMNR/NBT-NS Poisoning
+
+Technique:
+T1110 — Brute Force
+
+Technique:
+T1021 — Remote Services
+
+
+==================================================
+10. Blue Team Detection
+==================================================
+Security teams may detect this attack through abnormal network activity and authentication behavior.
+
+Common indicators include:
+
+- internal port scanning
+- LLMNR or NetBIOS poisoning responses
+- unusual NTLM authentication attempts
+- suspicious remote command execution
+
+Behavioral indicators may include:
+
+- a host responding to many name resolution requests
+- repeated authentication attempts
+- unexpected SMB connections between hosts
+
+
+==================================================
+11. Relevant Logs
+==================================================
+
+Windows Event Logs
+
+Event ID 4624  
+Successful logon events.
+
+Event ID 4625  
+Failed logon attempts.
+
+Event ID 4672  
+Special privileges assigned to new logon.
+
+
+Network Logs
+
+LLMNR and NetBIOS traffic spikes.
+
+
+Firewall Logs
+
+Unusual SMB connections between hosts.
+
+
+IDS / IPS Logs
+
+Alerts for:
+
+- LLMNR poisoning
+- suspicious SMB authentication
+- internal scanning
+
+
+==================================================
+12. Detection Tools
+==================================================
+
+Suricata
+
+Detect suspicious LLMNR traffic and SMB authentication patterns.
+
+Zeek
+
+Log unusual name resolution traffic and SMB connections.
+
+Splunk
+
+Correlate authentication events and identify abnormal login patterns.
+
+Elastic Stack
+
+Search authentication logs and network alerts.
+
+Wazuh
+
+Detect suspicious authentication attempts and endpoint activity.
+
+
+==================================================
+13. Mitigation Strategies
+==================================================
+
+Disable LLMNR
+
+Disable via Windows Group Policy.
+
+Disable NetBIOS where possible.
+
+Enable SMB Signing
+
+Prevent relay attacks.
+
+Implement Strong Password Policies
+
+Increase resistance against password cracking.
+
+Network Segmentation
+
+Limit lateral movement between systems.
+
+Monitor Authentication Activity
+
+Detect abnormal login patterns early.
+
+
+==================================================
+14. Blue Team Knowledge Base Cross-References
+==================================================
+
+Blue Team → Network Defense
+
+Blue Team → Log Analysis and Detection
+
+Blue Team → Threat Hunting
+
+Blue Team → Incident Response
+
+Blue Team → SIEM and Alerting
+
+
+==================================================
+15. Questions & Answers
+==================================================
+
+Question:
+What is the purpose of this lab?
+
+Answer:
+To practice the basic stages of an internal network attack.
+
+--------------------------------------------------
+
+Question:
+Which tool is used to discover active hosts?
+
+Answer:
+Nmap.
+
+--------------------------------------------------
+
+Question:
+Which tool captures NTLM authentication hashes?
+
+Answer:
+Responder.
+
+--------------------------------------------------
+
+Question:
+Which tool cracks captured hashes?
+
+Answer:
+Hashcat.
+
+--------------------------------------------------
+
+Question:
+What tool can execute commands remotely using compromised credentials?
+
+Answer:
+Impacket psexec.py.

