@@ -1,14 +1,415 @@
-Incident Response
-- Responding to and containing active security incidents
+Cloud Defense
+- Security practices used to protect cloud infrastructure, identities, and services from unauthorized access, misconfiguration, and privilege escalation.
 
-Response Lifecycle
-- Preparation
-- Detection
-- Containment
-- Eradication
-- Recovery
+==================================================
+Defense Metadata
+==================================================
 
-Post Incident
-- Root Cause Analysis
-- Lessons Learned
-- Security Improvements
+Category:
+Blue_Team → Cloud Security
+
+Defense Stage:
+Prevention
+Detection
+Response
+
+Difficulty:
+Intermediate → Advanced
+
+Primary Objectives:
+Protect Cloud Identities
+Prevent Misconfiguration
+Secure Cloud Resources
+Detect Unauthorized Access
+
+Technologies Used:
+AWS Security Services
+Azure Security Services
+Cloud Logging Platforms
+SIEM Platforms
+Identity and Access Management (IAM)
+
+
+==================================================
+1. Overview
+==================================================
+Cloud computing platforms such as AWS, Microsoft Azure, and Google Cloud host a large portion of modern infrastructure.
+
+Organizations use cloud services for:
+
+- application hosting
+- storage
+- databases
+- identity management
+- networking
+
+Because cloud infrastructure is accessible through APIs and identity credentials, attackers frequently target:
+
+- exposed credentials
+- misconfigured storage
+- overly permissive IAM roles
+- cloud identity services
+
+Cloud security focuses on protecting:
+
+- identities
+- infrastructure
+- data
+- service configurations
+
+Effective cloud defense requires both proper configuration and continuous monitoring.
+
+
+==================================================
+2. Cloud Security Model
+==================================================
+Cloud providers operate under a shared responsibility model.
+
+Cloud Provider Responsibilities
+
+- physical infrastructure
+- data center security
+- hardware protection
+- underlying cloud platform
+
+
+Customer Responsibilities
+
+- identity management
+- access control
+- application security
+- configuration of cloud services
+- data protection
+
+
+Misconfigurations in customer-controlled settings are one of the most common causes of cloud breaches.
+
+
+==================================================
+3. Common Cloud Attacks
+==================================================
+
+Credential Theft
+
+Stolen access keys or login credentials used to access cloud accounts.
+
+
+Exposed Storage Buckets
+
+Publicly accessible storage containers exposing sensitive data.
+
+
+Privilege Escalation
+
+Abusing IAM permissions to gain administrative access.
+
+
+Cloud Metadata Exploitation
+
+Retrieving temporary credentials from instance metadata services.
+
+
+Identity Enumeration
+
+Discovering valid cloud users or tenants.
+
+
+API Abuse
+
+Automated scripts interacting with cloud APIs to perform malicious actions.
+
+
+==================================================
+4. Identity and Access Management (IAM)
+==================================================
+Identity and Access Management controls who can access cloud resources.
+
+Defensive best practices include:
+
+Principle of Least Privilege
+
+Users should only have permissions required for their tasks.
+
+
+Role-Based Access Control
+
+Use roles instead of permanent credentials.
+
+
+Multi-Factor Authentication (MFA)
+
+Require MFA for all administrative accounts.
+
+
+Temporary Credentials
+
+Use short-lived tokens instead of permanent access keys.
+
+
+Credential Rotation
+
+Regularly rotate API keys and access credentials.
+
+
+==================================================
+5. Protecting Cloud Storage
+==================================================
+Cloud storage services are frequently misconfigured.
+
+Examples include:
+
+AWS S3 Buckets
+Azure Blob Storage
+Google Cloud Storage
+
+
+Defensive measures include:
+
+Disable Public Access
+
+Ensure storage containers are not publicly accessible.
+
+
+Access Policies
+
+Restrict access using IAM policies.
+
+
+Encryption
+
+Encrypt data both at rest and in transit.
+
+
+Access Logging
+
+Monitor who accesses stored data.
+
+
+Sensitive Data Scanning
+
+Detect exposed secrets or credentials.
+
+
+==================================================
+6. Cloud Monitoring and Logging
+==================================================
+Cloud platforms provide extensive logging capabilities.
+
+Important cloud logs include:
+
+AWS CloudTrail
+
+Records API activity in AWS environments.
+
+
+Azure Activity Logs
+
+Tracks administrative operations in Azure.
+
+
+Google Cloud Audit Logs
+
+Records administrative and system events.
+
+
+These logs allow security teams to detect:
+
+- suspicious API calls
+- privilege escalation
+- unauthorized resource creation
+- abnormal login behavior
+
+
+==================================================
+7. Example Detection Scenario
+==================================================
+
+Alert Trigger
+
+SIEM detects unusual API activity in AWS CloudTrail.
+
+
+Log Analysis
+
+Multiple IAM policy changes were made from an unfamiliar IP address.
+
+
+Investigation
+
+Security analysts determine that compromised credentials were used.
+
+
+Response
+
+Access keys are revoked and affected accounts are secured.
+
+
+Outcome
+
+Further privilege escalation is prevented.
+
+
+==================================================
+8. Securing Cloud Metadata Services
+==================================================
+Cloud instances expose metadata services used to retrieve configuration and credentials.
+
+Example metadata endpoint:
+
+169.254.169.254
+
+
+Defensive controls include:
+
+Instance Metadata Service Version 2 (IMDSv2)
+
+Requires authentication tokens for metadata requests.
+
+
+Network Restrictions
+
+Prevent applications from accessing metadata endpoints unless necessary.
+
+
+Least Privilege Roles
+
+Limit permissions assigned to instance roles.
+
+
+Application Security
+
+Prevent Server-Side Request Forgery (SSRF) vulnerabilities.
+
+
+==================================================
+9. Cloud Security Hardening
+==================================================
+Organizations should implement multiple security controls.
+
+Security Baselines
+
+Apply hardened configurations for cloud services.
+
+
+Automated Security Scanning
+
+Use tools that identify misconfigurations.
+
+
+Infrastructure as Code Security
+
+Validate security settings in automated deployments.
+
+
+Network Security
+
+Restrict inbound access through security groups and firewalls.
+
+
+Continuous Monitoring
+
+Detect suspicious activity across cloud environments.
+
+
+==================================================
+10. Cloud Security Tools
+==================================================
+
+Cloud Native Tools
+
+AWS GuardDuty
+Azure Defender
+Google Security Command Center
+
+
+Configuration Scanning Tools
+
+ScoutSuite
+Prowler
+CloudSploit
+
+
+Monitoring Platforms
+
+SIEM systems
+Cloud security posture management tools
+
+
+==================================================
+11. MITRE ATT&CK Mapping
+==================================================
+
+Technique:
+T1078 — Valid Accounts
+
+
+Technique:
+T1552 — Unsecured Credentials
+
+
+Technique:
+T1526 — Cloud Service Discovery
+
+
+Technique:
+T1098 — Account Manipulation
+
+
+Technique:
+T1190 — Exploit Public-Facing Application
+
+
+==================================================
+12. Questions & Answers
+==================================================
+
+Question:
+What is the shared responsibility model in cloud security?
+
+Answer:
+A model where the cloud provider secures the infrastructure while customers secure their configurations and data.
+
+
+--------------------------------------------------
+
+Question:
+What service records AWS API activity?
+
+Answer:
+AWS CloudTrail.
+
+
+--------------------------------------------------
+
+Question:
+What is the most common cause of cloud data exposure?
+
+Answer:
+Misconfigured storage services.
+
+
+--------------------------------------------------
+
+Question:
+What security control helps prevent credential abuse?
+
+Answer:
+Multi-factor authentication.
+
+
+--------------------------------------------------
+
+Question:
+What IP address hosts cloud metadata services?
+
+Answer:
+169.254.169.254.
+
+
+--------------------------------------------------
+
+Question:
+What principle limits excessive permissions in cloud environments?
+
+Answer:
+The principle of least privilege.
